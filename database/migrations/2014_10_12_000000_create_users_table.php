@@ -15,9 +15,14 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->unique();
+            $table->enum('role', ['member', 'agent', 'Suplier', 'admin'])->default('member');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('avatar')->nullable();
+            $table->string('weixin_openid')->nullable();
+            $table->string('weixin_token')->nullable();
+            $table->enum('status', [0,1])->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

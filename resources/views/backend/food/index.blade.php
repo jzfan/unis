@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h2>表单 <a href="/admin/food/create" class='btn btn-primary btn-xs'>新增</a></h2>
+<h2>表单</h2>
 <div class="table-responsive">
             <table class="table table-striped">
               <thead>
@@ -28,8 +28,8 @@
                   <td><a href='/admin/shop/{{ $food->shop->id }}'>{{ $food->shop->name }}</a></td>
                   <td>{{ $food->type }}</td>
                   <td>{{ str_limit($food->description, 22) }}</td>
-                  <td>{{ $food->price}}</td>
-                  <td>{{ $food->discount }}</td>
+                  <td>￥{{ $food->price}}</td>
+                  <td>{{ $food->discount }} %</td>
                   <td>{{ $food->favorite }}</td>
                   <td>{{ $food->recommend }}</td>
                   <td>{{ $food->status }}</td>

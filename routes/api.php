@@ -20,5 +20,7 @@ use Illuminate\Http\Request;
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', function ($api) {
-    $api->get('users/{id}', 'App\Http\Controllers\Api\V1\UserController@show');
+    $api->get('user/{id}', 'App\Http\Controllers\Api\V1\UserController@show');
+    $api->get('users', 'App\Http\Controllers\Api\V1\UserController@index');
+    $api->get('food/{id}', 'App\Http\Controllers\Api\V1\FoodController@show');
 });

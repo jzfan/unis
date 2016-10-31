@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Backend\Admin;
 
 use Illuminate\Http\Request;
 
@@ -14,5 +14,11 @@ class DormController extends Controller
     {
     	$dorms = Dorm::with('school')->orderBy('school_id')->paginate(config('site.perPage'));
     	return view('backend.dorm.index', compact('dorms'));
+    }
+
+    public function show($dorm)
+    {
+    	$dorm = Dorm::with('school')->where('id', $dorm)->first();
+    	return view('backend.dorm.show', compact('dorm'));
     }
 }

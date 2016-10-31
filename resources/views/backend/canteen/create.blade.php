@@ -14,13 +14,8 @@
   <div class="form-group">
   <label class="col-sm-2 control-label">学校</label>
   <div class="col-sm-10">
-
-<select class="form-control" id='dropdown' name='school_id'>
-@foreach($schools as $school)
-<option value='{{ $school->id }}'>{{ $school->name }}</option>
-@endforeach
-</select>
-
+      <input type="text" class="form-control" value="{{ $school->name }}" disabled>
+      <input type='hidden' name='school_id' value="{{ $school->id }}">
     </div>
   </div>
   <div class="form-group">
@@ -49,13 +44,4 @@
   </div>
 </form>
 @endsection
-
-@section('js')
-<script type="text/javascript">
-  $( "#dropdown" ).select2({
-    theme: "bootstrap",
-    placeholder: "Select a state"
-});
-</script>
-@stop
 

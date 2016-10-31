@@ -16,7 +16,7 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">下属商铺</h3>
+    下属商铺 <a href="/admin/shop/create?suplier_id={{ $suplier->id }}" class='btn btn-primary btn-sm'>新增</a>
   </div>
   <div class="panel-body">
 
@@ -24,7 +24,8 @@
     <div class="panel panel-default col-md-4 col-sm-6 col-xs-12">
       <div class="panel-heading">{{ $shop->name }}</div>
       <div class="panel-body">
-        <p><small>地址：</small> {{ $shop->school->name }} {{ $shop->canteen->name }}</p>
+        <p><small>地址：</small> {{ $shop->canteen->school->name }} {{ $shop->canteen->name }}</p>
+        <a href="/admin/shop/{{ $shop->id }}" class='btn btn-primary pull-right'>查看 >></a>
       </div>
     </div>
   @endforeach

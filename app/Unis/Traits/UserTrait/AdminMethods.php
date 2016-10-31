@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Unis\User\UserTrait;
+namespace App\Unis\Traits\UserTrait;
 
 trait AdminMethods{
 

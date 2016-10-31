@@ -23,4 +23,5 @@ class Shop extends Model
     {
     	return $this->belongsTo(Suplier::class);
     }
+
 }

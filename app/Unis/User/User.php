@@ -4,9 +4,9 @@ namespace App\Unis\User;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Unis\User\UserTrait\AdminMethods;
-use App\Unis\User\UserTrait\MemberMethods;
-use App\Unis\User\UserTrait\AgentMethods;
+use App\Unis\Traits\UserTrait\AdminMethods;
+use App\Unis\Traits\UserTrait\MemberMethods;
+use App\Unis\Traits\UserTrait\AgentMethods;
 use App\Unis\Suplier\Food;
 
 class User extends Authenticatable

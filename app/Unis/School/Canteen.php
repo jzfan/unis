@@ -3,6 +3,7 @@
 namespace App\Unis\School;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Unis\Suplier\Shop;
 
 class Canteen extends Model
 {
@@ -11,5 +12,10 @@ class Canteen extends Model
     public function school()
     {
     	return $this->belongsTo(School::class);
+    }
+
+    public function shops()
+    {
+    	return $this->hasMany(Shop::class);
     }
 }

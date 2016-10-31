@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Backend\Admin;
 
 use Illuminate\Http\Request;
 
@@ -18,7 +18,7 @@ class SuplierController extends Controller
 
     public function show($suplier)
     {
-    	$suplier = Suplier::where('id', $suplier)->with('shops.school', 'shops.canteen')->first();
+    	$suplier = Suplier::where('id', $suplier)->with('shops.canteen.school')->first();
 
     	// dd($suplier->shops[0]->school->name);
 

@@ -16,6 +16,7 @@
     <link href="/css/city-picker.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/select2.css">
     <link rel="stylesheet" href="/css/select2-bootstrap.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
@@ -41,8 +42,7 @@
                     <a class="navbar-brand" href="{{ url('/') }}">
                         <img alt="Brand" src="http://temp.im/30x30/007AFF/fff">
                     </a>
-                    <span class='navbar-brand'>
-                        
+                    <span class='navbar-brand'>   
                         {{ config('app.name', 'Laravel') }}
                     </span>
                 </div>

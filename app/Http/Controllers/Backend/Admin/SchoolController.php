@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Backend\Admin;
 
 use Illuminate\Http\Request;
 
@@ -18,8 +18,9 @@ class SchoolController extends Controller
     	return view('backend.school.index', compact('schools'));
     }
 
-    public function show(School $school)
+    public function show($school)
     {
+        $school = School::with('canteens', 'dorms')->where('id', $school)->first();
     	return view('backend.school.show', compact('school'));
     }
 

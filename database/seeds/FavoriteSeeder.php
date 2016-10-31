@@ -13,16 +13,21 @@ class FavoriteSeeder extends Seeder
      */
     public function run()
     {
-        $users_count = User::all()->count();
-        $foods_count = Food::all()->count();
+        DB::table('favorites')->truncate();
 
-        foreach (range(1, mt_rand(10, $users_count)) as $user_index) {
-        	foreach(range(1, mt_rand(1, $foods_count)) as $food_index){
-        		\DB::insert([
-        			'user_id' => $user_index,
-        			'food_id' => $food_index
-        			]);
-        	}
+        $users = User::inRandomOrder()->get();
+
+        foreach ($users as $user) {
+            $foods = Food::inRandomOrder()->take(mt_rand(0,4))->get();
+            foreach ($foods as $food) {
+                DB::table('favorites')->insert([
+                    'user_id' => $user->id,
+                    'food_id' => $food->id,
+                    'status'  => (string) mt_rand(0, 1),
+                    'created_at' =>\Carbon\Carbon::now(),
+                    'updated_at' =>\Carbon\Carbon::now(),
+                    ]);
+            }
         }
     }
 }

@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h2>表单 <a href="/admin/shop/create" class='btn btn-primary btn-xs'>新增</a></h2>
+<h2>表单</h2>
 <div class="table-responsive">
             <table class="table table-striped">
               <thead>

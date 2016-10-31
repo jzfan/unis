@@ -16,6 +16,6 @@
                   <p>状态：{{ $food->status }}</p>
   </div>
 </div>
-    <button type="buttom" class="btn btn-default" onclick="JavaScript:history.back(-1);">返回</button>
+<input type="buttom" class='btn btn-primary pull-right'  value="返回" onclick="JavaScript:history.back(-1);"/>
 @endsection
 

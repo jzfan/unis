@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Backend\Admin;
 
 use Illuminate\Http\Request;
 
@@ -14,6 +14,11 @@ class AgentController extends Controller
     {
     	$agents = User::with('address')->where('role', 'agent')->paginate(config('site.pageSize'));
     	return view('backend.agent.index', compact('agents'));
+    }
+
+    public function show(User $agent)
+    {
+        return view('backend.agent.show', compact('agent'));
     }
 
     public function store(Request $request)

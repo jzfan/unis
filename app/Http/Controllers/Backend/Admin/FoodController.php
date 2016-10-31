@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Backend\Admin;
 
 use Illuminate\Http\Request;
 
 use App\Http\Requests\FoodRequest;
 use App\Http\Controllers\Controller;
 use App\Unis\Suplier\Food;
+use App\Unis\Suplier\Shop;
 
 class FoodController extends Controller
 {
@@ -37,5 +38,17 @@ class FoodController extends Controller
     {
     	$food->delete();
     	return redirect()->back()->with('success', '删除成功！');
+    }
+
+    public function create(Request $request)
+    {
+        $shop = Shop::select('id', 'name')->where('id', $request->input('shop_id'))->first();
+        return view('backend.food.create', compact('shop'));
+    }
+
+    public function store(Request $request)
+    {
+        Food::create($request->input());
+        return view('/admin/food')->with('success', '新增成功！');
     }
 }

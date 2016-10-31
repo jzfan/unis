@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Backend\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -16,10 +16,16 @@ class CanteenController extends Controller
     	return view('backend.canteen.index', compact('canteens'));
     }
 
-    public function create()
+    public function show($canteen)
     {
-    	$schools = School::select('id', 'name')->get();
-    	return view('backend.canteen.create', compact('schools'));
+        $canteen = Canteen::with('school', 'shops')->where('id', $canteen)->first();
+        return view('backend.canteen.show', compact('canteen'));
+    }
+
+    public function create(Request $request)
+    {
+        $school = School::select('id', 'name')->where('id', $request->input('school_id'))->first();
+    	return view('backend.canteen.create', compact('school'));
     }
 
     public function store(CanteenRequest $request)

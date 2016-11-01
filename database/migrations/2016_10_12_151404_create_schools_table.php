@@ -21,9 +21,6 @@ class CreateSchoolsTable extends Migration
             $table->string('block');
             $table->string('address');
             $table->enum('status', [0, 1]);
-            $table->string('x')->nullable();
-            $table->string('y')->nullable();
-            $table->string('geohash', 12)->nullable();
             $table->timestamps();
         });
     }

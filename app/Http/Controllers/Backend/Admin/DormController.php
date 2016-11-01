@@ -21,4 +21,10 @@ class DormController extends Controller
     	$dorm = Dorm::with('school')->where('id', $dorm)->first();
     	return view('backend.dorm.show', compact('dorm'));
     }
+
+    public function destroy(Dorm $dorm)
+    {
+    	$dorm->delete();
+    	return redirect()->back()->with('success', '删除成功！');
+    }
 }

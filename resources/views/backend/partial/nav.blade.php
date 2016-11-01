@@ -72,7 +72,7 @@
         </a>
       </h4>
     </div>
-    <div id="collapseTwo" class="panel-collapse collapse @if(Request::is('admin/school*') or Request::is('admin/canteen*') or Request::is('admin/dorm*')) in @else panel-default @endif"" role="tabpanel" aria-labelledby="headingTwo">
+    <div id="collapseTwo" class="panel-collapse collapse @if(Request::is('admin/school*') or Request::is('admin/canteen*') or Request::is('admin/dorm*') or Request::is('admin/campus*')) in @else panel-default @endif"" role="tabpanel" aria-labelledby="headingTwo">
       <div class="panel-body">
         <div class="list-group">
   <a href="/admin/school" class="list-group-item @if(Request::is('admin/school*')) active @endif">

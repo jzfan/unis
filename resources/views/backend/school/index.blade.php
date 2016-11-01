@@ -14,8 +14,7 @@
                   <th>区</th>
                   <th>街道</th>
                   <th>地址</th>
-                  <th>经度</th>
-                  <th>维度</th>
+                  <th>状态</th>
                 </tr>
               </thead>
               <tbody>
@@ -27,8 +26,7 @@
                   <td>{{ $school->city }}</td>
                   <td>{{ $school->block}}</td>
                   <td>{{ $school->address }}</td>
-                  <td>{{ $school->x }}</td>
-                  <td>{{ $school->y }}</td>
+                  <td>{{ $school->status }}</td>
                   <td>
 @include('backend.partial.action', ['role'=>'admin', 'category'=>'school'])
                   </td>

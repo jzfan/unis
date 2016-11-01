@@ -8,6 +8,7 @@ use App\Unis\Traits\UserTrait\AdminMethods;
 use App\Unis\Traits\UserTrait\MemberMethods;
 use App\Unis\Traits\UserTrait\AgentMethods;
 use App\Unis\Suplier\Food;
+use App\Unis\Traits\StatusAttribute;
 
 class User extends Authenticatable
 {
@@ -15,7 +16,7 @@ class User extends Authenticatable
     use AdminMethods;
     use MemberMethods;
     use AgentMethods;
-
+    use StatusAttribute;
     /**
      * The attributes that are mass assignable.
      *
@@ -34,10 +35,10 @@ class User extends Authenticatable
         'password', 'remember_token', 'weixin_token'
     ];
 
-    public function getStatusAttribute($value)
-    {
-        return $value == 0 ? '禁用' : '启用';
-    }
+    // public function getStatusAttribute($value)
+    // {
+    //     return $value == 0 ? '禁用' : '启用';
+    // }
 
     public function address()
     {

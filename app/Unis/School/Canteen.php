@@ -4,9 +4,12 @@ namespace App\Unis\School;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Unis\Suplier\Shop;
+use App\Unis\Traits\StatusAttribute;
 
 class Canteen extends Model
 {
+	use StatusAttribute;
+	
     protected $fillable = ['school_id', 'name', 'address', 'status', 'x', 'y', 'geohash'];
 
     public function school()

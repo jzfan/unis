@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 
-class SchoolRequest extends FormRequest
+class CampusRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,13 +24,9 @@ class SchoolRequest extends FormRequest
      */
     public function rules(Request $request)
     {
-        // dd($request->input());
         return [
-            'name' => 'required|unique:schools,name,'. $request->input('id'),
-            'region' => 'required',
-            'address' => 'required',
-            'x' => 'numeric',
-            'y' => 'numeric'
+            'name' => 'required|unique:campuses,name,id,'. $request->input('id'),
+            'school_id' => 'required'
         ];
     }
 }

@@ -43,13 +43,21 @@ $faker = Faker\Factory::create('zh_CN');
 $factory->define(App\Unis\School\School::class, function (Faker\Generator $faker) {
 $faker = Faker\Factory::create('zh_CN');
 $city = $faker->city;
-$x = $faker->longitude;
-$y = $faker->latitude;
     return [
            'province' => $faker->state,
            'city' => $city,
            'block' => $faker->streetName,
            'name' => $city . $faker->randomDigit . '大学',
+           'address' => $faker->streetAddress,
+          'status' => (string)mt_rand(0 ,1)
+    ];
+});
+
+$factory->define(App\Unis\School\Campus::class, function (Faker\Generator $faker) {
+$x = $faker->longitude;
+$y = $faker->latitude;
+    return [
+           'name' => $faker->name . '校区',
            'address' => $faker->streetAddress,
            'x' => $x,
            'y' => $y,

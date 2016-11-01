@@ -27,15 +27,20 @@
     </div>
   </div>
     <div class="form-group">
-    <label class="col-sm-2 control-label">经度</label>
+    <label class="col-sm-2 control-label">状态</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" name="x" value="{{ old('x') }}">
-    </div>
-  </div>
-    <div class="form-group">
-    <label class="col-sm-2 control-label">纬度</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" name="y" value="{{ old('y') }}">
+      <div class="radio">
+        <label>
+          <input type="radio" name="status" id="status1" value="0" checked>
+          禁用
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="status" id="status2" value="1">
+           启用
+        </label>
+      </div>
     </div>
   </div>
   <div class="form-group">

@@ -7,6 +7,7 @@
 <form class="form-horizontal" role="form" action="/admin/school/{{ $school->id }}" method="POST">
 {!! csrf_field() !!}
 {!! method_field('PUT') !!}
+<input type="hidden" name="id" value='{{ $school->id }}'>
   <div class="form-group">
     <label class="col-sm-2 control-label">名称</label>
     <div class="col-sm-10">
@@ -27,18 +28,7 @@
       <input type="text" class="form-control" name="address" value="{{ $school->address }}">
     </div>
   </div>
-  <div class="form-group">
-    <label class="col-sm-2 control-label">经度</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" name="x" value="{{ $school->x }}">
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-2 control-label">纬度</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" name="y" value="{{ $school->y }}">
-    </div>
-  </div>
+@include('backend.partial.statusForm', ['obj' => 'school'])
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <button type="buttom" class="btn btn-default" onclick="JavaScript:history.back(-1);">返回</button>

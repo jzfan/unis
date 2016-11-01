@@ -4,10 +4,13 @@ namespace App\Unis\School;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Unis\Suplier\Suplier;
+use App\Unis\Traits\StatusAttribute;
 
 class School extends Model
 {
-	protected $fillable = ['name', 'province', 'city', 'block', 'address', 'latitude', 'longitude', 'geohash'];
+    use StatusAttribute;
+
+	protected $fillable = ['name', 'province', 'city', 'block', 'address', 'status'];
 
     public function canteens()
     {
@@ -22,6 +25,11 @@ class School extends Model
     public function supliers()
     {
     	return $this->belongsToMany(Suplier::class);
+    }
+
+    public function campuses()
+    {
+        return $this->hasMany(Campus::class);
     }
 
 }

@@ -6,9 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use App\Unis\School\School;
 use App\Unis\School\Canteen;
 use App\Unis\Suplier\Suplier;
+use App\Unis\Traits\StatusAttribute;
 
 class Shop extends Model
 {
+    use StatusAttribute;
+    
     public function foods()
     {
     	return $this->hasMany(Food::class);

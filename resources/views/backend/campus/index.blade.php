@@ -9,9 +9,8 @@
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>商户名</th>
-                  <th>负责人</th>
-                  <th>邮箱</th>
+                  <th>学校</th>
+                  <th>校区</th>
                   <th>地址</th>
                   <th>状态</th>
                   <th>操作</th>
@@ -21,7 +20,7 @@
               @foreach ($campuses as $campus)
                 <tr>
                   <td>{{ $campus->id }}</td>
-                  <td>{{ $campus->school->name }}</td>
+                  <td><a href='/admin/school/{{ $campus->school->id }}'>{{ $campus->school->name }}</a></td>
                   <td>{{ $campus->name }}</td>
                   <td>{{ $campus->address}}</td>
                   <td>{{ $campus->status }}</td>
@@ -34,7 +33,7 @@
               </tbody>
             </table>
           </div>
-          {!! $campuss->links() !!}
+          {!! $campuses->links() !!}
 
 @endsection
 

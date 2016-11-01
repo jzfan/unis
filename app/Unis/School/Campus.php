@@ -3,10 +3,13 @@
 namespace App\Unis\School;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Unis\Traits\StatusAttribute;
 
 class Campus extends Model
 {
-    protected $fillable = ['school_id', 'name'];
+	use StatusAttribute;
+	
+    protected $fillable = ['school_id', 'name', 'status', 'address', 'x', 'y', 'geohash'];
 
     public function school()
     {

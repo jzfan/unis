@@ -9,9 +9,9 @@
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>商户名</th>
-                  <th>负责人</th>
-                  <th>邮箱</th>
+                  <th>校区</th>
+                  <th>学校</th>
+                  <th>宿舍</th>
                   <th>地址</th>
                   <th>状态</th>
                   <th>操作</th>
@@ -21,10 +21,9 @@
               @foreach ($dorms as $dorm)
                 <tr>
                   <td>{{ $dorm->id }}</td>
-                  <td>{{ $dorm->school->name }}</td>
+                  <td>{{ $dorm->campus->name }}</td>
+                  <td>{{ $dorm->campus->school->name }}</td>
                   <td>{{ $dorm->name }}</td>
-                  <td>{{ $dorm->manager }}</td>
-                  <td>{{ $dorm->email }}</td>
                   <td>{{ $dorm->address}}</td>
                   <td>{{ $dorm->status }}</td>
                   <td>

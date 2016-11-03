@@ -12,7 +12,7 @@ class MemberController extends Controller
 {
 	public function index()
 	{
-		$members = User::with('address', 'favorites', 'recommends')->where('role', 'member')->paginate(config('site.perPage'));
+		$members = User::with('address', 'room.dorm.school')->where('role', 'member')->paginate(config('site.perPage'));
 		return view('backend.member.index', compact('members'));
 	}
 

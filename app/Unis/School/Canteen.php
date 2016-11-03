@@ -10,7 +10,7 @@ class Canteen extends Model
 {
 	use StatusAttribute;
 	
-    protected $fillable = ['school_id', 'name', 'address', 'status', 'x', 'y', 'geohash'];
+    protected $fillable = ['campus_id', 'name', 'address', 'status', 'x', 'y', 'geohash'];
 
     public function school()
     {
@@ -20,5 +20,10 @@ class Canteen extends Model
     public function shops()
     {
     	return $this->hasMany(Shop::class);
+    }
+
+    public function campus()
+    {
+    	return $this->belongsTo(Campus::class);
     }
 }

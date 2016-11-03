@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CanteenRequest;
 use App\Unis\School\Canteen;
-use App\Unis\School\School;
+use App\Unis\School\Campus;
 
 class CanteenController extends Controller
 {
     public function index()
     {
-    	$canteens = Canteen::with('school')->paginate(config('site.perPage'));
+    	$canteens = Canteen::with('campus.school')->paginate(config('site.perPage'));
     	return view('backend.canteen.index', compact('canteens'));
     }
 
@@ -24,8 +24,8 @@ class CanteenController extends Controller
 
     public function create(Request $request)
     {
-        $school = School::select('id', 'name')->where('id', $request->input('school_id'))->first();
-    	return view('backend.canteen.create', compact('school'));
+        $campus = Campus::select('id', 'name')->find($request->input('campus_id'))->first();
+    	return view('backend.canteen.create', compact('campus'));
     }
 
     public function store(CanteenRequest $request)

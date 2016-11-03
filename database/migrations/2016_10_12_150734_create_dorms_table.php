@@ -15,7 +15,7 @@ class CreateDormsTable extends Migration
     {
         Schema::create('dorms', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('school_id')->unsigned();
+            $table->integer('campus_id')->unsigned();
             $table->string('name');
             $table->string('address');
             $table->enum('status', [0, 1]);

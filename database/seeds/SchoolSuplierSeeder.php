@@ -14,6 +14,8 @@ class SchoolSuplierSeeder extends Seeder
      */
     public function run()
     {
+        \DB::table('school_suplier')->truncate();
+
         $supliers = Suplier::all();
         $schools = School::all();
         $count = $supliers->count();

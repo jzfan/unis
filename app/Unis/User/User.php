@@ -8,6 +8,7 @@ use App\Unis\Traits\UserTrait\AdminMethods;
 use App\Unis\Traits\UserTrait\MemberMethods;
 use App\Unis\Traits\UserTrait\AgentMethods;
 use App\Unis\Suplier\Food;
+use App\Unis\School\Room;
 use App\Unis\Traits\StatusAttribute;
 
 class User extends Authenticatable
@@ -53,6 +54,11 @@ class User extends Authenticatable
     public function recommends()
     {
         return $this->belongsToMany(Food::class, 'recommends');
+    }
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
     }
 
 }

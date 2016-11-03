@@ -10,8 +10,10 @@
                   <th>#</th>
                   <th>店名</th>
                   <th>学校</th>
+                  <th>校区</th>
                   <th>食堂</th>
                   <th>供应商</th>
+                  <th>操作</th>
                 </tr>
               </thead>
               <tbody>
@@ -19,7 +21,8 @@
                 <tr>
                   <td>{{ $shop->id }}</td>
                   <td>{{ $shop->name }}</td>
-                  <td>{{ $shop->canteen->school->name }}</td>
+                  <td>{{ $shop->canteen->campus->school->name }}</td>
+                  <td>{{ $shop->canteen->campus->name }}</td>
                   <td>{{ $shop->canteen->name }}</td>
                   <td>{{ $shop->suplier->company or ''}}</td>
                   <td>

@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('wechat_openid')->nullable()->index();
             $table->string('wechat_token')->nullable();
             $table->enum('status', [0,1])->default(0);
+            $table->integer('room_id')->unsigned();
             $table->rememberToken();
             $table->timestamps();
         });

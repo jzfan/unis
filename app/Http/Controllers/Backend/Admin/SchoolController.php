@@ -19,7 +19,7 @@ class SchoolController extends Controller
 
     public function show($school)
     {
-        $school = School::with('campuses', 'canteens', 'dorms')->where('id', $school)->first();
+        $school = School::with('campuses')->find($school)->first();
     	return view('backend.school.show', compact('school'));
     }
 

@@ -12,13 +12,13 @@ class DormController extends Controller
 {
     public function index()
     {
-    	$dorms = Dorm::with('school')->orderBy('school_id')->paginate(config('site.perPage'));
+    	$dorms = Dorm::with('campus.school')->orderBy('campus_id')->paginate(config('site.perPage'));
     	return view('backend.dorm.index', compact('dorms'));
     }
 
     public function show($dorm)
     {
-    	$dorm = Dorm::with('school')->where('id', $dorm)->first();
+    	$dorm = Dorm::with('campus.school')->find($dorm)->first();
     	return view('backend.dorm.show', compact('dorm'));
     }
 

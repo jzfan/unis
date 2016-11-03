@@ -9,6 +9,7 @@
                 <tr>
                   <th>#</th>
                   <th>学校</th>
+                  <th>校区</th>
                   <th>食堂</th>
                   <th>地址</th>
                   <th>状态</th>
@@ -21,7 +22,8 @@
               @foreach ($canteens as $canteen)
                 <tr>
                   <td>{{ $canteen->id }}</td>
-                  <td>{{ $canteen->school->name }}</td>
+                  <td>{{ $canteen->campus->school->name }}</td>
+                  <td>{{ $canteen->campus->name }}</td>
                   <td>{{ $canteen->name }}</td>
                   <td>{{ $canteen->address }}</td>
                   <td>{{ $canteen->status }}</td>

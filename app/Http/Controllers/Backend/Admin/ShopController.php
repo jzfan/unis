@@ -12,7 +12,7 @@ class ShopController extends Controller
 {
     public function index()
     {
-    	$shops = Shop::with('canteen.school', 'canteen', 'suplier')->paginate(config('site.perPage'));
+    	$shops = Shop::with('canteen.campus.school', 'suplier')->paginate(config('site.perPage'));
     	return view('backend.shop.index', compact('shops'));
     }
 

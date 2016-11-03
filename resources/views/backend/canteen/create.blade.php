@@ -6,7 +6,7 @@
 <form class="form-horizontal" role="form" action="/admin/canteen" method="POST">
 {!! csrf_field() !!}
   <div class="form-group">
-    <label class="col-sm-2 control-label">名称</label>
+    <label class="col-sm-2 control-label">食堂名称</label>
     <div class="col-sm-10">
       <input type="text" class="form-control" name="name" value="{{ old('name') }}">
     </div>
@@ -14,8 +14,14 @@
   <div class="form-group">
   <label class="col-sm-2 control-label">学校</label>
   <div class="col-sm-10">
-      <input type="text" class="form-control" value="{{ $school->name }}" disabled>
-      <input type='hidden' name='school_id' value="{{ $school->id }}">
+      <input type="text" class="form-control" value="{{ $campus->school->name }}" disabled>
+    </div>
+  </div>
+    <div class="form-group">
+  <label class="col-sm-2 control-label">校区</label>
+  <div class="col-sm-10">
+      <input type="text" class="form-control" value="{{ $campus->name }}" disabled>
+      <input type='hidden' name='campus_id' value="{{ $campus->id }}">
     </div>
   </div>
   <div class="form-group">

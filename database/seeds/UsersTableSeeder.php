@@ -23,7 +23,8 @@ class UsersTableSeeder extends Seeder
         	'email' => 'admin@unis.com',
         	'password' => bcrypt('123'),
             'avatar' => '/img/default-avatar.png',
-            'status' => 1
+            'status' => 1,
+            'room_id' => 1,
         	]);
         User::create([
         	'name' => 'xiaoMing',
@@ -31,7 +32,8 @@ class UsersTableSeeder extends Seeder
         	'email' => 'demo@demo.com',
         	'password' => bcrypt('123'),
             'avatar' => '/img/default-avatar.png',
-            'status' => 1
+            'status' => 1,
+            'room_id' =>2
         	]);
         factory(User::class, 15)->create();      
     }

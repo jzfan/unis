@@ -6,7 +6,8 @@
 <div class="panel panel-default">
   <div class="panel-heading">{{ $dorm->name }}</div>
   <div class="panel-body">
-  <p>school: {{ $dorm->school->name }}</p>
+  <p>school: {{ $dorm->campus->school->name }}</p>
+  <p>campus: {{ $dorm->campus->name }}</p>
     <p>name：{{ $dorm->name }}</p>
     <p>address: {{ $dorm->address }}</p>
     <p>status: {{ $dorm->status }}</p>

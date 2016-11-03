@@ -23,7 +23,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'weixin_openid', 'status', 'avatar'
+        'name', 'email', 'password', 'wechat_openid', 'status', 'avatar'
     ];
 
     /**
@@ -32,7 +32,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'weixin_token'
+        'password', 'remember_token', 'wechat_token'
     ];
 
     // public function getStatusAttribute($value)

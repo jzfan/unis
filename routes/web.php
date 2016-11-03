@@ -10,6 +10,16 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/', 'Frontend\IndexController@index');
 
+//wechat
+Route::group(['prefix' => 'wechat', 'middleware' => 'wechat.oauth:snsapi_userinfo'], function () {
+	Route::any('/', 'Wechat\\WechatController@serve');
+	// Route::get('/index', 'Frontend\\IndexController@wechat');
+	Route::get('/order', 'Wechat\\OrderController@index');
+	Route::post('/checkout', 'Frontend\\CheckoutController@wechat');
+	Route::resource('/food', 'Wechat\\FoodController');
+	Route::resource('/cart', 'Wechat\\CartController');
+	Route::get('/users', 'Wechat\\UserController@index');
+});
 
 //admin
 Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'namespace' => 'Backend\Admin'], function () {

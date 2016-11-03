@@ -33,8 +33,6 @@ class UsersTableSeeder extends Seeder
             'avatar' => '/img/default-avatar.png',
             'status' => 1
         	]);
-        factory(User::class, 15)->create()->each(function ($u){
-        	$u->address()->save(factory(App\Unis\User\Address::class)->make());
-        });       
+        factory(User::class, 15)->create();      
     }
 }

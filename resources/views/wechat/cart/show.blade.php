@@ -1,65 +1,120 @@
 @extends('wechat.layout')
 
 @section('content')
-<br>
- <form class="form-inline" role="form" action='/wechat/checkout' method="POST">
-{!! csrf_field() !!}
-@foreach($foods as $food)
-<div class="row">
-   <div class="form-group col-sm-1">
-    <div class="checkbox">
-          <input type="checkbox" checked="1">
-      </div>
-  </div> 
-    <div class="form-group col-sm-3">
-      <img src="{{ $food->img }}" class='avatar-middle'>
-    </div>
-    <div class="form-group col-sm-8">
-      <h4>{{ $food->name }} <span> 单价：￥<mark>{{ $food->price }}</mark></span></h4>
-      <p>{{ $food->description }}</p>
-        <button class='btn btn-danger'>删除</button>
-        <label for="numInput" class="control-label">数量:</label> 
-        <input type="text" name="{{ $food->id }}" class="form-control numInput">
-        小计：<span class='xiaoji'>{{ $food->price }}</span>
-    </div>
-</div>
-<hr>
-<br>
-@endforeach
+  <ul class="w-tab-view mui-table-view">
+                <li class="mui-table-view-cell mui-media">
+                    <a href="javascript:;">
+                        <img class="mui-media-object mui-pull-left" src="img/xcr.png">
+                        <div class="w-box">
+                          <div class="w-menu-left">
+                            <p class="menu-name">农家小炒肉</p>
+                            <small class="menu-address">教工食堂</small>
+                            <p class="menu-number"><span>月售:12&nbsp;&nbsp;点赞:5</span></p>
+                            <p class="menu-footer">
+                              <span class="vule-icon">￥</span><span class="vue-number">8</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:9元</span>
+                            </p>
+                          </div>
+                          <div class="w-menu-right">
+                            <div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div>
+                            <div class="add-icon">
 
-      <div class="pull-right">
-        <span>合计：￥ <mark id='total'></mark> </span>
-        <button type="submit" class="btn btn-primary">结算</button>
-      </div>
+                          <div class="mui-numbox">
+                              <!-- "-"按钮，点击可减小当前数值 -->
+                            <button class="mui-btn mui-numbox-btn-minus" type="button"><span class="mui-icon iconfont jianhao107"></span></button>
+                            <input class="mui-numbox-input" type="number" />
+                            <!-- "+"按钮，点击可增大当前数值 -->
+                            <button class="mui-btn mui-numbox-btn-plus" type="button"><span class="mui-icon iconfont jiahao108"></span></button>
+                          </div>
+                          
+                            </div>
+                          </div>
+                        </div>
+                      
+                    </a>
+                </li>
+                
+                <li class="mui-table-view-cell mui-media">
+                    <a href="javascript:;">
+                        <img class="mui-media-object mui-pull-left" src="img/sls.png">
+                        <div class="w-box">
+                          <div class="w-menu-left">
+                            <p class="menu-name">酸辣土豆丝</p>
+                            <small class="menu-address">教工食堂</small>
+                            <p class="menu-number"><span>月售:12&nbsp;&nbsp;点赞:5</span></p>
+                            <p class="menu-footer">
+                              <span class="vule-icon">￥</span><span class="vue-number">8</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:9元</span>
+                            </p>
+                          </div>
+                          <div class="w-menu-right">
+                            <div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div>
+                            <div class="add-icon">
+                          
+                          <div class="mui-numbox">
+                              <!-- "-"按钮，点击可减小当前数值 -->
+                            <button class="mui-btn mui-numbox-btn-minus" type="button"><span class="mui-icon iconfont jianhao107"></span></button>
+                            <input class="mui-numbox-input" type="number" />
+                            <!-- "+"按钮，点击可增大当前数值 -->
+                            <button class="mui-btn mui-numbox-btn-plus" type="button"><span class="mui-icon iconfont jiahao108"></span></button>
+                          </div>
 
-</form>
-@endsection
+
+                             </div>
+                          </div>
+                        </div>
+                      
+                    </a>
+                </li>
+
+            </ul>
+
+            <div class="w-finshed-menu">
+              <ul class="w-cash-all mui-table-view">
+                  <li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">36元(含服务费)</span></li>
+              </ul>
+
+              <ul class="menu-che mui-table-view">
+                  <li class="mui-table-view-cell">配送地址：中南名族大学北校区学生公寓5B515</li>
+                  <li class="mui-table-view-cell">联系电话: 15586879654</li>
+                  <li class="mui-table-view-cell">联系姓名：毛毛</li>
+              </ul>
+
+              <ul class="mui-table-view">
+                  <li class="mui-table-view-cell">预约时间：2016-10-24 11:48(默认送达时间) <span class="mui-icon "></span></li>
+              </ul>
+
+              <ul class="mui-table-view">
+                  <li class="mui-table-view-cell"><button class="w-want-accept">购买</button></li>
+              </ul>
+            </div>
+
+
+  
+  
+  <!--底部nav切换开始-->
+    <nav class="win-bar mui-bar mui-bar-tab">
+      <a id="defaultTab" class="mui-tab-item mui-active" href="tab-webview-subpage-about.html">
+        <span class="mui-icon iconfont xuanshouye201"></span>
+        <span class="mui-tab-label">首页</span>
+      </a>
+      <a class="mui-tab-item" href="tab-webview-subpage-chat.html">
+        <span class="mui-icon iconfont dingdan111"></span>
+        <span class="mui-tab-label">我的订单</span>
+      </a>
+      <a class="mui-tab-item" href="tab-webview-subpage-contact.html">
+        <span class="mui-icon iconfont xuangouwuche203"><span class="w-badge mui-badge">1</span></span>
+        <span class="mui-tab-label">购物车</span>
+      </a>
+      <a class="mui-tab-item" href="tab-webview-subpage-setting.html">
+        <span class="mui-icon iconfont xuangerenzhongxin204"></span>
+        <span class="mui-tab-label">个人中心</span>
+      </a>
+    </nav>
+  <!--底部nav切换结束-->
+  
+@stop
 
 @section('js')
-<script>
-setTotal();
-$(".numInput").TouchSpin({
-    min: 1,
-    max: 999,
-    stepinterval: 50,
-    maxboostedstep: 999,
-     initval: 1
-}).on('touchspin.on.startspin', function () {
-    var n = $(this).val();
-    n = parseInt(n);
-    var p = $(this).closest('.form-group').find('mark').text();
-    p = parseFloat(p)*100;
-    $(this).closest('.form-group').find('.xiaoji').text(p*n/100);
-
-    setTotal();
-  });
-function setTotal()
-{
-    var sum = 0;
-    $('.xiaoji').each(function(k,v){
-      sum += parseFloat($(v).text()) * 100;
-    });
-    $('#total').text(sum/100);
-}
-</script>
+    <script>
+      mui('.mui-content.mui-scroll-wrapper').scroll();
+    </script>
 @stop

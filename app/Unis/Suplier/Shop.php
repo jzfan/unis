@@ -12,6 +12,8 @@ class Shop extends Model
 {
     use StatusAttribute;
     
+    protected $fillable = ['canteen_id', 'suplier_id', 'name'];
+
     public function foods()
     {
     	return $this->hasMany(Food::class);

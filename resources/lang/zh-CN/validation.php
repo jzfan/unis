@@ -142,6 +142,11 @@ return [
         'time'                  => '时间',
         'available'             => '可用的',
         'size'                  => '大小',
+        'suplier_id'            => '供应商',
+        'school_id'             => '学校',
+        'campus_id'             => '校区',
+        'dorm_id'               => '宿舍',
+        'canteen_id'            => '食堂',
     ],
 
 ];

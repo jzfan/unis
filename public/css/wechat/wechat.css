@@ -1,0 +1,322 @@
+/*
+ *这是单独为hello mui准备的个性化css，可以覆盖标准mui的css定义；
+ * 在实际项目开发时，建议为App单独写一个css文件，从而实现项目的自定义皮肤功能；
+ * 
+ * */
+.mui-plus.mui-android header.mui-bar{
+	display: none;
+}
+.mui-plus.mui-android .mui-bar-nav~.mui-content{
+	padding: 0;
+}
+
+/*hm开头的表示仅为 Hello MUI示例定义*/
+.hm-description{
+	margin: .5em 0;
+}
+
+.hm-description>li {
+	font-size: 14px;
+	color: #8f8f94;
+}
+
+.mui-off-canvas-wrap .mui-inner-wrap .w-canvas-left{
+	width: 62%!important;
+	color: #fff;
+	font-family: "微软雅黑";
+/*	box-shadow: 10px 0px 40px rgba(0,0,0,0.6); */
+	background: -webkit-linear-gradient(0deg,#ff4d4d, #fc7373); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(0deg,#ff4d4d, #fc7373); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(0deg,#ff4d4d, #fc7373); /* Firefox 3.6 - 15 */
+    background: linear-gradient(0deg,#ff4d4d, #fc7373); /* 标准的语法（必须放在最后） */
+}
+
+.w-classify{
+	font-size: 25px;
+	font-weight: 500;
+	text-align: center;
+	border-bottom: 1px solid #fff;
+	height: 5rem;
+	line-height: 5rem;
+}
+.w-canvas-list{
+	padding: 0 3rem;
+}
+.w-canvas-list a{
+	color: #fff ;
+}
+.w-canvas-list li{
+	list-style: none;
+	height: 3.5rem;
+	line-height: 3.5rem;
+	font-size: 15px;
+	border-bottom: 1px solid #fff;
+	padding-left: 0.8rem;
+}
+.win-bar .mui-tab-item{
+	color: #555;
+}
+.win-bar .mui-tab-item.mui-active{
+	color: #fe4e4c;
+}
+.win-bar .mui-tab-label{
+	font-size: 12px;
+	font-family: "微软雅黑";
+/*	color: #555;*/
+}
+
+
+
+/*tab切换*/
+.w-tab{
+	font-family: "微软雅黑";
+	font-size: 16px;
+	background-color: #fff;
+}
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{
+	color:#ff4b4b;
+	border-bottom:2px solid #ff4b4b!important;
+}
+.w-tab-view .mui-table-view-cell a{
+	height: 10.8rem;
+}
+
+.w-tab-view .mui-table-view-cell a img{
+	height: 9rem;
+	width: 8.5rem;
+}
+.w-tab-view .mui-media-object{
+	max-width: 8.5rem;
+	border-radius: 3px;
+}
+.w-box{
+	display: -webkit-flex; /* Safari */
+  	display: flex;
+  	flex-direction:row;
+  	justify-content:space-between;
+  	font-family: "微软雅黑";
+}
+.menu-name{
+	font-size: 20px;
+	color: #3d3d3d;
+}
+.menu-address{
+	color:#585858;
+	font-size: 12px;
+}
+.menu-number{
+	color: #8c8c8c;
+	font-size:12px;
+}
+.vule-icon{
+	font-size: 20px;
+	color:#fe4e4c;
+}
+.vue-number{
+	font-size: 32px;
+	color:#FE4E4C;
+}
+.w-menu-left{
+	margin-left: 10px;
+}
+.w-menu-left p{
+}
+.menu-footer{
+	margin-top: 10px;
+}
+.w-popover{
+	width: 100%;
+	top: 44px;
+	box-shadow: none;
+}
+.mui-backdrop{
+	top:17rem;
+}
+.w-bar{
+	background-color: #ff4d4d;
+	font-size: 18px;
+	font-family: "微软雅黑";
+}
+.w-bar .mui-title{
+	color:#fff;
+}
+.w-bar .mui-pull-left{
+	color: #fff;
+}
+.mui-icon .w-badge{
+	left: 160%;
+}
+.address-name{
+	font-size: 18px;
+}
+
+
+
+/* 入口 */
+.w-entry{
+	height: 18.4rem;
+	width: 100%;
+	background-color: #ebebeb;
+	padding-top: 6.8rem;
+}
+.w-about-top{
+	background-color: #f1f1f1;
+	border-bottom:1px solid #d3d3d3;
+}
+.w-logo-wrap{
+	height: 4.5rem;
+	width: 22.2rem;
+	margin:0 auto;
+}
+.w-logo-wrap img{
+	height: 100%;
+	width: auto;
+}
+.w-input-group{
+	background-color: #ebebeb;
+	font-family: "微软雅黑";
+	color:#585858;
+}
+.w-input-group .mui-input-row{
+	height: 4.5rem;
+	background-color: #fff;
+	margin: 0.8rem 0;
+}
+.w-input-group .mui-input-row input,.w-input-group .mui-input-row label{
+	height: 4.5rem;
+	line-height: 4.5rem;
+	padding:0;
+	
+}
+.w-input-group .mui-input-row input{
+	width: 80%;
+	font-family: "微软雅黑";
+	font-size: 14px;
+}
+.w-input-group .mui-input-row label{
+	padding-left: 2rem;
+	width: 20%;
+	font-size: 18px;
+	font-family: "微软雅黑";
+}
+.w-input-group .mui-input-row:after{
+	background-color:#fff;
+}
+.w-entry-btn{
+	width: 80%;
+	margin-left: 10%;
+	margin-top: 0.8rem;
+	margin-bottom: 10.8rem;
+	height: 4rem;
+	font-family: "微软雅黑";
+	font-size: 20px;
+	background-color: #fe4e4c;
+}
+
+.w-input-group .mui-input-row{
+	position: relative;
+}
+
+.w-arrow-right{
+	position: absolute;
+	right: 1.4rem;
+	top: 50%;
+	margin-top: -15px;
+	font-size: 30px;
+}
+.w-clear .mui-icon-clear{
+	line-height: 38px;
+}
+
+/* 关于uniserve */
+.w-about-uniserve{
+	height: 5rem;
+	background-color: #fe4e4c;
+}
+.w-about-uniserve .mui-title{
+	height: 5rem;
+	line-height: 5rem;
+	color: #fff;
+	font-family: "微软雅黑";
+	font-size: 18px;
+}
+.about-text{
+	padding: 1.8rem 1.8rem 15rem 1.8rem;
+	font-size: 11px;
+	font-family: "微软雅黑";
+	color:#585858;
+	line-height: 2rem;
+}
+.w-company-name{
+	margin-top: 3.5rem;
+	margin-right: 1.8rem;
+	font-size: 14px;
+	font-family: "微软雅黑";
+	color:#000;
+	text-align: right;
+}
+
+.w-respone-wrap{
+	background-color: #f6f6f6;
+}
+.w-respone{
+	margin:1.5rem 1rem 5rem 1.5rem;
+}
+.w-respone-group{
+	height: 27rem;
+	border-radius: 8px;
+}
+.w-respone-wrap .mui-input-group:before, .w-respone-wrap .mui-input-group:after{
+	background-color: #f6f6f6;
+}
+.w-respone-textarea{
+	height: 20rem;
+}
+.w-respone-textarea textarea{
+	font-family: '微软雅黑';
+	font-size: 13px;
+	color: #bcbcbc;
+	height: 20rem;
+}
+.w-respone-btn{
+	width: 40%;
+	margin-left: 30%;
+}
+.w-xian{
+	display: inline-block;
+	width: 86%;
+	margin-left: 7%;
+	height: 1px;
+	transform: scaleY(0.5);
+	-webkit-transform: scaleY(0.5);
+	background-color: #ccc;
+	margin-bottom:1rem;
+}
+.w-sale-text{
+	color: #585858;
+	font-family: "微软雅黑";
+	font-size: 13px;
+	line-height: 2rem;
+	padding:1.2rem 2rem;
+}
+.w-card{
+	font-family: '微软雅黑';
+	border-radius: 3px;
+}
+.w-card .mui-card-header:after{
+	background-color: #fff;
+}
+.w-card-header{
+	font-size: 16px;
+	color: #585858;
+}
+.w-card-content{
+	font-size: 13px;
+	color: #8c8c8c;
+	padding-left: 14px;
+	padding-bottom: 12px;
+}
+.w-card-time{
+	font-size: 12px;
+	color: #8c8c8c;
+}

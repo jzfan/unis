@@ -12,13 +12,13 @@ class SuplierController extends Controller
 {
     public function index()
     {
-    	$supliers = Suplier::paginate(config('site.perPage'));
+    	$supliers = Suplier::orderBy('id', 'desc')->paginate(config('site.perPage'));
     	return view('backend.suplier.index', compact('supliers'));
     }
 
     public function show($suplier)
     {
-    	$suplier = Suplier::where('id', $suplier)->with('shops.canteen.school')->first();
+    	$suplier = Suplier::where('id', $suplier)->with('shops.canteen.campus.school')->first();
 
     	// dd($suplier->shops[0]->school->name);
 

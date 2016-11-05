@@ -13,7 +13,7 @@ class FoodController extends Controller
 {
     public function index()
     {
-    	$foods = Food::with('shop')->paginate(config('site.perPerge'));
+    	$foods = Food::with('shop')->orderBy('id', 'desc')->paginate(config('site.perPerge'));
     	return view('backend.food.index', compact('foods'));
     }
 

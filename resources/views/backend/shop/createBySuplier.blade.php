@@ -10,7 +10,7 @@
   <div class="form-group">
     <label   class="col-sm-2 control-label">名称</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control"   name="name" value="{{ old('name') }}">
+      <input type="text" class="form-control"   name="name" value="{{ old('name') }}" id='inputName'>
     </div>
   </div>
 
@@ -28,7 +28,6 @@
     <div class="col-sm-10">
 
 <select id='school-select' class='form-control'>
-
 </select>
 
     </div>
@@ -54,10 +53,24 @@
 @section('js')
 <script>
 $("#school-select").select2();
-$('#school-select').on("select2:open", function (e){
-  $.get('/api/schools?region='.$region, function(m){
-    console.log(m);
-  }); 
-});
+
+$("#city-picker").on('cp:updated',function(e){  
+   // console.log($(this).val().indexOf('/')); 
+   var index = $(this).val().indexOf('/');
+   if (index < 0){
+    return;
+   }
+
+   var region = $(this).val();
+   $.get('/api/school?region='+ region, function (m) {
+    $('#school-select').text('');
+
+    for(var i=0;i<m.schools.length;i++){
+      var school = m.schools[i];
+      $('#school-select').append('<option value='+school.id+'>'+school.name+'</option>');
+    }
+
+   })
+});  
 </script>
 @stop

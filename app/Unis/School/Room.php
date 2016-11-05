@@ -3,6 +3,7 @@
 namespace App\Unis\School;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Unis\User\User;
 
 class Room extends Model
 {
@@ -11,5 +12,10 @@ class Room extends Model
     public function dorm()
     {
     	return $this->belongsTo(Dorm::class);
+    }
+
+    public function users()
+    {
+    	return $this->hasMany(User::class);
     }
 }

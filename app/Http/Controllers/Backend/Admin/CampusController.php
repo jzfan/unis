@@ -13,13 +13,13 @@ class CampusController extends Controller
 {
     public function index()
     {
-    	$campuses = Campus::with('school')->orderBy('school_id')->paginate(config('site.perPage'));
+    	$campuses = Campus::with('school')->orderBy('school_id', 'desc')->paginate(config('site.perPage'));
     	return view('backend.campus.index', compact('campuses'));
     }
 
     public function create(Request $request)
     {
-    	$school = School::select('id', 'name')->find($request->input('school_id'))->first();
+    	$school = School::select('id', 'name')->find($request->input('school_id'));
     	return view('backend.campus.create', compact('school'));
     }
 
@@ -31,13 +31,13 @@ class CampusController extends Controller
 
     public function show($campus)
     {
-    	$campus = Campus::with('school')->find($campus)->first();
+    	$campus = Campus::with('school')->find($campus);
     	return view('backend.campus.show', compact('campus'));
     }
 
     public function edit($campus)
     {
-    	$campus = Campus::with('school')->find($campus)->first();
+    	$campus = Campus::with('school')->find($campus);
     	return view('backend.campus.edit', compact('campus'));
     }
 

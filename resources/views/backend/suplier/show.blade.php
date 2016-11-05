@@ -24,7 +24,7 @@
     <div class="panel panel-default col-md-4 col-sm-6 col-xs-12">
       <div class="panel-heading">{{ $shop->name }}</div>
       <div class="panel-body">
-        <p><small>地址：</small> {{ $shop->canteen->school->name }} {{ $shop->canteen->name }}</p>
+        <p><small>地址：</small> {{ $shop->canteen->campus->school->name }} {{ $shop->canteen->campus->name }} {{ $shop->canteen->name }}</p>
         <a href="/admin/shop/{{ $shop->id }}" class='btn btn-primary pull-right'>查看 >></a>
       </div>
     </div>

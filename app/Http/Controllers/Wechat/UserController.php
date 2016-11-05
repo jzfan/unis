@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Wechat;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
+use App\Http\Requests\WechatUserRequest;
 use App\Http\Controllers\Controller;
 
 class UserController extends Controller
@@ -13,7 +13,11 @@ class UserController extends Controller
     {
     	$wechat = app('wechat');
     	$users = $wechat->user->lists();
-    	dd($users);
+    	return $users;
+    }
 
+    public function store(WechatUserRequest $request)
+    {
+    	dd($request->input());
     }
 }

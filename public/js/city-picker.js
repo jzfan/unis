@@ -1,11 +1,11 @@
 /*!
- * CityPicker v1.0.2
+ * CityPicker v1.1.0
  * https://github.com/tshi0912/citypicker
  *
  * Copyright (c) 2015-2016 Tao Shi
  * Released under the MIT license
  *
- * Date: 2016-02-29T12:11:36.477Z
+ * Date: 2016-09-09T12:11:57.119Z
  */
 
 (function (factory) {
@@ -259,7 +259,7 @@
                     });
                     $(this).trigger(EVENT_CHANGE);
                     $this.feedText();
-                    $this.feedVal();
+                    $this.feedVal(true);
                     if (last) {
                         $this.close();
                     }
@@ -356,6 +356,18 @@
             }
         },
 
+        getCode: function (count) {
+            var obj = {}, arr = [];
+            this.$textspan.find('.select-item')
+                .each(function () {
+                    var code = $(this).data('code');
+                    var count = $(this).data('count');
+                    obj[count] = code;
+                    arr.push(code);
+                });
+            return count ? obj[count] : arr.join('/');
+        },
+
         getVal: function () {
             var text = '';
             this.$dropdown.find('.city-select')
@@ -368,8 +380,11 @@
             return text;
         },
 
-        feedVal: function () {
+        feedVal: function (trigger) {
             this.$element.val(this.getVal());
+            if(trigger) {
+                this.$element.trigger('cp:updated');
+            }
         },
 
         output: function (type) {

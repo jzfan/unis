@@ -12,7 +12,7 @@ class CanteenController extends Controller
 {
     public function index()
     {
-    	$canteens = Canteen::with('campus.school')->paginate(config('site.perPage'));
+    	$canteens = Canteen::with('campus.school')->orderBy('id', 'desc')->paginate(config('site.perPage'));
     	return view('backend.canteen.index', compact('canteens'));
     }
 
@@ -24,7 +24,7 @@ class CanteenController extends Controller
 
     public function create(Request $request)
     {
-        $campus = Campus::select('id', 'name')->find($request->input('campus_id'))->first();
+        $campus = Campus::with('school')->find($request->campus_id);
     	return view('backend.canteen.create', compact('campus'));
     }
 
@@ -38,5 +38,16 @@ class CanteenController extends Controller
     {
     	$canteen->delete();
     	return redirect()->back()->with('success', '删除成功！');
+    }
+
+    public function edit(Canteen $canteen)
+    {
+        return view('backend.canteen.edit', compact('canteen'));
+    }
+
+    public function update(CanteenRequest $request, Canteen $canteen)
+    {
+        $canteen->update($request->input());
+        return redirect('/admin/canteen')->with('success', '更新成功！');
     }
 }

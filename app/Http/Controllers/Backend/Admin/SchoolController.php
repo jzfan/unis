@@ -13,13 +13,13 @@ class SchoolController extends Controller
 {
     public function index()
     {
-    	$schools = School::paginate(config('site.perPage'));
+    	$schools = School::orderBy('id', 'desc')->paginate(config('site.perPage'));
     	return view('backend.school.index', compact('schools'));
     }
 
     public function show($school)
     {
-        $school = School::with('campuses')->find($school)->first();
+        $school = School::with('campuses')->find($school);
     	return view('backend.school.show', compact('school'));
     }
 

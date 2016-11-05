@@ -4,15 +4,16 @@ namespace App\Http\Controllers\Backend\Admin;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
+use App\Http\Requests\ShopRequest;
 use App\Http\Controllers\Controller;
 use App\Unis\Suplier\Shop;
+use App\Unis\School\Canteen;
 
 class ShopController extends Controller
 {
     public function index()
     {
-    	$shops = Shop::with('canteen.campus.school', 'suplier')->paginate(config('site.perPage'));
+    	$shops = Shop::with('canteen.campus.school', 'suplier')->orderBy('id', 'desc')->paginate(config('site.perPage'));
     	return view('backend.shop.index', compact('shops'));
     }
 
@@ -24,13 +25,36 @@ class ShopController extends Controller
 
     public function create(Request $request)
     {
-        $suplier_id = $request->input('suplier_id');
-    	return view('backend.shop.create', compact('suplier_id'));
+        $suplier_id = $request->suplier_id;
+        if ($suplier_id){
+            return view('backend.shop.createBySuplier', compact('suplier_id'));
+        }
+        $canteen = Canteen::with('campus.school')->find($request->canteen_id);
+        return view('backend.shop.createBySchool', compact('canteen'));
     }
 
     public function store(ShopRequest $request)
     {
         Shop::create($request->input());
-        return view('backend.shop.index')->with('success', '创建成功！');
+        return redirect('/admin/shop')->with('success', '创建成功！');
+    }
+
+    public function destroy(Shop $shop)
+    {
+        $shop->foods()->delete();
+        $shop->delete();
+        return redirect()->back()->with('success', '删除成功！');
+    }
+
+    public function edit($shop)
+    {
+        $shop = Shop::with('canteen.campus.school')->find($shop);
+        return view('backend.shop.edit', compact('shop'));
+    }
+
+    public function update(ShopRequest $request, Shop $shop)
+    {
+        $shop->update($request->input());
+        return redirect('/admin/shop')->with('success', '更新成功！');
     }
 }

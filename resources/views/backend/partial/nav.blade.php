@@ -63,7 +63,7 @@
     </div>
   </div>
 
-     <div class="panel @if(Request::is('admin/school*') or Request::is('admin/canteen*') or Request::is('admin/dorm*') or Request::is('admin/campus*'))  panel-primary @else panel-default @endif">
+     <div class="panel @if(Request::is('admin/school*') or Request::is('admin/room*') or Request::is('admin/canteen*') or Request::is('admin/dorm*') or Request::is('admin/campus*')) panel-primary @else panel-default @endif">
     <div class="panel-heading" role="tab" id="headingTwo">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
@@ -72,7 +72,7 @@
         </a>
       </h4>
     </div>
-    <div id="collapseTwo" class="panel-collapse collapse @if(Request::is('admin/school*') or Request::is('admin/canteen*') or Request::is('admin/dorm*') or Request::is('admin/campus*')) in @else panel-default @endif"" role="tabpanel" aria-labelledby="headingTwo">
+    <div id="collapseTwo" class="panel-collapse collapse @if(Request::is('admin/school*') or Request::is('admin/room*') or Request::is('admin/canteen*') or Request::is('admin/dorm*') or Request::is('admin/campus*')) in @else panel-default @endif"" role="tabpanel" aria-labelledby="headingTwo">
       <div class="panel-body">
         <div class="list-group">
   <a href="/admin/school" class="list-group-item @if(Request::is('admin/school*')) active @endif">
@@ -90,6 +90,10 @@
 <a href="/admin/dorm" class="list-group-item @if(Request::is('admin/dorm*')) active @endif">
     <span class="glyphicon glyphicon-home"></span>
     宿舍
+</a>
+<a href="/admin/room" class="list-group-item @if(Request::is('admin/room*')) active @endif">
+    <span class="glyphicon glyphicon-time"></span>
+    房间
 </a>
 </div>
 

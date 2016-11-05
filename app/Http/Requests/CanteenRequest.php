@@ -25,7 +25,7 @@ class CanteenRequest extends FormRequest
     public function rules(Request $request)
     {
         return [
-            'name' => 'required|unique:canteens,name,'. $request->input('id'),
+            'name' => 'required|unique:canteens,name,'. $request->id,
             'x' => 'numeric',
             'y' => 'numeric'
         ];

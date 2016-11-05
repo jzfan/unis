@@ -22,7 +22,7 @@ class FoodsTableSeeder extends Seeder
                 'name' => $faker->word . '食品',
 	            'img' => $faker->imageUrl(100, 70),
 	            'description' => $faker->text,
-	            'price' => $faker->numberBetween(100, 9999),
+	            'price' => $faker->numberBetween(4, 60) / 2,
 	            'favorite' => mt_rand(1, 555),
 	            'recommend' => mt_rand(1, 555),
 	            'status' => (string)mt_rand(0 ,1)

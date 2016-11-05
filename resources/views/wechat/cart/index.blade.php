@@ -1,10 +1,14 @@
 @extends('wechat.layout')
 
+@section('title')
+购物车
+@stop
+
 @section('content')
   <ul class="w-tab-view mui-table-view">
                 <li class="mui-table-view-cell mui-media">
                     <a href="javascript:;">
-                        <img class="mui-media-object mui-pull-left" src="img/xcr.png">
+                        <img class="mui-media-object mui-pull-left" src="/img/wechat/xcr.png">
                         <div class="w-box">
                           <div class="w-menu-left">
                             <p class="menu-name">农家小炒肉</p>
@@ -35,7 +39,7 @@
                 
                 <li class="mui-table-view-cell mui-media">
                     <a href="javascript:;">
-                        <img class="mui-media-object mui-pull-left" src="img/sls.png">
+                        <img class="mui-media-object mui-pull-left" src="/img/wechat/sls.png">
                         <div class="w-box">
                           <div class="w-menu-left">
                             <p class="menu-name">酸辣土豆丝</p>
@@ -88,28 +92,7 @@
             </div>
 
 
-  
-  
-  <!--底部nav切换开始-->
-    <nav class="win-bar mui-bar mui-bar-tab">
-      <a id="defaultTab" class="mui-tab-item mui-active" href="tab-webview-subpage-about.html">
-        <span class="mui-icon iconfont xuanshouye201"></span>
-        <span class="mui-tab-label">首页</span>
-      </a>
-      <a class="mui-tab-item" href="tab-webview-subpage-chat.html">
-        <span class="mui-icon iconfont dingdan111"></span>
-        <span class="mui-tab-label">我的订单</span>
-      </a>
-      <a class="mui-tab-item" href="tab-webview-subpage-contact.html">
-        <span class="mui-icon iconfont xuangouwuche203"><span class="w-badge mui-badge">1</span></span>
-        <span class="mui-tab-label">购物车</span>
-      </a>
-      <a class="mui-tab-item" href="tab-webview-subpage-setting.html">
-        <span class="mui-icon iconfont xuangerenzhongxin204"></span>
-        <span class="mui-tab-label">个人中心</span>
-      </a>
-    </nav>
-  <!--底部nav切换结束-->
+@include('wechat.partial.buttomNav')
   
 @stop
 

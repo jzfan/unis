@@ -1,5 +1,9 @@
 @extends('wechat.layout')
 
+@section('title')
+绑定地址
+@stop
+
 @section('content')
 	<div class="w-entry">
 		<div class="w-logo-wrap"><img src="/img/wechat/logo.png" alt=""></div>
@@ -25,9 +29,7 @@
 					<a class="mui-navigate-right">Item 3</a>
 				</li>
 			</ul>
-		</div>
-
-		
+		</div>		
 
     	<div class="mui-input-row">
 	        <label>校区:</label>
@@ -55,27 +57,6 @@
 	</form>
 
 
-	<!--底部nav切换-->
-		<nav class="win-bar mui-bar mui-bar-tab">
-			<a id="defaultTab" class="mui-tab-item mui-active" href="/wechat/index">
-				<span class="mui-icon mui-icon-home"></span>
-				<span class="mui-tab-label">首页</span>
-			</a>
-			<a class="mui-tab-item" href="/wechat/myOrder">
-				<span class="mui-icon mui-icon-email"></span>
-				<span class="mui-tab-label">我的订单</span>
-			</a>
-			<a class="mui-tab-item" href="/wechat/cart">
-				<span class="mui-icon mui-icon-contact"><span class="mui-badge">1</span></span>
-				<span class="mui-tab-label">购物车</span>
-			</a>
-
-
-			<a href="http://www.baidu.com" class="mui-tab-item" >
-				<span class="mui-icon mui-icon-gear"></span>
-				<span class="mui-tab-label">个人中心</span>
-			</a>
-		</nav>
-	<!--底部nav切换-->
+@include('wechat.partial.buttomNav')
 
 @stop

@@ -9,15 +9,35 @@ use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
-    public function index()
+    // public function index()
+    // {
+    // 	$wechat = app('wechat');
+    // 	$users = $wechat->user->lists();
+    // 	return $users;
+    // }
+
+    // public function store(WechatUserRequest $request)
+    // {
+    // 	dd($request->input());
+    // }
+
+    public function show()
     {
-    	$wechat = app('wechat');
-    	$users = $wechat->user->lists();
-    	return $users;
+    	return view('wechat.user.profile');
     }
 
-    public function store(WechatUserRequest $request)
+    public function favorite()
     {
-    	dd($request->input());
+    	return view('wechat.user.favorite');
+    }
+
+    public function address()
+    {
+    	return view('wechat.user.address');
+    }
+
+    public function message()
+    {
+    	return view('wechat.user.message');
     }
 }

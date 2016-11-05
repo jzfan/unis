@@ -15,13 +15,16 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('billing_id');
+            $table->string('billing_id')->nullable();
             $table->string('type');
             $table->string('order_no');
             $table->string('subject');
             $table->integer('user_id')->unsigned();
+            $table->integer('deliver_id')->unsigned()->nullable();
             $table->integer('total');
             $table->string('address');
+            $table->enum('status', ['ordered', 'canceled', 'paid', 'paid_fail', 'delivered', 'drawed'])->default('ordered');
+            $table->timestamp('payed_at');
             $table->timestamps();
         });
     }

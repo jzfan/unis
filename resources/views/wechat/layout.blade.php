@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>入口</title>
+	<title>
+		@yield('title', 'Uniserver')
+	</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="/css/wechat/mui.min.css" rel="stylesheet" />
 		<link href="/css/wechat/wechat.css" rel="stylesheet" />

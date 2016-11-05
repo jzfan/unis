@@ -11,6 +11,10 @@ use App\Unis\Order\Cart;
 
 class CartController extends Controller
 {
+    public function index()
+    {
+        return view('wechat.cart.index');
+    }
 
     public function show($user_id)
     {

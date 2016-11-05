@@ -10,19 +10,6 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/', 'Frontend\IndexController@index');
 
-//wechat
-Route::group(['prefix' => 'wechat', 'namespace'=>'Wechat', 'middleware' => 'wechat.oauth'], function () {
-	Route::any('/', 'WechatController@serve');
-	Route::get('/index', 'OrderController@index2');
-	Route::get('/order', 'OrderController@index');
-	Route::get('/my/order', 'OrderController@my');
-	// Route::post('/checkout', 'Frontend\\CheckoutController@wechat');
-	Route::resource('/food', 'FoodController');
-	Route::resource('/cart', 'CartController');
-	Route::get('/user', 'UserController@index');
-	Route::post('/user', 'UserController@store');
-});
-
 //admin
 Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'namespace' => 'Backend\Admin'], function () {
 	Route::get('/', 'AdminController@index');

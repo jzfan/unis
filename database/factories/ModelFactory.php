@@ -49,6 +49,8 @@ $city = $faker->city;
            'block' => $faker->streetName,
            'name' => $city . $faker->randomDigit . '大学',
            'address' => $faker->streetAddress,
+	'x'=>$faker->longitude,
+	'y'=>$faker->latitude,
           'status' => (string)mt_rand(0 ,1)
     ];
 });

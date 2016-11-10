@@ -9,11 +9,11 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 
 Route::get('/', 'Frontend\IndexController@index');
+Route::post('/upload/avatar', 'Backend\UploadController@avatar');
 
 //admin
 Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'namespace' => 'Backend\Admin'], function () {
 	Route::get('/', 'AdminController@index');
-	Route::post('upload/avatar', 'UploadController@avatar');
 	Route::resource('/member', 'MemberController');
 	Route::resource('/agent', 'AgentController', ['except'=>['create']]);
 	Route::resource('/suplier', 'SuplierController');

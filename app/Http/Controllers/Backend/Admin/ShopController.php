@@ -8,29 +8,35 @@ use App\Http\Requests\ShopRequest;
 use App\Http\Controllers\Controller;
 use App\Unis\Suplier\Shop;
 use App\Unis\School\Canteen;
+use App\DataTables\ShopDataTable;
 
 class ShopController extends Controller
 {
-    public function index()
+    // public function index()
+    // {
+    //     $shops = Shop::with('canteen.campus.school', 'suplier')->orderBy('id', 'desc')->paginate(config('site.perPage'));
+    //     return view('backend.admin.shop.index', compact('shops'));
+    // }    
+
+    public function index(ShopDataTable $dataTable)
     {
-    	$shops = Shop::with('canteen.campus.school', 'suplier')->orderBy('id', 'desc')->paginate(config('site.perPage'));
-    	return view('backend.shop.index', compact('shops'));
+    	return $dataTable->render('backend.admin.shop.index');
     }
 
     public function show($shop)
     {
         $shop = Shop::with('canteen.school')->where('id', $shop)->first();
-    	return view('backend.shop.show', compact('shop'));
+    	return view('backend.admin.shop.show', compact('shop'));
     }
 
     public function create(Request $request)
     {
         $suplier_id = $request->suplier_id;
         if ($suplier_id){
-            return view('backend.shop.createBySuplier', compact('suplier_id'));
+            return view('backend.admin.shop.createBySuplier', compact('suplier_id'));
         }
         $canteen = Canteen::with('campus.school')->find($request->canteen_id);
-        return view('backend.shop.createBySchool', compact('canteen'));
+        return view('backend.admin.shop.createBySchool', compact('canteen'));
     }
 
     public function store(ShopRequest $request)
@@ -49,7 +55,7 @@ class ShopController extends Controller
     public function edit($shop)
     {
         $shop = Shop::with('canteen.campus.school')->find($shop);
-        return view('backend.shop.edit', compact('shop'));
+        return view('backend.admin.shop.edit', compact('shop'));
     }
 
     public function update(ShopRequest $request, Shop $shop)

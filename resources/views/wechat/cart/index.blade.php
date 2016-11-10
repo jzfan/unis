@@ -20,9 +20,9 @@
                           </div>
                           <div class="w-menu-right">
                             <div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div>
-                            <div class="add-icon">
+                            <div class="add-icon-g">
 
-                          <div class="mui-numbox">
+                          <div class="mui-numbox" data-numbox-min='0'>
                               <!-- "-"按钮，点击可减小当前数值 -->
                             <button class="mui-btn mui-numbox-btn-minus" type="button"><span class="mui-icon iconfont jianhao107"></span></button>
                             <input class="mui-numbox-input" type="number" />
@@ -51,9 +51,8 @@
                           </div>
                           <div class="w-menu-right">
                             <div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div>
-                            <div class="add-icon">
-                          
-                          <div class="mui-numbox">
+                            <div class="add-icon-g">
+                          <div class="mui-numbox" data-numbox-min='0'>
                               <!-- "-"按钮，点击可减小当前数值 -->
                             <button class="mui-btn mui-numbox-btn-minus" type="button"><span class="mui-icon iconfont jianhao107"></span></button>
                             <input class="mui-numbox-input" type="number" />
@@ -78,18 +77,19 @@
 
               <ul class="menu-che mui-table-view">
                   <li class="mui-table-view-cell">配送地址：中南名族大学北校区学生公寓5B515</li>
-                  <li class="mui-table-view-cell">联系电话: 15586879654</li>
+                  <li class="mui-table-view-cell"><div>联系电话: <a href="tel:15586879654">15586879654</a></div></li>
                   <li class="mui-table-view-cell">联系姓名：毛毛</li>
               </ul>
 
-              <ul class="mui-table-view">
-                  <li class="mui-table-view-cell">预约时间：2016-10-24 11:48(默认送达时间) <span class="mui-icon "></span></li>
+              <ul class="app-time mui-table-view">
+                  <li class="mui-table-view-cell">预约时间：2016-10-24 11:48(默认送达时间) <span class="mui-icon iconfont youjiantou003 mui-pull-right"></span></li>
               </ul>
 
               <ul class="mui-table-view">
                   <li class="mui-table-view-cell"><button class="w-want-accept">购买</button></li>
               </ul>
             </div>
+
 
 
 @include('wechat.partial.buttomNav')

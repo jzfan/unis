@@ -22,6 +22,7 @@ class CreateFoodsTable extends Migration
             $table->string('description')->default('');
             $table->integer('price');
             $table->integer('discount')->default(0);
+            $table->integer('sold')->default(0);
             $table->integer('favorite')->unsigned()->default(0);
             $table->integer('recommend')->unsigned()->default(0);
             $table->enum('status', [0, 1])->default(0);

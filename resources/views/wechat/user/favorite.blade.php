@@ -7,13 +7,12 @@
 @section('content')
 		
 		    
-		        
 		        <div class="w-slider-group mui-slider-group">
 		        	<div id="item1mobile" class="mui-slider-item  mui-control-content mui-active">
 		        		<ul class="w-tab-view mui-table-view">
 						    <li class="mui-table-view-cell mui-media">
 						        <a href="javascript:;">
-						            <img class="mui-media-object mui-pull-left" src="/img/wechat/shuijiao.jpg">
+						            <img class="mui-media-object mui-pull-left" src="/img/wechat/xcr.png">
 						            <div class="w-box">
 						            	<div class="w-menu-left">
 						            		<p class="menu-name">农家小炒肉</p>
@@ -24,8 +23,8 @@
 						            		</p>
 						            	</div>
 						            	<div class="w-menu-right">
-						            		<div><span class="mui-icon iconfont icon-105dianzan"></span></div>
-						            		<div><span class="mui-icon iconfont icon-104dingwei"></span></div>
+						            		<div class="love-icon"><span class=""></span></div>
+						            		<div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div>
 						            	</div>
 						            </div>
 						          
@@ -34,19 +33,19 @@
 						    
 						    <li class="mui-table-view-cell mui-media">
 						        <a href="javascript:;">
-						            <img class="mui-media-object mui-pull-left" src="/img/wechat/shuijiao.jpg">
+						            <img class="mui-media-object mui-pull-left" src="/img/wechat/sls.png">
 						            <div class="w-box">
 						            	<div class="w-menu-left">
-						            		<p class="menu-name">农家小炒肉</p>
+						            		<p class="menu-name">酸辣土豆丝</p>
 						            		<small class="menu-address">教工食堂</small>
-						            		<p class="menu-number"><span>月售:12&nbsp;&nbsp;点赞:5</span></p>
+						            		<p class="menu-number"><span>月售:30&nbsp;&nbsp;点赞:9</span></p>
 						            		<p class="menu-footer">
 						            			<span class="vule-icon">￥</span><span class="vue-number">8</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:9元</span>
 						            		</p>
 						            	</div>
 						            	<div class="w-menu-right">
-						            		<div>1</div>
-						            		<div>2</div>
+						            		<div class="love-icon"><span class=""></span></div>
+						            		<div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div>
 						            	</div>
 						            </div>
 						          
@@ -55,10 +54,10 @@
 						    
 						    <li class="mui-table-view-cell mui-media">
 						        <a href="javascript:;">
-						            <img class="mui-media-object mui-pull-left" src="/img/wechat/shuijiao.jpg">
+						            <img class="mui-media-object mui-pull-left" src="/img/wechat/nds.png">
 						            <div class="w-box">
 						            	<div class="w-menu-left">
-						            		<p class="menu-name">农家小炒肉</p>
+						            		<p class="menu-name">爆炒牛肚丝</p>
 						            		<small class="menu-address">教工食堂</small>
 						            		<p class="menu-number"><span>月售:12&nbsp;&nbsp;点赞:5</span></p>
 						            		<p class="menu-footer">
@@ -66,8 +65,8 @@
 						            		</p>
 						            	</div>
 						            	<div class="w-menu-right">
-						            		<div>1</div>
-						            		<div>2</div>
+						            		<div class="love-icon"><span class=""></span></div>
+						            		<div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div>
 						            	</div>
 						            </div>
 						          
@@ -76,10 +75,10 @@
 						    
 						    <li class="mui-table-view-cell mui-media">
 						        <a href="javascript:;">
-						            <img class="mui-media-object mui-pull-left" src="/img/wechat/shuijiao.jpg">
+						            <img class="mui-media-object mui-pull-left" src="/img/wechat/ym.png">
 						            <div class="w-box">
 						            	<div class="w-menu-left">
-						            		<p class="menu-name">农家小炒肉</p>
+						            		<p class="menu-name">清炒玉米粒</p>
 						            		<small class="menu-address">教工食堂</small>
 						            		<p class="menu-number"><span>月售:12&nbsp;&nbsp;点赞:5</span></p>
 						            		<p class="menu-footer">
@@ -87,40 +86,17 @@
 						            		</p>
 						            	</div>
 						            	<div class="w-menu-right">
-						            		<div>1</div>
-						            		<div>2</div>
-						            	</div>
-						            </div>
-						          
-						        </a>
-						    </li>
-
-						    <li class="mui-table-view-cell mui-media">
-						        <a href="javascript:;">
-						            <img class="mui-media-object mui-pull-left" src="/img/wechat/shuijiao.jpg">
-						            <div class="w-box">
-						            	<div class="w-menu-left">
-						            		<p class="menu-name">农家小炒肉</p>
-						            		<small class="menu-address">教工食堂</small>
-						            		<p class="menu-number"><span>月售:12&nbsp;&nbsp;点赞:5</span></p>
-						            		<p class="menu-footer">
-						            			<span class="vule-icon">￥</span><span class="vue-number">8</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:9元</span>
-						            		</p>
-						            	</div>
-						            	<div class="w-menu-right">
-						            		<div>1</div>
-						            		<div>2</div>
+						            		<div class="love-icon"><span class=""></span></div>
+						            		<div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div>
 						            	</div>
 						            </div>
 						          
 						        </a>
 						    </li>
 
-						    
-						    
 						    <li class="mui-table-view-cell mui-media">
 						        <a href="javascript:;">
-						            <img class="mui-media-object mui-pull-left" src="/img/wechat/shuijiao.jpg">
+						            <img class="mui-media-object mui-pull-left" src="/img/wechat/xcr.png">
 						            <div class="w-box">
 						            	<div class="w-menu-left">
 						            		<p class="menu-name">农家小炒肉</p>
@@ -131,8 +107,31 @@
 						            		</p>
 						            	</div>
 						            	<div class="w-menu-right">
-						            		<div>1</div>
-						            		<div>2</div>
+						            		<div class="love-icon"><span class=""></span></div>
+						            		<div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div>
+						            	</div>
+						            </div>
+						          
+						        </a>
+						    </li>
+
+						    
+						    
+						    <li class="mui-table-view-cell mui-media">
+						        <a href="javascript:;">
+						            <img class="mui-media-object mui-pull-left" src="/img/wechat/sls.png">
+						            <div class="w-box">
+						            	<div class="w-menu-left">
+						            		<p class="menu-name">酸辣土豆丝</p>
+						            		<small class="menu-address">教工食堂</small>
+						            		<p class="menu-number"><span>月售:12&nbsp;&nbsp;点赞:5</span></p>
+						            		<p class="menu-footer">
+						            			<span class="vule-icon">￥</span><span class="vue-number">8</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:9元</span>
+						            		</p>
+						            	</div>
+						            	<div class="w-menu-right">
+						            		<div class="love-icon"><span class=""></span></div>
+						            		<div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div>
 						            	</div>
 						            </div>
 						          

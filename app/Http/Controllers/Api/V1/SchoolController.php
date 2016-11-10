@@ -16,6 +16,11 @@ class SchoolController extends Controller
     	return $schools;
     }
 
+    public function indexDt()
+    {
+        $schools = School::all()->toArray();
+        return $schools;
+    }
     // public function index2(Request $request)
     // {
     // 	$region = $request->input('region');

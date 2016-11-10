@@ -7,23 +7,60 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Unis\User\User;
+use App\DataTables\MemberDataTable;
 
 class MemberController extends Controller
 {
-	public function index()
+	// public function index()
+	// {
+	// 	$members = User::with('address', 'room.dorm.school')->where('role', 'member')->orderBy('id', 'desc')->paginate(config('site.perPage'));
+	// 	return view('backend.admin.member.index', compact('members'));
+	// }
+
+	public function index(MemberDataTable $dataTable)
 	{
-		$members = User::with('address', 'room.dorm.school')->where('role', 'member')->orderBy('id', 'desc')->paginate(config('site.perPage'));
-		return view('backend.member.index', compact('members'));
+		return $dataTable->render('backend.admin.member.index');
 	}
 
 	public function edit(User $member)
 	{
-		return view('backend.member.edit', compact('member'));
+		return view('backend.admin.member.edit', compact('member'));
 	}
 
 	public function show($member)
 	{
-		$member = User::with('favorites', 'recommends')->where('id', $member)->first();
-		return view('backend.member.show', compact('member'));
+		$member = User::with('favorites', 'recommends')->find($member);
+		return view('backend.admin.member.show', compact('member'));
 	}
+
+
+    public function store(Request $request)
+    {
+    	$input = $request->input('id_or_name');
+    	$map = is_numeric($input) ? 'id' : 'name';
+    	User::where($map, $input)->update([
+    			'role' => 'member'
+    		]);
+    	return redirect()->back()->with('success', '添加成功！');
+    }
+
+    public function destroy(User $member)
+    {
+    	$member->role = 'member';
+    	$member->save();
+    	// $member->update(['role' => 'member']);
+    	return redirect()->back()->with('success', '删除成功!');    	
+    }
+
+    public function update(User $member, Request $request)
+    {
+        $input = $request->input();
+        if (empty($input['password'])){
+            unset($input['password']);
+        }else{
+            $input['password']= bcrypt(123123);
+        }
+        $member->update($input);
+        return redirect('/admin/member')->with('success', '更新成功！');
+    }
 }

@@ -10,15 +10,21 @@ use App\Unis\User\User;
 
 class AgentController extends Controller
 {
+
     public function index()
     {
     	$agents = User::with('address')->where('role', 'agent')->paginate(config('site.pageSize'));
-    	return view('backend.agent.index', compact('agents'));
+    	return view('backend.admin.agent.index', compact('agents'));
     }
 
     public function show(User $agent)
     {
-        return view('backend.agent.show', compact('agent'));
+        return view('backend.admin.agent.show', compact('agent'));
+    }
+
+    public function edit(User $agent)
+    {
+        return view('backend.admin.agent.edit', compact('agent'));
     }
 
     public function store(Request $request)
@@ -37,5 +43,17 @@ class AgentController extends Controller
     	$agent->save();
     	// $agent->update(['role' => 'member']);
     	return redirect()->back()->with('success', '删除成功!');    	
+    }
+
+    public function update(User $agent, Request $request)
+    {
+        $input = $request->input();
+        if (empty($input['password'])){
+            unset($input['password']);
+        }else{
+            $input['password']= bcrypt(123123);
+        }
+        $agent->update($input);
+        return redirect('/admin/agent')->with('success', '更新成功！');
     }
 }

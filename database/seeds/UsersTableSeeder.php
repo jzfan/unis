@@ -35,6 +35,6 @@ class UsersTableSeeder extends Seeder
             'status' => 1,
             'room_id' =>2
         	]);
-        factory(User::class, 15)->create();      
+        factory(User::class, 1000)->create();      
     }
 }

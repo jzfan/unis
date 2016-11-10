@@ -16,15 +16,16 @@ class UserController extends Controller
     // 	return $users;
     // }
 
-    // public function store(WechatUserRequest $request)
-    // {
-    // 	dd($request->input());
-    // }
+    public function store(WechatUserRequest $request)
+    {
+    	dd($request->input());
+    }
 
     public function show()
     {
     	return view('wechat.user.profile');
     }
+
 
     public function favorite()
     {

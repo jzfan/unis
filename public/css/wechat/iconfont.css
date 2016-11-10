@@ -1,0 +1,72 @@
+
+@font-face {font-family: "iconfont";
+  src:url('/fonts/wechat/iconfont.ttf') format('truetype'); /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  src: url('/fonts/wechat/iconfont.eot'); /* IE9*/
+  src: url('/fonts/wechat/iconfont.eot') format('embedded-opentype'), /* IE6-IE8 */
+  url('/fonts/wechat/iconfont.woff') format('woff'), /* chrome, firefox */
+  url('/fonts/wechat/iconfont.svg') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.bianji504:before { content: "\e61d"; }
+
+.caidanlan101:before { content: "\e61e"; }
+
+.dianzan105:before { content: "\e61f"; }
+
+.dianzan106:before { content: "\e620"; }
+
+.dingdan111:before { content: "\e621"; }
+
+.dingwei104:before { content: "\e622"; }
+
+.dizhi414:before { content: "\e623"; }
+
+.duigou506:before { content: "\e624"; }
+
+.fankui416:before { content: "\e625"; }
+
+.gerenzhongxin113:before { content: "\e626"; }
+
+.gouwuche112:before { content: "\e627"; }
+
+.guanyu417:before { content: "\e628"; }
+
+.jiahao108:before { content: "\e629"; }
+
+.jianhao107:before { content: "\e62a"; }
+
+.shanchu505:before { content: "\e62b"; }
+
+.shezhi401:before { content: "\e62c"; }
+
+.shouye110:before { content: "\e62d"; }
+
+.xiajiantou002:before { content: "\e62e"; }
+
+.xiaoxi415:before { content: "\e62f"; }
+
+.xuangerenzhongxin204:before { content: "\e631"; }
+
+.xuangouwuche203:before { content: "\e632"; }
+
+.xuanshouye201:before { content: "\e633"; }
+
+.youjiantou003:before { content: "\e634"; }
+
+.yue412:before { content: "\e635"; }
+
+.wodedingdan411:before { content: "\e636"; }
+
+.wodeshoucang413:before { content: "\e637"; }
+
+.zhinanzhen503:before { content: "\e638"; }
+

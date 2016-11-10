@@ -48,7 +48,7 @@ class User extends Authenticatable
 
     public function favorites()
     {
-        return $this->belongsToMany(Food::class, 'favorites');
+        return $this->belongsToMany(Food::class, 'favorites', 'user_id', 'food_id');
     }
 
     public function recommends()
@@ -59,6 +59,14 @@ class User extends Authenticatable
     public function room()
     {
         return $this->belongsTo(Room::class);
+    }
+
+    public function getAvatarAttribute($value)
+    {
+        if (starts_with($value, 'http')){
+            return $value;
+        } 
+        return config('site.avatarPath') . $value;
     }
 
 }

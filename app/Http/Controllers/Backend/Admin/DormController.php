@@ -7,21 +7,27 @@ use Illuminate\Http\Request;
 use App\Http\Requests\DormRequest;
 use App\Http\Controllers\Controller;
 use App\Unis\School\Dorm;
+use App\DataTables\DormDataTable;
 
 class DormController extends Controller
 {
-    public function index()
+    // public function index()
+    // {
+    // 	$dorms = Dorm::with('campus.school')->with(['rooms'=>function($q){
+    //         $q->withCount('users');
+    //     }])->withCount('users')->orderBy('campus_id', 'desc')->paginate(config('site.perPage'));
+    // 	return view('backend.admin.dorm.index', compact('dorms'));
+    // }
+
+    public function index(DormDataTable $dataTable)
     {
-    	$dorms = Dorm::with('campus.school')->with(['rooms'=>function($q){
-            $q->withCount('users');
-        }])->withCount('users')->orderBy('campus_id', 'desc')->paginate(config('site.perPage'));
-    	return view('backend.dorm.index', compact('dorms'));
+        return $dataTable->render('backend.admin.dorm.index');
     }
 
     public function show($dorm)
     {
     	$dorm = Dorm::with('campus.school')->find($dorm)->first();
-    	return view('backend.dorm.show', compact('dorm'));
+    	return view('backend.admin.dorm.show', compact('dorm'));
     }
 
     public function destroy(Dorm $dorm)
@@ -39,7 +45,7 @@ class DormController extends Controller
     public function edit($dorm)
     {
         $dorm = Dorm::with('campus')->find($dorm);
-        return view('backend.dorm.edit', compact('dorm'));
+        return view('backend.admin.dorm.edit', compact('dorm'));
     }
 
     public function update(DormRequest $request, Dorm $dorm)

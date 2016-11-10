@@ -20,11 +20,13 @@ class FoodsTableSeeder extends Seeder
         	Food::create([
 	            'shop_id' => mt_rand(1, $shop_count),
                 'name' => $faker->word . '食品',
-	            'img' => $faker->imageUrl(100, 70),
+	            'img' => $faker->imageUrl(50, 50),
 	            'description' => $faker->text,
 	            'price' => $faker->numberBetween(4, 60) / 2,
-	            'favorite' => mt_rand(1, 555),
-	            'recommend' => mt_rand(1, 555),
+                'discount' => $faker->numberBetween(1, 5) * 10,
+                'sold' => $faker->numberBetween(0, 200),
+	            'favorite' => mt_rand(1, 100),
+	            'recommend' => mt_rand(1, 100),
 	            'status' => (string)mt_rand(0 ,1)
         	]);
         }

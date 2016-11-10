@@ -17,7 +17,7 @@ class RoomSeeder extends Seeder
         $dorms = Dorm::select('id')->get();
 
         foreach ($dorms as $dorm) {
-        	foreach (range(20, 60) as $index) {
+        	foreach (range(2, 4) as $index) {
         		Room::create([
         			'dorm_id' => $dorm->id,
         			'number' => $index

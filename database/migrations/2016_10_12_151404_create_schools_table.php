@@ -20,6 +20,8 @@ class CreateSchoolsTable extends Migration
             $table->string('city');
             $table->string('block');
             $table->string('address');
+            $table->integer('x');
+            $table->integer('y');
             $table->enum('status', [0, 1]);
             $table->timestamps();
         });

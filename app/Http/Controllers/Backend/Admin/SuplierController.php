@@ -12,8 +12,9 @@ class SuplierController extends Controller
 {
     public function index()
     {
-    	$supliers = Suplier::orderBy('id', 'desc')->paginate(config('site.perPage'));
-    	return view('backend.suplier.index', compact('supliers'));
+    	// $supliers = Suplier::orderBy('id', 'desc')->paginate(config('site.perPage'));
+        // return view('backend.admin.suplier.index', compact('supliers'));
+    	return view('backend.admin.suplier.index');
     }
 
     public function show($suplier)
@@ -22,13 +23,13 @@ class SuplierController extends Controller
 
     	// dd($suplier->shops[0]->school->name);
 
-    	return view('backend.suplier.show', compact('suplier'));
+    	return view('backend.admin.suplier.show', compact('suplier'));
     	
     }
 
     public function create()
     {
-    	return view('backend.suplier.create');
+    	return view('backend.admin.suplier.create');
     }
 
     public function store(SuplierRequest $request)
@@ -39,7 +40,7 @@ class SuplierController extends Controller
 
     public function edit(Suplier $suplier)
     {
-    	return view('backend.suplier.edit', compact('suplier'));
+    	return view('backend.admin.suplier.edit', compact('suplier'));
     }
 
     public function update(Suplier $suplier, SuplierRequest $request)
@@ -51,6 +52,9 @@ class SuplierController extends Controller
 
     public function destroy(Suplier $suplier)
     {
+        if ($suplier->shops->count() > 0){
+            return redirect()->back()->with('failed', '还有店面存在，不能删除！');
+        }
     	$suplier->delete();
     	return redirect()->back()->with('success', '删除成功!');
     }

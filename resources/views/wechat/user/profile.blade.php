@@ -5,49 +5,62 @@
 @stop
 
 @section('content')
+
 		<section class="w-self-top">
 			<div class="self-img"><img src="/img/wechat/person.png" alt=""></div>
-			<div class="sign-in"><a href="">登陆</a>/<a href="">注册</a></div>
+			<div class="sign-in"><a href="">好久不见</a></div>
 			<div class="cash-main-left">
-				<p class="cash-num"><span></span>256</p>
+				<p class="yue cash-num">256</p>
 				<p class="cash-leave">当前余额</p>
 			</div>
 		</section>
 		<section class="w-self-main">
 			<ul class="mui-table-view">
 			    <li class="mui-table-view-cell">
-			    	<a href="/wechat/order" class="mui-navigate-right">我的订单</a>
-			    	<span class="person-ico mui-icon iconfont dingdan111"></span>
+			    	<span class="person-ico mui-icon iconfont wodedingdan411"></span>
+			    	<a href="/wechat/order" class="mui-navigate-right">我的订单</a>	    	
 			    </li>
 			</ul>
 
 			<ul class="mui-table-view" style="margin-top:20px;">
-			    <li class="mui-table-view-cell"><a href="/wechat/balance" class="mui-navigate-right">我的余额</a>
+			    <li class="mui-table-view-cell">
+			    	<span class="person-ico mui-icon iconfont yue412"></span>
+			    	<a href="/wechat/balance" class="mui-navigate-right">我的余额</a>
 			    </li>
 			</ul>
 
 			<ul class="mui-table-view" style="margin-top:20px;">
-			    <li class="mui-table-view-cell"><a href="/wechat/favorite" class="mui-navigate-right">我的收藏</a>
+			    <li class="mui-table-view-cell">
+			    	<span class="person-ico mui-icon iconfont wodeshoucang413"></span>
+			    	<a href="/wechat/favorite" class="mui-navigate-right">我的收藏</a>
 			    </li>
 			</ul>
 
 			<ul class="mui-table-view" style="margin-top:20px;">
-			    <li class="mui-table-view-cell"><a href="/wechat/address" class="mui-navigate-right">我的地址</a>
+			    <li class="mui-table-view-cell">
+			    	<span class="person-ico mui-icon iconfont dizhi414"></span>
+			    	<a href="/wechat/address" class="mui-navigate-right">我的地址</a>
 			    </li>
 			</ul>
 
 			<ul class="mui-table-view" style="margin-top:20px;">
-			    <li class="mui-table-view-cell"><a href="/wechat/message" class="mui-navigate-right">我的消息</a>
+			    <li class="mui-table-view-cell">
+				    <span class="person-ico mui-icon iconfont xiaoxi415"></span>
+				    <a href="/wechat/message" class="mui-navigate-right">我的消息</a>
 			    </li>
 			</ul>
 
 			<ul class="mui-table-view" style="margin-top:20px;">
-			    <li class="mui-table-view-cell"><a href="/wechat/report" class="mui-navigate-right">意见反馈</a>
+			    <li class="mui-table-view-cell">
+				    <span class="person-ico mui-icon iconfont fankui416"></span>
+				    <a href="/wechat/report" class="mui-navigate-right">意见反馈</a>
 			    </li>
 			</ul>
 
 			<ul class="mui-table-view" style="margin-top:20px;">
-			    <li class="mui-table-view-cell"><a href="/wechat/about" class="mui-navigate-right">关于我们</a>
+			    <li class="mui-table-view-cell">
+				    <span class="person-ico mui-icon iconfont guanyu417"></span>
+				    <a href="/wechat/about" class="mui-navigate-right">关于我们</a>
 			    </li>
 			</ul>
 

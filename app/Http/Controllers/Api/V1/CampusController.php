@@ -11,8 +11,10 @@ use Illuminate\Support\Facades\Input;
 
 class CampusController extends Controller
 {
-    public function index($limit, $page)
+    public function indexForSelect2(Request $request)
     {
+        $limit = $request->limit ? : config('site.perPage');
+        $page  = $request->page ? : 1;
     	Input::merge(["page" => $page]);
 		$campuses = Campus::select('id', 'name as text')->simplePaginate($limit)->toArray();    	
     	return $campuses;

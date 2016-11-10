@@ -10,9 +10,15 @@ use App\Unis\Suplier\Suplier;
 
 class SuplierController extends Controller
 {
-    public function index()
+    public function indexForSelect2()
     {
 		$supliers = Suplier::select('id', 'company as text')->get()->toArray();    	
+    	return $supliers;
+    }
+
+    public function index()
+    {
+    	$supliers = Suplier::orderBy('id', 'desc')->get()->toArray();
     	return $supliers;
     }
 }

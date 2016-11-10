@@ -13,6 +13,7 @@ Route::group(['middleware'=>['web', 'wechat.oauth']], function () {
 	Route::get('/order', 'OrderController@index');
 	Route::get('/order/edit', 'OrderController@edit');
 	Route::get('/cart', 'CartController@index');
+	Route::post('/user', 'UserController@store');
 	Route::get('/profile', 'UserController@show');
 	Route::get('/address', 'UserController@address');
 	Route::get('/favorite', 'UserController@favorite');

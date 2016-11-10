@@ -181,6 +181,8 @@ return [
         Dingo\Api\Provider\LaravelServiceProvider::class,
         Overtrue\LaravelWechat\ServiceProvider::class,
 
+        Yajra\Datatables\DatatablesServiceProvider::class,
+
     ],
 
     /*

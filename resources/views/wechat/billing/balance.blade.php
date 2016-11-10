@@ -13,38 +13,78 @@
 		</section>
 		<section class="w-cash-aaa w-self-main">
 			<ul class="mui-table-view">
-			    <li class="mui-table-view-cell">订单编号：8546974125412475<span class="my-song mui-pull-right">+34.5元</span></li>
-			    <li class="mui-table-view-cell">下单时间：2016-10-17 11:48<span class="my-song mui-pull-right">已付款</span></li>
+			    <li class="mui-table-view-cell">
+					<div class="mui-slider-right mui-disabled">
+					<span class="mui-btn mui-btn-red">删除</span>
+					</div>
+					<div class="mui-slider-handle">
+						<div>订单编号：8546974125412475<span class="my-song mui-pull-right">+34.5元</span></div>
+						<div class="right-del">下单时间：2016-10-17 11:48<span class="my-song mui-pull-right">已完成</span></div>
+					</div>
+				</li>
 			</ul>
 
 			<ul class="mui-table-view">
-			    <li class="mui-table-view-cell">订单编号：8546974125412475<span class="my-song mui-pull-right">+34.5元</span></li>
-			    <li class="mui-table-view-cell">下单时间：2016-10-17 11:48<span class="my-song mui-pull-right">待确认</span></li>
+			    <li class="mui-table-view-cell">
+					<div class="mui-slider-right mui-disabled">
+					<span class="mui-btn mui-btn-red">删除</span>
+					</div>
+					<div class="mui-slider-handle">
+						<div>订单编号：8546974125412475<span class="my-song mui-pull-right">+34.5元</span></div>
+						<div class="right-del">下单时间：2016-10-17 11:48<span class="my-song mui-pull-right">已完成</span></div>
+					</div>
+				</li>
 			</ul>
 
 			<ul class="mui-table-view">
-			    <li class="mui-table-view-cell">订单编号：8546974125412475<span class="my-song mui-pull-right">+34.5元</span></li>
-			    <li class="mui-table-view-cell">下单时间：2016-10-17 11:48<span class="my-song mui-pull-right">已付款</span></li>
+			    <li class="mui-table-view-cell">
+					<div class="mui-slider-right mui-disabled">
+					<span class="mui-btn mui-btn-red">删除</span>
+					</div>
+					<div class="mui-slider-handle">
+						<div>订单编号：8546974125412475<span class="my-song mui-pull-right">+34.5元</span></div>
+						<div class="right-del">下单时间：2016-10-17 11:48<span class="my-song mui-pull-right">已完成</span></div>
+					</div>
+				</li>
 			</ul>
 
 			<ul class="mui-table-view">
-			    <li class="mui-table-view-cell">订单编号：8546974125412475<span class="my-song mui-pull-right">+34.5元</span></li>
-			    <li class="mui-table-view-cell">下单时间：2016-10-17 11:48<span class="my-song mui-pull-right">已付款</span></li>
+			    <li class="mui-table-view-cell">
+					<div class="mui-slider-right mui-disabled">
+					<span class="mui-btn mui-btn-red">删除</span>
+					</div>
+					<div class="mui-slider-handle">
+						<div>订单编号：8546974125412475<span class="my-song mui-pull-right">+34.5元</span></div>
+						<div class="right-del">下单时间：2016-10-17 11:48<span class="my-song mui-pull-right">已完成</span></div>
+					</div>
+				</li>
 			</ul>
 
 			<ul class="mui-table-view">
-			    <li class="mui-table-view-cell">订单编号：8546974125412475<span class="my-song mui-pull-right">+34.5元</span></li>
-			    <li class="mui-table-view-cell">下单时间：2016-10-17 11:48<span class="my-song mui-pull-right">已完成</span></li>
+			    <li class="mui-table-view-cell">
+					<div class="mui-slider-right mui-disabled">
+					<span class="mui-btn mui-btn-red">删除</span>
+					</div>
+					<div class="mui-slider-handle">
+						<div>订单编号：8546974125412475<span class="my-song mui-pull-right">+34.5元</span></div>
+						<div class="right-del">下单时间：2016-10-17 11:48<span class="my-song mui-pull-right">已完成</span></div>
+					</div>
+				</li>
 			</ul>
 
-			<ul class="mui-table-view">
-			    <li class="mui-table-view-cell">订单编号：8546974125412475<span class="my-song mui-pull-right">+34.5元</span></li>
-			    <li class="mui-table-view-cell">下单时间：2016-10-17 11:48<span class="my-song mui-pull-right">已完成</span></li>
+			<ul class="mui-table-view mui-slider-handle">
+			    <li class="mui-table-view-cell">
+					<div class="mui-slider-right mui-disabled">
+					<span class="mui-btn mui-btn-red">删除</span>
+					</div>
+					<div class="mui-slider-handle">
+						<div>订单编号：8546974125412475<span class="my-song mui-pull-right">+34.5元</span></div>
+						<div class="right-del">下单时间：2016-10-17 11:48<span class="my-song mui-pull-right">已完成</span></div>
+					</div>
+				</li>
 			</ul>
 
 		</section>
-
-	</body>
 @stop
 
 @section('js')

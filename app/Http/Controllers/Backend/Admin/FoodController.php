@@ -8,24 +8,30 @@ use App\Http\Requests\FoodRequest;
 use App\Http\Controllers\Controller;
 use App\Unis\Suplier\Food;
 use App\Unis\Suplier\Shop;
+use App\DataTables\FoodDataTable;
 
 class FoodController extends Controller
 {
-    public function index()
+    // public function index()
+    // {
+    // 	$foods = Food::with('shop')->orderBy('id', 'desc')->paginate(config('site.perPerge'));
+    // 	return view('backend.admin.food.index', compact('foods'));
+    // }
+
+    public function index(FoodDataTable $dataTable)
     {
-    	$foods = Food::with('shop')->orderBy('id', 'desc')->paginate(config('site.perPerge'));
-    	return view('backend.food.index', compact('foods'));
+        return $dataTable->render('backend.admin.food.index');
     }
 
     public function show(Food $food)
     {
-    	return view('backend.food.show', compact('food'));
+    	return view('backend.admin.food.show', compact('food'));
     }
 
     public function edit(Food $food)
     {
     	// dd($food);
-    	return view('backend.food.edit', compact('food'));
+    	return view('backend.admin.food.edit', compact('food'));
     }
 
     public function update(FoodRequest $request, Food $food)
@@ -43,7 +49,7 @@ class FoodController extends Controller
     public function create(Request $request)
     {
         $shop = Shop::select('id', 'name')->where('id', $request->input('shop_id'))->first();
-        return view('backend.food.create', compact('shop'));
+        return view('backend.admin.food.create', compact('shop'));
     }
 
     public function store(Request $request)

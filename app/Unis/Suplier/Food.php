@@ -20,4 +20,12 @@ class Food extends Model
     	return $this->belongsTo(Shop::class);
     }
 
+    public function getTypeAttribute($value)
+    {
+    	if ($value == null){
+    		$value = '';
+    	}
+    	return $value;
+    }
+
 }

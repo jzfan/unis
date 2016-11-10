@@ -19,8 +19,8 @@
 							</ul>
 
 							<ul class="menu-tab mui-table-view">
-							    <li class="mui-table-view-cell">订单编号：8546974125412475 <span class="w-hold mui-pull-right">待接单</span></li>
-							    <li class="mui-table-view-cell">联系电话: 15586879654</li>
+							    <li class="mui-table-view-cell">订单编号：8546974125412475 <span class="w-hold mui-pull-right">已配送</span></li>
+							    <li class="mui-table-view-cell"><div class="teleShow">联系电话: <a href="tel:15586879654">15586879654</a></div></li>
 							    <li class="mui-table-view-cell">联系姓名：毛毛</li>
 							    <li class="mui-table-view-cell">配送地址：中南名族大学北校区学生公寓5B515</li>
 							</ul>
@@ -44,7 +44,7 @@
 
 							<ul class="menu-tab mui-table-view">
 							    <li class="mui-table-view-cell">订单编号：8546974125412475 <span class="w-hold mui-pull-right">配送中</span></li>
-							    <li class="mui-table-view-cell">联系电话: 15586879654</li>
+							    <li class="mui-table-view-cell"><div class="teleShow">联系电话: <a href="tel:15586879654">15586879654</a></div></li>
 							    <li class="mui-table-view-cell">联系姓名：毛毛</li>
 							    <li class="mui-table-view-cell">配送地址：中南名族大学北校区学生公寓5B515</li>
 							</ul>
@@ -67,7 +67,7 @@
 
 							<ul class="menu-tab mui-table-view">
 							    <li class="mui-table-view-cell">订单编号：8546974125412475 <span class="w-hold mui-pull-right">已配送</span></li>
-							    <li class="mui-table-view-cell">联系电话: 15586879654</li>
+							    <li class="mui-table-view-cell"><div class="teleShow">联系电话: <a href="tel:15586879654">15586879654</a></div></li>
 							    <li class="mui-table-view-cell">联系姓名：毛毛</li>
 							    <li class="mui-table-view-cell">配送地址：中南名族大学北校区学生公寓5B515</li>
 							</ul>
@@ -77,7 +77,7 @@
 							</ul>
 
 							<ul class="mui-table-view">
-							    <li class="mui-table-view-cell"><button class="w-want-accept">等待确认</button></li>
+							    <li class="mui-table-view-cell"><button class="w-want-accept mui-disabled">等待确认</button></li>
 							</ul>
 						</div>
 

@@ -14,7 +14,6 @@ class IndexController extends Controller
     public function index(Request $request)
     {
     	if (!session('registered')){
-    		session(['target_url'=>'wechat/order']);
     		return view('wechat.user.register');
     	}
     	return view('wechat.order.index');

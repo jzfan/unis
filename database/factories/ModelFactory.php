@@ -14,7 +14,6 @@ use Lvht\GeoHash;
 
 $factory->define(App\Unis\User\User::class, function (Faker\Generator $faker) {
     static $password;
-$faker = Faker\Factory::create('zh_CN');
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
@@ -22,7 +21,7 @@ $faker = Faker\Factory::create('zh_CN');
         'avatar' => $faker->imageUrl(100, 100),
         'remember_token' => str_random(10),
         'status' => (string)mt_rand(0 ,1),
-        'room_id' => mt_rand(1, 500)
+        'room_id' => mt_rand(1, 200)
     ];
 });
 

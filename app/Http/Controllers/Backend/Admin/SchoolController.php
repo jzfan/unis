@@ -14,18 +14,18 @@ class SchoolController extends Controller
     public function index()
     {
     	$schools = School::orderBy('id', 'desc')->paginate(config('site.perPage'));
-    	return view('backend.school.index', compact('schools'));
+    	return view('backend.admin.school.index', compact('schools'));
     }
 
     public function show($school)
     {
         $school = School::with('campuses')->find($school);
-    	return view('backend.school.show', compact('school'));
+    	return view('backend.admin.school.show', compact('school'));
     }
 
     public function create()
     {
-    	return view('backend.school.create');
+    	return view('backend.admin.school.create');
     }
 
     public function store(SchoolRequest $request)
@@ -38,7 +38,7 @@ class SchoolController extends Controller
     public function edit(School $school)
     {
     	$region = implode('/', [$school->province, $school->city, $school->block]);
-    	return view('backend.school.edit', compact('school', 'region'));
+    	return view('backend.admin.school.edit', compact('school', 'region'));
     }
 
     public function update(School $school, SchoolRequest $request)
@@ -50,6 +50,9 @@ class SchoolController extends Controller
 
     public function destroy(School $school)
     {
+        if ($school->campuses->count() > 0){
+            return redirect()->back()->with('failed', '还有校区存在，不能删除！');
+        }
     	$school->delete();
     	return redirect()->back()->with('success', '删除成功！');
     }

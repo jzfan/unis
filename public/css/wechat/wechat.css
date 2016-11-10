@@ -3,6 +3,16 @@
  * 在实际项目开发时，建议为App单独写一个css文件，从而实现项目的自定义皮肤功能；
  * 
  * */
+ .canvas-main .mui-off-canvas-left{
+	width: 62%!important;
+	color: #fff;
+	font-family: "微软雅黑";
+/*	box-shadow: 10px 0px 40px rgba(0,0,0,0.6); */
+	background: -webkit-linear-gradient(0deg,#ff4d4d, #fc7373); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(0deg,#ff4d4d, #fc7373); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(0deg,#ff4d4d, #fc7373); /* Firefox 3.6 - 15 */
+    background: linear-gradient(0deg,#ff4d4d, #fc7373); /* 标准的语法（必须放在最后） */
+ }
 .mui-plus.mui-android header.mui-bar{
 	display: none;
 }
@@ -30,7 +40,11 @@
     background: -moz-linear-gradient(0deg,#ff4d4d, #fc7373); /* Firefox 3.6 - 15 */
     background: linear-gradient(0deg,#ff4d4d, #fc7373); /* 标准的语法（必须放在最后） */
 }
-
+/* 提示消息 */
+body .layui-m-layer .layui-m-layer-msg{
+	bottom: -50px!important;
+	font-family: "微软雅黑";
+}
 .w-classify{
 	font-size: 25px;
 	font-weight: 500;
@@ -72,16 +86,17 @@
 	font-family: "微软雅黑";
 	font-size: 16px;
 	background-color: #fff;
+	border-bottom: 1px solid #ccc!important;
 }
 .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{
 	color:#ff4b4b;
 	border-bottom:2px solid #ff4b4b!important;
 }
-.w-tab-view .mui-table-view-cell a{
-	height: 10.8rem;
+.w-tab-view{
+	margin-top: 4px;
 }
 
-.w-tab-view .mui-table-view-cell a img{
+.w-tab-view .mui-table-view-cell .mui-media-object{
 	height: 9rem;
 	width: 8.5rem;
 }
@@ -128,6 +143,11 @@
 	width: 100%;
 	top: 44px;
 	box-shadow: none;
+}
+.w-popover .mui-table-view-cell{
+	font-family: "微软雅黑";
+	font-size: 14px;
+	color: #585858;
 }
 .mui-backdrop{
 	top:17rem;
@@ -275,12 +295,18 @@
 .w-respone-textarea textarea{
 	font-family: '微软雅黑';
 	font-size: 13px;
-	color: #bcbcbc;
+	color: #585858;
 	height: 20rem;
 }
 .w-respone-btn{
 	width: 40%;
 	margin-left: 30%;
+	font-family:'微软雅黑';
+	font-size: 16px;
+	color: #585858;
+	height: 4rem;
+	line-height: 4rem;
+	padding:0;
 }
 .w-xian{
 	display: inline-block;
@@ -319,4 +345,424 @@
 .w-card-time{
 	font-size: 12px;
 	color: #8c8c8c;
+}
+.w-address-save{
+	color: #fff;
+	font-family: '微软雅黑';
+	font-size: 12px;
+	border-bottom: 1px solid #fff;
+	line-height: 16px;
+	margin-top: 1.5rem;
+	margin-right:1.8rem;
+	position: relative;
+	z-index: 100;
+}
+.w-address-check{
+	height: 4.5rem;
+	background-color: #fe4e4c;
+	padding: 0 3.5rem;
+}
+.w-address-wrap{
+	background-color: rgba(0,0,0,0.2);
+	border-radius: 3px;
+	line-height: 3rem;
+}
+
+.w-address-wrap .mui-input-row label{
+	width: 20%;
+	height: 3rem;
+	padding: 0;
+	font-size: 15px;
+	text-indent:1.5rem;
+	line-height: 3rem;
+	color: #fff;
+	font-family: '微软雅黑';
+}
+.w-address-wrap .w-address-input{
+	width: 70%!important;
+	color: #fff!important;
+	height: 3rem;
+}
+.w-address-check .mui-input-group .mui-input-row{
+	height: 3rem;
+}
+.present-location{
+	height: 4.5rem;
+	background-color: #fff;
+	color:#fe4e4c;
+	line-height: 4.5rem;
+	text-align:center;
+	font-family: "微软雅黑";
+	font-size: 15px;
+}
+.present-address-all{
+	height: 3rem;
+	background-color: #fe4e4c;
+	line-height: 3rem;
+	color: #fff;
+	font-family: '微软雅黑';
+	font-size: 15px;
+	padding: 0 2rem;
+}
+.w-location-group .mui-table-view-cell{
+	height: 4.5rem;
+	line-height: 4.5rem;
+	font-family: '微软雅黑';
+	color: #585858;
+	font-size: 16px;
+	padding: 0 0 0 2rem; 
+}
+.cash-flow{
+	margin-top: 1.5rem;
+	margin-left: 2rem;
+	color: #8e8e8e;
+	font-size: 14px;
+	font-family: '微软雅黑';
+}
+.w-content-cash .mui-table-view{
+	margin-top:8px;
+	font-size: 14px;
+	font-family: "微软雅黑";
+	color: #585858;
+}
+.w-finshed-menu .mui-table-view{
+	font-family: '微软雅黑';
+	color: #585858;
+	font-size: 12px;
+}
+.w-cash-all .mui-table-view-cell{
+	color:#fe4e4c;
+	font-size: 12px;
+	font-family: '微软雅黑';
+}
+.w-hold{
+	color: #fe4e4c;
+}
+.w-want-accept{
+	width: 60%;
+	background-color: #fe4e4c;
+	border-radius: 8px;
+	margin-left: 20%;
+	color: #fff;
+	height: 4rem;
+	font-size: 2rem;
+}
+.w-self-top{
+	height: 20rem;
+	background-color: #fe4e4c;
+	padding-top: 2.5rem;
+	position: relative;
+}
+
+.w-cash-leave{
+	height: 20rem;
+	background-color: #fe4e4c;
+	padding-top: 6rem;
+	position: relative;
+}
+.self-img{
+	height: 11.5rem;
+	width: 11.5rem;
+	background-color: #fff;
+	margin:0 auto;
+	border-radius: 50%;
+	box-shadow: 0px 0px 10px #dd3d3d;
+}
+.self-img img{
+	height: 100%;
+	width: auto;
+}
+.sign-in{
+	color:#fff;
+	font-family: '微软雅黑';
+	font-size: 15px;
+	text-align:center;
+	margin-top:8px;
+}
+.sign-in a{
+	color: #fff;
+}
+.cash-num,.cash-leave{
+	color:#fff;
+	font-family: '微软雅黑';
+}
+.cash-num{
+	font-size: 18px;
+}
+.cash-leave{
+	font-size: 12px;
+}
+.cash-main-left{
+	position: absolute;
+	bottom: 2.8rem;
+	left: 2rem;
+}
+.cash-main-left p{
+	margin:0;
+}
+.w-self-main{
+	margin-bottom: 80px;
+}
+.w-self-main .mui-table-view .mui-table-view-cell{
+	font-size: 15px;
+	color:#585858;
+	font-family: '微软雅黑';
+}
+.w-self-main .mui-table-view{
+	margin-top: 4px!important;
+}
+.my-menu{
+	margin-top: 8px;
+	padding: 9px 0;
+}
+.my-menu .mui-table-view-cell{
+	font-size: 12px;
+	font-family: "微软雅黑";
+	color:#585858;
+	padding: 0px 15px;
+}
+.my-menu .mui-table-view-cell:after{
+	background-color: #fff;
+}
+.my-song{
+	color: #fe4e4c;
+}
+.my-managent{
+	font-family: '微软雅黑';
+	font-size: 16px;
+	color: #fff;
+	height: 50px;
+}
+.bottom-bar{
+	background-color: #fe4e4c;
+	text-align: center;
+	line-height: 50px;
+}
+.self-cash-leave{
+	height: 11.5rem;
+	width: 11.5rem;
+	margin:0 auto;
+	color: #fff;
+	font-family: '微软雅黑';
+	text-align: center;
+}
+.cash-leave-num{
+	font-size: 45px;
+	font-weight: 600;
+}
+.cash-rmb{
+	font-size: 35px;
+}
+.cash-leave-text{
+	font-size: 25px;
+	margin-top: 20px;
+}
+.w-cash-aaa .mui-table-view{
+	padding: 5px 4px;
+}
+.w-cash-aaa .mui-table-view-cell:after{
+	background-color: #fff;
+}
+.w-cash-aaa .mui-table-view-cell{
+	padding:4px 15px;
+}
+.w-finshed-menu .menu-tab{
+	padding: 8px 4px;
+}
+.menu-tab .mui-table-view-cell{
+	padding: 0px 15px;
+}
+.menu-tab .mui-table-view-cell:after{
+	background-color: #fff;
+}
+
+.w-finshed-menu .menu-che{
+	padding: 8px 4px;
+}
+.menu-che .mui-table-view-cell{
+	padding: 0px 15px;
+}
+.menu-che .mui-table-view-cell:after{
+	background-color: #fff;
+}
+
+/* .w-finshed-menu{
+	margin-top: 4px;
+} */
+.w-finshed-menu .w-home-tab{
+	padding: 8px 4px;
+}
+.w-home-tab .mui-table-view-cell{
+	padding: 0px 15px;
+}
+.w-home-tab .mui-table-view-cell:after{
+	background-color: #fff;
+}
+.w-bar .dingwei104{
+	font-size: 18px;
+}
+.w-bar .youjiantou003{
+	font-size: 18px;
+}
+.w-bar .xiajiantou002{
+	font-size: 18px;
+}
+.w-menu-right{
+	width: 4rem;
+	display: -webkit-flex;
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
+}
+.love-icon{
+	color: #fe4e4c;
+}
+.add-icon{
+	color: #338fcd;
+}
+.love-icon span{
+	font-size: 30px;
+}
+
+.add-icon span{
+	font-size: 30px;
+}
+.add-icon-a .num-menu-num{
+	font-size: 14px;
+	color: #585858;
+}
+.add-icon-g{
+	width: 10.5rem;
+}
+.add-icon-g .mui-numbox{
+	width: 12rem;
+	margin-left: -80px;
+}
+.person-ico{
+	position: absolute;
+	top: 50%;
+	left: 15px;
+	transform:translateX(-50%);
+}
+.w-scroll .mui-scroll-wrapper{
+	overflow:visible;
+	z-index: -100;
+}
+.w-input-group .w-search{
+	height: 34px;
+	border-radius: 3px;
+	width: 100%;
+	margin-left:4%;
+	text-indent: 0.5rem;
+	background-color: #f7f7f7;
+}
+.w-input-group .w-search:after{
+	height: 0px!important;
+}
+.w-input-group .w-search  input{
+	height: 35px!important;
+	line-height: 34px!important;
+}
+.popover-school{
+	border-radius: 0px;
+}
+.add-icon-g .mui-numbox{
+	border: none;
+	background-color: #fff;
+}
+
+.add-icon-g .mui-numbox-input{
+	border: 1px solid #ccc!important;
+	border-radius: 8px!important;
+	width: 40px!important;
+	font-size: 18px;
+	color:#585858;
+}
+.add-icon-g .mui-numbox button{
+	color: #338fcd;
+	font-size: 30px;
+	background-color: #fff;
+}
+.add-icon-g .mui-numbox .mui-numbox-btn-plus{
+	border-radius: 3px;
+}
+.add-icon-g .mui-numbox .mui-numbox-btn-minus{
+	border-radius: 3px;
+}
+.w-self-main .person-ico{
+	left: 2.2rem;
+	font-size: 2.6rem;
+	margin-top: -1.3rem;
+	color: #fe4e4c;
+}
+.w-self-main a{
+	margin-left: 1.8rem!important;
+}
+.w-self-main .mui-active{
+	background-color: #fff!important;
+}
+.yue{
+	background: url(../img/yue.png) no-repeat left;
+	background-size: 1.5rem;
+	text-indent: 1.6rem;
+}
+.location-ico{
+	color:#338fcd;
+	font-size: 24px;
+}
+.location-title{
+	height: 16px;
+}
+.w-location-group .mui-badge{
+	background-color: #fff;
+}
+.w-address-check .mui-input-group .mui-input-row:after{
+	height: 0px!important;
+}
+.w-address-check .mui-input-group:before{
+	height: 0px!important;
+}
+.w-address-check .mui-input-group:after{
+	height: 0px!important;
+}
+.w-address-check input{
+	height: 3rem;
+	line-height: 3rem;
+	font-size: 15px;
+	position: relative;
+	color: #fff;
+	font-family: '微软雅黑';
+	width: 80%!important;
+}
+.address-right{
+	border-right: 1px solid #fff;
+	font-family: '微软雅黑';
+	position: relative;
+	margin-top: -2px;
+}
+.address-right:after{
+	position: absolute;
+	content: '';
+	right: 0;
+	top: 0;
+}
+.right-del{
+	margin-top:5px;
+}
+.w-location-group .shanchu505{
+	color: #e72d2d;
+}
+.w-slider-group #item1mobile,.w-slider-group #item2mobile,.w-slider-group #item3mobile{
+	margin-bottom: 80px;
+}
+.w-card-info{
+	font-size: 13px;
+    color: #8c8c8c;
+    margin-top: 4px;
+}
+.w-card .mui-table-view .mui-table-view-cell:last-child{
+	border-radius: 0px;
+}
+.school-area,school-room{
+	display: none;
 }

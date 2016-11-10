@@ -146,6 +146,7 @@ return [
         'school_id'             => '学校',
         'campus_id'             => '校区',
         'dorm_id'               => '宿舍',
+        'room_id'               => '房间号',
         'canteen_id'            => '食堂',
     ],
 

@@ -3,6 +3,35 @@
  * 在实际项目开发时，建议为App单独写一个css文件，从而实现项目的自定义皮肤功能；
  * 
  * */
+ /* newcss */
+.win-scroll-wrapper{
+	z-index: -20;
+}
+.mui-bar-nav~.mui-content{
+	padding-top: 60px;
+}
+.yu-scroll-wrapper{
+	top: 240px;
+}
+.w-tab{
+	background-color: #fff!important;
+}
+.win-search{
+	font-size: 17px;
+	font-family: '微软雅黑';
+	text-align: left!important;
+}
+.school-search{
+	padding-right: 0px!important;
+}
+#room-fix,#area-fix,#school-fix{
+	display: none;
+	margin-top: -0.8rem;
+	background-color: #f6f6f6;
+}
+ .mui-pull-bottom-tips{
+ 	margin-bottom: 50px;
+ }
  .canvas-main .mui-off-canvas-left{
 	width: 62%!important;
 	color: #fff;
@@ -197,6 +226,9 @@ body .layui-m-layer .layui-m-layer-msg{
 	font-family: "微软雅黑";
 	color:#585858;
 }
+.w-input-group a{
+	color: #585858;
+}
 .w-input-group .mui-input-row{
 	height: 4.5rem;
 	background-color: #fff;
@@ -276,9 +308,6 @@ body .layui-m-layer .layui-m-layer-msg{
 	text-align: right;
 }
 
-.w-respone-wrap{
-	background-color: #f6f6f6;
-}
 .w-respone{
 	margin:1.5rem 1rem 5rem 1.5rem;
 }
@@ -620,6 +649,12 @@ body .layui-m-layer .layui-m-layer-msg{
 .add-icon{
 	color: #338fcd;
 }
+.shan-icon{
+	color: #fe4e4c;
+}
+.shan-icon span{
+	font-size: 30px;
+}
 .love-icon span{
 	font-size: 30px;
 }
@@ -650,11 +685,13 @@ body .layui-m-layer .layui-m-layer-msg{
 }
 .w-input-group .w-search{
 	height: 34px;
+	background-color: rgba(0,0,0,0.1);
 	border-radius: 3px;
-	width: 100%;
-	margin-left:4%;
-	text-indent: 0.5rem;
-	background-color: #f7f7f7;
+	width: 90%;
+	margin-left:5%;
+}
+.w-search input{
+	text-indent: 2rem;
 }
 .w-input-group .w-search:after{
 	height: 0px!important;
@@ -662,6 +699,9 @@ body .layui-m-layer .layui-m-layer-msg{
 .w-input-group .w-search  input{
 	height: 35px!important;
 	line-height: 34px!important;
+}
+#school{
+	margin-top: 0px;
 }
 .popover-school{
 	border-radius: 0px;
@@ -763,6 +803,15 @@ body .layui-m-layer .layui-m-layer-msg{
 .w-card .mui-table-view .mui-table-view-cell:last-child{
 	border-radius: 0px;
 }
-.school-area,school-room{
+.w-ajax-li{
+	text-align: left!important;
+	padding: 0px!important;
+	font-size: 14px;
+	font-family: '微软雅黑';
+}
+.school-area,.school-room{
 	display: none;
+}
+.school-area ul,.school-room ul{
+	margin-top: -10px;
 }

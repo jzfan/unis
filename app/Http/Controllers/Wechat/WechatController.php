@@ -57,12 +57,12 @@ class WechatController extends Controller
                 "type" => "view",
                 "name" => '我要点餐',
                 // "url"  => "https://open.weixin.qq.com/connect/oauth2/authorize?appid=".env('WECHAT_APPID')."&redirect_uri=".$url."wechat/order&response_type=code&scope=snsapi_base"
-                "url" => $url.'wechat/order'
+                "url" => $url.'wechat/index'
             ],
             [
                 "type" => "view",
                 "name" => "我的接单",
-                "url"  => $url.'wechat/users'
+                "url"  => $url.'wechat/order#item2mobile'
             ],
             [
                 "type" => "click",

@@ -68,7 +68,7 @@
 
 /* 底部tab样式 */
 .win-nav{
-	z-index: 0;
+	z-index: 1;
 }
 .win-nav .mui-tab-item.mui-active{
 	color:#fe4e4c;

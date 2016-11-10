@@ -16,7 +16,7 @@ class IndexController extends Controller
     	if (!session('registered')){
     		return view('wechat.user.register');
     	}
-    	return view('wechat.order.index');
+    	return view('wechat.index');
     }
 
     public function index2()

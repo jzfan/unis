@@ -5,7 +5,8 @@
 @stop
 
 @section('content')
-  <ul class="w-tab-view mui-table-view">
+  <ul class="w-tab-view mui-table-view" style="margin-top: 0;">
+              
                 <li class="mui-table-view-cell mui-media">
                     <a href="javascript:;">
                         <img class="mui-media-object mui-pull-left" src="/img/wechat/xcr.png">
@@ -69,6 +70,7 @@
                 </li>
 
             </ul>
+            
 
             <div class="w-finshed-menu">
               <ul class="w-cash-all mui-table-view">
@@ -89,15 +91,22 @@
                   <li class="mui-table-view-cell"><button class="w-want-accept">购买</button></li>
               </ul>
             </div>
-
-
-
 @include('wechat.partial.buttomNav')
   
 @stop
 
 @section('js')
-    <script>
-      mui('.mui-content.mui-scroll-wrapper').scroll();
-    </script>
+  <script>mui('body').on('tap','a',function(){document.location.href=this.href;});</script>
+  <script>
+      /*选择时间*/
+      $(function(){
+        var dtPicker = new mui.DtPicker('');
+        $('.app-time li').on('touchstart',function(time){
+          var _this = $(this);
+          dtPicker.show(function (selectItems) { 
+            _this.html('预约时间：'+selectItems.text+'<span class="mui-icon iconfont youjiantou003 mui-pull-right">');
+          })
+        })
+      });
+  </script>
 @stop

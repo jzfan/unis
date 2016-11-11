@@ -10,8 +10,7 @@
 })(function ($) {
 
   'use strict';
-  var avatarPath = '/uploads/avatar/';
-  var avatarVal = $('#avatar_val');
+
   var console = window.console || { log: function () {} };
 
   function CropAvatar($element) {
@@ -34,7 +33,6 @@
     this.$avatarPreview = this.$avatarModal.find('.avatar-preview');
 
     this.init();
-    console.log(this);
   }
 
   CropAvatar.prototype = {
@@ -265,10 +263,12 @@
     },
 
     submitDone: function (data) {
+      console.log(data);
 
       if ($.isPlainObject(data) && data.state === 200) {
         if (data.result) {
-          this.url = avatarPath + data.result;
+          this.url = data.result;
+
           if (this.support.datauri || this.uploaded) {
             this.uploaded = false;
             this.cropDone();
@@ -277,9 +277,9 @@
             this.$avatarSrc.val(this.url);
             this.startCropper();
           }
-
+var aVal = data.result.split('/').pop();
+$('#avatar_val').val(aVal);
           this.$avatarInput.val('');
-          avatarVal.val(data.result);
         } else if (data.message) {
           this.alert(data.message);
         }

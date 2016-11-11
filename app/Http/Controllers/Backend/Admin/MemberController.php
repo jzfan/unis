@@ -55,10 +55,11 @@ class MemberController extends Controller
     public function update(User $member, Request $request)
     {
         $input = $request->input();
+        dd($input);
         if (empty($input['password'])){
             unset($input['password']);
         }else{
-            $input['password']= bcrypt(123123);
+            $input['password']= bcrypt($input['password']);
         }
         $member->update($input);
         return redirect('/admin/member')->with('success', '更新成功！');

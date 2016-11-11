@@ -25,6 +25,11 @@ class Order extends Model
     	return $this->belongsTo(User::class, 'deliver_id', 'id');
     }
 
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
+
 
     public function getStatusAttribute($value)
     {

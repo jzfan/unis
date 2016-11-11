@@ -19,6 +19,12 @@ Route::group(['middleware'=>['web', 'wechat.oauth']], function () {
 	Route::get('/favorite', 'UserController@favorite');
 	Route::get('/message', 'UserController@message');
 	Route::get('/balance', 'BillingController@balance');
+
+	Route::get('/order_received', function() {
+	    event(new App\Events\OrderReceived('Hi there Pusher!'));
+	    return "Event has been sent!";
+	});
+
 	// Route::post('/checkout', 'Frontend\\CheckoutController@wechat');
 	// Route::resource('/food', 'FoodController');
 	// Route::get('/user', 'UserController@index');

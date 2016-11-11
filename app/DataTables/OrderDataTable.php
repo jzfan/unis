@@ -16,10 +16,12 @@ class OrderDataTable extends DataTable
     {
         return $this->datatables
             ->eloquent($this->query())
-            ->addColumn('action', 'path.to.action.view')
-            ->editColum('deliver', function($obj){
-                return '';
+            ->addColumn('action', 'backend.admin.partial.actionDt.order')
+            ->editColumn('room_id', function($obj){
+                return $obj->room->dorm->campus->school->name.$obj->room->dorm->campus->name.$obj->room->dorm->name.$obj->room->number;
             })
+            ->editColumn('total', '￥ {!! $total !!} 元')
+            // ->addColum('aaaa', '')
             ->make(true);
     }
 
@@ -30,7 +32,7 @@ class OrderDataTable extends DataTable
      */
     public function query()
     {
-        $query = Order::query()->with('orderer', 'deliver');
+        $query = Order::query()->with('orderer', 'deliver', 'room.dorm.campus.school');
 
         return $this->applyScopes($query);
     }
@@ -57,13 +59,13 @@ class OrderDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'id',
+            'id'=>['name'=>'orders.id', 'data'=>'id'],
             '订单号'=>['name'=>'order_no', 'data'=>'order_no'],
-            '下单人'=>['name'=>'orderer.name', 'data'=>'orderer.name'],
-            '接单人'=>['name'=>'deliver', 'data'=>'deliver'],
-            'amount'=>['name'=>'total', 'data'=>'total'],
+            '下单人'=>['name'=>'orderer.name', 'data'=>'orderer.name', 'orderable'=>false],
+            '接单人'=>['name'=>'deliver.name', 'data'=>'deliver.name','defaultContent' => '', 'orderable'=>false],
+            '共计'=>['name'=>'total', 'data'=>'total'],
             '地址'=>['name'=>'room_id', 'data'=>'room_id'],
-            '状态'=>['name'=>'status', 'data'=>'status'],
+            '状态'=>['name'=>'orders.status', 'data'=>'status'],
         ];
     }
 

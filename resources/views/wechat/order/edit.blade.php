@@ -30,7 +30,7 @@
 							</ul>
 
 							<ul class="mui-table-view">
-							    <li class="mui-table-view-cell"><button class="w-want-accept">确认收货</button></li>
+							    <li class="mui-table-view-cell"><button class="w-want-accept-native">确认收货</button></li>
 							</ul>
 						</div>
 		        	</div>
@@ -54,7 +54,7 @@
 							</ul>
 
 							<ul class="mui-table-view">
-							    <li class="mui-table-view-cell"><button class="w-want-accept">确认送达</button></li>
+							    <li class="mui-table-view-cell"><button class="w-want-accept-native">确认送达</button></li>
 							</ul>
 						</div>
 		        	</div>
@@ -77,11 +77,10 @@
 							</ul>
 
 							<ul class="mui-table-view">
-							    <li class="mui-table-view-cell"><button class="w-want-accept mui-disabled">等待确认</button></li>
+							    <li class="mui-table-view-cell"><button class="w-want-accept-s mui-disabled">等待确认</button></li>
 							</ul>
 						</div>
 
 		        	</div>
 		        </div>
-
 @stop

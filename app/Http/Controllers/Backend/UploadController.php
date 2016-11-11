@@ -52,7 +52,7 @@ class UploadController extends Controller
 
         }
 
-        return ['result'=>$filename_ext, 'state'=>200, 'message'=>'success'];
+        return ['result'=>config('site.avatarPath').$filename_ext, 'state'=>200, 'message'=>'success'];
 
     }
 }

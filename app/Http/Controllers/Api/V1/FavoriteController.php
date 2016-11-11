@@ -12,7 +12,7 @@ class FavoriteController extends Controller
 {
     public function index($user)
     {
-    	return User::find($user)->favorites;
+    	return User::find($user)->favorites->toArray();
     	// return $user->favorites;
     }
 }

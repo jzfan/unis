@@ -67,17 +67,3 @@
 		</section>
 
 @stop
-
-@section('js')
-	<script>
-		mui.init({
-			swipeBack:true //启用右滑关闭功能
-		});
-		document.getElementById("about").addEventListener('tap',function () {
-			//获得主页面的webview
-			var main = plus.webview.currentWebview().parent();
-			//触发主页面的gohome事件
-			mui.fire(main,'gohome');
-		});
-	</script>
-@stop

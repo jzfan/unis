@@ -4,6 +4,18 @@
  * 
  * */
  /* newcss */
+ .mui-btn-red{
+ 	background-color: #e72d2e;
+ }
+ .win-nav{
+	z-index: 1;
+}
+.win-nav .mui-tab-item.mui-active{
+	color:#fe4e4c;
+}
+.win-nav .mui-tab-item .mui-icon~.mui-tab-label{
+	font-size: 12px;
+}
 .win-scroll-wrapper{
 	z-index: -20;
 }
@@ -11,8 +23,9 @@
 	padding-top: 60px;
 }
 .yu-scroll-wrapper{
-	top: 240px;
+	top:20rem;
 }
+
 .w-tab{
 	background-color: #fff!important;
 }
@@ -467,7 +480,7 @@ body .layui-m-layer .layui-m-layer-msg{
 .w-hold{
 	color: #fe4e4c;
 }
-.w-want-accept{
+.w-want-accept,.w-want-accept-native,.w-want-accept-s{
 	width: 60%;
 	background-color: #fe4e4c;
 	border-radius: 8px;
@@ -476,6 +489,7 @@ body .layui-m-layer .layui-m-layer-msg{
 	height: 4rem;
 	font-size: 2rem;
 }
+
 .w-self-top{
 	height: 20rem;
 	background-color: #fe4e4c;
@@ -486,8 +500,18 @@ body .layui-m-layer .layui-m-layer-msg{
 .w-cash-leave{
 	height: 20rem;
 	background-color: #fe4e4c;
-	padding-top: 6rem;
 	position: relative;
+}
+.cash-out{
+	position: absolute;
+	right: 2rem;
+	top: 1.6rem;
+	color: #fff;
+	font-family: '微软雅黑';
+	font-size: 15px;
+}
+.cash-out:active{
+	color: #fff;
 }
 .self-img{
 	height: 11.5rem;
@@ -576,6 +600,7 @@ body .layui-m-layer .layui-m-layer-msg{
 	text-align: center;
 }
 .cash-leave-num{
+	padding-top: 6rem;
 	font-size: 45px;
 	font-weight: 600;
 }

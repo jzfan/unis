@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Unis\User\User;
+use App\Events\AgentCreate;
 
 class AgentController extends Controller
 {
@@ -31,9 +32,11 @@ class AgentController extends Controller
     {
     	$input = $request->input('id_or_name');
     	$map = is_numeric($input) ? 'id' : 'name';
-    	User::where($map, $input)->update([
+    	$user = User::where($map, $input)->update([
     			'role' => 'agent'
     		]);
+        dd($user);
+        event(new AgentCreate());
     	return redirect()->back()->with('success', '添加成功！');
     }
 
@@ -51,7 +54,7 @@ class AgentController extends Controller
         if (empty($input['password'])){
             unset($input['password']);
         }else{
-            $input['password']= bcrypt(123123);
+            $input['password']= bcrypt($input['password']);
         }
         $agent->update($input);
         return redirect('/admin/agent')->with('success', '更新成功！');

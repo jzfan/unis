@@ -295,7 +295,6 @@
 
 							<!-- 接单数据列表结束 -->
 
-
 							</div>
 						</div>
 					</div>
@@ -317,6 +316,7 @@
 @section('js')
 
 		<script>
+			mui('body').on('tap','a',function(){document.location.href=this.href;});
 			mui.init();
 			(function($) {
 				//阻尼系数
@@ -334,7 +334,7 @@
 								callback: function() {
 									var self = this;
 									setTimeout(function() {
-										var ul = self.element.querySelector('.mui-table-view');
+										var ul = self.element.querySelector('#item1mobile .mui-table-view');
 										ul.insertBefore(createFragment(ul, index, 10, true), ul.firstChild);
 										self.endPullDownToRefresh();
 									}, 1000);
@@ -342,17 +342,16 @@
 											url:'/api/food',
 											dataType:'json',
 											async:true,
-											data:{'page':1},
+											data:{'id':1},
 											type:'GET',
-									        jsonp:"callback",
-									        jsonpCallback:"success_jsonpCallback",
 									        success:function(data){
 									        	var datafood = data;
 									        	/*console.log(eval(datafood.data)[1].img);*/
 									        	var jsons = eval(datafood.data);
-									        	for(var i=0;i<jsons.length;i++){
+									        	/*for(var i=0;i<jsons.length;i++){
 									        		console.log(jsons[i].img+'\n');
-									        	}
+									        	}*/
+									        	console.log(jsons);
 									        }
 										});
 								}
@@ -361,7 +360,7 @@
 								callback: function() {
 									var self = this;
 									setTimeout(function() {
-										var ul = self.element.querySelector('.mui-table-view');
+										var ul = self.element.querySelector('#item1mobile .mui-table-view');
 										ul.appendChild(createFragment(ul, index, 5));
 										self.endPullUpToRefresh();
 									}, 1000);
@@ -376,7 +375,7 @@
 						for (var i = 0; i < count; i++) {
 							li = document.createElement('li');
 							li.className = 'mui-table-view-cell mui-media';
-							li.innerHTML = '<a href="javascript:;">'+'<img class="mui-media-object mui-pull-left" src="//img/wechat/wechat/xcr.png">'+'<div class="w-box">'+'<div class="w-menu-left">'+'<p class="menu-name">'+'农家小炒肉'+'</p>'+'<small class="menu-address">'+'教工食堂'+'</small>'+'<p class="menu-number">'+'<span>月售:'+'12'+'&nbsp;&nbsp;'+'点赞:'+'5'+'</span></p>'+'<p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">8</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:9元</span></p>'+'</div>'+'<div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div>'+'</div>'+'</a>';
+							li.innerHTML = '<a href="javascript:;">'+'<img class="mui-media-object mui-pull-left" src="img/xcr.png">'+'<div class="w-box">'+'<div class="w-menu-left">'+'<p class="menu-name">'+'农家小炒肉'+'</p>'+'<small class="menu-address">'+'教工食堂'+'</small>'+'<p class="menu-number">'+'<span>月售:'+'12'+'&nbsp;&nbsp;'+'点赞:'+'5'+'</span></p>'+'<p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">8</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:9元</span></p>'+'</div>'+'<div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div>'+'</div>'+'</a>';
 							fragment.appendChild(li);
 						}
 						return fragment;

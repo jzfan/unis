@@ -25,7 +25,7 @@ class CampusRequest extends FormRequest
     public function rules(Request $request)
     {
         return [
-            'name' => 'required|unique:campuses,name,id,'. $request->input('id'),
+            'name' => 'required|unique:campuses,name,'. $request->id,
             'school_id' => 'required'
         ];
     }

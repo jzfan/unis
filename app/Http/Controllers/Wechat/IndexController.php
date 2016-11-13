@@ -11,15 +11,7 @@ use App\Unis\User\User;
 class IndexController extends Controller
 {
 
-    public function index(Request $request)
-    {
-    	if (!session('registered')){
-    		return view('wechat.user.register');
-    	}
-    	return view('wechat.index');
-    }
-
-    public function index2()
+    public function index()
     {
     	return view('wechat.index');
     }

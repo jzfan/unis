@@ -3,7 +3,6 @@
 @section('content')
 		<div id="offCanvasWrapper" class="canvas-main mui-off-canvas-wrap mui-draggable mui-slide-in">
 			<!--侧滑菜单部分开始-->
-
 			<aside id="offCanvasSide" class="w-canvas-left mui-off-canvas-left">
 		      <div id="offCanvasSideScroll" class="mui-scroll-wrapper">
 		        <div class="mui-scroll">
@@ -314,9 +313,10 @@
 @stop
 
 @section('js')
+<script src="/lib/pusher/main.js"></script>
 
 		<script>
-			mui('body').on('tap','a',function(){document.location.href=this.href;});
+				mui('body').on('tap','a',function(){document.location.href=this.href;});
 			mui.init();
 			(function($) {
 				//阻尼系数
@@ -328,7 +328,7 @@
 				});
 				$.ready(function() {
 					//循环初始化所有下拉刷新，上拉加载。
-					$.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+					$.each(document.querySelectorAll('.mui-slider-group #item1mobile .mui-scroll'), function(index, pullRefreshEl) {
 						$(pullRefreshEl).pullToRefresh({
 							down: {
 								callback: function() {
@@ -342,16 +342,15 @@
 											url:'/api/food',
 											dataType:'json',
 											async:true,
-											data:{'id':1},
+											data:{'page':1},
 											type:'GET',
 									        success:function(data){
 									        	var datafood = data;
-									        	/*console.log(eval(datafood.data)[1].img);*/
 									        	var jsons = eval(datafood.data);
-									        	/*for(var i=0;i<jsons.length;i++){
+									        	for(var i=0;i<jsons.length;i++){
 									        		console.log(jsons[i].img+'\n');
-									        	}*/
-									        	console.log(jsons);
+
+									        	}
 									        }
 										});
 								}
@@ -375,7 +374,7 @@
 						for (var i = 0; i < count; i++) {
 							li = document.createElement('li');
 							li.className = 'mui-table-view-cell mui-media';
-							li.innerHTML = '<a href="javascript:;">'+'<img class="mui-media-object mui-pull-left" src="img/xcr.png">'+'<div class="w-box">'+'<div class="w-menu-left">'+'<p class="menu-name">'+'农家小炒肉'+'</p>'+'<small class="menu-address">'+'教工食堂'+'</small>'+'<p class="menu-number">'+'<span>月售:'+'12'+'&nbsp;&nbsp;'+'点赞:'+'5'+'</span></p>'+'<p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">8</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:9元</span></p>'+'</div>'+'<div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div>'+'</div>'+'</a>';
+							li.innerHTML = '<a href="javascript:;">'+'<img class="mui-media-object mui-pull-left" src="/img/wechat/xcr.png">'+'<div class="w-box">'+'<div class="w-menu-left">'+'<p class="menu-name">'+'农家小炒肉'+'</p>'+'<small class="menu-address">'+'教工食堂'+'</small>'+'<p class="menu-number">'+'<span>月售:'+'12'+'&nbsp;&nbsp;'+'点赞:'+'5'+'</span></p>'+'<p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">8</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:9元</span></p>'+'</div>'+'<div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div>'+'</div>'+'</a>';
 							fragment.appendChild(li);
 						}
 						return fragment;
@@ -383,5 +382,75 @@
 				});
 			})(mui);
 
+		</script>
+
+
+		<script>
+			mui.init();
+			(function($) {
+				//阻尼系数
+				var deceleration = mui.os.ios?0.003:0.0009;
+				$('.mui-scroll-wrapper').scroll({
+					bounce: false,
+					indicators: true, //是否显示滚动条
+					deceleration:deceleration
+				});
+				$.ready(function() {
+					//循环初始化所有下拉刷新，上拉加载。
+					$.each(document.querySelectorAll('.mui-slider-group #item2mobile .mui-scroll'), function(index, pullRefreshEl) {
+						$(pullRefreshEl).pullToRefresh({
+							down: {
+								callback: function() {
+									var self = this;
+									setTimeout(function() {
+										var ul = self.element.querySelector('#item2mobile .mui-table-view');
+										ul.insertBefore(createFragment(ul, index, 10, true), ul.firstChild);
+										self.endPullDownToRefresh();
+									}, 1000);
+									$.ajax({
+											url:'/api/food',
+											dataType:'json',
+											async:true,
+											data:{'page':1},
+											type:'GET',
+									        success:function(data){
+									        	var datafood = data;
+									        	var jsons = eval(datafood.data);
+									        	for(var i=0;i<jsons.length;i++){
+									        		console.log(jsons[i].img+'\n');
+
+									        	}
+									        }
+										});
+								}
+							},
+							up: {
+								callback: function() {
+									var self = this;
+									setTimeout(function() {
+										var ul = self.element.querySelector('#item1mobile .mui-table-view');
+										ul.appendChild(createFragment(ul, index, 5));
+										self.endPullUpToRefresh();
+									}, 1000);
+								}
+							}
+						});
+					});
+					var createFragment = function(ul, index, count, reverse) {
+						var length = ul.querySelectorAll('li').length;
+						var fragment = document.createDocumentFragment();
+						var li;
+						for (var i = 0; i < count; i++) {
+							li = document.createElement('li');
+							li.className = 'mui-table-view-cell mui-media';
+							li.innerHTML = '<a href="javascript:;">'+'<img class="mui-media-object mui-pull-left" src="/img/wechat/xcr.png">'+'<div class="w-box">'+'<div class="w-menu-left">'+'<p class="menu-name">'+'农家小炒肉'+'</p>'+'<small class="menu-address">'+'教工食堂'+'</small>'+'<p class="menu-number">'+'<span>月售:'+'12'+'&nbsp;&nbsp;'+'点赞:'+'5'+'</span></p>'+'<p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">8</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:9元</span></p>'+'</div>'+'<div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div>'+'</div>'+'</a>';
+							fragment.appendChild(li);
+						}
+						return fragment;
+					};
+				});
+			})(mui);
+
+		</script>
 
 @stop

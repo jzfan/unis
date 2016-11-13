@@ -12,8 +12,8 @@ class FoodTransformer extends TransformerAbstract
 	    return [
 	        'id'      => (int) $food->id,
 	        'name'   => $food->name,
-	        'price'  => number_format(round($food->price * (100 - $food->discount)/100), 2),
-	        'original_price' => $food->price,
+	        'price'  => number_format(round($food->price * (100 - $food->discount)/100), 1),
+	        'original_price' => number_format($food->price, 1),
 	        'img' => $food->img,
 	        'sold' => $food->sold
 	    ];

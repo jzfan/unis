@@ -1,5 +1,5 @@
             // Enable pusher logging - don't include this in production
-            Pusher.logToConsole = true;
+            Pusher.logToConsole = false;
 
             var pusher = new Pusher('6b4bcc1600b0ac16372f', {
             });

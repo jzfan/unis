@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Input;
 
 class CampusController extends Controller
 {
-    public function indexForSelect2(Request $request)
+    public function indexForSelect(Request $request)
     {
         $limit = $request->limit ? : config('site.perPage');
         $page  = $request->page ? : 1;

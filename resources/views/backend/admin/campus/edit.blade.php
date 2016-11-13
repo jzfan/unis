@@ -7,14 +7,13 @@
 <form class="form-horizontal" role="form" action="/admin/campus/{{ $campus->id }}" method="POST">
 {!! csrf_field() !!}
 {!! method_field('PUT') !!}
+<input type="hidden" name="id" value='{{ $campus->id }}'>
   <div class="form-group">
     <label class="col-sm-2 control-label">学校</label>
     <div class="col-sm-10">
-
-<select id='school-select' class='form-control'>
-
-</select>
-
+      <select id='school-select' class='form-control' name='school_id'>
+        <option value="{{ $campus->school->id }}" selected="selected">{{ $campus->school->name }}</option>
+      </select>
     </div>
   </div>
 
@@ -37,6 +36,11 @@
 
 @section('js')
 <script>
-$("#school-select").select2();
+var school  = $("#school-select");
+$.get('/api/school', function(m){
+  school.select2({
+    data: m
+  });
+});
 </script>
 @stop

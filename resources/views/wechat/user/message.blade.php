@@ -12,6 +12,7 @@
 	<div id="pullrefresh" class="win-scroll-wrapper mui-content mui-scroll-wrapper">
 			<div class="mui-scroll">
 					<div class="w-card mui-card">
+						<a href="交易订单信息.html">
 						<ul class="mui-table-view">
 							    <li class="mui-table-view-cell">
 									<div class="mui-slider-right mui-disabled">
@@ -23,11 +24,13 @@
 									</div>
 								</li>
 						</ul>
+						</a>
 					</div>
 
 
 
 					<div class="w-card mui-card">
+						<a href="交易订单信息.html">
 						<ul class="mui-table-view">
 							    <li class="mui-table-view-cell">
 									<div class="mui-slider-right mui-disabled">
@@ -39,9 +42,11 @@
 									</div>
 								</li>
 						</ul>
+						</a>
 					</div>
 					
 					<div class="w-card mui-card">
+						<a href="交易订单信息.html">
 						<ul class="mui-table-view">
 							    <li class="mui-table-view-cell">
 									<div class="mui-slider-right mui-disabled">
@@ -53,9 +58,11 @@
 									</div>
 								</li>
 						</ul>
+						</a>
 					</div>
 
 					<div class="w-card mui-card">
+						<a href="交易订单信息.html">
 						<ul class="mui-table-view">
 							    <li class="mui-table-view-cell">
 									<div class="mui-slider-right mui-disabled">
@@ -67,6 +74,7 @@
 									</div>
 								</li>
 						</ul>
+						</a>
 					</div>
 			</div>
 	</div>
@@ -76,35 +84,11 @@
 @stop
 
 @section('js')
-	<!-- <script>
-			
-			$(function(){
-				$('#ajaxbtn').on('touchstart',function(){
-					$.ajax({
-						url:'/api/food',
-						dataType:'json',
-						async:true,
-						data:{'page':1},
-						type:'GET',
-				        jsonp:"callback",
-				        jsonpCallback:"success_jsonpCallback",
-				        success:function(data){
-				        	var datafood = data;
-				        	/*console.log(eval(datafood.data)[1].img);*/
-				        	var jsons = eval(datafood.data);
-				        	for(var i=0;i<jsons.length;i++){
-				        		console.log(jsons[i].img+'\n');
-				        	}
-				        }
-					});
-	
-	
-				})
-	
-			})
-	
-	
-	</script> -->
+<script src="/lib/pusher/main.js"></script>
+
+	<script>
+			mui('body').on('tap','a',function(){document.location.href=this.href;});
+	</script>
 	<script>
 			mui.init({
 				swipeBack: false,

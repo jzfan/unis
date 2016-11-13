@@ -10,7 +10,7 @@ use App\Unis\School\Canteen;
 
 class CanteenController extends Controller
 {
-    public function queryByCampus($campus_id)
+    public function listByCampus($campus_id)
     {
     	$canteens = Canteen::select('id', 'name as text')->where('campus_id', $campus_id)->get()->toArray();
     	return $canteens;

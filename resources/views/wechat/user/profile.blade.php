@@ -65,5 +65,9 @@
 			</ul>
 
 		</section>
+@include('wechat.partial.buttomNav')
+@stop
 
+@section('js')
+<script src="/lib/pusher/main.js"></script>
 @stop

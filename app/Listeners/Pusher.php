@@ -26,6 +26,6 @@ class Pusher
      */
     public function handle(OrderReceived $event)
     {
-        var_dump('The user '.$event->name . ' has registered. Fire off an email.');
+        var_dump('The user '.$event->name . ' has ordered.');
     }
 }

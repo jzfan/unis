@@ -90,12 +90,20 @@
     </div>
   </div>
     <div class="form-group">
-    <label  class="col-sm-2 control-label">房间ID</label>
+    <label  class="col-sm-2 control-label">宿舍</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" name='room_id' value='{{ $member->room_id}}'>
-
+      <select id='dorm-select' class='form-control' name='dorm_id'>
+        <option value="{{ $member->dorm->id }}" selected="selected">{{ $member->dorm->name }}</option>
+      </select>
+    </div>
+  </div> 
+  <div class="form-group">
+    <label class="col-sm-2 control-label">房间号</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" name='room_number' value='{{ $member->room_number }}'>
     </div>
   </div>
+
   <div class="form-group">
     <label  class="col-sm-2 control-label">Email</label>
     <div class="col-sm-10">
@@ -134,4 +142,21 @@
   </div>
 </form>
 @endsection
+
+@section('js')
+<script>
+var dorm  = $("#dorm-select");
+var campus = $('#school_id').val();
+$.get('/api/campus/query_by_dorm/{{ $member->dorm->id }}', function(data){
+  console.log(data.id);
+  $.get('/api/dorm_of_campus/'+data.id, function(m){
+      dorm.select2({
+        data: m
+      });
+  });
+})
+
+
+</script>
+@stop
 

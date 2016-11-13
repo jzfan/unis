@@ -39,8 +39,6 @@
 	});
 
 
-
-
 $(function(){
 	function collect(coName,ifName,haveName,coText1,coText2){
 		$(document).on('touchstart',coName,function(){
@@ -79,7 +77,7 @@ $(function(){
 				  });
 		})
 	};
-	msgInfo('.w-entry-btn','信息提交成功');/*入口表单*/
+	/*msgInfo('.w-entry-btn','信息提交成功');*//*入口表单*/
 	msgInfo('.w-want-accept','购买成功');/*购物车*/
 	msgInfo('.w-about-uniserve .w-address-save','保存成功');/*保存地址*/
 	msgInfo('.w-respone-btn','感谢您的反馈！');/*意见反馈*/
@@ -130,7 +128,7 @@ $(function(){
 		};
 		comFun('.w-cash-aaa .mui-disabled','ul');//我的余额滑动删除
 		comFun('.w-card .mui-disabled','div.w-card');//我的消息滑动删除
-		comFun('.my-menu .mui-disabled','ul.my-menu');//我的订单滑动删除
+		/*comFun('.my-menu .mui-disabled','ul.my-menu');*///我的订单滑动删除
 		comFun('.w-tab-view li .mui-disabled','li.mui-media');//我的收藏滑动删除
 	});
 
@@ -147,57 +145,17 @@ $(function(){
 	})
 
 
-/*选择学校*/
-	$(function(){
-		$('#school input').on('touchstart',function(){
-			$('#school-fix').fadeIn();
-			var searchText = $('.win-search').val();
-			$.get('http://api.bing.com/qsonhs.aspx?q='+searchText,function(d){
-				var d = d.AS.Results[0].Suggests;
-				var html = '';
-				for(var i=0;i<d.length;i++){
-				html = '<li class="mui-table-view-cell">'+'<span class="mui-navigate-right">'+'d[i].Txt'+'</span></li>'
-				}
-				$('#school-fix').html(html);
-			})
-		});
-		$('#school-fix li').not(".school-search").on('touchstart',function(){
-			var which = $(this).find('span').text();
-			$('#school input').val(which);
-			$('#school-fix').fadeOut();
-		});
-	});
-
-/*选择校区*/
-$(function(){
-		$('#school-area input').on('touchstart',function(){
-			$('#area-fix').fadeIn();
-		});
-		$('#area-fix li').not(".school-search").on('touchstart',function(){
-			var which = $(this).find('span').text();
-			$('#school-area input').val(which);
-			$('#area-fix').fadeOut();
-		});
-	});
-
-/*选择宿舍*/
-$(function(){
-		$('#school-room input').on('touchstart',function(){
-			$('#room-fix').fadeIn();
-		});
-		$('#room-fix li').not(".school-search").on('touchstart',function(){
-			var which = $(this).find('span').text();
-			$('#school-room input').val(which);
-			$('#room-fix').fadeOut();
-		});
-	});
 
 /*入口手机号码正则*/
-	$(function(){
+	;$(function(){
 		$('#telephone').on('blur',function(){
 			 var phone = $('#telephone').val();
     			if(!(/^1(3|4|5|7|8)\d{9}$/.test(phone))){ 
-        			alert("您输入的手机号码有误");  
+        			layer.open({
+				    content: '您输入的手机号码有误'
+				    ,skin: 'msg'
+				    ,time: 2 //2秒后自动关闭
+				  }); 
     			} 
 		});
 	})

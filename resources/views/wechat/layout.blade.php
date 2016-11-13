@@ -24,7 +24,6 @@
 		<script src="/js/wechat/mui.pullToRefresh.js"></script>
 		<script src="/js/wechat/mui.pullToRefresh.material.js"></script>
 		<script src="/lib/pusher/pusher.min.js"></script>
-		<script src="/lib/pusher/main.js"></script>
 
 @yield('js')
 </body>

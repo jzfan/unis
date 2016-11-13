@@ -1,7 +1,7 @@
 
 	<!--底部nav切换开始-->
 		<nav class="win-bar mui-bar mui-bar-tab">
-			<a id="defaultTab" class="mui-tab-item mui-active" href="/wechat/index2">
+			<a id="defaultTab" class="mui-tab-item mui-active" href="/wechat/index">
 				<span class="mui-icon iconfont xuanshouye201"></span>
 				<span class="mui-tab-label">首页</span>
 			</a>

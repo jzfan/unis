@@ -24,7 +24,8 @@ class UsersTableSeeder extends Seeder
         	'password' => bcrypt('123'),
             'avatar' => '/img/default-avatar.png',
             'status' => 1,
-            'room_id' => 1,
+            'dorm_id' => 1,
+            'room_number' => 1,
         	]);
         User::create([
         	'name' => 'xiaoMing',
@@ -33,7 +34,8 @@ class UsersTableSeeder extends Seeder
         	'password' => bcrypt('123'),
             'avatar' => '/img/default-avatar.png',
             'status' => 1,
-            'room_id' =>2
+            'dorm_id' =>2,
+            'room_number' =>2
         	]);
         factory(User::class, 1000)->create();      
     }

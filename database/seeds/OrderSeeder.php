@@ -53,7 +53,7 @@ class OrderSeeder extends Seeder
         		'user_id' => $orderer->id,
         		'deliver_id' => $deliver_id,
         		'total' => $total,
-        		'room_id' => $orderer->room_id,
+        		'address' => $orderer->getAddress(),
         		'status' => $status,
         		'paid_at' => $paid_at,
         		'taken_at' => $taken_at,

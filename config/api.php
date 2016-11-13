@@ -19,7 +19,7 @@ return [
     |
     */
 
-    'standardsTree' => env('API_STANDARDS_TREE', 'vnd'),
+    'standardsTree' => env('API_STANDARDS_TREE', 'x'),
 
     /*
     |--------------------------------------------------------------------------
@@ -33,7 +33,7 @@ return [
     |
     */
 
-    'subtype' => env('API_SUBTYPE', ''),
+    'subtype' => env('API_SUBTYPE', 'uniserver'),
 
     /*
     |--------------------------------------------------------------------------
@@ -70,7 +70,7 @@ return [
     |
     */
 
-    'domain' => env('API_DOMAIN', 'unis.com'),
+    'domain' => env('API_DOMAIN', null),
 
     /*
     |--------------------------------------------------------------------------

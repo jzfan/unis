@@ -22,6 +22,7 @@ class CreateSchoolsTable extends Migration
             $table->string('address');
             $table->integer('x');
             $table->integer('y');
+            $table->string('geohash', 12)->nullable();
             $table->enum('status', [0, 1]);
             $table->timestamps();
         });

@@ -28,4 +28,10 @@ class SchoolController extends Controller
     // 	$schools = School::select('id', 'name')->where('city', $data[1])->get();
     // 	return $schools;
     // }
+
+    public function queryByKeyword($keyword)
+    {
+        $schools = School::where('name', 'like', '%'.$keyword.'%')->get();
+        return $schools;
+    }
 }

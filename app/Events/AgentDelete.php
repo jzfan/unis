@@ -8,6 +8,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use App\Unis\User\User;
 
 class AgentDelete
 {
@@ -27,6 +28,6 @@ class AgentDelete
      */
     public function broadcastOn()
     {
-        Log::info('删除代理：('.$this->user->id.')'.$this->user->name);
+
     }
 }

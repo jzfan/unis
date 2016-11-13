@@ -6,30 +6,37 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests\WechatUserRequest;
 use App\Http\Controllers\Controller;
+use App\Unis\User\User;
 
-class UserController extends Controller
+class UserController extends BaseController
 {
-    // public function index()
-    // {
-    // 	$wechat = app('wechat');
-    // 	$users = $wechat->user->lists();
-    // 	return $users;
-    // }
 
     public function store(WechatUserRequest $request)
     {
-    	dd($request->input());
+        $data =  [
+                    'role' => 'member', 
+                    'name' => $this->user->nickname, 
+                    'avatar' => $this->user->avatar,
+                    'wechat_openid' => $this->user->id,
+                    'email' => $this->user->email,
+                    'dorm_id' => $request->dorm_id,
+                    'room_number' => $request->room_number,
+                    'phone' => $request->phone,
+
+                ];
+        User::create($data);
+    	session()->put('registered', true);
+        return redirect('/wechat/index');
+    }
+
+    public function register(Request $request)
+    {
+        return view('wechat.user.register');
     }
 
     public function show()
     {
     	return view('wechat.user.profile');
-    }
-
-
-    public function favorite()
-    {
-    	return view('wechat.user.favorite');
     }
 
     public function address()
@@ -40,5 +47,11 @@ class UserController extends Controller
     public function message()
     {
     	return view('wechat.user.message');
+    }
+
+    public function getInfo()
+    {
+        $user = session('wechat.oauth_user')->toArray();
+        return response()->json($user);
     }
 }

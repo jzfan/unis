@@ -17,52 +17,36 @@
 					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
 						<div id="scroll1" class="mui-scroll-wrapper">
 							<div class="mui-scroll">
-								<ul class="my-menu mui-table-view">   
-									<li class="mui-table-view-cell">
-										<div class="mui-slider-right mui-disabled">
-										<span class="mui-btn mui-btn-red">删除</span>
-										</div>
-										<div class="mui-slider-handle">
-											订单编号：8546974125412475 <span class="my-song mui-pull-right">配送中</span>
-											<div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a><br>联系姓名：毛毛<br>配送地址：中南名族大学北校区学生公寓5B515<br>合计总额：32元</div>
-										</div>
-									</li>
+								<ul class="my-menu mui-table-view">
+								    <li class="mui-table-view-cell">订单编号：8546974125412475 <span class="my-song mui-pull-right">配送中</span></li>
+								    <li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li>
+								    <li class="mui-table-view-cell">联系姓名：毛毛</li>
+								    <li class="mui-table-view-cell">配送地址：中南名族大学北校区学生公寓5B515</li>
+								    <li class="mui-table-view-cell">合计总额：32元</li>
 								</ul>
 
-								<ul class="my-menu mui-table-view">   
-									<li class="mui-table-view-cell">
-										<div class="mui-slider-right mui-disabled">
-										<span class="mui-btn mui-btn-red">删除</span>
-										</div>
-										<div class="mui-slider-handle">
-											订单编号：8546974125412475 <span class="my-song mui-pull-right">已送达</span>
-											<div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a><br>联系姓名：毛毛<br>配送地址：中南名族大学北校区学生公寓5B515<br>合计总额：32元</div>
-										</div>
-									</li>
+								<ul class="my-menu mui-table-view">
+								    <li class="mui-table-view-cell">订单编号：8546974125412475<span class="my-song mui-pull-right">已送达</span></li>
+								    <li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li>
+								    <li class="mui-table-view-cell">联系姓名：毛毛</li>
+								    <li class="mui-table-view-cell">配送地址：中南名族大学北校区学生公寓5B515</li>
+								    <li class="mui-table-view-cell">合计总额：32元</li>
 								</ul>
 
-								<ul class="my-menu mui-table-view">   
-									<li class="mui-table-view-cell">
-										<div class="mui-slider-right mui-disabled">
-										<span class="mui-btn mui-btn-red">删除</span>
-										</div>
-										<div class="mui-slider-handle">
-											订单编号：8546974125412475 <span class="my-song mui-pull-right">已完成</span>
-											<div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a><br>联系姓名：毛毛<br>配送地址：中南名族大学北校区学生公寓5B515<br>合计总额：32元</div>
-										</div>
-									</li>
+								<ul class="my-menu mui-table-view">
+								    <li class="mui-table-view-cell">订单编号：8546974125412475<span class="my-song mui-pull-right">已完成</span></li>
+								    <li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li>
+								    <li class="mui-table-view-cell">联系姓名：毛毛</li>
+								    <li class="mui-table-view-cell">配送地址：中南名族大学北校区学生公寓5B515</li>
+								    <li class="mui-table-view-cell">合计总额：32元</li>
 								</ul>
 
-								<ul class="my-menu mui-table-view">   
-									<li class="mui-table-view-cell">
-										<div class="mui-slider-right mui-disabled">
-										<span class="mui-btn mui-btn-red">删除</span>
-										</div>
-										<div class="mui-slider-handle">
-											订单编号：8546974125412475 <span class="my-song mui-pull-right">已完成</span>
-											<div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a><br>联系姓名：毛毛<br>配送地址：中南名族大学北校区学生公寓5B515<br>合计总额：32元</div>
-										</div>
-									</li>
+								<ul class="my-menu mui-table-view">
+								    <li class="mui-table-view-cell">订单编号：8546974125412475<span class="my-song mui-pull-right">已完成</span></li>
+								    <li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li>
+								    <li class="mui-table-view-cell">联系姓名：毛毛</li>
+								    <li class="mui-table-view-cell">配送地址：中南名族大学北校区学生公寓5B515</li>
+								    <li class="mui-table-view-cell">合计总额：32元</li>
 								</ul>
 							</div>
 						</div>
@@ -71,40 +55,28 @@
 					<div id="item2mobile" class="mui-slider-item mui-control-content">
 						<div class="mui-scroll-wrapper">
 							<div class="mui-scroll">
-								<ul class="my-menu mui-table-view">   
-									<li class="mui-table-view-cell">
-										<div class="mui-slider-right mui-disabled">
-										<span class="mui-btn mui-btn-red">删除</span>
-										</div>
-										<div class="mui-slider-handle">
-											订单编号：8546974125412475 <span class="my-song mui-pull-right">配送中</span>
-											<div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a><br>联系姓名：毛毛<br>配送地址：中南名族大学北校区学生公寓5B515<br>合计总额：32元</div>
-										</div>
-									</li>
+								<ul class="my-menu mui-table-view">
+								    <li class="mui-table-view-cell">订单编号：8546974125412475<span class="my-song mui-pull-right">配送中</span></li>
+								    <li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li>
+								    <li class="mui-table-view-cell">联系姓名：毛毛</li>
+								    <li class="mui-table-view-cell">配送地址：中南名族大学北校区学生公寓5B515</li>
+								    <li class="mui-table-view-cell">合计总额：32元</li>
 								</ul>
 
-								<ul class="my-menu mui-table-view">   
-									<li class="mui-table-view-cell">
-										<div class="mui-slider-right mui-disabled">
-										<span class="mui-btn mui-btn-red">删除</span>
-										</div>
-										<div class="mui-slider-handle">
-											订单编号：8546974125412475 <span class="my-song mui-pull-right">等待确认</span>
-											<div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a><br>联系姓名：毛毛<br>配送地址：中南名族大学北校区学生公寓5B515<br>合计总额：32元</div>
-										</div>
-									</li>
+								<ul class="my-menu mui-table-view">
+								    <li class="mui-table-view-cell">订单编号：8546974125412475<span class="my-song mui-pull-right">等待确认</span></li>
+								    <li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li>
+								    <li class="mui-table-view-cell">联系姓名：毛毛</li>
+								    <li class="mui-table-view-cell">配送地址：中南名族大学北校区学生公寓5B515</li>
+								    <li class="mui-table-view-cell">合计总额：32元</li>
 								</ul>
 
-								<ul class="my-menu mui-table-view">   
-									<li class="mui-table-view-cell">
-										<div class="mui-slider-right mui-disabled">
-										<span class="mui-btn mui-btn-red">删除</span>
-										</div>
-										<div class="mui-slider-handle">
-											订单编号：8546974125412475 <span class="my-song mui-pull-right">已完成</span>
-											<div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a><br>联系姓名：毛毛<br>配送地址：中南名族大学北校区学生公寓5B515<br>合计总额：32元</div>
-										</div>
-									</li>
+								<ul class="my-menu mui-table-view">
+								    <li class="mui-table-view-cell">订单编号：8546974125412475<span class="my-song mui-pull-right">已完成</span></li>
+								    <li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li>
+								    <li class="mui-table-view-cell">联系姓名：毛毛</li>
+								    <li class="mui-table-view-cell">配送地址：中南名族大学北校区学生公寓5B515</li>
+								    <li class="mui-table-view-cell">合计总额：32元</li>
 								</ul>
 							</div>
 						</div>
@@ -114,41 +86,30 @@
 					<div id="item3mobile" class="mui-slider-item mui-control-content">
 						<div class="mui-scroll-wrapper">
 							<div class="mui-scroll">
-								<ul class="my-menu mui-table-view">   
-									<li class="mui-table-view-cell">
-										<div class="mui-slider-right mui-disabled">
-										<span class="mui-btn mui-btn-red">删除</span>
-										</div>
-										<div class="mui-slider-handle">
-											订单编号：8546974125412475 <span class="my-song mui-pull-right">已完成</span>
-											<div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a><br>联系姓名：毛毛<br>配送地址：中南名族大学北校区学生公寓5B515<br>合计总额：32元</div>
-										</div>
-									</li>
+								<ul class="my-menu mui-table-view">
+								    <li class="mui-table-view-cell">订单编号：8546974125412475<span class="my-song mui-pull-right">已完成</span></li>
+								    <li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li>
+								    <li class="mui-table-view-cell">联系姓名：毛毛</li>
+								    <li class="mui-table-view-cell">配送地址：中南名族大学北校区学生公寓5B515</li>
+								    <li class="mui-table-view-cell">合计总额：32元</li>
 								</ul>
 
-								<ul class="my-menu mui-table-view">   
-									<li class="mui-table-view-cell">
-										<div class="mui-slider-right mui-disabled">
-										<span class="mui-btn mui-btn-red">删除</span>
-										</div>
-										<div class="mui-slider-handle">
-											订单编号：8546974125412475 <span class="my-song mui-pull-right">已完成</span>
-											<div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a><br>联系姓名：毛毛<br>配送地址：中南名族大学北校区学生公寓5B515<br>合计总额：32元</div>
-										</div>
-									</li>
+								<ul class="my-menu mui-table-view">
+								    <li class="mui-table-view-cell">订单编号：8546974125412475<span class="my-song mui-pull-right">已完成</span></li>
+								    <li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li>
+								    <li class="mui-table-view-cell">联系姓名：毛毛</li>
+								    <li class="mui-table-view-cell">配送地址：中南名族大学北校区学生公寓5B515</li>
+								    <li class="mui-table-view-cell">合计总额：32元</li>
 								</ul>
 
-								<ul class="my-menu mui-table-view">   
-									<li class="mui-table-view-cell">
-										<div class="mui-slider-right mui-disabled">
-										<span class="mui-btn mui-btn-red">删除</span>
-										</div>
-										<div class="mui-slider-handle">
-											订单编号：8546974125412475 <span class="my-song mui-pull-right">已完成</span>
-											<div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a><br>联系姓名：毛毛<br>配送地址：中南名族大学北校区学生公寓5B515<br>合计总额：32元</div>
-										</div>
-									</li>
+								<ul class="my-menu mui-table-view">
+								    <li class="mui-table-view-cell">订单编号：8546974125412475<span class="my-song mui-pull-right">已完成</span></li>
+								    <li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li>
+								    <li class="mui-table-view-cell">联系姓名：毛毛</li>
+								    <li class="mui-table-view-cell">配送地址：中南名族大学北校区学生公寓5B515</li>
+								    <li class="mui-table-view-cell">合计总额：32元</li>
 								</ul>
+
 							</div>
 						</div>
 					</div>

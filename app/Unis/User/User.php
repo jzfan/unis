@@ -8,7 +8,7 @@ use App\Unis\Traits\UserTrait\AdminMethods;
 use App\Unis\Traits\UserTrait\MemberMethods;
 use App\Unis\Traits\UserTrait\AgentMethods;
 use App\Unis\Suplier\Food;
-use App\Unis\School\Room;
+use App\Unis\School\Dorm;
 use App\Unis\Traits\StatusAttribute;
 
 class User extends Authenticatable
@@ -24,7 +24,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'wechat_openid', 'status', 'avatar'
+        'name', 'email', 'password', 'wechat_openid', 'status', 'avatar', 'phone', 'gender', 'room_number', 'dorm_id'
     ];
 
     /**
@@ -41,10 +41,10 @@ class User extends Authenticatable
     //     return $value == 0 ? '禁用' : '启用';
     // }
 
-    public function address()
-    {
-        return $this->hasOne(Address::class);
-    }
+    // public function address()
+    // {
+    //     return $this->hasOne(Address::class);
+    // }
 
     public function favorites()
     {
@@ -53,12 +53,17 @@ class User extends Authenticatable
 
     public function recommends()
     {
-        return $this->belongsToMany(Food::class, 'recommends');
+        return $this->belongsToMany(Food::class, 'recommends', 'user_id', 'food_id');
     }
 
-    public function room()
+    public function dorm()
     {
-        return $this->belongsTo(Room::class);
+        return $this->belongsTo(Dorm::class);
+    }
+
+    public function getAddress()
+    {
+        return $this->dorm->campus->school->name . $this->dorm->campus->name . $this->dorm->name . $this->room_number;
     }
 
     public function getAvatarAttribute($value)
@@ -67,6 +72,16 @@ class User extends Authenticatable
             return $value;
         } 
         return config('site.avatarPath') . $value;
+    }
+
+    public function setAvatarAttribute($value)
+    {
+        $path = config('site.avatarPath');
+        if (starts_with($value, $path)){
+            $this->attributes['avatar'] = str_replace($path, '', $value);
+        }else{
+            $this->attributes['avatar'] = $value;
+        }
     }
 
 }

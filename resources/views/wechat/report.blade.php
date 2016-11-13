@@ -21,6 +21,8 @@
 @stop
 
 @section('js')
+<script src="/lib/pusher/main.js"></script>
+
 	<script>
 		$('.w-respone-btn')on('touchstart',function(){
 				$('#report').submit(

@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(FavoriteSeeder::class);
         $this->call(RoomSeeder::class);
         $this->call(UsersTableSeeder::class);
-        $this->call(OrderSeeder::class);
+        // $this->call(OrderSeeder::class);
         // $this->call(RegionTableSeeder::class);
     }
 }

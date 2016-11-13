@@ -8,6 +8,8 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use App\Unis\User\User;
+use Log;
 
 class AgentCreate
 {
@@ -27,6 +29,6 @@ class AgentCreate
      */
     public function broadcastOn()
     {
-        Log::info('新增代理：('.$this->user->id.')'.$this->user->name);
+        // Log::info('新增代理：('.$this->user->id.')'.$this->user->name);
     }
 }

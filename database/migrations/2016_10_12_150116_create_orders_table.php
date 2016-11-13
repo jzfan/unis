@@ -22,7 +22,7 @@ class CreateOrdersTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('deliver_id')->unsigned()->nullable();
             $table->integer('total');
-            $table->integer('room_id')->unsigned();
+            $table->string('address');
             $table->string('mark')->nullable();
             $table->enum('status', ['ordered', 'paid', 'paid_fail', 'taken', 'delivered', 'withdrawed'])->default('ordered');
             $table->timestamp('paid_at')->nullable();

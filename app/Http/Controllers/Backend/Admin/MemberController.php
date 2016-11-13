@@ -55,7 +55,6 @@ class MemberController extends Controller
     public function update(User $member, Request $request)
     {
         $input = $request->input();
-        dd($input);
         if (empty($input['password'])){
             unset($input['password']);
         }else{

@@ -7,7 +7,7 @@
 @section('content')
 		
 		    
-		<div id="pullrefresh" class="win-scroll-wrapper mui-content mui-scroll-wrapper">
+		        <div id="pullrefresh" class="win-scroll-wrapper mui-content mui-scroll-wrapper">
 			<div class="mui-scroll">
 		        		<ul class="w-tab-view mui-table-view">
 						    <li class="mui-table-view-cell mui-media">
@@ -168,19 +168,35 @@
 			 */
 			function pulldownRefresh() {
 				setTimeout(function() {
-						var urlajax = "/wechat/ajax/favorite/";
+
+						var user = 5;
+						var urlajax = "/api/favorite/"+user;
 						$.ajax({
 						url:urlajax,
 						dataType:'json',
 						async:true,
 						type:'GET',
 				        success:function(data){
-				        	var foodlove = data;
-				        	var fd = eval(foodlove.data);
-				        	for(var i=0;i<fd.length;i++){
-				        		$('.w-tab-view'). prepend('<li class="mui-table-view-cell mui-media"><div class="mui-slider-right mui-disabled"><span class="mui-btn mui-btn-red">删除</span></div><div class="mui-slider-handle"><a href="javascript:;"><img class="mui-media-object mui-pull-left" src='+fd[i].img+'><div class="w-box"><div class="w-menu-left"><p class="menu-name">'+fd[i].name+'</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:'+fd[i].sold+'&nbsp;&nbsp;点赞:'+fd[i].id+'</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">'+fd[i].price+'</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:'+fd[i].original_price+'元</span></p></div><div class="w-menu-right"><div class="shan-icon"><span class=""></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></a></div></li>');
+				        	var collection = eval(data);
+				        	for(var j=0;j<collection.length;j++){
+				        		var num = collection[j].discount;
+				        		var img = collection[j].img;
+				        		var shopName = collection[j].name
+				        		var foodName = collection[j].name
+				        		var soldNum = collection[j].sold
+				        		var priceNum = collection[j].price
+				        		
 				        	}
-				        	
+				     
+				        	var table = document.body.querySelector('.mui-table-view');
+							var cells = document.body.querySelectorAll('.mui-table-view-cell');
+							for (var i = cells.length, len = i + 3; i < len; i++) {
+							var li = document.createElement('li');
+							li.className = 'mui-table-view-cell mui-media';
+							li.innerHTML = '<div class="mui-slider-right mui-disabled"><span class="mui-btn mui-btn-red">删除</span></div><div class="mui-slider-handle"><a href="javascript:;">'+'<img class="mui-media-object mui-pull-left" src='+img+'><div class="w-box"><div class="w-menu-left"><p class="menu-name">'+foodName+'</p><small class="menu-address">'+shopName+'</small><p class="menu-number"><span>月售:'+soldNum+'&nbsp;&nbsp;点赞:5</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">'+num+'</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:'+priceNum+'元</span></p></div><div class="w-menu-right"><div class="shan-icon"><span class=""></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></a></div>';
+							//下拉刷新，新纪录插到最前面；
+							table.insertBefore(li, table.firstChild);
+							}
 							mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //去掉旋转雪花
 				        }
 					});
@@ -194,7 +210,7 @@
 					mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > 2)); //参数为true代表没有更多数据了。
 					var table = document.body.querySelector('.mui-table-view');
 					var cells = document.body.querySelectorAll('.mui-table-view-cell');
-					for (var i = cells.length, len = i + 3; i < len; i++) {
+					for (var i = cells.length, len = i + 20; i < len; i++) {
 						var li = document.createElement('li');
 						li.className = 'mui-table-view-cell mui-media';
 						li.innerHTML = '<a href="javascript:;">'+'<img class="mui-media-object mui-pull-left" src="/img/wechat/sls.png"><div class="w-box"><div class="w-menu-left"><p class="menu-name">酸辣土豆丝</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:12&nbsp;&nbsp;点赞:5</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">8</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:9元</span></p></div><div class="w-menu-right"><div class="shan-icon"><span class=""></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></a>';

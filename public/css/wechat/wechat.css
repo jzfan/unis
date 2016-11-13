@@ -4,6 +4,9 @@
  * 
  * */
  /* newcss */
+ .w-cash-all .mui-table-view-cell:last-child:after, .mui-table-view-cell:last-child:before{
+ 	height: 1px;
+ }
  .mui-btn-red{
  	background-color: #e72d2e;
  }
@@ -135,7 +138,7 @@ body .layui-m-layer .layui-m-layer-msg{
 	border-bottom:2px solid #ff4b4b!important;
 }
 .w-tab-view{
-	margin-top: 4px;
+	margin-top: 6px;
 }
 
 .w-tab-view .mui-table-view-cell .mui-media-object{
@@ -324,6 +327,9 @@ body .layui-m-layer .layui-m-layer-msg{
 .w-respone{
 	margin:1.5rem 1rem 5rem 1.5rem;
 }
+.w-respone .mui-input-group:after,.w-respone .mui-input-group:before{
+	height: 0px!important;
+}
 .w-respone-group{
 	height: 27rem;
 	border-radius: 8px;
@@ -471,6 +477,9 @@ body .layui-m-layer .layui-m-layer-msg{
 	font-family: '微软雅黑';
 	color: #585858;
 	font-size: 12px;
+}
+.w-finshed-menu .mui-table-view:before{
+	height: 1px!important;
 }
 .w-cash-all .mui-table-view-cell{
 	color:#fe4e4c;
@@ -640,9 +649,9 @@ body .layui-m-layer .layui-m-layer-msg{
 	background-color: #fff;
 }
 
-/* .w-finshed-menu{
-	margin-top: 4px;
-} */
+.w-finshed-menu{
+	box-shadow: 0px 1px 1px rgba(0,0,0,0.2);
+} 
 .w-finshed-menu .w-home-tab{
 	padding: 8px 4px;
 }
@@ -767,7 +776,7 @@ body .layui-m-layer .layui-m-layer-msg{
 	background-color: #fff!important;
 }
 .yue{
-	background: url(../img/yue.png) no-repeat left;
+	background: url(/img/yue.png) no-repeat left;
 	background-size: 1.5rem;
 	text-indent: 1.6rem;
 }

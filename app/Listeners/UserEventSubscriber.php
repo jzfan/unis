@@ -2,17 +2,25 @@
 
 namespace App\Listeners;
 
+use Log;
+
 class UserEventSubscriber
 {
     /**
      * Handle user login events.
      */
-    public function onUserLogin($event) {}
+    public function onAgentCreate($event)
+    {
+        Log::info('新增代理：('.$event->user->id.')'.$event->user->name);
+    }
 
     /**
      * Handle user logout events.
      */
-    public function onUserLogout($event) {}
+    public function onAgentDelete($event)
+    {
+        Log::info('删除代理：('.$event->user->id.')'.$event->user->name);
+    }
 
     /**
      * Register the listeners for the subscriber.
@@ -22,12 +30,12 @@ class UserEventSubscriber
     public function subscribe($events)
     {
         $events->listen(
-            'Illuminate\Auth\Events\AgentCreate',
+            'App\Events\AgentCreate',
             'App\Listeners\UserEventSubscriber@onAgentCreate'
         );
 
         $events->listen(
-            'Illuminate\Auth\Events\AgentDelete',
+            'App\Events\AgentDelete',
             'App\Listeners\UserEventSubscriber@onAgentDelete'
         );
     }

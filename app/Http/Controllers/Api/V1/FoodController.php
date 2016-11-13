@@ -23,20 +23,16 @@ class FoodController extends Controller
 		$foods = Food::paginate($limit);
 		return $this->response->paginator($foods, new FoodTransformer);    	
 	}
+    
     public function show($id)
     {
     	return Food::findOrFail($id);
     }
 
-    public function test()
+    public function listByCanteen($canteen_id)
     {
-    	Input::merge(["page" => 2]);
-    	$foods = Food::paginate(5);
-    	// return $foods;
-    	return $this->response->paginator($foods, new FoodTransformer);
-    	// return collect();
-    	return collect($foods, new FoodTransformer, [], function ($resource, $fractal) {
-    		$resource->setCursor(2);
-		});
+    	$foods = Food::where('canteen_id', $canteen_id)->get()->toArray();
+    	return $this->response->array($foods, new FoodTransformer);
     }
+
 }

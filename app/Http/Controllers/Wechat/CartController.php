@@ -9,21 +9,17 @@ use App\Http\Controllers\Controller;
 use App\Unis\Suplier\Food;
 use App\Unis\Order\Cart;
 
-class CartController extends Controller
+class CartController extends BaseController
 {
+
     public function index()
     {
         return view('wechat.cart.index');
     }
 
-    public function show($user_id)
+    public function show()
     {
-        $this->authorize('cart-action', $user_id);
-        $items = Cart::with('food')->where('user_id', $user_id)->get();
-        $foods = $items->map(function ($item) {
-            return $item->food;
-        });
-		return view('wechat.cart.show', compact('foods'));
+		return view('wechat.cart.show');
 	}
 
     public function store(Request $request)
@@ -36,5 +32,19 @@ class CartController extends Controller
     		'price'  => $food->price
     		]);
     	return redirect()->back()->with('success', '已加入购物车！');
+    }
+
+    public function update()
+    {
+
+    }
+
+    public function add($food_id)
+    {
+        Cart::create([
+            'wechat_openid' => $this->user->id,
+            'food_id' => $food_id
+        ]);
+        return 'ok';
     }
 }

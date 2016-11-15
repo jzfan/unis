@@ -29,6 +29,6 @@ class Dorm extends Model
 
     public function users()
     {
-        return $this->hasManyThrough(User::class, Room::class);
+        return $this->hasMany(User::class);
     }
 }

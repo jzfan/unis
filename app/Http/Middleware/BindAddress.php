@@ -17,6 +17,7 @@ class BindAddress
     public function handle($request, Closure $next)
     {
         $user = session('wechat.oauth_user');
+
         if (!session('registered')){
             if (! $this->isInUsersTable($user)){
                 return redirect('/wechat/register');

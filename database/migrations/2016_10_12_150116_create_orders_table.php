@@ -14,14 +14,16 @@ class CreateOrdersTable extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->increments('id');
+            $table->string('order_no')->primary();
             $table->string('billing_id')->nullable();
             $table->string('type');
-            $table->string('order_no');
             $table->string('subject');
             $table->integer('user_id')->unsigned();
             $table->integer('deliver_id')->unsigned()->nullable();
             $table->integer('total');
+            $table->integer('school_id');
+            $table->integer('campus_id');
+            $table->integer('dorm_id');
             $table->string('address');
             $table->string('mark')->nullable();
             $table->enum('status', ['ordered', 'paid', 'paid_fail', 'taken', 'delivered', 'withdrawed'])->default('ordered');

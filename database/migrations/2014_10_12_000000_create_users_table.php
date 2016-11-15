@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->enum('gender', ['男', '女', '保密'])->default('保密');
             $table->enum('role', ['member', 'agent', 'Suplier', 'admin'])->default('member');
+            $table->integer('balance')->unsigned()->default(0);
             $table->string('email')->unique()->nullable();
             $table->string('phone')->unique()->nullable();
             $table->string('password')->nullable();
@@ -25,8 +26,6 @@ class CreateUsersTable extends Migration
             $table->string('wechat_openid')->nullable()->index();
             $table->string('wechat_token')->nullable();
             $table->enum('status', [0,1])->default(0);
-            $table->integer('dorm_id')->unsigned();
-            $table->string('room_number')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

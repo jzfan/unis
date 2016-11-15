@@ -138,4 +138,23 @@
 				}, 1000);
 			}
 		</script>
+
+
+
+		<script>/*进入页面请求刷新*/
+			/*$(function(){
+				$.ajax({
+					url:'',
+					dataType:'json',
+					async:true,
+					data:{},
+					type:'GET',
+					success:function(){
+						var div =document.createElement('div');
+						div.className = "w-card mui-card";
+						div.innerHTML ='<a href="交易订单信息.html"><ul class="mui-table-view"><li class="mui-table-view-cell"><div class="mui-slider-right mui-disabled"><span class="mui-btn mui-btn-red">删除</span></div><div class="mui-slider-handle"><div class="w-card-header">互动消息<small class="w-card-time mui-pull-right">16/10/18</small></div><div class="w-card-info">订单已签收！您购买的[酸辣土豆丝]已签收，欢迎再...</div></div></li></ul></a>';
+					}
+				})
+			})*/
+		</script>
 @stop

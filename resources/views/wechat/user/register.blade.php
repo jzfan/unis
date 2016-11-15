@@ -8,7 +8,7 @@
 	<div class="w-entry">
 		<div class="w-logo-wrap"><img src="/img/wechat/logo.png" alt=""></div>
 	</div>
-	<form class="w-input-group mui-input-group" id="info" action="/wechat/user" method="post">
+	<form class="w-input-group mui-input-group" id="info">
 	{!! csrf_field() !!}
 		<div class="mui-input-row" id="school">
 	        <label>学校:</label>
@@ -38,7 +38,6 @@
 			
 		</ul>
 
-
     	<div class="mui-input-row" id="school-room">
 	        <label>宿舍:</label>
 		    	<input type="text" class="" placeholder="选择宿舍楼" tabindex="3" required>
@@ -65,8 +64,14 @@
 	        <label>手机:</label>
 	        <input type="number" class="mui-input-clear" placeholder="输入手机号" tabindex="5" id="telephone"  name="phone" required>
 	        <input type="hidden"  value="" class="trueVal">
+	        <input type="hidden" name='id' id='user'>
+	        <input type="hidden" name='email' id='email'>
+	        <input type="hidden" name='avatar' id="avatar">
+	        <input type="hidden" name='nickname' id="nickname">
+
+
 	    </div>
-	    <button type="submit" class="w-entry-btn mui-btn mui-btn-danger">完成</button>
+	    <button type="submit" class="w-entry-btn mui-btn mui-btn-danger" id="btn">完成</button>
 	</form>
 
 @stop
@@ -82,19 +87,6 @@
 			$.get('/api/school',function(data){
 				for(var i=0;i<data.length;i++){
 			$('#school-fix').append('<li class="mui-table-view-cell"><span class="mui-navigate-right">'+data[i].text+'</span><span class="sid" style="visibility: hidden;">'+data[i].id+'</span></li>');
-				/*搜索功能开始*/
-				$('#school-fix .win-search').keyup(function(){
-					var searchText = $('.win-search').val();
-					var ccc = $('#school-fix li').not(".school-search").find('span.mui-navigate-right');
-					for(var j=0;j<ccc.length;j++){
-						console.log(ccc[j].innerHTML)
-						/*if(true){
-							$('#school-fix li').not(".school-search")[j].remove();
-						}*/
-						
-					}
-				});
-				/*搜索功能结束*/
 				$('#school-fix li').not(".school-search").on('tap',function(){
 						var which = $(this).find('span.mui-navigate-right').text();
 						var IDs = $(this).find('span.sid').text();
@@ -109,7 +101,7 @@
 		
 	});
 
-	/*选择校区*/
+	/*根据学校选择校区*/
 		$(function(){
 				$(document).on('touchstart','#school-area input',function(){
 					$('#area-fix li').not('.school-search').remove();
@@ -135,7 +127,7 @@
 			});
 
 
-	/*选择宿舍*/
+	/*选择校区选择宿舍*/
 	$(function(){
 			$(document).on('touchstart','#school-room input',function(){
 				$('#room-fix li').not('.school-search').remove();
@@ -159,9 +151,84 @@
 			});
 		});
 
-
-
-
-	/*搜索功能*/
 	</script>
+
+	
+
+	<script>
+	/*搜索功能开始*/
+	$('#school-fix .win-search').keyup(function(){
+		$('#school-fix li').not('.school-search').remove();//重选学校时清空li列表，保留搜索li
+		$('#school-fix').fadeIn();
+		var searchText = $('#school-fix .win-search').val();
+		var searchUrl = '/api/school/like/'+searchText;
+		$.ajax({
+			url:searchUrl,
+			dataType:'json',
+			async:true,
+			type:'GET',
+			success:function(data){
+				/*console.log(data.schools);*/
+				arrs = data.schools;
+				console.log(arrs);
+				for(var j=0;j<arrs.length;j++){
+					console.log(arrs[j].name);
+					$('#school-fix').append('<li class="mui-table-view-cell"><span class="mui-navigate-right">'+arrs[j].name+'</span><span class="sid" style="visibility: hidden;">'+arrs[j].id+'</span></li>');
+					$('#school-fix li').not(".school-search").on('tap',function(){
+					var which = $(this).find('span.mui-navigate-right').text();
+					var IDs = $(this).find('span.sid').text();
+					$('#school input').val(which);
+					$('#school input.trueVal').val(parseInt(IDs));
+					$('#school label').html('学校:'+'<span class="schoolId" style="visibility: hidden;">'+IDs+'</span>');
+					$('#school-fix').fadeOut();
+					});
+
+				}
+			}
+		});
+	});
+	/*搜索功能结束*/
+
+
+
+
+	/*拿用户信息*/
+	$(function(){
+     $.ajax({
+            url:'/wechat/wx_user',
+            dataType:'json',
+            async:true,
+            type:'GET',
+            success:function(data){
+            	console.log(data.id);
+              $('#user').val(data.id);
+              $('#email').val(data.email);
+              $('#avatar').val(data.avatar);
+              $('#nickname').val(data.nickname);
+            }
+      	});
+  	});
+
+	/*注册提交*/
+	$(function(){
+
+		$('form').on('submit',function(){
+
+		        $.ajax({
+		        type:"POST",
+		        url:'/api/user',
+		        data:$(this).serialize(),
+		        dataType: 'json',
+		        success: function(data){
+		            console.log(data);
+		        },
+		        error: function(data){
+
+		        }
+		    });
+		    });
+		});
+
+	</script>
+
 @stop

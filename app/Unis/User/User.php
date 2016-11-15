@@ -9,6 +9,8 @@ use App\Unis\Traits\UserTrait\MemberMethods;
 use App\Unis\Traits\UserTrait\AgentMethods;
 use App\Unis\Suplier\Food;
 use App\Unis\School\Dorm;
+use App\Unis\Order\Cart;
+use App\Unis\User\Address;
 use App\Unis\Traits\StatusAttribute;
 
 class User extends Authenticatable
@@ -24,7 +26,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'wechat_openid', 'status', 'avatar', 'phone', 'gender', 'room_number', 'dorm_id'
+        'name', 'email', 'password', 'wechat_openid', 'status', 'avatar', 'phone', 'gender'
     ];
 
     /**
@@ -41,14 +43,24 @@ class User extends Authenticatable
     //     return $value == 0 ? '禁用' : '启用';
     // }
 
-    // public function address()
-    // {
-    //     return $this->hasOne(Address::class);
-    // }
+    public function addresses()
+    {
+        return $this->hasMany(Address::class);
+    }
+
+    public function defaultAddress()
+    {
+        return $this->addresses()->where('status', '1')->first();
+    }
 
     public function favorites()
     {
         return $this->belongsToMany(Food::class, 'favorites', 'user_id', 'food_id');
+    }
+
+    public function foodsInCart()
+    {
+        return $this->belongsToMany(Food::class, 'carts', 'user_id', 'food_id');
     }
 
     public function recommends()
@@ -56,15 +68,22 @@ class User extends Authenticatable
         return $this->belongsToMany(Food::class, 'recommends', 'user_id', 'food_id');
     }
 
+    public function campus()
+    {
+        return $this->defaultAddress()->campus;
+    }
+    public function school()
+    {
+        return $this->defaultAddress()->school;
+    }
     public function dorm()
     {
-        return $this->belongsTo(Dorm::class);
+        return $this->defaultAddress()->dorm;
     }
-
-    public function getAddress()
-    {
-        return $this->dorm->campus->school->name . $this->dorm->campus->name . $this->dorm->name . $this->room_number;
-    }
+    // public function getAddress()
+    // {
+    //     return $this->addresses();
+    // }
 
     public function getAvatarAttribute($value)
     {

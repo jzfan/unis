@@ -183,6 +183,7 @@ return [
 
         Yajra\Datatables\DatatablesServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Spatie\Fractal\FractalServiceProvider::class,
 
     ],
 

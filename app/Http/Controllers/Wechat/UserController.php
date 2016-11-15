@@ -11,22 +11,10 @@ use App\Unis\User\User;
 class UserController extends BaseController
 {
 
-    public function store(WechatUserRequest $request)
+    public function wxUserInfo()
     {
-        $data =  [
-                    'role' => 'member', 
-                    'name' => $this->user->nickname, 
-                    'avatar' => $this->user->avatar,
-                    'wechat_openid' => $this->user->id,
-                    'email' => $this->user->email,
-                    'dorm_id' => $request->dorm_id,
-                    'room_number' => $request->room_number,
-                    'phone' => $request->phone,
-
-                ];
-        User::create($data);
-    	session()->put('registered', true);
-        return redirect('/wechat/index');
+        $user = session('wechat.oauth_user');
+        return ['id'=>$user->id, 'nickname'=>$user->nickname, 'email'=>$user->email, 'avatar'=>$user->avatar];
     }
 
     public function register(Request $request)
@@ -53,5 +41,11 @@ class UserController extends BaseController
     {
         $user = session('wechat.oauth_user')->toArray();
         return response()->json($user);
+    }
+
+    public function info()
+    {
+        $user = session('wechat.oauth_user');
+        return User::where('wechat_openid', $user->id)->first();
     }
 }

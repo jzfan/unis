@@ -15,7 +15,7 @@ class RoomDataTable extends DataTable
     public function ajax()
     {
         return $this->datatables
-            ->eloquent($this->query()->with('dorm.campus.school')->withCount('users'))
+            ->eloquent($this->query()->with('dorm.campus.school'))
             ->addColumn('action', 'backend.admin.partial.actionDt.room')
             ->make(true);
     }
@@ -59,7 +59,6 @@ class RoomDataTable extends DataTable
             '校区'=>['name'=>'dorm.campus.name','data'=>'dorm.campus.name', 'orderable'=>false, 'searchable'=>false],
             '宿舍'=>['name'=>'dorm.name','data'=>'dorm.name'],
             '房间'=>['name'=>'number','data'=>'number'],
-            '人数'=>['name'=>'users_count','data'=>'users_count'],
 
         ];
     }

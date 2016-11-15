@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\Unis\Traits\StatusAttribute;
 use App\Unis\School\Canteen;
 use App\Unis\School\Dorm;
+use App\Unis\User\User;
+use App\Unis\User\Address;
 
 class Campus extends Model
 {
@@ -23,9 +25,20 @@ class Campus extends Model
     	return $this->hasMany(Canteen::class);
     }
 
-    public function Dorms()
+    public function dorms()
     {
     	return $this->hasMany(Dorm::class);
+    }
+
+    public function users()
+    {
+        return $this->hasManyThrough(User::class, Address::class, 'user_id', 'campus_id');
+        // return $this->
+    }
+
+    public function addresses()
+    {
+        return $this->hasMany(Address::class);
     }
 
 }

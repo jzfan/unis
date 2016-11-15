@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Seeder;
 use App\Unis\User\User;
-use App\Unis\User\Address;
 
 class UsersTableSeeder extends Seeder
 {
@@ -15,7 +14,6 @@ class UsersTableSeeder extends Seeder
     {
 
      	User::truncate();
-        Address::truncate();
 
         User::create([
         	'name' => 'superMan',
@@ -23,9 +21,7 @@ class UsersTableSeeder extends Seeder
         	'email' => 'admin@unis.com',
         	'password' => bcrypt('123'),
             'avatar' => '/img/default-avatar.png',
-            'status' => 1,
-            'dorm_id' => 1,
-            'room_number' => 1,
+            'status' => 1
         	]);
         User::create([
         	'name' => 'xiaoMing',
@@ -34,8 +30,6 @@ class UsersTableSeeder extends Seeder
         	'password' => bcrypt('123'),
             'avatar' => '/img/default-avatar.png',
             'status' => 1,
-            'dorm_id' =>2,
-            'room_number' =>2
         	]);
         factory(User::class, 1000)->create();      
     }

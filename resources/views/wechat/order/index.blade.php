@@ -17,37 +17,9 @@
 					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
 						<div id="scroll1" class="mui-scroll-wrapper">
 							<div class="mui-scroll">
-								<ul class="my-menu mui-table-view">
-								    <li class="mui-table-view-cell">订单编号：8546974125412475 <span class="my-song mui-pull-right">配送中</span></li>
-								    <li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li>
-								    <li class="mui-table-view-cell">联系姓名：毛毛</li>
-								    <li class="mui-table-view-cell">配送地址：中南名族大学北校区学生公寓5B515</li>
-								    <li class="mui-table-view-cell">合计总额：32元</li>
-								</ul>
+								
 
-								<ul class="my-menu mui-table-view">
-								    <li class="mui-table-view-cell">订单编号：8546974125412475<span class="my-song mui-pull-right">已送达</span></li>
-								    <li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li>
-								    <li class="mui-table-view-cell">联系姓名：毛毛</li>
-								    <li class="mui-table-view-cell">配送地址：中南名族大学北校区学生公寓5B515</li>
-								    <li class="mui-table-view-cell">合计总额：32元</li>
-								</ul>
 
-								<ul class="my-menu mui-table-view">
-								    <li class="mui-table-view-cell">订单编号：8546974125412475<span class="my-song mui-pull-right">已完成</span></li>
-								    <li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li>
-								    <li class="mui-table-view-cell">联系姓名：毛毛</li>
-								    <li class="mui-table-view-cell">配送地址：中南名族大学北校区学生公寓5B515</li>
-								    <li class="mui-table-view-cell">合计总额：32元</li>
-								</ul>
-
-								<ul class="my-menu mui-table-view">
-								    <li class="mui-table-view-cell">订单编号：8546974125412475<span class="my-song mui-pull-right">已完成</span></li>
-								    <li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li>
-								    <li class="mui-table-view-cell">联系姓名：毛毛</li>
-								    <li class="mui-table-view-cell">配送地址：中南名族大学北校区学生公寓5B515</li>
-								    <li class="mui-table-view-cell">合计总额：32元</li>
-								</ul>
 							</div>
 						</div>
 					</div>
@@ -55,29 +27,9 @@
 					<div id="item2mobile" class="mui-slider-item mui-control-content">
 						<div class="mui-scroll-wrapper">
 							<div class="mui-scroll">
-								<ul class="my-menu mui-table-view">
-								    <li class="mui-table-view-cell">订单编号：8546974125412475<span class="my-song mui-pull-right">配送中</span></li>
-								    <li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li>
-								    <li class="mui-table-view-cell">联系姓名：毛毛</li>
-								    <li class="mui-table-view-cell">配送地址：中南名族大学北校区学生公寓5B515</li>
-								    <li class="mui-table-view-cell">合计总额：32元</li>
-								</ul>
+								
 
-								<ul class="my-menu mui-table-view">
-								    <li class="mui-table-view-cell">订单编号：8546974125412475<span class="my-song mui-pull-right">等待确认</span></li>
-								    <li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li>
-								    <li class="mui-table-view-cell">联系姓名：毛毛</li>
-								    <li class="mui-table-view-cell">配送地址：中南名族大学北校区学生公寓5B515</li>
-								    <li class="mui-table-view-cell">合计总额：32元</li>
-								</ul>
 
-								<ul class="my-menu mui-table-view">
-								    <li class="mui-table-view-cell">订单编号：8546974125412475<span class="my-song mui-pull-right">已完成</span></li>
-								    <li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li>
-								    <li class="mui-table-view-cell">联系姓名：毛毛</li>
-								    <li class="mui-table-view-cell">配送地址：中南名族大学北校区学生公寓5B515</li>
-								    <li class="mui-table-view-cell">合计总额：32元</li>
-								</ul>
 							</div>
 						</div>
 					</div>
@@ -86,41 +38,22 @@
 					<div id="item3mobile" class="mui-slider-item mui-control-content">
 						<div class="mui-scroll-wrapper">
 							<div class="mui-scroll">
-								<ul class="my-menu mui-table-view">
-								    <li class="mui-table-view-cell">订单编号：8546974125412475<span class="my-song mui-pull-right">已完成</span></li>
-								    <li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li>
-								    <li class="mui-table-view-cell">联系姓名：毛毛</li>
-								    <li class="mui-table-view-cell">配送地址：中南名族大学北校区学生公寓5B515</li>
-								    <li class="mui-table-view-cell">合计总额：32元</li>
-								</ul>
+								
 
-								<ul class="my-menu mui-table-view">
-								    <li class="mui-table-view-cell">订单编号：8546974125412475<span class="my-song mui-pull-right">已完成</span></li>
-								    <li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li>
-								    <li class="mui-table-view-cell">联系姓名：毛毛</li>
-								    <li class="mui-table-view-cell">配送地址：中南名族大学北校区学生公寓5B515</li>
-								    <li class="mui-table-view-cell">合计总额：32元</li>
-								</ul>
-
-								<ul class="my-menu mui-table-view">
-								    <li class="mui-table-view-cell">订单编号：8546974125412475<span class="my-song mui-pull-right">已完成</span></li>
-								    <li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li>
-								    <li class="mui-table-view-cell">联系姓名：毛毛</li>
-								    <li class="mui-table-view-cell">配送地址：中南名族大学北校区学生公寓5B515</li>
-								    <li class="mui-table-view-cell">合计总额：32元</li>
-								</ul>
 
 							</div>
 						</div>
 					</div>
 					
 				</div>
+
 			</div>
 		</div>
 @stop
 
 @section('js')
-	<!-- <script>
+
+		<script>/*上拉刷新下拉加载我的订单列表*/
 			mui.init();
 			(function($) {
 				//阻尼系数
@@ -130,62 +63,329 @@
 					indicators: true, //是否显示滚动条
 					deceleration:deceleration
 				});
-				$.ready(function() {
+				$(function() {
 					//循环初始化所有下拉刷新，上拉加载。
-					$.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
-						$(pullRefreshEl).pullToRefresh({
+					
+						$('.mui-slider-group #item1mobile .mui-scroll').pullToRefresh({
+
+
 							down: {
 								callback: function() {
 									var self = this;
+									var urlajax = "/wechat/ajax/order";
 									setTimeout(function() {
-										var ul = self.element.querySelector('.mui-table-view');
-										ul.insertBefore(createFragment(ul, index, 10, true), ul.firstChild);
-										self.endPullDownToRefresh();
-									}, 1000);
-									$.ajax({
-											url:'/api/food',
+										$.ajax({
+											url:urlajax,
 											dataType:'json',
 											async:true,
-											data:{'page':1},
 											type:'GET',
-									        jsonp:"callback",
-									        jsonpCallback:"success_jsonpCallback",
 									        success:function(data){
-									        	var datafood = data;
-									        	/*console.log(eval(datafood.data)[1].img);*/
-									        	var jsons = eval(datafood.data);
-									        	for(var i=0;i<jsons.length;i++){
-									        		console.log(jsons[i].img+'\n');
+									        	console.log(data);
+									        	for(var i=0;i<data.length;i++){
+									        		var ul = document.createElement('ul');
+									        			ul.className = "my-menu mui-table-view";
+									        			ul.innerHTML = '<li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].user_id+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+data[i].total+'元</li>'; 
+												var table = document.body.querySelector('#item1mobile .mui-scroll');
+								   	 			var bot = document.body.querySelector('#item1mobile .mui-pull-bottom-tips');
+								                    	table.insertBefore(ul,bot); 
 									        	}
 									        }
-										});
+
+											});
+										self.endPullDownToRefresh();
+									}, 1000);
 								}
 							},
+
+
 							up: {
 								callback: function() {
 									var self = this;
+									var urlajax = "/wechat/ajax/order";
 									setTimeout(function() {
-										var ul= self.element.querySelector('.mui-table-view');
-										ul.appendChild(createFragment(ul, index, 5));
+										$.ajax({
+											url:urlajax,
+											dataType:'json',
+											async:true,
+											type:'GET',
+									        success:function(data){
+									        	console.log(data);
+									        	for(var i=0;i<data.length;i++){
+									        		var ul = document.createElement('ul');
+									        			ul.className = "my-menu mui-table-view";
+									        			ul.innerHTML = '<li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].user_id+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+data[i].total+'元</li>'; 
+
+									        			/*var table = document.body.querySelector('#item1mobile');
+                    	    								table.appendChild(ul);   */
+                    	    						var table = document.body.querySelector('#item1mobile .mui-scroll');
+								   	 				var bot = document.body.querySelector('#item1mobile .mui-pull-bottom-tips');
+								                    	table.insertBefore(ul,bot); 
+									        	}
+									        }
+
+											});
 										self.endPullUpToRefresh();
 									}, 1000);
 								}
 							}
+
+
 						});
-					});
-					var createFragment = function(ul, index, count, reverse) {
-						var length = ul.querySelectorAll('li').length;
-						var fragment = document.createDocumentFragment();
-						var li;
-						for (var i = 0; i < count; i++) {
-							ul = document.createElement('ul');
-							ul.className = 'my-menu mui-table-view';
-							ul.innerHTML = '<li class="mui-table-view-cell"><div class="mui-slider-right mui-disabled"><span class="mui-btn mui-btn-red">删除</span></div><div class="mui-slider-handle">订单编号：8546974125412475 <span class="my-song mui-pull-right">已完成</span><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a><br>联系姓名：毛毛<br>配送地址：中南名族大学北校区学生公寓5B515<br>合计总额：32元</div></div></li>';
-							fragment.appendChild(ul);
-						}
-						return fragment;
-					};
+					
+					
 				});
 			})(mui);
-		</script> -->
+		</script>
+
+
+
+		<script>/*上拉刷新下拉加载我的带餐列表*/
+			mui.init();
+			(function($) {
+				//阻尼系数
+				var deceleration = mui.os.ios?0.003:0.0009;
+				$('.mui-scroll-wrapper').scroll({
+					bounce: false,
+					indicators: true, //是否显示滚动条
+					deceleration:deceleration
+				});
+				$(function() {
+					//循环初始化所有下拉刷新，上拉加载。
+					
+						$('.mui-slider-group #item2mobile .mui-scroll').pullToRefresh({
+
+							down: {
+								callback: function() {
+									var self = this;
+									var urlajax = "/wechat/ajax/order";
+									setTimeout(function() {
+										$.ajax({
+											url:urlajax,
+											dataType:'json',
+											async:true,
+											type:'GET',
+									        success:function(data){
+									        	console.log(data);
+									        	for(var i=0;i<data.length;i++){
+									        		var ul = document.createElement('ul');
+									        			ul.className = "my-menu mui-table-view";
+									        			ul.innerHTML = '<li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].user_id+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+data[i].total+'元</li>'; 
+
+									        		var table = document.body.querySelector('#item2mobile .mui-scroll');
+									   	 			var	bot = document.body.querySelector('#item2mobile .mui-scroll .mui-pull-bottom-tips');
+								                    	table.insertBefore(ul,bot); 
+									        	}
+									        }
+
+											});
+										self.endPullDownToRefresh();
+									}, 1000);
+								}
+							},
+
+
+							up: {
+								callback: function() {
+									var self = this;
+									var urlajax = "/wechat/ajax/order";
+									setTimeout(function() {
+										$.ajax({
+											url:urlajax,
+											dataType:'json',
+											async:true,
+											type:'GET',
+									        success:function(data){
+									        	console.log(data);
+									        	for(var i=0;i<data.length;i++){
+									        		var ul = document.createElement('ul');
+									        			ul.className = "my-menu mui-table-view";
+									        			ul.innerHTML = '<li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].user_id+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+data[i].total+'元</li>'; 
+
+									        		var table = document.body.querySelector('#item2mobile .mui-scroll');
+									   	 			var	bot = document.body.querySelector('#item2mobile .mui-scroll .mui-pull-bottom-tips');
+								                    	table.insertBefore(ul,bot);   
+									        	}
+									        }
+
+											});
+										self.endPullUpToRefresh();
+									}, 1000);
+								}
+							}
+
+
+						});
+					
+					
+				});
+			})(mui);
+		</script>
+
+
+		<script>/*上拉刷新下拉加载我已带到列表*/
+			mui.init();
+			(function($) {
+				//阻尼系数
+				var deceleration = mui.os.ios?0.003:0.0009;
+				$('.mui-scroll-wrapper').scroll({
+					bounce: false,
+					indicators: true, //是否显示滚动条
+					deceleration:deceleration
+				});
+				$(function() {
+					//循环初始化所有下拉刷新，上拉加载。
+					
+						$('.mui-slider-group #item3mobile .mui-scroll').pullToRefresh({
+
+							down: {
+								callback: function() {
+									var self = this;
+									var urlajax = "/wechat/ajax/order";
+									setTimeout(function() {
+										$.ajax({
+											url:urlajax,
+											dataType:'json',
+											async:true,
+											type:'GET',
+									        success:function(data){
+									        	console.log(data);
+									        	for(var i=0;i<data.length;i++){
+									        		var ul = document.createElement('ul');
+									        			ul.className = "my-menu mui-table-view";
+									        			ul.innerHTML = '<li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].user_id+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+data[i].total+'元</li>'; 
+
+									        			/*var table = document.body.querySelector('#item3mobile');
+                    	    								table.appendChild(ul); */  
+                    	    						var	table = document.body.querySelector('#item3mobile .mui-scroll');
+									   	 			var	bot = document.body.querySelector('#item3mobile .mui-scroll .mui-pull-bottom-tips');
+								                    	table.insertBefore(ul,bot); 
+									        	}
+									        }
+
+											});
+										self.endPullDownToRefresh();
+									}, 1000);
+								}
+							},
+
+
+							up: {
+								callback: function() {
+									var self = this;
+									var urlajax = "/wechat/ajax/order";
+									setTimeout(function() {
+										$.ajax({
+											url:urlajax,
+											dataType:'json',
+											async:true,
+											type:'GET',
+									        success:function(data){
+									        	console.log(data);
+									        	for(var i=0;i<data.length;i++){
+									        		var ul = document.createElement('ul');
+									        			ul.className = "my-menu mui-table-view";
+									        			ul.innerHTML = '<li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].user_id+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+data[i].total+'元</li>'; 
+
+									        		var	table = document.body.querySelector('#item3mobile .mui-scroll');
+									   	 			var	bot = document.body.querySelector('#item3mobile .mui-scroll .mui-pull-bottom-tips');
+								                    	table.insertBefore(ul,bot); 
+									        	}
+									        }
+
+											});
+										self.endPullUpToRefresh();
+									}, 1000);
+								}
+							}
+
+
+						});
+					
+					
+				});
+			})(mui);
+		</script>
+
+
+
+
+<!-- 页面加载所有订单列表 -->
+	<script>
+	   $(function(){
+	   	 	$.ajax({
+	   	 		url:'/wechat/ajax/order',
+	   	 		dataType:'json',
+	   	 		/*data:{'page':'1'},*/
+	   	 		async:true,
+	   	 		type:'GET',
+	   	 		success:function(data){
+	   	 			console.log(data);
+	   	 			for(var i=0;i<data.length;i++){
+	   	 				var ul = document.createElement('ul');
+	   	 				    ul.className = "my-menu mui-table-view";
+	   	 				    ul.innerHTML = '<li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].user_id+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+data[i].total+'元</li>';
+	   	 				table = document.body.querySelector('#item1mobile .mui-scroll');
+	   	 				bot = document.body.querySelector('#item1mobile .mui-scroll .mui-pull-bottom-tips');
+	                    	table.insertBefore(ul,bot); 
+	
+	   	 			}
+	   	 		}
+	   	 	})
+	   })
+	</script> 
+
+<!-- 页面加载我的带餐列表 -->
+	<script>
+	   $(function(){
+	   	 	$.ajax({
+	   	 		url:'/wechat/ajax/order/uncompleted',
+	   	 		dataType:'json',
+	   	 		/*data:{'page':1}*/
+	   	 		async:true,
+	   	 		type:'GET',
+	   	 		success:function(data){
+	   	 			console.log(data[1].address);
+	   	 			for(var i=0;i<data.length;i++){
+	   	 				var ul = document.createElement('ul');
+	   	 				    ul.className = "my-menu mui-table-view";
+	   	 				    ul.innerHTML = '<li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].user_id+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+data[i].total+'元</li>';
+
+	   	 				table = document.body.querySelector('#item2mobile .mui-scroll');
+	   	 				bot = document.body.querySelector('#item2mobile .mui-scroll .mui-pull-bottom-tips');
+                    	table.insertBefore(ul,bot); 
+
+	   	 			}
+	   	 		}
+	   	 	})
+	   })
+	</script>
+
+	<!-- 页面加载我已带到列表 -->
+	<script>
+	   $(function(){
+	   	 	$.ajax({
+	   	 		url:'/wechat/ajax/order/completed',
+	   	 		dataType:'json',
+	   	 		/*data:{'page':1}*/
+	   	 		async:true,
+	   	 		type:'GET',
+	   	 		success:function(data){
+	   	 			console.log(data);
+	   	 			for(var i=0;i<data.length;i++){
+	   	 				var ul = document.createElement('ul');
+	   	 				    ul.className = "my-menu mui-table-view";
+	   	 				    ul.innerHTML = '<li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].user_id+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+data[i].total+'元</li>';
+
+	   	 				table = document.body.querySelector('#item2mobile .mui-scroll');
+	   	 				bot = document.body.querySelector('#item2mobile .mui-scroll .mui-pull-bottom-tips');
+                    	table.insertBefore(ul,bot); 
+
+	   	 			}
+	   	 		}
+	   	 	})
+	   })
+	</script>
+
+
+
 @stop

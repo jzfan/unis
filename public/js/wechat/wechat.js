@@ -39,32 +39,6 @@
 	});
 
 
-$(function(){
-	function collect(coName,ifName,haveName,coText1,coText2){
-		$(document).on('touchstart',coName,function(){
-			var boolName = $(this).find('span').hasClass(ifName);
-			if(boolName){
-				$(this).find('span').removeClass(ifName).addClass(haveName);
-				layer.open({
-				    content: coText1
-				    ,skin: 'msg'
-				    ,time: 2 //2秒后自动关闭
-				  });
-			}
-			else{
-				$(this).find("span").removeClass(haveName).addClass(ifName);
-				layer.open({
-				    content: coText2
-				    ,skin: 'msg'
-				    ,time: 2 //2秒后自动关闭
-				  });
-			}
-		})
-	};
-	collect('.love-icon','dianzan105','dianzan106','收藏成功','取消收藏');
-	collect('.add-icon','jiahao108','duigou506','添加成功','取消添加');
-})
-
 
 //弹出消息函数
 $(function(){
@@ -78,7 +52,7 @@ $(function(){
 		})
 	};
 	/*msgInfo('.w-entry-btn','信息提交成功');*//*入口表单*/
-	msgInfo('.w-want-accept','购买成功');/*购物车*/
+	/*msgInfo('.w-want-accept','购买成功');*//*购物车*/
 	msgInfo('.w-about-uniserve .w-address-save','保存成功');/*保存地址*/
 	msgInfo('.w-respone-btn','感谢您的反馈！');/*意见反馈*/
 	msgInfo('.w-want-accept-native','确认成功');/*我的订单状态*/
@@ -95,8 +69,11 @@ $(function(){
 /*编辑*/
 	$(function(){
 		$('.write-del').on('touchstart',function(){
-			$(this).text('完成');
+			_this =$(this);
 			$('.w-location-group .mui-badge .location-ico').removeClass('duigou506').addClass('shanchu505');
+			setTimeout(function(){
+				_this.html('<a href="" style="color:#fff;">完成</a>');
+			},200)
 		})
 	})
 
@@ -159,3 +136,4 @@ $(function(){
     			} 
 		});
 	})
+

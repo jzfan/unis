@@ -7,8 +7,8 @@
 @section('content')
 
 		<section class="w-self-top">
-			<div class="self-img"><img src="/img/wechat/person.png" alt=""></div>
-			<div class="sign-in"><a href="">好久不见</a></div>
+			<div class="self-img"><img src="{{ $user->avatar }}" alt=""></div>
+			<div class="sign-in"><a href="">{{ $user->nickname }}</a></div>
 			<div class="cash-main-left">
 				<p class="yue cash-num">256</p>
 				<p class="cash-leave">当前余额</p>
@@ -18,7 +18,7 @@
 			<ul class="mui-table-view">
 			    <li class="mui-table-view-cell">
 			    	<span class="person-ico mui-icon iconfont wodedingdan411"></span>
-			    	<a href="/wechat/order" class="mui-navigate-right">我的订单</a>	    	
+			    	<a href="/wechat/order/index" class="mui-navigate-right">我的订单</a>	    	
 			    </li>
 			</ul>
 
@@ -69,5 +69,6 @@
 @stop
 
 @section('js')
+<script>mui('body').on('tap','a',function(){document.location.href=this.href;});</script>
 <script src="/lib/pusher/main.js"></script>
 @stop

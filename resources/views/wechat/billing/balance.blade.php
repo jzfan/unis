@@ -144,5 +144,24 @@
 				}, 1000);
 			}
 		</script>
-	</script>
+
+
+		<script>
+		/*进入页面请求刷新*/
+			/*$(function(){
+				$.ajax({
+					url:'',
+					dataType:'json',
+					async:true,
+					data:{},
+					type:'GET',
+					success:function(){
+						var div =document.createElement('ul');
+						ul.className = "mui-table-view";
+						ul.innerHTML ='<li class="mui-table-view-cell"><div class="mui-slider-right mui-disabled"><span class="mui-btn mui-btn-red">删除</span></div><div class="mui-slider-handle"><div>订单编号：8546974125412475<span class="my-song mui-pull-right">+34.5元</span></div><div class="right-del">下单时间：2016-10-17 11:48<span class="my-song mui-pull-right">已完成</span></div></div></li>';l
+						$('.w-cash-aaa').append(ul);
+					}
+				})
+			})*/
+		</script>
 @stop

@@ -17,10 +17,11 @@ class DatabaseSeeder extends Seeder
         $this->call(CampusSeeder::class);
         $this->call(ShopsTableSeeder::class);
         $this->call(FoodsTableSeeder::class);
-        $this->call(FavoriteSeeder::class);
         $this->call(RoomSeeder::class);
         $this->call(UsersTableSeeder::class);
-        // $this->call(OrderSeeder::class);
+        $this->call(FavoriteSeeder::class);
+        $this->call(AddressSeeder::class);
+        $this->call(OrderSeeder::class);
         // $this->call(RegionTableSeeder::class);
     }
 }

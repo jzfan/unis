@@ -7,15 +7,27 @@ use App\Unis\Suplier\Food;
 
 class FoodTransformer extends TransformerAbstract
 {
+
+	protected $availableIncludes = [
+	    'shop'
+	];
+
 	public function transform(Food $food)
 	{
 	    return [
 	        'id'      => (int) $food->id,
 	        'name'   => $food->name,
-	        'price'  => number_format(round($food->price * (100 - $food->discount)/100), 1),
+	        'price'  => $food->priceAfterDiscount(),
 	        'original_price' => number_format($food->price, 1),
 	        'img' => $food->img,
 	        'sold' => $food->sold
 	    ];
 	}
+
+	public function includeShop(Food $food)
+    {
+    	$shop = $food->shop;
+
+        return $this->item($shop, new ShopTransformer);
+    }
 }

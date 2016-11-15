@@ -6,14 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Unis\User\User;
 use App\Unis\School\Room;
+use App\Unis\Suplier\Food;
+use App\Unis\Order\OrderItem;
 
 class Order extends Model
 {
 	use SoftDeletes;
 
-    protected $fillable = ['billing_id', 'type', 'order_no', 'subject', 'user_id', 'total', 'address', 'status'];
+    protected $fillable = ['billing_id', 'type', 'order_no', 'subject', 'user_id', 'total', 'address', 'status', 'dorm_id'];
 
     protected $dates = ['paid_at', 'taken_at', 'delivered_at', 'withdrawed_at', 'deleted_at'];
+
+    protected $primaryKey = 'order_no';
 
     public function orderer()
     {
@@ -28,6 +32,16 @@ class Order extends Model
     public function room()
     {
         return $this->belongsTo(Room::class);
+    }
+
+    public function order_items()
+    {
+        return $this->hasMany(OrderItem::class, 'order_no', 'order_no');
+    }
+
+    public function foods()
+    {
+        return $this->belongsToMany(Food::class, 'order_items', 'order_no', 'food_id');
     }
 
 

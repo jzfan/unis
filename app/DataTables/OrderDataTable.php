@@ -59,8 +59,7 @@ class OrderDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'id'=>['name'=>'orders.id', 'data'=>'id'],
-            '订单号'=>['name'=>'order_no', 'data'=>'order_no'],
+            'No'=>['name'=>'order_no', 'data'=>'order_no'],
             '物品'=>['name'=>'subject', 'data'=>'subject'],
             '下单人'=>['name'=>'orderer.name', 'data'=>'orderer.name', 'orderable'=>false],
             '接单人'=>['name'=>'deliver.name', 'data'=>'deliver.name','defaultContent' => '', 'orderable'=>false],

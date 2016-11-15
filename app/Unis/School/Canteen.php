@@ -26,4 +26,9 @@ class Canteen extends Model
     {
     	return $this->belongsTo(Campus::class);
     }
+
+    public function DormsOfTheSameCampus()
+    {
+        return $this->campus->dorms;
+    }
 }

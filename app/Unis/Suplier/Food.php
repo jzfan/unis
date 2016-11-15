@@ -28,4 +28,27 @@ class Food extends Model
     	return $value;
     }
 
+    public function priceAfterDiscount()
+    {
+        return number_format(round($this->price * 2 *(100 - $this->discount)/100)/2, 1);
+    }
+
+    public function tagFavorite(Array $favorites_id)
+    {
+        $this->isFavorite = in_array($this->id, $favorites_id) ? true : false;
+    }
+
+    public function tagCart(Array $cart_items_id)
+    {
+        $this->isInCart = in_array($this->id, $cart_items_id) ? true : false;
+    }
+
+    public function tagMe($user)
+    {
+        $f_ids = $user->favorite->value('id');
+        $c_ids = $user->foodsInCart->value('id');
+        $this->tagFavorite($f_ids);
+        $this->tagFavorite($c_ids);
+    }
+
 }

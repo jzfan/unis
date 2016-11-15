@@ -1,27 +1,52 @@
-# Laravel PHP Framework
+##接口文档
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+###购物车
+* 加入购物车  method:get uri: /wechat/cart/add/{food_id}
+* 取消购物车  method:get uri: /wechat/cart/cancle/{food_id}
+* 购物车列表  method:get uri: /wechat/ajax/cart
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+###收藏
+* 加入收藏  method:get uri: /wechat/favorite/add/{food_id}
+* 取消收藏  method:get uri: /wechat/favorite/cancle/{food_id}
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+###我的订单
+* 所有订单   method:get uri: /wechat/ajax/order
+* 完成订单   method:get uri: /wechat/ajax/order/completed
+* 未完成订单  method:get uri: /wechat/ajax/order/uncompleted
 
-## Official Documentation
+###意见反馈
+* 提交  method:post uri: /api/report?openid=oLn0awp7W5-J6qEeamsACqC9BCeE
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+###用户信息
+*  method:get  uri: /wechat/user
+*  method:get  uri: /wechat/wx_user
 
-## Contributing
+* 最后一个用户信息  method:get  uri: /api/user/last
+*  删除最后一个用户 method:get  uri: /api/user/delete
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+*  绑定用户  method:post  uri: /api/user
+增加表单参数
+'name' => $request->nickname, 
+'avatar' => $request->avatar,
+'wechat_openid' => $request->id,
+'email' => $request->email,
+'phone' => (string)$request->phone,
 
-## Security Vulnerabilities
+###用户地址
+* 新建地址 method:post     uri: /api/address/?openid=xxxx
+* 删除地址 method:delete   uri: /api/address/{address_id}?openid=xxxx
+* 更新地址 method:put      uri: /api/address/{address_id}?openid=xxxx
+* 取默认地址 method:get    uri: /api/address/default?openid=xxx
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+###订单
+*取订单列表          method:get      uri: /api/order?openid=oLn0awp7W5-J6qEeamsACqC9BCeE
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+| 接口       | method   | uri                            | 成功返回 | 错误返回 | 失败返回 |   |
+| -----------|:--------:| :----------------------------: |:--------:| --------:|:--------:| -----:|
+| 加入购物车 | get      | /wechat/cart/add/{food_id}            | success  | error    | failed   | |
+| 取消购物车 | get      | /wechat/cart/cancle/{food_id}            | success  | error    | failed   |    |
+| 加入收藏   | get      | /wechat/favorite/add/{food_id}            | success  | error    | failed   |     |
+| 取消收藏   | get      | /wechat/favorite/cancle/{food_id}            | success  | error    | failed   |     |
+| 食堂菜品   | get      | /api/foods_of_canteen/{canteen_id}    |    |      |     |     |
+

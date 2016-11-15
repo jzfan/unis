@@ -6,17 +6,19 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Unis\User\User;
 
 class BaseController extends Controller
 {
-	protected $user;
 
-	public function __construct()
+	protected function getWechatUser()
 	{
-		$this->middleware(function ($request, $next) {
-		    $this->user = session('wechat.oauth_user');
-		    return $next($request);
-		});
+		$openid = session('wechat.oauth_user.id');
+	    $user = User::where('wechat_openid', $openid)->first();
+	    if (! $user){
+	        return response()->json(['message' => 'cant find user', 'state' => 'error']);           
+	    }
+	    return $user;        
 	}
 
 }

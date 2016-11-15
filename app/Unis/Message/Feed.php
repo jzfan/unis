@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Unis\Order;
+namespace App\Unis\Message;
 
 use Illuminate\Database\Eloquent\Model;
 
-class OrderItems extends Model
+class Feed extends Model
 {
     //
 }

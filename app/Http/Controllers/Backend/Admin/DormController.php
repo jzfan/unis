@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\DormRequest;
 use App\Http\Controllers\Controller;
 use App\Unis\School\Dorm;
+use App\Unis\School\Campus;
 use App\DataTables\DormDataTable;
 
 class DormController extends Controller
@@ -51,6 +52,18 @@ class DormController extends Controller
     public function update(DormRequest $request, Dorm $dorm)
     {
         $dorm->update($request->input());
+        return redirect('/admin/dorm')->with('success', '更新成功！');
+    }
+
+    public function create(Request $request)
+    {
+        $campus = Campus::findOrFail($request->campus_id);
+        return view('backend.admin.dorm.create', compact('campus'));
+    }
+
+    public function store(DormRequest $request)
+    {
+        Dorm::create($request->input());
         return redirect('/admin/dorm')->with('success', '更新成功！');
     }
 }

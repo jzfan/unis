@@ -308,8 +308,9 @@ body .layui-m-layer .layui-m-layer-msg{
 	margin-top: -15px;
 	font-size: 30px;
 }
-.w-clear .mui-icon-clear{
-	line-height: 38px;
+.w-input-group .w-clear .mui-icon-clear{
+	top:15px!important;
+
 }
 
 /* 关于uniserve */

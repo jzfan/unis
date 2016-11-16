@@ -110,7 +110,7 @@
   </script>
 
   <script>
-      $(function(){
+      /*$(function(){
         var count =0;
         $(document).on('touchstart','.mui-numbox-btn-plus',function(){
           count++;
@@ -130,23 +130,18 @@
          
         });
 
-      })
-  </script>
+      })*/
 
-
-<script>
       $(function(){
-        // var len =$('li').find('span.vue-number')
-        // var nnn =$('li').find('span.vue-number')
-        // var mmm = $('li').find('input.mui-numbox-input')
-        // var acash = 0;
-        // for(var j=0;j<len.length;j++){
-        //   acash += parseFloat(mmm[j].value)*(parseFloat(nnn[j].innerHTML)); 
-        // }
-        // console.log(acash);
-      })
+        var adds =  $('.mui-numbox-btn-plus');
+        var shans = $('.mui-numbox-btn-minus');
+        var inputs =$('.mui-numbox-input');
+        for(var i=0;i<adds.length;i++){
+            
+        }
+      });
 
-</script>
+  </script>
 
 
 

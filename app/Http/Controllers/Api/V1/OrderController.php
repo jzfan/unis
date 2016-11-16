@@ -70,7 +70,7 @@ class OrderController extends BaseController
 
     public function show($order_no)
     {
-        $order = Order::with('order_items.food')->find($order_no);
+        $order = Order::with('order_items.food')->where('order_no', $order_no)->first();
         $this->checkNull($order);
         return $order;
     }

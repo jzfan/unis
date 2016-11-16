@@ -5,6 +5,15 @@
 @stop
 
 @section('content')
+		<style>
+			.mui-slider .mui-slider-group {
+    font-size: 0;
+    position: relative;
+    -webkit-transition: all 0s linear;
+    transition: all 0s linear;
+    /* white-space: nowrap; */
+}
+		</style>
 		<div class="mui-content">
 			<div id="slider" class="mui-slider mui-fullscreen">
 				<div id="sliderSegmentedControl" class="w-tab mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
@@ -52,8 +61,8 @@
 @stop
 
 @section('js')
-		
-		<script>/*上拉刷新下拉加载我的订单列表*/
+		<script>
+		/*上拉刷新下拉加载我的订单列表*/
 			mui.init();
 			(function($) {
 				//阻尼系数
@@ -332,7 +341,8 @@
 	<script>
 	   $(function(){
 	   	 	$.ajax({
-	   	 		url:'/wechat/ajax/order/uncompleted',
+	   	 		url:'/wechat/ajax/order',
+	   	 		// url:'/wechat/ajax/order/uncompleted',
 	   	 		dataType:'json',
 	   	 		/*data:{'page':1}*/
 	   	 		async:true,
@@ -357,7 +367,8 @@
 	<script>
 	   $(function(){
 	   	 	$.ajax({
-	   	 		url:'/wechat/ajax/order/completed',
+	   	 		url:'/wechat/ajax/order',
+	   	 		// url:'/wechat/ajax/order/completed',
 	   	 		dataType:'json',
 	   	 		/*data:{'page':1}*/
 	   	 		async:true,

@@ -19,10 +19,6 @@ class Order extends Model
 
     protected $dates = ['paid_at', 'taken_at', 'delivered_at', 'received_at', 'withdrawed_at', 'deleted_at'];
 
-    protected $primaryKey = 'order_no';
-
-    public $incrementing = false;
-
     public function orderer()
     {
     	return $this->belongsTo(User::class, 'user_id', 'id');

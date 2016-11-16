@@ -203,9 +203,7 @@
     <script>
       /*购买付款*/
       $(function(){
-        console.log('----------');
         $(document).on('touchstart','.w-want-accept',function(){
-        console.log('----------');
           var buyAcash = parseFloat($('.cash').text());//总额
 
           var buyArray  = new Array();

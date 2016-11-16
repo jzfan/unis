@@ -60,7 +60,8 @@
 <script>
 var suplier = $("#suplier-select");
 
-$.get('/api/suplier', function(m){
+$.get('/api/suplier_select', function(m){
+  console.log(m);
   suplier.select2({
     data: m
   });

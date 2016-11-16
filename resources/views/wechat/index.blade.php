@@ -368,10 +368,10 @@
 						for(var i=0;i<takeFood.length;i++){
 							div = document.createElement('div');
 							div.className = "w-finshed-menu";
-							div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+takeFood[i].total+'元(含服务费)</span></li></ul><ul class="w-home-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+takeFood[i].order_no+'<span class="w-hold mui-pull-right">'+takeFood[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">13511787497</a></div></li><li class="mui-table-view-cell">联系姓名：Abigale Parisian</li><li class="mui-table-view-cell">配送地址：'+takeFood[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+takeFood[i].created_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+takeFood[i].updated_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><a href="/wechat/order/index#item2mobile"><button class="w-want-accept"  data-id='+takeFood[i].order_no+'>我要带餐</button></a></li></ul>';/*<a href="/wechat/order/index"><a>*/
+							div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+takeFood[i].total+'元(含服务费)</span></li></ul><ul class="w-home-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+takeFood[i].order_no+'<span class="w-hold mui-pull-right">'+takeFood[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">13511787497</a></div></li><li class="mui-table-view-cell">联系姓名：Abigale Parisian</li><li class="mui-table-view-cell">配送地址：'+takeFood[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+takeFood[i].created_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+takeFood[i].updated_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><a class="take_food" href="javascript:void(0);"><button class="w-want-accept"  data-id='+takeFood[i].order_no+'>我要带餐</button></a></li></ul>';/*<a href="/wechat/order/index"><a>*/
 							var table = document.body.querySelector('#item2mobile .mui-pull-bottom-tips');
 							var parent = document.body.querySelector('#item2mobile .mui-scroll');
-							parent.insertBefore(div,table); 
+							parent.insertBefore(div,table);
 						}
 					}
 
@@ -388,16 +388,17 @@
 					var orderId = $(this).attr('data-id');
 					var urlajax = '/api/order/taken/'+orderId+'?openid='+openId;
 
-					$.ajax({
-						url:urlajax,
-						dataType:'json',
-						async:true,
-						data:{},
-						type:'GET',
-						success:function(data){
-							console.log(data)
-						}
-					})
+					// $.ajax({
+					// 	url:urlajax,
+					// 	dataType:'json',
+					// 	async:true,
+					// 	data:{},
+					// 	type:'GET',
+					// 	success:function(data){
+					// 		console.log(data);
+							location.href = '/wechat/order/index#item2mobile';
+					// 	}
+					// })
 				})
 			})
 	</script>

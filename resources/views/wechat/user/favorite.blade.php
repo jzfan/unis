@@ -156,7 +156,7 @@
 			 	$(document).on('touchstart','.w-tab-view li .mui-disabled',function(){
 			 		$(this).parents('li.mui-media').fadeOut();
 			 		var food_id = $(this).attr('data-id');
-			 		var ajaxUrl ='/wechat/favorite/cancle/'+food_id;
+			 		var ajaxUrl ='/wechat/favorite/cancel/'+food_id;
 			 		$.ajax({
 			 			url:ajaxUrl,
 						dataType:'json',

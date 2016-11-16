@@ -10,9 +10,10 @@
 		          
 		          <ul class="w-canvas-list">
 		          @foreach($shops as $shop)
-		          	<li class="portName" ><a href="" data-id='shopId'>{{ $shop->name }}</a></li>
+		          	<a href=""><li>{{ $shop->name }}</li></a>
 		          @endforeach
 		          </ul>
+
 		        </div>
 		      </div>
 		    </aside>
@@ -100,9 +101,9 @@
 							down: {
 								callback: function() {
 									var self = this;
-									var canteen = $('#addName').attr('data-id');
+									/*var canteen = $('#addName').attr('data-id');*/
 									var page = '0';
-									var urlajax = "/api/foods_of_canteen/"+{canteen_id};
+									var urlajax = '/api/foods_of_canteen/{{ $selected_canteen->id }}';
 									setTimeout(function() {
 											$.ajax({
 												url:urlajax,
@@ -111,7 +112,6 @@
 												async:true,
 												type:'GET',
 												success:function(data){
-													console.log(data);
 													var foodAll = data.data;
 													page++;
 													if(page>10){
@@ -121,8 +121,9 @@
 														ul = document.createElement('ul');
 														ul.className = "w-tab-view mui-table-view";
 														ul.innerHTML = '<li class="mui-table-view-cell mui-media"><img class="mui-media-object mui-pull-left" src='+foodAll[i].img+'><div class="w-box"><div class="w-menu-left"><p class="menu-name">'+foodAll[i].name+'</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:'+foodAll[i].sold+'&nbsp;&nbsp;点赞:5</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">'+foodAll[i].price+'</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:'+foodAll[i].original_price+'元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
-														var table =document.body.querySelector('#item1mobile .mui-scroll')
-															table.appendChild(ul);
+														var table =document.body.querySelector('#item1mobile .mui-scroll').firstChild;
+														var parent = document.body.querySelector('#item1mobile .mui-scroll'); 
+															parent.insertBefore(ul,table);
 													}
 												}
 
@@ -169,10 +170,6 @@
 				});
 			})(mui);
 		</script>
-
-
-
-
 
 
 
@@ -235,7 +232,6 @@
 												success:function(data){
 													var takeUp = data.data
 													for(var i=0;i<takeUp.length;i++){
-														console.log(takeUp[i].status);
 														div = document.createElement('div');
 														div.className = "w-finshed-menu";
 														div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+takeUp[i].total+'元(含服务费)</span></li></ul><ul class="w-home-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+takeUp[i].order_no+'<span class="w-hold mui-pull-right">'+takeUp[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">13511787497</a></div></li><li class="mui-table-view-cell">联系姓名：Abigale Parisian</li><li class="mui-table-view-cell">配送地址：'+takeUp[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+takeUp[i].created_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+takeUp[i].updated_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><a href="/wechat/order/index#item2mobile"><button class="w-want-accept"  data-id='+takeFood[i].order_no+'>我要带餐</button></a></li></ul>';
@@ -250,7 +246,6 @@
 									}, 1000);
 								}
 							}
-
 
 						});
 					
@@ -324,6 +319,7 @@
 					type:'GET',
 					success:function(data){
 							var foodAll = data.data;
+							console.log(foodAll);
 							for(var i=0;i<foodAll.length;i++){
 								ul = document.createElement('ul');
 								ul.className = "w-tab-view mui-table-view";
@@ -455,10 +451,10 @@
 
 
 	$(function(){
-		$(document).on('touchstart','.mui-table-view.mui-table-view-radio .mui-table-view-cell',function(){
+		$(document).on('touchstart','.mui-table-view .mui-table-view-radio .mui-table-view-cell',function(){
 			var newText = $(this).text();
-			var canteenId = $(this).attr('data-id');
-			$('#addName').eq(0).attr('data-id',canteenId);//
+			var canteenId = $(this).find('.mui-navigate-right').attr('data-id');
+			$('.mui-title').attr('data-id',canteenId);
 			$('.w-bar .mui-title .address-name').text(newText);
 		})
 	});//改变顶部食堂名称
@@ -473,21 +469,18 @@
 	<script>
 		/*根据食堂选窗口*/
 			$(function(){
-				$(document).on('touchstart','.portName',function(){
-					/*var shopId = $('.mui-navigate-right').attr('data-id');*/
-					var canteenId = $('#addName').eq(0).attr('data-id');
+				$(document).on('touchstart','.mui-table-view .mui-table-view-radio .mui-table-view-cell',function(){
+					var canteenId = $('.mui-navigate-right').attr('data-id');
 					var ajaxUrl = '/api/shops_of_canteen/'+canteenId;
-					$('.w-tab-view').remove();
 					$.ajax({
 						url:ajaxUrl,
 						dataType:'json',
 						async:true,
 						type:'GET',
 						success:function(data){
-
+							console.log(port);
 								var port = data.data;
 								for(var i=0;i<port.length;i++){
-									console.log(port);
 									li = document.createElement('li');
 									li.className = "w-tab-view mui-table-view";
 									li.innerHTML = '<a href="" data-id='+shopId+'></a>';
@@ -496,10 +489,12 @@
 								}
 							}
 
-					})
+					});
 
-				});
-			})
+
+				})
+					
+			});
 	</script>
 
 

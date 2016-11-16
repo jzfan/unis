@@ -23,7 +23,7 @@
         <span class="mui-tab-label">我的订单</span>
       </a>
       <a class="mui-tab-item mui-active" href="/wechat/cart">
-        <span class="mui-icon iconfont xuangouwuche203"><span class="w-badge mui-badge">1</span></span>
+        <span class="mui-icon iconfont xuangouwuche203"></span>
         <span class="mui-tab-label">购物车</span>
       </a>
       <a class="mui-tab-item" href="/wechat/profile">
@@ -64,7 +64,6 @@
                   var foodlist = data.data;
                   var foodHave = foodlist.length;
                    var total = 0;
-                   console.log(foodlist);
                   for(var i=0;i<foodlist.length;i++){
                     total  += parseFloat(foodlist[i].price);
                     li =document.createElement('li');
@@ -81,7 +80,6 @@
                           async:true,
                           type:'GET',
                           success:function(data){
-                            console.log(data);
                             var openId = data.wechat_openid;
                             var urlAdd = '';
                              $.ajax({
@@ -110,39 +108,14 @@
   </script>
 
   <script>
-      /*$(function(){
-        var count =0;
-        $(document).on('touchstart','.mui-numbox-btn-plus',function(){
-          count++;
-          var num =  count;
-          $(this).prev().val(num);
-          num*
-          $('.cash').text();
-        });
-
-        $(document).on('touchstart','.mui-numbox-btn-minus',function(){
-          count--;
-          var jian =  count;
-          if(jian<=0){
-              $(this).next().val(0);
-              $(this).next().val(jian);
-          }
-         
-        });
-
-      })*/
-
+  
 /*计算总价*/
    $(function(){
 
         var adds =  $('.mui-numbox-btn-plus');
-        console.log('...' + adds.length);
         var shans = $('.mui-numbox-btn-minus');
-        console.log('...' + shans.length);
         var price =$('.vue-number');
-        console.log('...' + price.length);
         var inputs =$('.mui-numbox-input');
-        console.log('...' + inputs.length);
         var total = 0;
 
         for (var i = 0; i < adds.length; i++) {
@@ -159,16 +132,21 @@
 
           cash.html(total);
           numb.val(parseInt(numb.val()) + 1);
+          if(numb.val() >=1){
+            $(this).parent().find('span.jianhao107').eq(0).css('color','#338fcd');
+          }
         });
 
         shans.on('touchstart',function() {
           var numb = $(this).parent().find('.mui-numbox-input').eq(0);
-          console.log('...' + numb.length);
           var cash = $('.cash').eq(0);
-          console.log('...' + cash.val());
 
           if(numb.val() == 0) {
+            $(this).find('span.jianhao107').css('color','#ccc');
             return;
+          }
+            else if(numb.val() >=1){
+            $(this).find('span.jianhao107').css('color','#338fcd');
           }
           
           total = parseFloat(cash.html()) - 
@@ -262,6 +240,29 @@
           });
         })
       })
+  </script>
+
+
+
+  <script>
+      /*本地存储*/
+      $(function(){
+         $.ajax({
+                url:'/wechat/ajax/cart',
+                dataType:'json',
+                async:false,
+                type:'GET',
+                success:function(data){
+                    var json_data = data;  
+                        storage.setItem("json_data",JSON.stringify(json_data));//  写入
+                    var json_data = JSON.parse(storage.getItem("json_data"));  //读取
+                    console.log(json_data);
+
+                }
+
+         })
+      })
+
   </script>
 
 @stop

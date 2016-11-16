@@ -78,7 +78,7 @@
 				<span class="mui-tab-label">我的订单</span>
 			</a>
 			<a class="mui-tab-item" href="/wechat/cart">
-				<span class="mui-icon iconfont xuangouwuche203"><span class="w-badge mui-badge">1</span></span>
+				<span class="mui-icon iconfont xuangouwuche203"></span>
 				<span class="mui-tab-label">购物车</span>
 			</a>
 			<a class="mui-tab-item mui-active" href="/wechat/profile">

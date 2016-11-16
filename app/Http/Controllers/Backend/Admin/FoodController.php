@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Unis\Suplier\Food;
 use App\Unis\Suplier\Shop;
 use App\DataTables\FoodDataTable;
+use Image;
 
 class FoodController extends Controller
 {
@@ -56,5 +57,16 @@ class FoodController extends Controller
     {
         Food::create($request->input());
         return redirect('/admin/food')->with('success', '新增成功！');
+    }
+
+    public function uploadImg(Request $request)
+    {
+
+        $img = Image::make($request->file);
+
+        $filename_ext = time().str_random(2).'.jpg';
+        $img->encode('jpg')->save(public_path(config('site.foodImgPath')). $filename_ext);
+        // echo  config('site.foodImgPath').$filename_ext;
+        return config('site.foodImgPath').$filename_ext;
     }
 }

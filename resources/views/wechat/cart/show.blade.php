@@ -132,7 +132,7 @@
 
       })*/
 
-
+/*计算总价*/
    $(function(){
 
         var adds =  $('.mui-numbox-btn-plus');
@@ -146,34 +146,39 @@
         var total = 0;
 
         for (var i = 0; i < adds.length; i++) {
-            total = total + parseFloat(price.eq(i).text())*inputs.eq(i).val();
-            console.log('...' + total);
+          total = total + parseFloat(price.eq(i).text())*inputs.eq(i).val();
         }
 
-       // function add(){
-    
-    //     for(var i=0;i<adds.length;i++){
-        //     total +=parseFloat(price[i])*(parseInt(inputs[i]));
-      //     return add;
-        //   }
-        // };
+        adds.on('touchstart',function() {
+          var numb = $(this).parent().find('.mui-numbox-input').eq(0);
+          console.log('...' + numb.length);
+          var cash = $('.cash').eq(0);
+          
+          total = parseFloat(cash.html()) + 
+          parseFloat($(this).parent().parent().parent().parent().find('.vue-number').eq(0).html());
 
-        // console.log(total);
-        // var count = 0;
-        // $(document).on('touchstart','.mui-numbox-btn-plus',function(){
-        //     count++;
-        //     $('.mui-numbox-input').val(parseInt(count));
-        // });
+          cash.html(total);
+          numb.val(parseInt(numb.val()) + 1);
+        });
 
-        // $(document).on('touchstart','.mui-numbox-btn-minus',function(){
-        //     count--;
-        //     $('.mui-numbox-input').val(parseInt(count));
-        // });
+        shans.on('touchstart',function() {
+          var numb = $(this).parent().find('.mui-numbox-input').eq(0);
+          console.log('...' + numb.length);
+          var cash = $('.cash').eq(0);
+          console.log('...' + cash.val());
 
+          if(numb.val() == 0) {
+            return;
+          }
+          
+          total = parseFloat(cash.html()) - 
+          parseFloat($(this).parent().parent().parent().parent().find('.vue-number').eq(0).html());
+
+          cash.html(total);
+
+          numb.val(parseInt(numb.val()) - 1);
+        });
       });
-
-
-     
 
   </script>
 

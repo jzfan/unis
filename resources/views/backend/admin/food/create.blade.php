@@ -1,11 +1,17 @@
 @extends('backend.layout')
 
 @section('content')
-
+<link rel="stylesheet" type="text/css" href="/lib/dropzone/dropzone.css">
 <h2>详情</h2>
-
+<form action="/admin/food/upload_img" class="dropzone">
+<input type="hidden" name="_token" value="{{csrf_token()}}">
+  <div class="fallback">
+    <input name="file" type="file" multiple />
+  </div>
+</form>
 <form class="form-horizontal" role="form" action="/admin/food" method="POST">
 {!! csrf_field() !!}
+ <input type="hidden" class="form-control"  name="img" value="" id='inputImg'>
   <div class="form-group">
     <label  class="col-sm-2 control-label">名称</label>
     <div class="col-sm-10">
@@ -25,12 +31,7 @@
       <input type="text" class="form-control"  name="type" value="{{ old('type') }}">
     </div>
   </div>
-  <div class="form-group">
-    <label  class="col-sm-2 control-label">图片</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control"  name="img" value="{{ old('img') }}">
-    </div>
-  </div>
+
 
   <div class="form-group">
     <label  class="col-sm-2 control-label">描叙</label>
@@ -94,4 +95,19 @@
   </div>
 </form>
 @endsection
+
+@section('js')
+<script src="/lib/dropzone/dropzone.js"></script>
+<script type="text/javascript">
+Dropzone.autoDiscover = false;
+$('.dropzone').dropzone({
+        maxFiles: 1,
+        acceptedFiles: "image/jpeg,image/png,image/gif",
+        success: function(file, response){
+          $('#inputImg').val(response);
+        }
+});
+
+    </script>
+@stop
 

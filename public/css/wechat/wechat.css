@@ -14,7 +14,7 @@
 	z-index: 1;
 }
 .w-popover .mui-table-view-radio .mui-table-view-cell{
-	padding-right: 30px;
+	padding-right: 0px;
 }
 .selectDown{
 	color: #585858;

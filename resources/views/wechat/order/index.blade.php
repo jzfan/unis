@@ -5,15 +5,7 @@
 @stop
 
 @section('content')
-		<style>
-			.mui-slider .mui-slider-group {
-    font-size: 0;
-    position: relative;
-    -webkit-transition: all 0s linear;
-    transition: all 0s linear;
-    /* white-space: nowrap; */
-}
-		</style>
+	
 		<div class="mui-content">
 			<div id="slider" class="mui-slider mui-fullscreen">
 				<div id="sliderSegmentedControl" class="w-tab mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">

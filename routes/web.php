@@ -25,6 +25,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'namespace' => 'Back
 	Route::resource('/dorm', 'DormController');
 	Route::resource('/room', 'RoomController');
 	Route::resource('/order', 'OrderController');
+	Route::post('/food/upload_img', 'FoodController@uploadImg');
 });
 
 //test

@@ -29,11 +29,7 @@
 		<!--教工食堂下拉框开始-->
 		    <div id="popover" class="w-popover mui-popover">
   				<ul class="mui-table-view mui-table-view-radio" id="canteen-li">
-  				@foreach($canteens as $canteen)
-					<li class="mui-table-view-cell">
-						<span class="mui-navigate-right"><a href="/wechat/index/{{ $canteen->id }}" class="selectDown">{{ $canteen->name }}</a></span>
-					</li>
-				@endforeach
+  				
 				</ul> 
 			</div>
 		<!--教工食堂下拉框结束-->
@@ -104,8 +100,9 @@
 							down: {
 								callback: function() {
 									var self = this;
+									var canteen = $('#addName').attr('data-id');
 									var page = '0';
-									var urlajax = "/api/foods_of_canteen/{{ $selected_canteen->id }}";
+									var urlajax = "/api/foods_of_canteen/"+{canteen_id};
 									setTimeout(function() {
 											$.ajax({
 												url:urlajax,
@@ -365,10 +362,11 @@
 					type:'GET',
 					success:function(data){
 						var takeFood = data.data;
+						console.log(data);
 						for(var i=0;i<takeFood.length;i++){
 							div = document.createElement('div');
 							div.className = "w-finshed-menu";
-							div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+takeFood[i].total+'元(含服务费)</span></li></ul><ul class="w-home-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+takeFood[i].order_no+'<span class="w-hold mui-pull-right">'+takeFood[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">13511787497</a></div></li><li class="mui-table-view-cell">联系姓名：Abigale Parisian</li><li class="mui-table-view-cell">配送地址：'+takeFood[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+takeFood[i].created_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+takeFood[i].updated_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><a class="take_food" href="javascript:void(0);"><button class="w-want-accept"  data-id='+takeFood[i].order_no+'>我要带餐</button></a></li></ul>';/*<a href="/wechat/order/index"><a>*/
+							div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+takeFood[i].total+'元(含服务费)</span></li></ul><ul class="w-home-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+takeFood[i].order_no+'<span class="w-hold mui-pull-right">'+takeFood[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">13511787497</a></div></li><li class="mui-table-view-cell">联系姓名：Abigale Parisian</li><li class="mui-table-view-cell">配送地址：'+takeFood[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+takeFood[i].created_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+takeFood[i].updated_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><a class="take_food" href="/wechat/order/index#item2mobile"><button class="w-want-accept"  data-id='+takeFood[i].order_no+'>我要带餐</button></a></li></ul>';/*<a href="/wechat/order/index"><a>*/
 							var table = document.body.querySelector('#item2mobile .mui-pull-bottom-tips');
 							var parent = document.body.querySelector('#item2mobile .mui-scroll');
 							parent.insertBefore(div,table);
@@ -388,17 +386,17 @@
 					var orderId = $(this).attr('data-id');
 					var urlajax = '/api/order/taken/'+orderId+'?openid='+openId;
 
-					// $.ajax({
-					// 	url:urlajax,
-					// 	dataType:'json',
-					// 	async:true,
-					// 	data:{},
-					// 	type:'GET',
-					// 	success:function(data){
-					// 		console.log(data);
-							location.href = '/wechat/order/index#item2mobile';
-					// 	}
-					// })
+					$.ajax({
+					 	url:urlajax,
+						dataType:'json',
+						async:true,
+						data:{},
+						type:'GET',
+						success:function(data){
+						console.log(data);
+						  /*location.href = '/wechat/order/index#item2mobile';*/
+						}
+					})
 				})
 			})
 	</script>
@@ -415,7 +413,6 @@
 						success:function(data){
 							var canteen = data.canteens;
 							for(var i=0;i<canteen.length;i++){
-								console.log(canteen[i]);
 								var li = document.createElement('li');
 									li.className = 'mui-table-view-cell';
 									li.innerHTML = '<span class="mui-navigate-right" data-id='+canteen[i].id+'><a href="/wechat/index/'+canteen[i].id+'" class="selectDown">'+canteen[i].name+'</a></span>';
@@ -461,7 +458,7 @@
 		$(document).on('touchstart','.mui-table-view.mui-table-view-radio .mui-table-view-cell',function(){
 			var newText = $(this).text();
 			var canteenId = $(this).attr('data-id');
-			$('#addName').eq(0).attr('data-id',canteenId);
+			$('#addName').eq(0).attr('data-id',canteenId);//
 			$('.w-bar .mui-title .address-name').text(newText);
 		})
 	});//改变顶部食堂名称
@@ -473,18 +470,12 @@
 
 
 
-
-
-
-
-
-
 	<script>
 		/*根据食堂选窗口*/
 			$(function(){
 				$(document).on('touchstart','.portName',function(){
-					var shopId = $('.mui-navigate-right').attr('data-id');
-					var canteenId = $('.selectDown').attr('data-id');
+					/*var shopId = $('.mui-navigate-right').attr('data-id');*/
+					var canteenId = $('#addName').eq(0).attr('data-id');
 					var ajaxUrl = '/api/shops_of_canteen/'+canteenId;
 					$('.w-tab-view').remove();
 					$.ajax({

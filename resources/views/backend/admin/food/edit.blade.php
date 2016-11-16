@@ -4,6 +4,15 @@
 
 <h2>详情</h2>
 
+<form class="form-horizontal" role="form" action="/admin/food/{{ $food->id }}" method="POST" enctype="multipart/form-data" id="upload_form" method="POST">
+{!! csrf_field() !!}
+  <div class="form-group">
+    <label for="inputPrice" class="col-sm-2 control-label">图片</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" name="img" value="{{ $food->img }}">
+    </div>
+  </div>
+</form>
 <form class="form-horizontal" role="form" action="/admin/food/{{ $food->id }}" method="POST">
 {!! csrf_field() !!}
 {!! method_field('PUT') !!}
@@ -33,12 +42,6 @@
     </div>
   </div>
 
-  <div class="form-group">
-    <label for="inputPrice" class="col-sm-2 control-label">图片</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" name="img" value="{{ $food->img }}">
-    </div>
-  </div>
 
     <div class="form-group">
     <label for="inputDiscount" class="col-sm-2 control-label">打折</label>

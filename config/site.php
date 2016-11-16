@@ -3,6 +3,7 @@
 return [
 
 	'perPage' => 10,
-	'avatarPath' => '/uploads/avatar/'
+	'avatarPath' => '/uploads/avatar/',
+	'foodImgPath' => '/uploads/food/'
 
 ];

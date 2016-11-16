@@ -67,3 +67,15 @@
 				</div>	
 
 	@stop
+
+	@section('js')
+		/api/order/show/{order_no}
+		<script>
+			$(function(){
+				$.get('/api/order/show/{order_no}',function(data){
+						console.log(data);
+				});
+			});
+
+		</script>
+	@stop

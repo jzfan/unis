@@ -23,7 +23,7 @@ Route::group(['middleware'=>['web', 'wechat.oauth']], function () {
 		Route::get('/order/index', 'OrderController@index');
 		Route::get('/order/index2', 'OrderController@index2');
 		Route::get('/order/index3', 'OrderController@index3');
-		Route::get('/order/show/{order_no}', 'OrderController@show');
+		Route::get('/order/show/{order_id}', 'OrderController@show');
 		Route::get('/order/{status?}', 'OrderController@getList');
 		Route::get('/order/edit', 'OrderController@edit');
 		Route::get('/user_info', 'UserController@getInfo');
@@ -34,6 +34,7 @@ Route::group(['middleware'=>['web', 'wechat.oauth']], function () {
 		Route::get('/favorite/cancel/{food_id}', 'FavoriteController@cancel');
 		Route::get('/message', 'UserController@message');
 		Route::get('/balance', 'BillingController@balance');
+		Route::get('/pay', 'BillingController@payPage');
 
 		Route::get('/paytest', 'BillingController@wechatPay');
 		Route::get('/pay_notify', 'BillingController@wechatNotify');

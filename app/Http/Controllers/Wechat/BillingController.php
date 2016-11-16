@@ -22,6 +22,11 @@ class BillingController extends BaseController
     	return view('wechat.billing.balance');
     }
 
+    public function payPage()
+    {
+    	return view('wechat.user.pay');
+    }
+
     public function wechatPay()
     {
     	$this->user = $this->getWechatUser();

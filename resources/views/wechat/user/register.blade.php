@@ -12,7 +12,7 @@
 	{!! csrf_field() !!}
 		<div class="mui-input-row" id="school">
 	        <label>学校:</label>
-		    	<input type="text" class="" value="江汉大学&nbsp;&nbsp;&nbsp;(其他学校敬请期待...)" tabIndex="1" disabled>
+		    	<input type="text" class="" value="江汉大学 (其他学校敬请期待...)" tabIndex="1" disabled>
 		    	<input type="hidden" name='school_id' value="2" class="trueVal">
 		    	<span class="w-arrow-right mui-icon mui-icon-arrowright"></span>
     	</div>

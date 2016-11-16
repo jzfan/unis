@@ -320,7 +320,6 @@
 					type:'GET',
 					success:function(data){
 							var foodAll = data.data;
-							console.log(foodAll);
 							for(var i=0;i<foodAll.length;i++){
 								ul = document.createElement('ul');
 								ul.className = "w-tab-view mui-table-view";
@@ -359,7 +358,6 @@
 					type:'GET',
 					success:function(data){
 						var takeFood = data.data;
-						console.log(data);
 						for(var i=0;i<takeFood.length;i++){
 							div = document.createElement('div');
 							div.className = "w-finshed-menu";
@@ -379,23 +377,18 @@
 			/*首页我要(接单(带餐)*/
 			$(function(){
 				$(document).on('touchstart','.w-want-accept',function(){
+					var btn = $(this);
 					var openId = $('.openId').val(); 
 					var orderId = $(this).attr('data-id');
 					var urlajax = '/api/order/taken/'+orderId+'?openid='+openId;
 
-					$.ajax({
-					 	url:urlajax,
-						dataType:'json',
-						async:true,
-						data:{},
-						type:'GET',
-						success:function(data){
-						console.log(data);
-						  /*location.href = '/wechat/order/index#item2mobile';*/
+					$.get(urlajax, function(data) {
+						if(data == 'success') {
+							btn.parent().parent().parent().slideUp();
 						}
-					})
-				})
-			})
+					});
+				});
+			});
 	</script>
 	
 
@@ -532,10 +525,10 @@
 
 
 
-	<script>
+	<script>/*点击首页我要带餐刷新页面，定位在当前页带餐tab*/
 		$(function(){
 			$('.w-want-accept').on('touchstart',function(){
-				window.location.href='/wechat/order/index#aim';
+				window.location.href='/wechat/index#item2mobile';
 			})
 		})
 	</script>

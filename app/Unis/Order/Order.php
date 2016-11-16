@@ -60,7 +60,8 @@ class Order extends Model
     			return '已送达';
      		case 'withdrawed':
     			return '已提现';
- 
+            case 'received':
+                return '已收到';
     		default:
     			return '未知状态码';
     	}

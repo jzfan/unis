@@ -32,9 +32,9 @@ class OrderController extends BaseController
         return view('wechat.order.index3');
     }
 
-    public function show($order_no)
+    public function show($order_id)
     {
-    	return view('wechat.order.show', compact('order_no'));
+    	return view('wechat.order.show', compact('order_id'));
     }
 
     public function edit()
@@ -53,8 +53,10 @@ class OrderController extends BaseController
 		$limit = $request->limit ? : config('site.perPage');
         $page  = $request->page ? : 1;
     	Input::merge(["page" => $page]);
+        $user = $this->getWechatUser();
+        $campus_id = $user->defaultAddress()->campus_id;
     	if ($request->status){
-			return Order::where('status', $request->status)->with('order_items.food')->paginate($limit);
+			return Order::where(['status'=>$request->status, 'campus_id'=>$campus_id])->with('order_items.food')->paginate($limit);
     	}
     	return Order::paginate($limit);  	
     }
@@ -103,4 +105,5 @@ class OrderController extends BaseController
     {
         return null;//'received.'
     }
+
 }

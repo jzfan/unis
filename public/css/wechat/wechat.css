@@ -4,6 +4,20 @@
  * 
  * */
  /* newcss */
+ .msg{
+ 	position: absolute;
+ 	top: 160px;
+ 	left: 25%;
+ 	width: 50%;
+ 	height: 40px;
+ 	line-height: 40px;
+ 	font-size: 18px;
+ 	font-family: "微软雅黑";
+ 	color:#fff;
+ 	background-color: rgba(0,0,0,0.1);
+ 	display: none;
+ 	border-radius: 8px;
+ }
  .w-cash-all .mui-table-view-cell:last-child:after, .mui-table-view-cell:last-child:before{
  	height: 1px;
  }

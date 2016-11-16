@@ -15,7 +15,6 @@ class UserController extends BaseController
 
     public function store(WechatUserRequest $request)
     {
-
         $wx_user = session('wechat.oauth_user');
 
         $this->checkExist($wx_user);

@@ -61,9 +61,9 @@ class WechatController extends Controller
                 "url" => $url.'wechat/index'
             ],
             [
-                "type" => "click",
+                "type" => "view",
                 "name" => "活动",
-                "key"  => "activity"
+                "url" => 'http://g.eqxiu.com/s/D0Ez8TIt'
             ],
 
         ];

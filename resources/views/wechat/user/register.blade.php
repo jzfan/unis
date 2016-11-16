@@ -12,16 +12,12 @@
 	{!! csrf_field() !!}
 		<div class="mui-input-row" id="school">
 	        <label>学校:</label>
-		    	<input type="text" class="" value="江汉大学" tabIndex="1" disabled>
-		    	<input type="hidden" name='school_id' value="" class="trueVal">
+		    	<input type="text" class="" value="江汉大学&nbsp;&nbsp;&nbsp;(其他学校敬请期待...)" tabIndex="1" disabled>
+		    	<input type="hidden" name='school_id' value="2" class="trueVal">
 		    	<span class="w-arrow-right mui-icon mui-icon-arrowright"></span>
     	</div>
 
-		<ul class="mui-table-view mui-table-view-radio" id="school-fix">
-			<li class="school-search mui-table-view-cell">
-				<input type="search" class="win-search" placeholder="搜索">
-			</li>
-		</ul>
+		
 
 
     	<div class="mui-input-row" id="school-area">
@@ -55,7 +51,7 @@
 
 	    <div class="w-clear mui-input-row">
 	        <label>寝室:</label>
-	        <input type="number" class="mui-input-clear" placeholder="输入寝室号" tabindex="4" name="room_number" required>
+	        <input type="text" class="mui-input-clear" placeholder="输入寝室号" tabindex="4" name="room_number" required>
 	        <input type="hidden"  value="" class="trueVal">
 
 	    </div>
@@ -63,7 +59,6 @@
 	    <div class="w-clear mui-input-row">
 	        <label>手机:</label>
 	        <input type="number" class="mui-input-clear" placeholder="输入手机号" tabindex="5" id="telephone"  name="phone" required>
-	        <input type="hidden"  value="" class="trueVal">
 	        <input type="hidden" name='id' id='user'>
 	        <input type="hidden" name='email' id='email'>
 	        <input type="hidden" name='avatar' id="avatar">
@@ -74,12 +69,16 @@
 	    <button type="submit" class="w-entry-btn mui-btn mui-btn-danger" id="btn">完成</button>
 	</form>
 
+
 @stop
 
 @section('js')
 	<script>mui('body').on('tap','a',function(){document.location.href=this.href;});</script>
 	<script>
 	/*选择学校*/
+
+	
+
 	$(function(){
 		$(document).on('touchstart','#school input',function(){
 			$('#school-fix li').not('.school-search').remove();//重选学校时清空li列表，保留搜索li
@@ -103,11 +102,11 @@
 
 	/*根据学校选择校区*/
 		$(function(){
-				$(document).on('touchstart','#school-area input',function(){
+				$(document).on('touchstart','#school-area',function(){
 					$('#area-fix li').not('.school-search').remove();
 					$('#area-fix').fadeIn();
 					var sid  = parseInt($('.schoolId').text());
-					var urlajax = "/api/campuses_of_school/"+sid
+					var urlajax = "/api/campuses_of_school/2"  //+sid
 					$.get(urlajax,function(data){
 						for(var i=0;i<data.length;i++){
 							$('#area-fix').append('<li class="mui-table-view-cell"><span class="mui-navigate-right">'+data[i].text+'</span><span class="sid" style="visibility: hidden;">'+data[i].id+'</span></li>');
@@ -212,18 +211,17 @@
 
 	/*入口手机号码正则*/
 	;$(function(){
-		$('#telephone').on('blur',function(){
+		$('.w-entry-btn').on('touchstart',function(){
 			 var phone = $('#telephone').val();
-    			if(!(/^1(3|4|5|7|8)\d{9}$/.test(phone))){ 
+    			//if(!(/^1(3|4|5|7|8)\d{9}$/.test(phone))){ 
+    			if(!(/^1[0-9]{10}$/.test(phone))){ 
         			layer.open({
 				    content: '您输入的手机号码有误'
 				    ,skin: 'msg'
 				    ,time: 2 //2秒后自动关闭
 				  }); 
 
-        			$("form").submit( function () {
-					  return false;
-					} );
+        			
     			} 
 		});
 	})

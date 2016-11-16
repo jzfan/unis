@@ -74,22 +74,7 @@
 @stop
 
 @section('js')
-
-<script>
-mui.init({
-  gestureConfig:{
-   tap: true, //默认为true
-   doubletap: true, //默认为false
-   longtap: true, //默认为false
-   drag: true, //默认为true
-   swipeleft:false,//默认为false，不监听
-   swiperight:false//默认为false，不监听
-  }
-});
-
-</script>
-
- <script>mui('#').on('tap','a',function(){document.location.href=this.href;});</script>
+<script>mui('.win-bar').on('tap','a',function(){document.location.href=this.href;});</script>
 	<!-- 进入加载页面 -->
 	<script>
 	   $(function(){

@@ -81,21 +81,7 @@
 @section('js')
 <script src="/lib/pusher/main.js"></script>
 <script src="/js/wechat/jquery-3.1.1.min.js"></script>
-<script>mui('.w-want-accept').on('tap','a',function(){document.location.href=this.href;});</script>
-<script>
-mui.init({
-  gestureConfig:{
-   tap: true, //默认为true
-   doubletap: true, //默认为false
-   longtap: true, //默认为false
-   swipe: true, //默认为true
-   drag: true, //默认为true
-   swipeleft:false,//默认为false，不监听
-   swiperight:false//默认为false，不监听
-  }
-});
-
-</script>
+<script>mui('body').on('tap','a',function(){document.location.href=this.href;});</script>
 
 <script>/*菜品刷新加载*/
 			mui.init();
@@ -548,7 +534,7 @@ mui.init({
 	<script>
 		$(function(){
 			$('.w-want-accept').on('touchstart',function(){
-				window.location.href='/wechat/order/index#item1mobile';
+				window.location.href='/wechat/order/index#aim';
 			})
 		})
 	</script>

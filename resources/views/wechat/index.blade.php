@@ -83,6 +83,7 @@
 <script src="/js/wechat/jquery-3.1.1.min.js"></script>
 <script>mui('body').on('tap','a',function(){document.location.href=this.href;});</script>
 
+
 <script>/*菜品刷新加载*/
 			mui.init();
 			(function($) {

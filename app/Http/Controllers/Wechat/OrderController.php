@@ -27,6 +27,11 @@ class OrderController extends BaseController
         return view('wechat.order.index2');
     }
 
+    public function index3()
+    {
+        return view('wechat.order.index3');
+    }
+
     public function show($order_no)
     {
     	return view('wechat.order.show', compact('order_no'));

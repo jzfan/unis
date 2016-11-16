@@ -250,35 +250,44 @@
          $.ajax({
                 url:'/wechat/ajax/cart',
                 dataType:'json',
-                async:false,
+                async:true,
                 type:'GET',
                 success:function(data){
-                    var json_data = data;  
-                        storage.setItem("json_data",JSON.stringify(json_data));//  写入
-                    var json_data = JSON.parse(storage.getItem("json_data"));  //读取
+                    var json_data = data;
                     console.log(json_data);
 
-//localStorage调用的方法
-                    localStorage.setItem("key","value");//存储变量名为key，值为value的变量  
+                //localStorage调用的方法  
+                 
                     localStorage.key = "value"//存储变量名为key，值为value的变量  
                     localStorage.getItem("key");//获取存储的变量key的值  
                     localStorage.key;//获取存储的变量key的值  
                     localStorage.removeItem("key")//删除变量名为key的存储变量  
                     localStorage.clear();//清空本地所有数据  
 
+                    json_String = JSON.stringify(json_data);//将JSON对象转化成字符串
+                     localStorage.setItem("json_String",json_String);//用localStorage保存转化好的的字符串
 
-//存储JSON对象的方法
-                var friends= {  
+
+
+
+
+
+
+
+                //存储JSON对象的方法
+                
+                /*var friends= {  
                     wanglichuan:{name:"wanglichuan",age:30},  
                     xiaonai:{name:"xiaonai",age:23}  
                     heyichen:{name:"heyichen",age:28}  
-                    }//要存储的JSON对象  
+                    }//要存储的JSON对象  */
 
 
                     friends= JSON.stringify(students);//将JSON对象转化成字符串  
                     localStorage.setItem("friends",friends);//用localStorage保存转化好的的字符串  
 
-//将存储好的变量取回
+                //将存储好的变量取回
+                
                     var friends= localStorage.getItem("friends");//取回friends变量  
                     friends= JSON.parse(friends);//把字符串转换成JSON对象  
 

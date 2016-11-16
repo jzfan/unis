@@ -5,20 +5,19 @@
 @stop
 
 @section('content')
-	
 		<div class="mui-content">
 			<div id="slider" class="mui-slider mui-fullscreen">
 				<div id="sliderSegmentedControl" class="w-tab mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
 					<a class="mui-control-item " href="#item1mobile">我的订单</a>
-					<a class="mui-control-item mui-active" href="#item2mobile">我的带餐</a>
-					<a class="mui-control-item" href="#item3mobile">我已带到</a>
+					<a class="mui-control-item " href="#item2mobile">我的带餐</a>
+					<a class="mui-control-item mui-active" href="#item3mobile">我已带到</a>
 				</div>
-	
+
 				<div class="mui-slider-group">
-					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+					<div id="item1mobile" class="mui-slider-item mui-control-content ">
 						<div id="scroll1" class="mui-scroll-wrapper">
 							<div class="mui-scroll">
-								<a href="#aim"></a>
+								<a href="#aimto"></a>
 
 
 							</div>
@@ -36,7 +35,7 @@
 					</div>
 
 
-					<div id="item3mobile" class="mui-slider-item mui-control-content">
+					<div id="item3mobile" class="mui-slider-item mui-control-content mui-active">
 						<div class="mui-scroll-wrapper">
 							<div class="mui-scroll">
 								
@@ -53,6 +52,7 @@
 @stop
 
 @section('js')
+ 
 	<script>
 		/*上拉刷新下拉加载我的订单列表*/
 			mui.init();
@@ -333,8 +333,8 @@
 	<script>
 	   $(function(){
 	   	 	$.ajax({
-	   	 		// url:'/wechat/ajax/order',
-	   	 		url:'/wechat/ajax/order/uncompleted',
+	   	 		url:'/wechat/ajax/order',
+	   	 		// url:'/wechat/ajax/order/uncompleted',
 	   	 		dataType:'json',
 	   	 		/*data:{'page':1}*/
 	   	 		async:true,
@@ -359,8 +359,8 @@
 	<script>
 	   $(function(){
 	   	 	$.ajax({
-	   	 		// url:'/wechat/ajax/order',
-	   	 		url:'/wechat/ajax/order/completed',
+	   	 		url:'/wechat/ajax/order',
+	   	 		// url:'/wechat/ajax/order/completed',
 	   	 		dataType:'json',
 	   	 		/*data:{'page':1}*/
 	   	 		async:true,

@@ -22,6 +22,7 @@ Route::group(['middleware'=>['web', 'wechat.oauth']], function () {
 		Route::get('/order/status', 'OrderController@status');
 		Route::get('/order/index', 'OrderController@index');
 		Route::get('/order/index2', 'OrderController@index2');
+		Route::get('/order/index3', 'OrderController@index3');
 		Route::get('/order/show/{order_no}', 'OrderController@show');
 		Route::get('/order/{status?}', 'OrderController@getList');
 		Route::get('/order/edit', 'OrderController@edit');

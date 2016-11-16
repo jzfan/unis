@@ -77,26 +77,10 @@ $(function(){
 
 
 
-/*入口手机号码正则*/
-	;$(function(){
-		$('#telephone').on('blur',function(){
-			 var phone = $('#telephone').val();
-    			if(!(/^1(3|4|5|7|8)\d{9}$/.test(phone))){ 
-        			layer.open({
-				    content: '您输入的手机号码有误'
-				    ,skin: 'msg'
-				    ,time: 2 //2秒后自动关闭
-				  }); 
-    			} 
-		});
-	})
-
-
-/*图片换为默认图片*/
-/*$(function(){
+$(function(){
 
 	$("img").one("error", function(){
-	 $(this).attr("src", "/wechat/defalut.jpg");
+	 $(this).attr("src", "/img/wechat/defalut.jpg");
 	});
 
-})*/
+})

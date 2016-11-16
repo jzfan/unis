@@ -12,7 +12,7 @@
 	{!! csrf_field() !!}
 		<div class="mui-input-row" id="school">
 	        <label>学校:</label>
-		    	<input type="text" class="" placeholder="选择学校" value="武汉理工大学" tabIndex="1" disabled>
+		    	<input type="text" class="" value="江汉大学" tabIndex="1" disabled>
 		    	<input type="hidden" name='school_id' value="" class="trueVal">
 		    	<span class="w-arrow-right mui-icon mui-icon-arrowright"></span>
     	</div>
@@ -207,6 +207,27 @@
             }
       	});
   	});
+
+
+
+	/*入口手机号码正则*/
+	;$(function(){
+		$('#telephone').on('blur',function(){
+			 var phone = $('#telephone').val();
+    			if(!(/^1(3|4|5|7|8)\d{9}$/.test(phone))){ 
+        			layer.open({
+				    content: '您输入的手机号码有误'
+				    ,skin: 'msg'
+				    ,time: 2 //2秒后自动关闭
+				  }); 
+
+        			$("form").submit( function () {
+					  return false;
+					} );
+    			} 
+		});
+	})
+
 
 
 	</script>

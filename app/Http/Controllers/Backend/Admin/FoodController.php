@@ -15,8 +15,8 @@ class FoodController extends Controller
 {
     // public function index()
     // {
-    // 	$foods = Food::with('shop')->orderBy('id', 'desc')->paginate(config('site.perPerge'));
-    // 	return view('backend.admin.food.index', compact('foods'));
+    //  $foods = Food::with('shop')->orderBy('id', 'desc')->paginate(config('site.perPerge'));
+    //  return view('backend.admin.food.index', compact('foods'));
     // }
 
     public function index(FoodDataTable $dataTable)
@@ -26,25 +26,26 @@ class FoodController extends Controller
 
     public function show(Food $food)
     {
-    	return view('backend.admin.food.show', compact('food'));
+        return view('backend.admin.food.show', compact('food'));
     }
 
     public function edit(Food $food)
     {
-    	// dd($food);
-    	return view('backend.admin.food.edit', compact('food'));
+        // dd($food);
+        return view('backend.admin.food.edit', compact('food'));
     }
 
     public function update(FoodRequest $request, Food $food)
     {
-    	$food->update($request->input());
-    	return redirect('/admin/food')->with('success', '更新成功！');
+        $food->update($request->input());
+        $next = Food::where('id','>',$food->id)->orderBy('id', 'asc')->first();
+        return redirect('/admin/food/'.$next->id.'/edit');
     }
 
     public function destroy(Food $food)
     {
-    	$food->delete();
-    	return redirect()->back()->with('success', '删除成功！');
+        $food->delete();
+        return redirect()->back()->with('success', '删除成功！');
     }
 
     public function create(Request $request)

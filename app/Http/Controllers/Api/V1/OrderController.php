@@ -30,11 +30,11 @@ class OrderController extends BaseController
     {
     	$order = Order::where(['order_no'=>$order_no, 'status'=>'paid'])->first();
         $this->checkNull($order);
-    	$order->deliver_id = $this->user->defaultAddress()->id;
-        $order->status = 'taken';
-    	$order->deliver_id = $this->user->id;
-    	$order->taken_at = Carbon::now();
-    	$order->save();
+        $order->update([
+            'deliver_id' => $this->user->defaultAddress()->id,
+            'status' => 'taken',
+            'taken_at' => Carbon::now()
+        ]);
     	return 'success';
     }
 

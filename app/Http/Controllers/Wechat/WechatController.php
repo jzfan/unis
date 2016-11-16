@@ -60,11 +60,6 @@ class WechatController extends Controller
                 "url" => $url.'wechat/index'
             ],
             [
-                "type" => "view",
-                "name" => "我的接单",
-                "url"  => $url.'wechat/order#item2mobile'
-            ],
-            [
                 "type" => "click",
                 "name" => "活动",
                 "key"  => "activity"

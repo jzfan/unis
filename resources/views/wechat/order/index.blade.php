@@ -9,8 +9,8 @@
 		<div class="mui-content">
 			<div id="slider" class="mui-slider mui-fullscreen">
 				<div id="sliderSegmentedControl" class="w-tab mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-					<a class="mui-control-item mui-active" href="#item1mobile">我的订单</a>
-					<a class="mui-control-item" href="#item2mobile">我的带餐</a>
+					<a class="mui-control-item " href="#item1mobile">我的订单</a>
+					<a class="mui-control-item mui-active" href="#item2mobile">我的带餐</a>
 					<a class="mui-control-item" href="#item3mobile">我已带到</a>
 				</div>
 
@@ -53,6 +53,22 @@
 @stop
 
 @section('js')
+ <script>mui('#').on('tap','a',function(){document.location.href=this.href;});</script>
+<script>
+mui.init({
+  gestureConfig:{
+   tap: true, //默认为true
+   doubletap: true, //默认为false
+   longtap: true, //默认为false
+   drag: true, //默认为true
+   swipeleft:false,//默认为false，不监听
+   swiperight:false//默认为false，不监听
+  }
+});
+
+</script>
+
+
 		<script>
 		/*上拉刷新下拉加载我的订单列表*/
 			mui.init();

@@ -81,7 +81,21 @@
 @section('js')
 <script src="/lib/pusher/main.js"></script>
 <script src="/js/wechat/jquery-3.1.1.min.js"></script>
-<script>mui('body').on('tap','a',function(){document.location.href=this.href;});</script>
+<script>mui('.w-want-accept').on('tap','a',function(){document.location.href=this.href;});</script>
+<script>
+mui.init({
+  gestureConfig:{
+   tap: true, //默认为true
+   doubletap: true, //默认为false
+   longtap: true, //默认为false
+   swipe: true, //默认为true
+   drag: true, //默认为true
+   swipeleft:false,//默认为false，不监听
+   swiperight:false//默认为false，不监听
+  }
+});
+
+</script>
 
 <script>/*菜品刷新加载*/
 			mui.init();
@@ -204,7 +218,7 @@
 													for(var i=0;i<takeFood.length;i++){
 														div = document.createElement('div');
 														div.className = "w-finshed-menu";
-														div.innerHTML = '<ul class="w-cash-all mui-table-view" data-id='+takeFood[i].order_no+'><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+takeFood[i].total+'元(含服务费)</span></li></ul><ul class="w-home-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+takeFood[i].order_no+'<span class="w-hold mui-pull-right">'+takeFood[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">13511787497</a></div></li><li class="mui-table-view-cell">联系姓名：Abigale Parisian</li><li class="mui-table-view-cell">配送地址：'+takeFood[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+takeFood[i].created_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+takeFood[i].updated_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><a href="/wechat/order/index#item2mobile"><button class="w-want-accept"  data-id='+takeFood[i].order_no+'>我要带餐</button></a></li></ul>';
+														div.innerHTML = '<ul class="w-cash-all mui-table-view" data-id='+takeFood[i].order_no+'><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+takeFood[i].total+'元(含服务费)</span></li></ul><ul class="w-home-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+takeFood[i].order_no+'<span class="w-hold mui-pull-right">'+takeFood[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">13511787497</a></div></li><li class="mui-table-view-cell">联系姓名：Abigale Parisian</li><li class="mui-table-view-cell">配送地址：'+takeFood[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+takeFood[i].created_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+takeFood[i].updated_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-want-accept"  data-id='+takeFood[i].order_no+'>我要带餐</button></li></ul>';
 													var table = document.body.querySelector('#item2mobile .mui-pull-bottom-tips');
 													var par = document.body.querySelector('.mui-slider-group #item2mobile .mui-scroll');
                     									par.insertBefore(div,table); 
@@ -234,7 +248,7 @@
 													for(var i=0;i<takeUp.length;i++){
 														div = document.createElement('div');
 														div.className = "w-finshed-menu";
-														div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+takeUp[i].total+'元(含服务费)</span></li></ul><ul class="w-home-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+takeUp[i].order_no+'<span class="w-hold mui-pull-right">'+takeUp[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">13511787497</a></div></li><li class="mui-table-view-cell">联系姓名：Abigale Parisian</li><li class="mui-table-view-cell">配送地址：'+takeUp[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+takeUp[i].created_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+takeUp[i].updated_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><a href="/wechat/order/index#item2mobile"><button class="w-want-accept"  data-id='+takeFood[i].order_no+'>我要带餐</button></a></li></ul>';
+														div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+takeUp[i].total+'元(含服务费)</span></li></ul><ul class="w-home-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+takeUp[i].order_no+'<span class="w-hold mui-pull-right">'+takeUp[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">13511787497</a></div></li><li class="mui-table-view-cell">联系姓名：Abigale Parisian</li><li class="mui-table-view-cell">配送地址：'+takeUp[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+takeUp[i].created_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+takeUp[i].updated_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-want-accept"  data-id='+takeFood[i].order_no+'>我要带餐</button></li></ul>';
 													var parent = document.body.querySelector('#item2mobile .mui-scroll');
 													var table = document.body.querySelector('#item2mobile .mui-pull-bottom-tips');
 														parent.insertBefore(div,table);
@@ -354,7 +368,7 @@
 				$.ajax({
 					url:'/wechat/order/paid',
 					dataType:'json',
-					async:true,
+					async:false,
 					type:'GET',
 					success:function(data){
 						var takeFood = data.data;
@@ -362,7 +376,7 @@
 						for(var i=0;i<takeFood.length;i++){
 							div = document.createElement('div');
 							div.className = "w-finshed-menu";
-							div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+takeFood[i].total+'元(含服务费)</span></li></ul><ul class="w-home-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+takeFood[i].order_no+'<span class="w-hold mui-pull-right">'+takeFood[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">13511787497</a></div></li><li class="mui-table-view-cell">联系姓名：Abigale Parisian</li><li class="mui-table-view-cell">配送地址：'+takeFood[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+takeFood[i].created_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+takeFood[i].updated_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><a class="take_food" href="/wechat/order/index#item2mobile"><button class="w-want-accept"  data-id='+takeFood[i].order_no+'>我要带餐</button></a></li></ul>';/*<a href="/wechat/order/index"><a>*/
+							div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+takeFood[i].total+'元(含服务费)</span></li></ul><ul class="w-home-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+takeFood[i].order_no+'<span class="w-hold mui-pull-right">'+takeFood[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">13511787497</a></div></li><li class="mui-table-view-cell">联系姓名：Abigale Parisian</li><li class="mui-table-view-cell">配送地址：'+takeFood[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+takeFood[i].created_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+takeFood[i].updated_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-want-accept"  data-id='+takeFood[i].order_no+'>我要带餐</button></li></ul>';/*<a href="/wechat/order/index"><a>*/
 							var table = document.body.querySelector('#item2mobile .mui-pull-bottom-tips');
 							var parent = document.body.querySelector('#item2mobile .mui-scroll');
 							parent.insertBefore(div,table);
@@ -529,4 +543,13 @@
 			})
 	</script>
 
+
+
+	<script>
+		$(function(){
+			$('.w-want-accept').on('touchstart',function(){
+				window.location.href='/wechat/order/index#item1mobile';
+			})
+		})
+	</script>
 @stop

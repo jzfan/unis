@@ -722,7 +722,7 @@ body .layui-m-layer .layui-m-layer-msg{
 	width: 10.5rem;
 } */
 .add-icon-g .mui-numbox{
-	width: 9.5rem;
+	width: 11.5rem;
 	margin-left: -80px;
 }
 .person-ico{
@@ -845,6 +845,12 @@ body .layui-m-layer .layui-m-layer-msg{
 	color: #e72d2d;
 }
 .w-slider-group #item1mobile,.w-slider-group #item2mobile,.w-slider-group #item3mobile{
+	margin-bottom: 80px;
+}
+.no-hidden .mui-scroll-wrapper{
+	overflow: initial;
+}
+.w-cart{
 	margin-bottom: 80px;
 }
 .w-card-info{

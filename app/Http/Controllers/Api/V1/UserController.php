@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Unis\User\User;
 use App\Unis\User\Address;
 use \DB;
-class UserController extends Controller
+class UserController extends BaseController
 {
 	public function index()
 	{
@@ -61,5 +61,10 @@ class UserController extends Controller
     public function last()    
     {
         return User::orderBy('id', 'desc')->first();
+    }
+
+    public function balance()
+    {
+        return $this->user->balance;
     }
 }

@@ -140,21 +140,40 @@
 		</script>
 
 
+		<script>
+		/*获取用户openId*/
+			$(function(){
+				$.ajax({
+					url:'/wechat/user',
+					dataType:'json',
+					async:false,
+					data:{},
+					type:'GET',
+					success:function(data){
+						$('.w-about-uniserve').attr('data-id',data.wechat_openid);
+					}
+				});
+			})
+		</script>
+
 
 		<script>/*进入页面请求刷新*/
-			/*$(function(){
+			$(function(){
+				var openId = $('.w-about-uniserve').attr('data-id');
+				var ajaxUrl = '/api/feed?openid='+openId;
 				$.ajax({
-					url:'',
+					url:ajaxUrl,
 					dataType:'json',
 					async:true,
 					data:{},
 					type:'GET',
-					success:function(){
+					success:function(data){
+						console.log(data);
 						var div =document.createElement('div');
 						div.className = "w-card mui-card";
 						div.innerHTML ='<a href="交易订单信息.html"><ul class="mui-table-view"><li class="mui-table-view-cell"><div class="mui-slider-right mui-disabled"><span class="mui-btn mui-btn-red">删除</span></div><div class="mui-slider-handle"><div class="w-card-header">互动消息<small class="w-card-time mui-pull-right">16/10/18</small></div><div class="w-card-info">订单已签收！您购买的[酸辣土豆丝]已签收，欢迎再...</div></div></li></ul></a>';
 					}
 				})
-			})*/
+			})
 		</script>
 @stop

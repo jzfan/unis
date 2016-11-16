@@ -20,12 +20,14 @@ class ShopsTableSeeder extends Seeder
         $suplier_count = Suplier::all()->count();
 
         $faker = Faker\Factory::create();
-        foreach (range(1, 80) as $index){
-        	Shop::create([
-        		'name' => $faker->word. ' 小店',
-                'canteen_id' => mt_rand(1, $canteen_count),
-                'suplier_id' => mt_rand(1, $suplier_count),
-        		]);
+        foreach (range(1, $canteen_count) as $index){
+            foreach (range(1, 5) as $index2) {
+            	Shop::create([
+            		'name' => $faker->word. ' 小店',
+                    'canteen_id' => mt_rand(1, $index),
+                    'suplier_id' => mt_rand(1, $suplier_count),
+            		]);
+            }
         }
     }
 }

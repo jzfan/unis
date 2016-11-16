@@ -23,7 +23,8 @@ $factory->define(App\Unis\User\User::class, function (Faker\Generator $faker) {
         'avatar' => $faker->imageUrl(100, 100),
         'phone' => (string)mt_rand(13111111111,18888888888),
         'remember_token' => str_random(10),
-        'status' => (string)mt_rand(0 ,1)
+        'status' => (string)mt_rand(0 ,1),
+        'balance' => mt_rand(0, 400)
     ];
 });
 

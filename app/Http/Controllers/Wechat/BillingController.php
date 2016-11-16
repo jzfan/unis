@@ -8,6 +8,10 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use EasyWeChat\Payment\Order;
 use EasyWeChat\Foundation\Application;
+use App\Unis\Order\Order as UnisOrder;
+use App\Unis\Suplier\Shop;
+use App\Unis\User\User;
+use App\Unis\Suplier\Food;
 
 class BillingController extends BaseController
 {
@@ -95,5 +99,50 @@ class BillingController extends BaseController
 		    return true; // 返回处理完成
 		});
 		return $response;
+    }
+
+    public function afterPaid(Request $request)
+    {
+    	$user = $this->getWechatUser();
+
+    	$address = User::find($user->id)->defaultAddress();
+
+    	$foods_arr = $request->food;
+    	$ids = [];
+    	foreach($foods_arr as $food_arr){
+    		$ids[] = $food_arr['id'];
+    	}
+
+    	$foods = Food::whereIn('id', $ids)->get();
+
+    	if (! $foods){
+    		abort('400', 'no food');
+    	}
+    	$total = 0;
+    	foreach($foods as $key=>$food){
+    		$total = $total + $food->priceAfterDiscount()*$foods_arr[$key]['numb'];
+    	}
+    	// dd($foods->pluck('name')->toArray());
+    	// dd($address->text());
+    	UnisOrder::create([
+    		'school_id' => $address->school_id,
+    		'order_no' => $this->makeOrder(),
+    		'type' => 'wxpay',
+    		'subject' => join('|', $foods->pluck('name')->toArray()),
+    		'user_id' => $user->id,
+    		'total' => $total,
+    		'campus_id' => $address->campus_id,
+    		'dorm_id' => $address->dorm_id,
+    		'address' => $address->text(),
+    		'status' => 'paid',
+    		'paid_at' => \Carbon\Carbon::now(),
+    	]);
+
+    	return 'success';
+    }
+
+    public function makeOrder()
+    {
+    	return time().str_random(4);
     }
 }

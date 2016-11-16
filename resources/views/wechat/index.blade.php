@@ -10,7 +10,7 @@
 		          
 		          <ul class="w-canvas-list">
 		          @foreach($shops as $shop)
-		          	<a href=""><li>{{ $shop->name }}</li></a>
+		          	<li class="portName" ><a href="" data-id='shopId'>{{ $shop->name }}</a></li>
 		          @endforeach
 		          </ul>
 		        </div>
@@ -22,13 +22,13 @@
 	<div class="mui-inner-wrap">
 		<header class="w-bar mui-bar mui-bar-nav">
 			<a href="#offCanvasSide" class="mui-icon iconfont caidanlan101 mui-pull-left"></a>
-			<h1 class="mui-title"><span class="mui-icon iconfont dingwei104"></span>&nbsp;&nbsp;<span class="address-name">{{ $selected_canteen->name }}</span>&nbsp;&nbsp;<span class="mui-icon  iconfont youjiantou003" id="arrow"></span></h1>
+			<h1 class="mui-title"><span class="mui-icon iconfont dingwei104"></span>&nbsp;&nbsp;<span class="address-name" id="addName">{{ $selected_canteen->name }}</span>&nbsp;&nbsp;<span class="mui-icon  iconfont youjiantou003" id="arrow"></span></h1>
 		</header>
 
 
 		<!--教工食堂下拉框开始-->
 		    <div id="popover" class="w-popover mui-popover">
-  				<ul class="mui-table-view mui-table-view-radio">
+  				<ul class="mui-table-view mui-table-view-radio" id="canteen-li">
   				@foreach($canteens as $canteen)
 					<li class="mui-table-view-cell">
 						<span class="mui-navigate-right"><a href="/wechat/index/{{ $canteen->id }}" class="selectDown">{{ $canteen->name }}</a></span>
@@ -60,59 +60,8 @@
 					<div id="item2mobile" class="mui-slider-item mui-control-content">
 						<div class="mui-scroll-wrapper">
 							<div class="mui-scroll">
+							<input type="hidden" class="openId">
 								
-					<!-- 带餐数据列表开始 -->
-					<!-- @foreach($orders as $order)
-						@foreach($order->order_items as $item)
-						<ul class="w-tab-view mui-table-view">
-						    <li class="mui-table-view-cell mui-media">
-						        <a href="javascript:;">
-						            <img class="mui-media-object mui-pull-left" src="{{ $item->food->img }}">
-						            <div class="w-box">
-						            	<div class="w-menu-left">
-						            		<p class="menu-name">{{ $item->food->name }}</p>
-						            		<small class="menu-address">{{ $item->food->shop->canteen->name }}</small>
-						            		<p class="menu-number"><span>月售:{{ $item->food->sold }}</span></p>
-						            		<p class="menu-footer">
-						            			<span class="vule-icon">￥</span><span class="vue-number">{{ $item->food->priceAfterDiscount() }}</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:{{ $item->food->price }}元</span>
-						            		</p>
-						            	</div>
-						            	<div class="w-menu-right">
-						            		<div class="love-icon"><span class=""></span></div>
-						            		<div class="add-icon-a"><span class="num-menu-num">份数：{{ $item->amount }}</span></div>
-						            	</div>
-						            </div>
-						          
-						        </a>
-						    </li>
-						    
-					
-						</ul>
-						@endforeach
-						<div class="w-finshed-menu">
-							<ul class="w-cash-all mui-table-view">
-							    <li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">{{ $order->total + 2 }}元(含服务费)</span></li>
-							</ul>
-					
-							<ul class="w-home-tab mui-table-view">
-							    <li class="mui-table-view-cell">订单编号：{{ $order->order_no }} <span class="w-hold mui-pull-right">待接单</span></li>
-							    <li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">{{ $order->orderer->phone }}</a></div></li>
-							    <li class="mui-table-view-cell">联系姓名：{{ $order->orderer->name }}</li>
-							    <li class="mui-table-view-cell">配送地址：{{ $order->address }}</li>
-							</ul>
-					
-							<ul class="mui-table-view">
-							    <li class="mui-table-view-cell">下单时间：{{ $order->created_at }}&nbsp;&nbsp;&nbsp;&nbsp;预约时间：2016-10-17 12:08</li>
-							</ul>
-					
-							<ul class="mui-table-view">
-							    <li class="mui-table-view-cell"><a href="/wechat/order/index"><button class="w-want-accept">我要带餐</button></a></li>
-							</ul>
-						</div>
-					@endforeach -->
-
-
-							<!-- 带餐数据列表结束 -->
 
 							</div>
 						</div>
@@ -155,16 +104,22 @@
 							down: {
 								callback: function() {
 									var self = this;
+									var page = '0';
 									var urlajax = "/api/foods_of_canteen/{{ $selected_canteen->id }}";
 									setTimeout(function() {
 											$.ajax({
 												url:urlajax,
 												dataType:'json',
-												data:{'page':1},
+												/*data:{'page':1},*/
 												async:true,
 												type:'GET',
 												success:function(data){
+													console.log(data);
 													var foodAll = data.data;
+													page++;
+													if(page>10){
+														console.log('没有更多数据');
+													}
 													for(var i=0;i<foodAll.length;i++){
 														ul = document.createElement('ul');
 														ul.className = "w-tab-view mui-table-view";
@@ -242,7 +197,7 @@
 							down: {
 								callback: function() {
 									var self = this;
-									var urlajax = "/wechat/order/ordered";
+									var urlajax = "/wechat/order/paid";
 									setTimeout(function() {
 											$.ajax({
 												url:urlajax,
@@ -251,13 +206,11 @@
 												async:true,
 												type:'GET',
 												success:function(data){
-													console.log(data);
 													var takeFood = data.data
 													for(var i=0;i<takeFood.length;i++){
-														console.log(takeFood[i].status);
 														div = document.createElement('div');
 														div.className = "w-finshed-menu";
-														div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+takeFood[i].total+'元(含服务费)</span></li></ul><ul class="w-home-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+takeFood[i].order_no+'<span class="w-hold mui-pull-right">'+takeFood[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">13511787497</a></div></li><li class="mui-table-view-cell">联系姓名：Abigale Parisian</li><li class="mui-table-view-cell">配送地址：'+takeFood[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+takeFood[i].created_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+takeFood[i].updated_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><a href="/wechat/order/index"><button class="w-want-accept">我要带餐</button></a></li></ul>';
+														div.innerHTML = '<ul class="w-cash-all mui-table-view" data-id='+takeFood[i].order_no+'><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+takeFood[i].total+'元(含服务费)</span></li></ul><ul class="w-home-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+takeFood[i].order_no+'<span class="w-hold mui-pull-right">'+takeFood[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">13511787497</a></div></li><li class="mui-table-view-cell">联系姓名：Abigale Parisian</li><li class="mui-table-view-cell">配送地址：'+takeFood[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+takeFood[i].created_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+takeFood[i].updated_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><a href="/wechat/order/index#item2mobile"><button class="w-want-accept"  data-id='+takeFood[i].order_no+'>我要带餐</button></a></li></ul>';
 													var table = document.body.querySelector('#item2mobile .mui-pull-bottom-tips');
 													var par = document.body.querySelector('.mui-slider-group #item2mobile .mui-scroll');
                     									par.insertBefore(div,table); 
@@ -273,7 +226,7 @@
 
 							up: {
 								callback: function() {
-									var urlajax= '/wechat/order/ordered';
+									var urlajax= '/wechat/order/paid';
 									var self = this;
 									setTimeout(function() {
 										$.ajax({
@@ -288,7 +241,7 @@
 														console.log(takeUp[i].status);
 														div = document.createElement('div');
 														div.className = "w-finshed-menu";
-														div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+takeUp[i].total+'元(含服务费)</span></li></ul><ul class="w-home-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+takeUp[i].order_no+'<span class="w-hold mui-pull-right">'+takeUp[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">13511787497</a></div></li><li class="mui-table-view-cell">联系姓名：Abigale Parisian</li><li class="mui-table-view-cell">配送地址：'+takeUp[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+takeUp[i].created_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+takeUp[i].updated_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><a href="/wechat/order/index"><button class="w-want-accept">我要带餐</button></a></li></ul>';
+														div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+takeUp[i].total+'元(含服务费)</span></li></ul><ul class="w-home-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+takeUp[i].order_no+'<span class="w-hold mui-pull-right">'+takeUp[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">13511787497</a></div></li><li class="mui-table-view-cell">联系姓名：Abigale Parisian</li><li class="mui-table-view-cell">配送地址：'+takeUp[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+takeUp[i].created_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+takeUp[i].updated_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><a href="/wechat/order/index#item2mobile"><button class="w-want-accept"  data-id='+takeFood[i].order_no+'>我要带餐</button></a></li></ul>';
 													var parent = document.body.querySelector('#item2mobile .mui-scroll');
 													var table = document.body.querySelector('#item2mobile .mui-pull-bottom-tips');
 														parent.insertBefore(div,table);
@@ -377,7 +330,7 @@
 							for(var i=0;i<foodAll.length;i++){
 								ul = document.createElement('ul');
 								ul.className = "w-tab-view mui-table-view";
-								ul.innerHTML = '<li class="mui-table-view-cell mui-media"><img class="mui-media-object mui-pull-left" src='+foodAll[i].img+'><div class="w-box"><div class="w-menu-left"><p class="menu-name">'+foodAll[i].name+'</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:'+foodAll[i].sold+'&nbsp;&nbsp;点赞:5</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">'+foodAll[i].price+'</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:'+foodAll[i].original_price+'元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
+								ul.innerHTML = '<li class="mui-table-view-cell mui-media" data-id='+foodAll[i].id+'><img class="mui-media-object mui-pull-left" src='+foodAll[i].img+'><div class="w-box"><div class="w-menu-left"><p class="menu-name">'+foodAll[i].name+'</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:'+foodAll[i].sold+'&nbsp;&nbsp;点赞:5</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">'+foodAll[i].price+'</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:'+foodAll[i].original_price+'元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
 								var parent =document.body.querySelector('#item1mobile .mui-scroll');
 									table =document.body.querySelector('#item1mobile .mui-pull-bottom-tips');
 									parent.insertBefore(ul,table);
@@ -391,21 +344,31 @@
 
 
 		<script>
-		/*进入加载带餐*/
+		/*进入页面加载带餐*/
 			$(function(){
 				$.ajax({
-					url:'/wechat/order/ordered',
+						url:'/wechat/user',
+						dataType:'json',
+						async:false,
+						data:{},
+						type:'GET',
+						success:function(data){
+							$('.openId').val(data.wechat_openid);
+						}
+					});
+
+
+				$.ajax({
+					url:'/wechat/order/paid',
 					dataType:'json',
 					async:true,
 					type:'GET',
 					success:function(data){
 						var takeFood = data.data;
-						console.log(takeFood);
 						for(var i=0;i<takeFood.length;i++){
-							console.log(takeFood[i].order_no);
 							div = document.createElement('div');
 							div.className = "w-finshed-menu";
-							div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+takeFood[i].total+'元(含服务费)</span></li></ul><ul class="w-home-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+takeFood[i].order_no+'<span class="w-hold mui-pull-right">'+takeFood[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">13511787497</a></div></li><li class="mui-table-view-cell">联系姓名：Abigale Parisian</li><li class="mui-table-view-cell">配送地址：'+takeFood[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+takeFood[i].created_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+takeFood[i].updated_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><a href="/wechat/order/index"><button class="w-want-accept">我要带餐</button></a></li></ul>';
+							div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+takeFood[i].total+'元(含服务费)</span></li></ul><ul class="w-home-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+takeFood[i].order_no+'<span class="w-hold mui-pull-right">'+takeFood[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">13511787497</a></div></li><li class="mui-table-view-cell">联系姓名：Abigale Parisian</li><li class="mui-table-view-cell">配送地址：'+takeFood[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+takeFood[i].created_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+takeFood[i].updated_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><a href="/wechat/order/index#item2mobile"><button class="w-want-accept"  data-id='+takeFood[i].order_no+'>我要带餐</button></a></li></ul>';/*<a href="/wechat/order/index"><a>*/
 							var table = document.body.querySelector('#item2mobile .mui-pull-bottom-tips');
 							var parent = document.body.querySelector('#item2mobile .mui-scroll');
 							parent.insertBefore(div,table); 
@@ -417,5 +380,166 @@
 		</script>
 
 
+	<script>
+			/*首页我要(接单(带餐)*/
+			$(function(){
+				$(document).on('touchstart','.w-want-accept',function(){
+					var openId = $('.openId').val(); 
+					var orderId = $(this).attr('data-id');
+					var urlajax = '/api/order/taken/'+orderId+'?openid='+openId;
+
+					$.ajax({
+						url:urlajax,
+						dataType:'json',
+						async:true,
+						data:{},
+						type:'GET',
+						success:function(data){
+							console.log(data)
+						}
+					})
+				})
+			})
+	</script>
+	
+
+	<script>
+		/*进入页面加载默认用户校区所有食堂*/
+		$(function(){
+					$.ajax({
+						url:'/wechat/ajax/index_data',
+						dataType:'json',
+						async:true,
+						type:'GET',
+						success:function(data){
+							var canteen = data.canteens;
+							for(var i=0;i<canteen.length;i++){
+								console.log(canteen[i]);
+								var li = document.createElement('li');
+									li.className = 'mui-table-view-cell';
+									li.innerHTML = '<span class="mui-navigate-right" data-id='+canteen[i].id+'><a href="/wechat/index/'+canteen[i].id+'" class="selectDown">'+canteen[i].name+'</a></span>';
+									var ul = document.body.querySelector('#canteen-li');
+										ul.appendChild(li);
+							 }
+
+							}
+
+						});
+
+		});
+	</script>
+	
+
+
+	<script>
+
+	$(function(){
+    	$('.mui-title').on('touchstart',function(){
+    		
+    		mui('.mui-popover').popover('toggle',document.getElementById("openPopover"));
+    		if($(this).find("span#arrow").hasClass("youjiantou003")){
+    			$('#arrow').removeClass('youjiantou003').addClass('xiajiantou002');
+    		}
+
+    		else{
+    			$('#arrow').removeClass('xiajiantou002').addClass('youjiantou003');
+    		}
+    	})
+    });
+
+	
+	$(function(){
+		$('.mui-title').on('touchstart',function(){
+			var htop =	$('.w-popover').height()+44+'px';
+			$('.mui-backdrop').css('top',htop);
+		})
+	});
+
+
+	$(function(){
+		$(document).on('touchstart','.mui-table-view.mui-table-view-radio .mui-table-view-cell',function(){
+			var newText = $(this).text();
+			var canteenId = $(this).attr('data-id');
+			$('#addName').eq(0).attr('data-id',canteenId);
+			$('.w-bar .mui-title .address-name').text(newText);
+		})
+	});//改变顶部食堂名称
+
+
+
+	</script>
+
+
+
+
+
+
+
+
+
+
+	<script>
+		/*根据食堂选窗口*/
+			$(function(){
+				$(document).on('touchstart','.portName',function(){
+					var shopId = $('.mui-navigate-right').attr('data-id');
+					var canteenId = $('.selectDown').attr('data-id');
+					var ajaxUrl = '/api/shops_of_canteen/'+canteenId;
+					$('.w-tab-view').remove();
+					$.ajax({
+						url:ajaxUrl,
+						dataType:'json',
+						async:true,
+						type:'GET',
+						success:function(data){
+
+								var port = data.data;
+								for(var i=0;i<port.length;i++){
+									console.log(port);
+									li = document.createElement('li');
+									li.className = "w-tab-view mui-table-view";
+									li.innerHTML = '<a href="" data-id='+shopId+'></a>';
+									var	table =document.body.querySelector('.w-canvas-list');
+									 	table.appendChild(li);
+								}
+							}
+
+					})
+
+				});
+			})
+	</script>
+
+
+	<script>
+		/*取窗口食品列表*/
+			$(function(){
+				$(document).on('touchstart','.portName',function(){
+					var shopId = $(this).attr('data-id');
+					var ajaxUrl = '/api/food_of_shop/'+shopId;
+					$('.w-tab-view').remove();
+					$.ajax({
+						url:ajaxUrl,
+						dataType:'json',
+						async:true,
+						type:'GET',
+						success:function(data){
+
+								var foodAll = data.data;
+								for(var i=0;i<foodAll.length;i++){
+									ul = document.createElement('ul');
+									ul.className = "w-tab-view mui-table-view";
+									ul.innerHTML = '<li class="mui-table-view-cell mui-media" data-id='+foodAll[i].id+'><img class="mui-media-object mui-pull-left" src='+foodAll[i].img+'><div class="w-box"><div class="w-menu-left"><p class="menu-name">'+foodAll[i].name+'</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:'+foodAll[i].sold+'&nbsp;&nbsp;点赞:5</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">'+foodAll[i].price+'</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:'+foodAll[i].original_price+'元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
+									var parent =document.body.querySelector('#item1mobile .mui-scroll');
+										table =document.body.querySelector('#item1mobile .mui-pull-bottom-tips');
+										parent.insertBefore(ul,table);
+								}
+							}
+
+					})
+
+				});
+			})
+	</script>
 
 @stop

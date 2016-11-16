@@ -52,7 +52,7 @@
 @stop
 
 @section('js')
-
+		
 		<script>/*上拉刷新下拉加载我的订单列表*/
 			mui.init();
 			(function($) {
@@ -80,7 +80,6 @@
 											async:true,
 											type:'GET',
 									        success:function(data){
-									        	console.log(data);
 									        	for(var i=0;i<data.length;i++){
 									        		var ul = document.createElement('ul');
 									        			ul.className = "my-menu mui-table-view";
@@ -109,7 +108,6 @@
 											async:true,
 											type:'GET',
 									        success:function(data){
-									        	console.log(data);
 									        	for(var i=0;i<data.length;i++){
 									        		var ul = document.createElement('ul');
 									        			ul.className = "my-menu mui-table-view";
@@ -195,7 +193,6 @@
 											async:true,
 											type:'GET',
 									        success:function(data){
-									        	console.log(data);
 									        	for(var i=0;i<data.length;i++){
 									        		var ul = document.createElement('ul');
 									        			ul.className = "my-menu mui-table-view";
@@ -248,7 +245,6 @@
 											async:true,
 											type:'GET',
 									        success:function(data){
-									        	console.log(data);
 									        	for(var i=0;i<data.length;i++){
 									        		var ul = document.createElement('ul');
 									        			ul.className = "my-menu mui-table-view";
@@ -280,7 +276,6 @@
 											async:true,
 											type:'GET',
 									        success:function(data){
-									        	console.log(data);
 									        	for(var i=0;i<data.length;i++){
 									        		var ul = document.createElement('ul');
 									        			ul.className = "my-menu mui-table-view";
@@ -319,7 +314,6 @@
 	   	 		async:true,
 	   	 		type:'GET',
 	   	 		success:function(data){
-	   	 			console.log(data);
 	   	 			for(var i=0;i<data.length;i++){
 	   	 				var ul = document.createElement('ul');
 	   	 				    ul.className = "my-menu mui-table-view";
@@ -344,7 +338,6 @@
 	   	 		async:true,
 	   	 		type:'GET',
 	   	 		success:function(data){
-	   	 			console.log(data[1].address);
 	   	 			for(var i=0;i<data.length;i++){
 	   	 				var ul = document.createElement('ul');
 	   	 				    ul.className = "my-menu mui-table-view";
@@ -370,7 +363,6 @@
 	   	 		async:true,
 	   	 		type:'GET',
 	   	 		success:function(data){
-	   	 			console.log(data);
 	   	 			for(var i=0;i<data.length;i++){
 	   	 				var ul = document.createElement('ul');
 	   	 				    ul.className = "my-menu mui-table-view";

@@ -7,7 +7,7 @@
 @section('content')
 		<section class="w-cash-leave">
 			<div class="self-cash-leave">
-				<div class="cash-leave-num"><span class="cash-rmb">￥</span>256</div>
+				<div class="cash-leave-num"><span class="cash-rmb">￥</span></div>
 				<div class="cash-leave-text">当前余额</div>
 			</div>
 			<a class="cash-out" href="#">提现</a>
@@ -148,20 +148,59 @@
 
 		<script>
 		/*进入页面请求刷新*/
-			/*$(function(){
+			$(function(){
 				$.ajax({
-					url:'',
+					url:'/wechat/ajax/order/completed',
 					dataType:'json',
 					async:true,
 					data:{},
 					type:'GET',
-					success:function(){
-						var div =document.createElement('ul');
-						ul.className = "mui-table-view";
-						ul.innerHTML ='<li class="mui-table-view-cell"><div class="mui-slider-right mui-disabled"><span class="mui-btn mui-btn-red">删除</span></div><div class="mui-slider-handle"><div>订单编号：8546974125412475<span class="my-song mui-pull-right">+34.5元</span></div><div class="right-del">下单时间：2016-10-17 11:48<span class="my-song mui-pull-right">已完成</span></div></div></li>';l
-						$('.w-cash-aaa').append(ul);
+					success:function(data){
+						console.log(data);
+						for(var i=0;i<data.length;i++){
+							var div =document.createElement('ul');
+								ul.className = "mui-table-view";
+								ul.innerHTML ='<li class="mui-table-view-cell"><div class="mui-slider-right mui-disabled"><span class="mui-btn mui-btn-red">删除</span></div><div class="mui-slider-handle"><div>订单编号：8546974125412475<span class="my-song mui-pull-right">+34.5元</span></div><div class="right-del">下单时间：2016-10-17 11:48<span class="my-song mui-pull-right">已完成</span></div></div></li>';
+								$('.w-cash-aaa').append(ul);
+						}
+						
 					}
 				})
-			})*/
+			})
+		</script>
+
+		<script>
+		/*获取用户openId*/
+			$(function(){
+				$.ajax({
+					url:'/wechat/user',
+					dataType:'json',
+					async:false,
+					data:{},
+					type:'GET',
+					success:function(data){
+						$('.w-cash-leave').attr('data-id',data.wechat_openid);
+					}
+				});
+			})
+		</script>
+		
+		<script>
+		/*获取余额*/
+			$(function(){
+				var openId = $('.w-cash-leave').attr('data-id');
+				var urlajax = '/api/user/balance?openid='+openId;
+				$.ajax({
+					url:urlajax,
+					dataType:'json',
+					async:true,
+					data:{},
+					type:'GET',
+					success:function(data){
+						console.log(data);
+						$('.cash-leave-num').html('<span class="cash-rmb">￥</span>'+data);
+					}
+				})
+			})
 		</script>
 @stop

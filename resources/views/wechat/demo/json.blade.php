@@ -28,7 +28,7 @@
 							url:urlajax,
 							dataType:'json',
 							async:false,
-							type:'GET',
+							type:'POST',
 							success:function(data){
 								console.log(data);
 							}
@@ -38,15 +38,8 @@
 				});
 
 				}
-				dataGet('/api/school','hand1');
-				dataGet('/wechat/order/ordered','hand2');
-				dataGet('/api/school','hand3');
-				dataGet('/api/school','hand4');
-				dataGet('/api/school','hand5');
-				dataGet('/api/school','hand6');
-				dataGet('/api/school','hand7');
-				dataGet('/api/school','hand8');
-				dataGet('/wechat/order/ordered','hand9');
+				dataGet('/api/user','hand1');
+				
 			
 		})
 	</script>

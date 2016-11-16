@@ -8,7 +8,7 @@
 	<div class="w-entry">
 		<div class="w-logo-wrap"><img src="/img/wechat/logo.png" alt=""></div>
 	</div>
-	<form class="w-input-group mui-input-group" id="info">
+	<form class="w-input-group mui-input-group" id="info" action='/wechat/user' method='POST'>
 	{!! csrf_field() !!}
 		<div class="mui-input-row" id="school">
 	        <label>学校:</label>
@@ -200,7 +200,6 @@
             async:true,
             type:'GET',
             success:function(data){
-            	console.log(data.id);
               $('#user').val(data.id);
               $('#email').val(data.email);
               $('#avatar').val(data.avatar);
@@ -209,25 +208,6 @@
       	});
   	});
 
-	/*注册提交*/
-	$(function(){
-
-		$('form').on('submit',function(){
-
-		        $.ajax({
-		        type:"POST",
-		        url:'/api/user',
-		        data:$(this).serialize(),
-		        dataType: 'json',
-		        success: function(data){
-		            console.log(data);
-		        },
-		        error: function(data){
-
-		        }
-		    });
-		    });
-		});
 
 	</script>
 

@@ -15,6 +15,7 @@ class BaseController extends Controller
  	public function __construct(Request $request)   
  	{
  		$this->user = User::where('wechat_openid', $request->openid)->first();
+ 		// dd($this->user->id);
  		if (! $this->user){
  			abort(401, 'Unauthorized action.');
  		}

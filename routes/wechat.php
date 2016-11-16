@@ -21,7 +21,7 @@ Route::group(['middleware'=>['web', 'wechat.oauth']], function () {
 		Route::get('/report', 'IndexController@report');
 		Route::get('/order/status', 'OrderController@status');
 		Route::get('/order/index', 'OrderController@index');
-		Route::get('/order/show', 'OrderController@show');
+		Route::get('/order/show/{order_no}', 'OrderController@show');
 		Route::get('/order/{status?}', 'OrderController@getList');
 		Route::get('/order/edit', 'OrderController@edit');
 		Route::get('/user_info', 'UserController@getInfo');
@@ -36,15 +36,21 @@ Route::group(['middleware'=>['web', 'wechat.oauth']], function () {
 		Route::get('/paytest', 'BillingController@wechatPay');
 		Route::get('/pay_notify', 'BillingController@wechatNotify');
 
+		Route::get('/paid', 'BillingController@afterPaid');
+
 		Route::get('/confirm_received', 'OrderController@confirmReceived');
 		Route::get('/confirm_delivered', 'OrderController@confirmDelivered');
 		Route::get('/post_report', 'IndexController@postReport');
 
 		Route::get('/ajax/favorite', 'FavoriteController@getList');
 		Route::get('/ajax/order', 'OrderController@orderedByUser');
-		Route::get('/ajax/order/completed', 'OrderController@completed');
-		Route::get('/ajax/order/uncompleted', 'OrderController@uncompleted');
+		Route::get('/ajax/order/completed_buy', 'OrderController@completedBuy');
+		Route::get('/ajax/order/completed_sale', 'OrderController@completedSale');
+		Route::get('/ajax/order/uncompleted_buy', 'OrderController@uncompletedBuy');
+		Route::get('/ajax/order/uncompleted_sale', 'OrderController@uncompletedSale');
 		Route::get('/ajax/cart', 'CartController@getList');
+
+		Route::get('/ajax/index_data', 'IndexController@data');
 
 
 

@@ -15,7 +15,7 @@ class CreateFeedsTable extends Migration
     {
         Schema::create('feeds', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('order_id')->unsigned();
+            $table->string('order_no');
             $table->integer('sender_id')->unsigned();
             $table->integer('receiver_id')->unsigned();
             $table->enum('status', ['send', 'readed'])->default('send');

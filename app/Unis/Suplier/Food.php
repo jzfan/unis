@@ -30,7 +30,7 @@ class Food extends Model
 
     public function priceAfterDiscount()
     {
-        return number_format(round($this->price * 2 *(100 - $this->discount)/100)/2, 1);
+        return round($this->price * 2 *(100 - $this->discount)/100)/2;
     }
 
     public function tagFavorite(Array $favorites_id)

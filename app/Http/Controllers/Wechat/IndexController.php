@@ -92,4 +92,11 @@ class IndexController extends BaseController
     {
         return view('wechat.demo.json');
     }
+
+    public function data()
+    {
+        $user = $this->getWechatUser();
+        $data['canteens'] = $user->campus()->canteens;
+        return $data;
+    }
 }

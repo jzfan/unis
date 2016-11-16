@@ -8,35 +8,6 @@
 	  })
 	});
 	
-    $(function(){
-    	$('.mui-title').on('touchstart',function(){
-    		
-    		mui('.mui-popover').popover('toggle',document.getElementById("openPopover"));
-    		if($(this).find("span#arrow").hasClass("youjiantou003")){
-    			$('#arrow').removeClass('youjiantou003').addClass('xiajiantou002');
-    		}
-
-    		else{
-    			$('#arrow').removeClass('xiajiantou002').addClass('youjiantou003');
-    		}
-    	})
-    });
-
-	
-	$(function(){
-		$('.mui-title').on('touchstart',function(){
-			var htop =	$('.w-popover').height()+44+'px';
-			$('.mui-backdrop').css('top',htop);
-		})
-	});
-
-
-	$(function(){
-		$('.mui-table-view.mui-table-view-radio .mui-table-view-cell').on('touchstart',function(){
-			var newText = $(this).text();
-			$('.w-bar .mui-title .address-name').text(newText);
-		})
-	});
 
 
 
@@ -78,23 +49,6 @@ $(function(){
 	})
 
 
-/*删除地址*/
-	$(function(){
-		$(document).on('touchstart','.w-location-group .mui-table-view-cell',function(){
-			$(this).find("span").removeClass('duigou506');
-			if($(this).find("span").hasClass('shanchu505')){
-				$(this).fadeOut();
-			}
-		})
-	});
-
-/*选择地址*/
-	$(function(){
-		$('.w-location-group .mui-table-view-cell').on('tap',function(){
-				$('.w-location-group .mui-badge .location-ico').removeClass('duigou506');
-				$(this).find('span.location-ico').addClass('duigou506');
-		})
-	})
 
 //滑动删除函数
 	$(function(){
@@ -137,3 +91,12 @@ $(function(){
 		});
 	})
 
+
+/*图片换为默认图片*/
+/*$(function(){
+
+	$("img").one("error", function(){
+	 $(this).attr("src", "/wechat/defalut.jpg");
+	});
+
+})*/

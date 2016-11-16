@@ -10,7 +10,7 @@
 			<div class="self-img"><img src="{{ $user->avatar }}" alt=""></div>
 			<div class="sign-in"><a href="">{{ $user->nickname }}</a></div>
 			<div class="cash-main-left">
-				<p class="yue cash-num">256</p>
+				<p class="yue cash-num"></p>
 				<p class="cash-leave">当前余额</p>
 			</div>
 		</section>
@@ -65,10 +65,65 @@
 			</ul>
 
 		</section>
-@include('wechat.partial.buttomNav')
-@stop
+
+
+<!--底部nav切换开始-->
+		<nav class="win-bar mui-bar mui-bar-tab">
+			<a id="defaultTab" class="mui-tab-item " href="/wechat/index">
+				<span class="mui-icon iconfont xuanshouye201"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a class="mui-tab-item" href="/wechat/order/status">
+				<span class="mui-icon iconfont dingdan111"></span>
+				<span class="mui-tab-label">我的订单</span>
+			</a>
+			<a class="mui-tab-item" href="/wechat/cart">
+				<span class="mui-icon iconfont xuangouwuche203"><span class="w-badge mui-badge">1</span></span>
+				<span class="mui-tab-label">购物车</span>
+			</a>
+			<a class="mui-tab-item mui-active" href="/wechat/profile">
+				<span class="mui-icon iconfont xuangerenzhongxin204"></span>
+				<span class="mui-tab-label">个人中心</span>
+			</a>
+		</nav>
+	<!--底部nav切换结束-->
 
 @section('js')
 <script>mui('body').on('tap','a',function(){document.location.href=this.href;});</script>
 <script src="/lib/pusher/main.js"></script>
+
+<script>
+		/*获取用户openId*/
+			$(function(){
+				$.ajax({
+					url:'/wechat/user',
+					dataType:'json',
+					async:false,
+					data:{},
+					type:'GET',
+					success:function(data){
+						$('.w-self-top').attr('data-id',data.wechat_openid);
+					}
+				});
+			})
+		</script>
+		
+		<script>
+		/*获取余额*/
+			$(function(){
+				var openId = $('.w-self-top').attr('data-id');
+				var urlajax = '/api/user/balance?openid='+openId;
+				$.ajax({
+					url:urlajax,
+					dataType:'json',
+					async:true,
+					data:{},
+					type:'GET',
+					success:function(data){
+						console.log(data);
+						$('.yue').text(data);
+					}
+				})
+			})
+		</script>
 @stop

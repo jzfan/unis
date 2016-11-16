@@ -20,4 +20,14 @@ class ShopController extends Controller
     				'data' => $shops
     			];
     }
+
+    public function getFoods($shop_id)
+    {
+        return Shop::findOrFail($shop_id)->foods;
+    }
+
+    public function listByCanteen($canteen_id)
+    {
+        return Shop::where('canteen_id', $canteen_id)->get();
+    }
 }

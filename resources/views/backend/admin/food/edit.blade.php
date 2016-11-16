@@ -32,6 +32,14 @@
       <input type="text" class="form-control" id="inputPrice" name="price" value="{{ $food->price }}">
     </div>
   </div>
+
+  <div class="form-group">
+    <label for="inputPrice" class="col-sm-2 control-label">图片</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" name="img" value="{{ $food->img }}">
+    </div>
+  </div>
+
     <div class="form-group">
     <label for="inputDiscount" class="col-sm-2 control-label">打折</label>
     <div class="col-sm-10">

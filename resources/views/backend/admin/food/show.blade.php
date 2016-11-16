@@ -8,6 +8,8 @@
   <div class="panel-body">
                   <p>店铺：{{ $food->shop->name }}</p>
                   <p>类别：{{ $food->type }}</p>
+                  <p>图片: </p>
+                  <img src='{{ $food->img }}' />
                   <p>介绍：{{ $food->description }}</p>
                   <p>价格：{{ $food->price}}</p>
                   <p>打折：{{ $food->discount }}</p>

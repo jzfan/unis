@@ -7,8 +7,8 @@
 @section('content')
 
 		<section class="w-self-top">
-			<div class="self-img"><img src="{{ $user->avatar }}" alt=""></div>
-			<div class="sign-in"><a href="">{{ $user->nickname }}</a></div>
+			<div class="self-img"><img src="" alt="" class="useImg"></div>
+			<div class="sign-in"><a href=""></a></div>
 			<div class="cash-main-left">
 				<p class="yue cash-num"></p>
 				<p class="cash-leave">当前余额</p>
@@ -102,7 +102,11 @@
 					data:{},
 					type:'GET',
 					success:function(data){
+
 						$('.w-self-top').attr('data-id',data.wechat_openid);
+						$('.sign-in a').html(data.name);
+						var imgUrl = data.avatar;
+						$('.useImg').eq(0).attr('src',imgUrl);
 					}
 				});
 			})

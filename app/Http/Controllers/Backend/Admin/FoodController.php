@@ -55,6 +55,6 @@ class FoodController extends Controller
     public function store(Request $request)
     {
         Food::create($request->input());
-        return view('/admin/food')->with('success', '新增成功！');
+        return redirect('/admin/food')->with('success', '新增成功！');
     }
 }

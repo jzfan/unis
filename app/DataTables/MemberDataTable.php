@@ -15,14 +15,14 @@ class MemberDataTable extends DataTable
     public function ajax()
     {
         return $this->datatables
-            ->eloquent($this->query()->with('dorm.campus.school'))
+            ->eloquent($this->query()->with('addresses'))
             ->addColumn('action', 'backend.admin.partial.actionDt.member')
             ->editColumn('created_at', function ($obj) {
                 return $obj->created_at->format('Y/m/d');
             })
-             ->editColumn('dorm_id', function ($obj) {
-                return $obj->getAddress();
-            })           
+            //  ->editColumn('dorm_id', function ($obj) {
+            //     return $obj->getAddress();
+            // })           
             ->editColumn('avatar', function ($obj) {
                 return "<img src='$obj->avatar' class='avatar-small'/>";
             })            
@@ -67,8 +67,8 @@ class MemberDataTable extends DataTable
             '头像'=>['name'=>'avatar', 'data'=>'avatar', 'orderable'=>false, 'searchable'=>false],
             '用户名'=>['name'=>'name', 'data'=>'name'],
             '邮箱'=>['name'=>'email', 'data'=>'email'],
-            '宿舍'=>['name'=>'dorm_id', 'data'=>'dorm_id'],
-            '地址'=>['name'=>'room_number', 'data'=>'room_number'],
+            // '宿舍'=>['name'=>'address.school.id', 'data'=>'address.school.name'],
+            // '地址'=>['name'=>'room_number', 'data'=>'room_number'],
             '状态'=>['name'=>'status', 'data'=>'status'],
             '创建于'=>['name'=>'created_at', 'data'=>'created_at'],
         ];

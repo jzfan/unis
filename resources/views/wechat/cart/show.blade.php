@@ -58,7 +58,7 @@
          $.ajax({
                 url:'/wechat/ajax/cart',
                 dataType:'json',
-                async:true,
+                async:false,
                 type:'GET',
                 success:function(data){
                   var foodlist = data.data;
@@ -136,17 +136,39 @@
    $(function(){
 
         var adds =  $('.mui-numbox-btn-plus');
+        console.log('...' + adds.length);
         var shans = $('.mui-numbox-btn-minus');
-        var price =$('.vue-number').text();
-        var inputs =$('.mui-numbox-input').val();
+        console.log('...' + shans.length);
+        var price =$('.vue-number');
+        console.log('...' + price.length);
+        var inputs =$('.mui-numbox-input');
+        console.log('...' + inputs.length);
         var total = 0;
-        for(var i=0;i<adds.length;i++){
-          total +=parseFloat(price[i])*(parseInt(inputs[i]));
-          return total;
+
+        for (var i = 0; i < adds.length; i++) {
+            total = total + parseFloat(price.eq(i).text())*inputs.eq(i).val();
+            console.log('...' + total);
         }
 
-        console.log(total);
-        
+       // function add(){
+    
+    //     for(var i=0;i<adds.length;i++){
+        //     total +=parseFloat(price[i])*(parseInt(inputs[i]));
+      //     return add;
+        //   }
+        // };
+
+        // console.log(total);
+        // var count = 0;
+        // $(document).on('touchstart','.mui-numbox-btn-plus',function(){
+        //     count++;
+        //     $('.mui-numbox-input').val(parseInt(count));
+        // });
+
+        // $(document).on('touchstart','.mui-numbox-btn-minus',function(){
+        //     count--;
+        //     $('.mui-numbox-input').val(parseInt(count));
+        // });
 
       });
 

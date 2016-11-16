@@ -12,6 +12,7 @@ use App\Unis\Order\Order as UnisOrder;
 use App\Unis\Suplier\Shop;
 use App\Unis\User\User;
 use App\Unis\Suplier\Food;
+use App\Unis\Order\Cart;
 
 class BillingController extends BaseController
 {
@@ -143,6 +144,7 @@ class BillingController extends BaseController
     		'paid_at' => \Carbon\Carbon::now(),
     	]);
 
+    	Cart::where('user_id', $user->id)->delete();
     	return 'success';
     }
 

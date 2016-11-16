@@ -132,14 +132,26 @@
 
       })*/
 
-      $(function(){
+
+   $(function(){
+
         var adds =  $('.mui-numbox-btn-plus');
         var shans = $('.mui-numbox-btn-minus');
-        var inputs =$('.mui-numbox-input');
+        var price =$('.vue-number').text();
+        var inputs =$('.mui-numbox-input').val();
+        var total = 0;
         for(var i=0;i<adds.length;i++){
-            
+          total +=parseFloat(price[i])*(parseInt(inputs[i]));
+          return total;
         }
+
+        console.log(total);
+        
+
       });
+
+
+     
 
   </script>
 

@@ -57,11 +57,11 @@
         <span class="mui-icon iconfont xuanshouye201"></span>
         <span class="mui-tab-label">首页</span>
       </a>
-      <a class="mui-tab-item mui-active" href="/wechat/order/status">
+      <a class="mui-tab-item " href="/wechat/order/status">
         <span class="mui-icon iconfont dingdan111"></span>
         <span class="mui-tab-label">我的订单</span>
       </a>
-      <a class="mui-tab-item " href="/wechat/cart">
+      <a class="mui-tab-item mui-active" href="/wechat/cart">
         <span class="mui-icon iconfont xuangouwuche203"><span class="w-badge mui-badge">1</span></span>
         <span class="mui-tab-label">购物车</span>
       </a>

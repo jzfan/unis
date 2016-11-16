@@ -52,7 +52,13 @@
 
 @section('js')
 <script>
-$("#school-select").select2();
+
+var school  = $("#school-select");
+$.get('/api/school', function(m){
+  school.select2({
+    data: m
+  });
+});
 
 $("#city-picker").on('cp:updated',function(e){  
    // console.log($(this).val().indexOf('/')); 

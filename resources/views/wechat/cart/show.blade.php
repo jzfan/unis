@@ -250,12 +250,12 @@
             timestamp = timestamp / 1000+30*60; 
 
           function getLocalTime(nS) { 
-          return new Date(parseInt(nS) * 1000).toLocaleString().substr(0,17)
+          return new Date(parseInt(nS) * 1000).toLocaleString().substr(0,18)
 
           } 
 
           var time = getLocalTime(timestamp);
-          $('.Ntime').html('预约时间：'+time+'(默认送达)'+'<span class="mui-icon iconfont youjiantou003 mui-pull-right"></span>');
+          $('.Ntime').html('预约时间：'+time+'(默认送达时间)'+'<span class="mui-icon iconfont youjiantou003 mui-pull-right"></span>');
 
       })
   </script>

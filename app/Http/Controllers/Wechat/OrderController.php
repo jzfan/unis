@@ -13,7 +13,7 @@ class OrderController extends BaseController
 {
 
     public function status()
-    
+    {
         return view('wechat.order.status');
     }
 

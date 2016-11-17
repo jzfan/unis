@@ -430,6 +430,7 @@
     			$('#arrow').removeClass('youjiantou003').addClass('xiajiantou002');
     		}
 
+
     		else{
     			$('#arrow').removeClass('xiajiantou002').addClass('youjiantou003');
     		}

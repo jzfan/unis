@@ -5,6 +5,7 @@
 	$(function(){
 	 $('#home-left-icon').on('touchstart',function(){
 		mui('.mui-off-canvas-wrap').offCanvas('show');
+		$('#popover').css('display','none');
 	  })
 	});
 	

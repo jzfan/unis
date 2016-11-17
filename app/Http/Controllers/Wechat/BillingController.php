@@ -144,7 +144,10 @@ class BillingController extends BaseController
     		'paid_at' => \Carbon\Carbon::now(),
     	]);
 
-    	Cart::where('user_id', $user->id)->delete();
+    	$carts = Cart::where('user_id', $user->id)->get();
+    	foreach($carts as $cart){
+    		$cart->delete();
+    	}
     	return 'success';
     }
 

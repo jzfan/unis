@@ -13,8 +13,8 @@ class OrderController extends BaseController
 {
 
     public function status()
-    {
-    	return view('wechat.order.status');
+    
+        r{eturn view('wechat.order.status');
     }
 
     public function index()
@@ -55,10 +55,11 @@ class OrderController extends BaseController
     	Input::merge(["page" => $page]);
         $user = $this->getWechatUser();
         $campus_id = $user->defaultAddress()->campus_id;
-    	if ($request->status){
-			return Order::where(['status'=>$request->status, 'campus_id'=>$campus_id])->with('order_items.food')->paginate($limit);
-    	}
-    	return Order::paginate($limit);  	
+    	if ($request->status == 'paid'){
+            return Order::where(['status'=>$request->status, 'campus_id'=>$campus_id])->where('user_id', '<>', $user->id)->with('order_items.food')->paginate($limit);
+        }else{
+            return Order::where(['status'=>$request->status, 'campus_id'=>$campus_id])->with('order_items.food')->paginate($limit);
+        }	
     }
 
     public function orderedByUser()
@@ -103,7 +104,9 @@ class OrderController extends BaseController
 
     public function confirmReceived()
     {
-        return null;//'received.'
+        //return null;//'received.'
+        $user = $this->getWechatUser();
+        return Order::where(['type'=>'wxpay', 'user_id'=>$user->id, 'status'>'received'])->orderBy('delivered_at', 'DESC')->with('order_items.food')->get();
     }
 
 }

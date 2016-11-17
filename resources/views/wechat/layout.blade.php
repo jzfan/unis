@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>
-		@yield('title', 'Uniserver')
+		@yield('title', 'Uniserve')
 	</title>
 	<!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">

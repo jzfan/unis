@@ -13,6 +13,8 @@ use App\Unis\Suplier\Shop;
 use App\Unis\User\User;
 use App\Unis\Suplier\Food;
 use App\Unis\Order\Cart;
+use App\Unis\Order\OrderItem;
+use Carbon\Carbon;
 
 class BillingController extends BaseController
 {
@@ -126,7 +128,14 @@ class BillingController extends BaseController
     	}
     	$total = 0;
     	foreach($foods as $key=>$food){
-    		$total = $total + $food->priceAfterDiscount()*$foods_arr[$key]['numb'];
+    		$price = $food->priceAfterDiscount();
+    		$total = $total + $price*$foods_arr[$key]['numb'];
+	    	OrderItem::create([
+	    		'order_id' => $user->id,
+	    		'food_id' => $food->id,
+	    		'amount' => $foods_arr[$key]['numb'],
+	    		'price' => $price,
+	    	]);
     	}
     	// dd($foods->pluck('name')->toArray());
     	// dd($address->text());
@@ -141,7 +150,8 @@ class BillingController extends BaseController
     		'dorm_id' => $address->dorm_id,
     		'address' => $address->text(),
     		'status' => 'paid',
-    		'paid_at' => \Carbon\Carbon::now(),
+    		'paid_at' => Carbon::now(),
+    		'appointment_at' => Carbon::createFromTimestamp($request->time)
     	]);
 
     	$carts = Cart::where('user_id', $user->id)->get();

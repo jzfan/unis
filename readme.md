@@ -15,6 +15,7 @@
 * 卖方完成订单   method:get uri: /wechat/ajax/order/completed_sale
 * 买方未完成订单   method:get uri: /wechat/ajax/order/uncompleted_buy
 * 卖方未完成订单   method:get uri: /wechat/ajax/order/uncompleted_sale
+* 没人接单的（排除自己）   method:get uri: /wechat/ajax/order/untaken
 
 
 ###意见反馈

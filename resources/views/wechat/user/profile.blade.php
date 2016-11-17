@@ -102,7 +102,7 @@
 					data:{},
 					type:'GET',
 					success:function(data){
-
+						console.log(data.name);
 						$('.w-self-top').attr('data-id',data.wechat_openid);
 						$('.sign-in a').html(data.name);
 						var imgUrl = data.avatar;

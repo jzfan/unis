@@ -20,6 +20,7 @@ class OrderSeeder extends Seeder
         OrderItem::truncate();
         $faker = Faker\Factory::create();
         $dorm_count = Dorm::all()->count();
+        $id = 1;
         foreach (range(100, mt_rand(111, 999)) as $index) {
         	$now = \Carbon\Carbon::now();
         	$created_at = $now->subMinutes(mt_rand(5, 60*24*30*2));
@@ -49,16 +50,18 @@ class OrderSeeder extends Seeder
         	$subject = [];
         	$total = 0;
             $order_no = date('YmdHis').str_random(4).$orderer->id.$orderer->room_number;
+
         	foreach ($foods as $food) {
                 $amount = mt_rand(1, 3);
                 $price = $food->price * (100 - $food->discount)/100;
-                OrderItem::create(['food_id'=>$food->id, 'amount'=>$amount, 'price'=>$price, 'order_no'=>$order_no]);
+                OrderItem::create(['food_id'=>$food->id, 'amount'=>$amount, 'price'=>$price, 'order_id'=>$id]);
                 $sum = $price * $amount;
         		$subject[] = $food->name;
         		$total += $sum;
         	}
         	$mark = ($index % 7 == 0) ? $faker->sentence : null;
         	Order::create([
+                'id' => $id,
         		'type' => 'wxpay',
         		'order_no' => $order_no,
         		'subject' => join('|', $subject),
@@ -77,6 +80,7 @@ class OrderSeeder extends Seeder
         		'mark' => $mark
 
         	]);
+            $id++;
         }
     }
 

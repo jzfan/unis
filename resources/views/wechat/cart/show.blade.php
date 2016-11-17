@@ -6,9 +6,9 @@
 
 @section('content')
   <ul class="w-tab-view mui-table-view" style="margin-top: 0;">
-              
-                
-
+    <li style="width:100%;height:100%;text-align:center;padding-top:200px;font-size:20px;color:silver;">
+      您还没有购买任何商品！
+    </li>
   </ul>
             
       
@@ -39,16 +39,16 @@
   <script>mui('body').on('tap','a',function(){document.location.href=this.href;});</script>
   <script>
       /*选择时间*/
-        $(function(){
-            var dtPicker = new mui.DtPicker(); 
+        // $(function(){
+        //     var dtPicker = new mui.DtPicker(); 
 
-            $(document).on('touchstart','.app-time li',function(){
-            var _this = $(this);
-            dtPicker.show(function (selectItems) { 
-              _this.html('预约时间：'+selectItems.text+'<span class="mui-icon iconfont youjiantou003 mui-pull-right">');
-            })
-          })
-        });
+        //     $(document).on('touchstart','.app-time li',function(){
+        //     var _this = $(this);
+        //     dtPicker.show(function (selectItems) { 
+        //       _this.html('预约时间：'+selectItems.text+'<span class="mui-icon iconfont youjiantou003 mui-pull-right">');
+        //     })
+        //   })
+        // });
          
         
   </script> 
@@ -61,9 +61,13 @@
                 async:false,
                 type:'GET',
                 success:function(data){
+                  if(data.data.length > 0) {
+                    $('ul').html('');
+                  }
+
                   var foodlist = data.data;
                   var foodHave = foodlist.length;
-                   var total = 0;
+                  var total = 0;
                   for(var i=0;i<foodlist.length;i++){
                     total  += parseFloat(foodlist[i].price);
                     li =document.createElement('li');
@@ -89,12 +93,10 @@
                                 type:'GET',
                                 success:function(data){
                                   console.log(data);
-    
                                 }
 
                             });
                           }
-
                       });
                     div = document.createElement('div');
                     div.className = 'w-finshed-menu w-cart';
@@ -225,16 +227,16 @@
               });
           }
 
-          var buyAcash = parseFloat($('.cash').text());//预约时间
+          var buyAcash = parseFloat($('.cash').text());
           var urlajax = '/wechat/paid?openid={{ $user->id }}';
           $.ajax({
             url:urlajax,
             dataType:'json',
             async:true,
-            data:{'total':'10.00', 'time':'111231231', 'food':buyArray},
+            data:{'total':buyAcash, 'time':$('.Ntime').attr('data-id'), 'food':buyArray},
             type:'GET',
             success:function(data){
-             
+              console.log(data);
             }
           });
         })
@@ -250,12 +252,13 @@
             timestamp = timestamp / 1000+30*60; 
 
           function getLocalTime(nS) { 
-          return new Date(parseInt(nS) * 1000).toLocaleString().substr(0,18)
-
+            return new Date(parseInt(nS) * 1000).toLocaleString().substr(0,18);
           } 
 
           var time = getLocalTime(timestamp);
+
           $('.Ntime').html('预约时间：'+time+'(默认送达时间)'+'<span class="mui-icon iconfont youjiantou003 mui-pull-right"></span>');
+          $('.Ntime').attr('data-id', timestamp);
 
       })
   </script>

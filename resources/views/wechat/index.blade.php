@@ -22,7 +22,7 @@
 	<!--主界面部分开始-->
 	<div class="mui-inner-wrap">
 		<header class="w-bar mui-bar mui-bar-nav">
-			<a href="#offCanvasSide" class="mui-icon iconfont caidanlan101 mui-pull-left"></a>
+			<a id='left_menu' href="#offCanvasSide" class="mui-icon iconfont caidanlan101 mui-pull-left"></a>
 			<h1 class="mui-title"><span class="mui-icon iconfont dingwei104"></span>&nbsp;&nbsp;<span class="address-name" id="addName">{{ $selected_canteen->name }}</span>&nbsp;&nbsp;<span class="mui-icon  iconfont youjiantou003" id="arrow"></span></h1>
 		</header>
 
@@ -353,12 +353,13 @@
 
 
 				$.ajax({
-					url:'/wechat/order/paid',
+					// url:'/wechat/order/paid',
+					url:'/wechat/ajax/order/untaken',
 					dataType:'json',
 					async:false,
 					type:'GET',
 					success:function(data){
-						var takeFood = data.data;
+						var takeFood = data;
 						for(var i=0;i<takeFood.length;i++){
 							div = document.createElement('div');
 							div.className = "w-finshed-menu";
@@ -421,17 +422,20 @@
 
 
 	<script>
+	/*处理上左菜单重叠问题*/
+	$(function() {
+		$('#left_menu').on('touchstart', function() {
+			mui('.mui-popover').popover('hide');
+		});
+	});
 
 	$(function(){
     	$('.mui-title').on('touchstart',function(){
-    		
     		mui('.mui-popover').popover('toggle',document.getElementById("openPopover"));
+
     		if($(this).find("span#arrow").hasClass("youjiantou003")){
     			$('#arrow').removeClass('youjiantou003').addClass('xiajiantou002');
-    		}
-
-
-    		else{
+    		} else {
     			$('#arrow').removeClass('xiajiantou002').addClass('youjiantou003');
     		}
     	})

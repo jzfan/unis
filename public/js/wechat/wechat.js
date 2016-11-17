@@ -3,12 +3,16 @@
 	/*mui('body').on('tap','a',function(){document.location.href=this.href;}); */
 
 	$(function(){
-	 $('#home-left-icon').on('touchstart',function(){
-		mui('.mui-off-canvas-wrap').offCanvas('show');
-		alert($('#popover'));
-
-	  })
+		$('#home-left-icon').on('touchstart',function(){
+			mui('.mui-off-canvas-wrap').offCanvas('show');
+		});
 	});
+
+	$(function(){
+		$('#home-left-icon').on('touchstart',function(){
+			console.log($('.mui-popover'));
+		})
+	})
 	
 
 

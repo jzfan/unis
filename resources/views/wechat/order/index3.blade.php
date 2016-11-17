@@ -109,17 +109,17 @@
 											async:true,
 											type:'GET',
 									        success:function(data){
-									        	for(var i=0;i<data.length;i++){
-									        		var ul = document.createElement('ul');
-									        			ul.className = "my-menu mui-table-view";
-									        			ul.innerHTML = '<li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].user_id+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+data[i].total+'元</li>'; 
+									        // 	for(var i=0;i<data.length;i++){
+									        // 		var ul = document.createElement('ul');
+									        // 			ul.className = "my-menu mui-table-view";
+									        // 			ul.innerHTML = '<li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].user_id+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+data[i].total+'元</li>'; 
 
-									        			/*var table = document.body.querySelector('#item1mobile');
-                    	    								table.appendChild(ul);   */
-                    	    						var table = document.body.querySelector('#item1mobile .mui-scroll');
-								   	 				var bot = document.body.querySelector('#item1mobile .mui-pull-bottom-tips');
-								                    	table.insertBefore(ul,bot); 
-									        	}
+									        // 			/*var table = document.body.querySelector('#item1mobile');
+                 //    	    								table.appendChild(ul);   */
+                 //    	    						var table = document.body.querySelector('#item1mobile .mui-scroll');
+								   	 				// var bot = document.body.querySelector('#item1mobile .mui-pull-bottom-tips');
+								         //            	table.insertBefore(ul,bot); 
+									        // 	}
 									        }
 
 											});
@@ -194,15 +194,15 @@
 											async:true,
 											type:'GET',
 									        success:function(data){
-									        	for(var i=0;i<data.length;i++){
-									        		var ul = document.createElement('ul');
-									        			ul.className = "my-menu mui-table-view";
-									        			ul.innerHTML = '<li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].user_id+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+data[i].total+'元</li>'; 
+									        // 	for(var i=0;i<data.length;i++){
+									        // 		var ul = document.createElement('ul');
+									        // 			ul.className = "my-menu mui-table-view";
+									        // 			ul.innerHTML = '<li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].user_id+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+data[i].total+'元</li>'; 
 
-									        		var table = document.body.querySelector('#item2mobile .mui-scroll');
-									   	 			var	bot = document.body.querySelector('#item2mobile .mui-scroll .mui-pull-bottom-tips');
-								                    	table.insertBefore(ul,bot);   
-									        	}
+									        // 		var table = document.body.querySelector('#item2mobile .mui-scroll');
+									   	 			// var	bot = document.body.querySelector('#item2mobile .mui-scroll .mui-pull-bottom-tips');
+								         //            	table.insertBefore(ul,bot);   
+									        // 	}
 									        }
 
 											});
@@ -277,15 +277,15 @@
 											async:true,
 											type:'GET',
 									        success:function(data){
-									        	for(var i=0;i<data.length;i++){
-									        		var ul = document.createElement('ul');
-									        			ul.className = "my-menu mui-table-view";
-									        			ul.innerHTML = '<li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].user_id+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+data[i].total+'元</li>'; 
+									        // 	for(var i=0;i<data.length;i++){
+									        // 		var ul = document.createElement('ul');
+									        // 			ul.className = "my-menu mui-table-view";
+									        // 			ul.innerHTML = '<li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:15586879654">15586879654</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].user_id+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+data[i].total+'元</li>'; 
 
-									        		var	table = document.body.querySelector('#item3mobile .mui-scroll');
-									   	 			var	bot = document.body.querySelector('#item3mobile .mui-scroll .mui-pull-bottom-tips');
-								                    	table.insertBefore(ul,bot); 
-									        	}
+									        // 		var	table = document.body.querySelector('#item3mobile .mui-scroll');
+									   	 			// var	bot = document.body.querySelector('#item3mobile .mui-scroll .mui-pull-bottom-tips');
+								         //            	table.insertBefore(ul,bot); 
+									        // 	}
 									        }
 
 											});

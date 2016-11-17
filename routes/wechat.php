@@ -51,6 +51,7 @@ Route::group(['middleware'=>['web', 'wechat.oauth']], function () {
 		Route::get('/ajax/order/completed_sale', 'OrderController@completedSale');
 		Route::get('/ajax/order/uncompleted_buy', 'OrderController@uncompletedBuy');
 		Route::get('/ajax/order/uncompleted_sale', 'OrderController@uncompletedSale');
+		Route::get('/ajax/order/untaken', 'OrderController@unTakenSale');
 		Route::get('/ajax/cart', 'CartController@getList');
 
 		Route::get('/ajax/index_data', 'IndexController@data');

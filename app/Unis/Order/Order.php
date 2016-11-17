@@ -14,7 +14,7 @@ class Order extends Model
 	use SoftDeletes;
 
     protected $fillable = ['billing_id', 'type', 'order_no', 'subject', 'user_id', 'total', 'address', 'status', 'school_id', 'campus_id', 'dorm_id', 'address',
-                    'paid_at', 'taken_at', 'delivered_at', 'received_at', 'withdrawed_at'
+                    'paid_at', 'taken_at', 'delivered_at', 'received_at', 'withdrawed_at', 'appointment_at'
     ];
 
     protected $dates = ['paid_at', 'taken_at', 'delivered_at', 'received_at', 'withdrawed_at', 'deleted_at'];
@@ -36,14 +36,13 @@ class Order extends Model
 
     public function order_items()
     {
-        return $this->hasMany(OrderItem::class, 'order_no', 'order_no');
+        return $this->hasMany(OrderItem::class);
     }
 
     public function foods()
     {
         return $this->belongsToMany(Food::class, 'order_items', 'order_no', 'food_id');
     }
-
 
     public function getStatusAttribute($value)
     {

@@ -56,7 +56,7 @@ class OrderController extends BaseController
         $user = $this->getWechatUser();
         $campus_id = $user->defaultAddress()->campus_id;
     	if ($request->status == 'paid'){
-            return Order::where(['status'=>$request->status, 'campus_id'=>$campus_id])->where('user_id', '<>', $user->id)->with('order_items.food')->paginate($limit);
+            return Order::where(['status'=>'paid', 'campus_id'=>$campus_id])->where('user_id', '<>', $user->id)->with('order_items.food')->paginate($limit);
         }else{
             return Order::where(['status'=>$request->status, 'campus_id'=>$campus_id])->with('order_items.food')->paginate($limit);
         }	
@@ -64,49 +64,46 @@ class OrderController extends BaseController
 
     public function orderedByUser()
     {
-        //test
-        // $this->getWechatUser()->id = 992;  
         $user = $this->getWechatUser();  
-       return Order::where(['type'=>'wxpay', 'user_id'=>$user->id])->orderBy('paid_at','desc')->with('order_items.food')->get();
+       $orders = Order::with('order_items.food', 'orderer')->where(['type'=>'wxpay', 'user_id'=>$user->id])->orderBy('paid_at','desc')->get();
+       return $orders;
     }
 
     public function completedBuy()
     {
-         //test
-         // $this->getWechatUser()->id = 915;
         $user = $this->getWechatUser();
-        return Order::where(['type'=>'wxpay', 'user_id'=>$user->id])->whereIn('status', ['received', 'withdrawed'])->orderBy('withdrawed_at', 'DESC')->with('order_items.food')->get();
+        return Order::where(['type'=>'wxpay', 'user_id'=>$user->id])->whereIn('status', ['received', 'withdrawed'])->orderBy('withdrawed_at', 'DESC')->with('order_items.food', 'orderer')->get();
     }
 
     public function completedSale()
     {
-         //test
-         // $this->getWechatUser()->id = 915;
         $user = $this->getWechatUser();
-        return Order::where(['type'=>'wxpay', 'deliver_id'=>$user->id])->whereIn('status', ['received', 'withdrawed'])->orderBy('withdrawed_at', 'DESC')->with('order_items.food')->get();
+        return Order::where(['type'=>'wxpay', 'deliver_id'=>$user->id])->whereIn('status', ['received', 'withdrawed'])->orderBy('withdrawed_at', 'DESC')->with('order_items.food', 'deliver')->get();
     }
 
     public function uncompletedBuy()
     {
-         //test
-         // $this->getWechatUser()->id = 305;
         $user = $this->getWechatUser();
-        return Order::where(['type'=>'wxpay', 'user_id'=>$user->id])->whereNotIn('status', ['withdrawed', 'received'])->orderBy('taken_at', 'DESC')->with('order_items.food')->get();
+        return Order::where(['type'=>'wxpay', 'user_id'=>$user->id])->whereNotIn('status', ['withdrawed', 'received'])->orderBy('taken_at', 'DESC')->with('order_items.food', 'orderer')->get();
     }
 
+//我已接单未完成
     public function uncompletedSale()
     {
-         //test
-         // $this->getWechatUser()->id = 305;
         $user = $this->getWechatUser();
-        return Order::where(['type'=>'wxpay', 'deliver_id'=>$user->id])->whereIn('status',['taken', 'delivered'])->orderBy('taken_at', 'DESC')->with('order_items.food')->get();
+        return Order::where(['type'=>'wxpay', 'deliver_id'=>$user->id])->whereIn('status',['taken', 'delivered'])->orderBy('taken_at', 'DESC')->with('order_items.food', 'deliver')->get();
+    }
+//没人接单的
+    public function unTakenSale()
+    {
+        $user = $this->getWechatUser();
+        return Order::where(['type'=>'wxpay', 'deliver_id'=>null, 'status'=>'paid', 'user_id'=>$user->id])->orderBy('paid_at', 'ASC')->with('order_items.food', 'orderer')->get();        
     }
 
     public function confirmReceived()
     {
-        //return null;//'received.'
         $user = $this->getWechatUser();
-        return Order::where(['type'=>'wxpay', 'user_id'=>$user->id, 'status'>'received'])->orderBy('delivered_at', 'DESC')->with('order_items.food')->get();
+        return Order::where(['type'=>'wxpay', 'user_id'=>$user->id, 'status'>'received'])->orderBy('delivered_at', 'DESC')->with('order_items.food', 'orderer')->get();
     }
 
 }

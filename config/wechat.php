@@ -65,13 +65,13 @@ return [
      */
     'enable_mock' => env('WECHAT_ENABLE_MOCK', false),
     'mock_user' => [
-        "openid" =>"oLn0awp7W5-J6qEeamsACqC9BCeE",
+        "openid" =>"oLn0awmzSHZylB1x2MPvX-dSSZlA",
         // 以下字段为 scope 为 snsapi_userinfo 时需要
-        "nickname" => "Fan",
+        "nickname" => "LMercury小敏",
         "sex" =>"1",
         "province" =>"湖北",
         "city" =>"武汉",
         "country" =>"中国",
-        "headimgurl" => "http://wx.qlogo.cn/mmopen/hNWCQ9bibbzF5eDhERZwwSEn31DicnqoouJgX7vZeZfDeV4H57gcldGPdJ3VgrqAHgR6cSmLurvq949vfJpdDrlA2jicUkLdCHB/0",
+        "headimgurl" => "http://wx.qlogo.cn/mmopen/bWH3p5rgONDviaIuv7afhCtOvU1pa2U2Q70rztmPcxRGc7tBgaGYEJLK8uO5j6sgJQbklMia0H1ZzmYibW8dOictpZqhzS9lE4RJ/0",
     ],
 ];

@@ -14,7 +14,7 @@ class OrderController extends BaseController
 
     public function status()
     
-        r{eturn view('wechat.order.status');
+        return view('wechat.order.status');
     }
 
     public function index()

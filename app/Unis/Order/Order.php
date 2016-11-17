@@ -14,7 +14,7 @@ class Order extends Model
 	use SoftDeletes;
 
     protected $fillable = ['billing_id', 'type', 'order_no', 'subject', 'user_id', 'total', 'address', 'status', 'school_id', 'campus_id', 'dorm_id', 'address',
-                    'paid_at', 'taken_at', 'delivered_at', 'received_at', 'withdrawed_at', 'appointment_at'
+                    'paid_at', 'taken_at', 'delivered_at', 'received_at', 'withdrawed_at', 'appointment_at', 'deliver_id'
     ];
 
     protected $dates = ['paid_at', 'taken_at', 'delivered_at', 'received_at', 'withdrawed_at', 'deleted_at'];

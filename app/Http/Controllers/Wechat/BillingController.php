@@ -127,19 +127,7 @@ class BillingController extends BaseController
     		abort('400', 'no food');
     	}
     	$total = 0;
-    	foreach($foods as $key=>$food){
-    		$price = $food->priceAfterDiscount();
-    		$total = $total + $price*$foods_arr[$key]['numb'];
-	    	OrderItem::create([
-	    		'order_id' => $user->id,
-	    		'food_id' => $food->id,
-	    		'amount' => $foods_arr[$key]['numb'],
-	    		'price' => $price,
-	    	]);
-    	}
-    	// dd($foods->pluck('name')->toArray());
-    	// dd($address->text());
-    	UnisOrder::create([
+    	$order = UnisOrder::create([
     		'school_id' => $address->school_id,
     		'order_no' => $this->makeOrder(),
     		'type' => 'wxpay',
@@ -153,6 +141,21 @@ class BillingController extends BaseController
     		'paid_at' => Carbon::now(),
     		'appointment_at' => Carbon::createFromTimestamp($request->time)
     	]);
+
+    	foreach($foods as $key=>$food){
+    		$price = $food->priceAfterDiscount();
+    		$total = $total + $price*$foods_arr[$key]['numb'];
+	    	OrderItem::create([
+	    		'order_id' => $order->id,
+	    		'food_id' => $food->id,
+	    		'amount' => $foods_arr[$key]['numb'],
+	    		'price' => $price,
+	    	]);
+    	}
+
+    	$order->update(['total'=>$total]);
+    	// dd($foods->pluck('name')->toArray());
+    	// dd($address->text());
 
     	$carts = Cart::where('user_id', $user->id)->get();
     	foreach($carts as $cart){

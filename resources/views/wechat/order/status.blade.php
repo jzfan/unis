@@ -271,7 +271,7 @@
                     	    								table.appendChild(div);   */
                     	    							var table = document.body.querySelector('#item2mobile .mui-scroll');
 														var bot = document.body.querySelector('#item2mobile .mui-pull-bottom-tips');
-													   	$('#item2mobile .mui-scroll').html('');
+													   /*	$('#item2mobile .mui-scroll').html('');*/
 														table.insertBefore(div,bot);
 									        	}
 									        }
@@ -357,7 +357,7 @@
                     	    								table.appendChild(div);   */
                     	    							var table = document.body.querySelector('#item3mobile .mui-scroll');
 														var bot = document.body.querySelector('#item3mobile .mui-pull-bottom-tips');
-													   	$('#item2mobile .mui-scroll').html('');
+													   	/*$('#item2mobile .mui-scroll').html('');*/
 														table.insertBefore(div,bot);
 									        	}
 									        }

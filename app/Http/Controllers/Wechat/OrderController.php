@@ -97,7 +97,7 @@ class OrderController extends BaseController
     public function unTakenSale()
     {
         $user = $this->getWechatUser();
-        return Order::where(['type'=>'wxpay', 'deliver_id'=>null, 'status'=>'paid', 'user_id'=>$user->id])->orderBy('paid_at', 'ASC')->with('order_items.food', 'orderer')->get();        
+        return Order::where(['type'=>'wxpay', 'deliver_id'=>null, 'status'=>'paid'])->where('user_id', '<>', $user->id)->orderBy('paid_at', 'ASC')->with('order_items.food', 'orderer')->get();        
     }
 
     public function confirmReceived()

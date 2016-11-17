@@ -27,15 +27,7 @@
 
 		<div>
 			<ul class="w-location-group mui-table-view">
-			    <!-- <li class="mui-table-view-cell">华中师范大学教师公寓7C314 
-			        <span class="mui-badge"><span class="location-ico mui-icon iconfont  mui-pull-right"></span></span>
-			    </li>
-			    <li class="mui-table-view-cell">华中师范大学教师公寓7C314 
-			        <span class="mui-badge"><span class="location-ico mui-icon iconfont  mui-pull-right"></span></span>
-			    </li>
-			    <li class="mui-table-view-cell">华中师范大学教师公寓7C314 
-			        <span class="mui-badge"><span class="location-ico mui-icon iconfont duigou506 mui-pull-right"></span></span>
-			    </li> -->
+			    
 			</ul>
 		</div>
 	</section>
@@ -73,7 +65,6 @@
 				data:{},
 				type:'POST',
 				success:function(data){
-					console.log('保存成功');
 					layer.open({
 					    content: '保存成功'
 					    ,skin: 'msg'
@@ -81,7 +72,6 @@
 					  });
 				},
 				error:function(){
-					console.log('保存失败');
 					layer.open({
 					    content: '保存失败'
 					    ,skin: 'msg'
@@ -110,7 +100,6 @@
 				data:{},
 				type:'delete',
 				success:function(data){
-					console.log('删除成功');
 					layer.open({
 					    content: '删除成功'
 					    ,skin: 'msg'
@@ -118,7 +107,6 @@
 					  });
 				},
 				error:function(){
-					console.log('删除失败');
 					layer.open({
 					    content: '删除失败'
 					    ,skin: 'msg'
@@ -179,7 +167,6 @@
             type:'GET',
             success:function(data){
             	for(var i=0;i<data.length;i++){
-            		console.log(data[i]);
             		var li = document.createElement('li');
 	              	  li.className = 'mui-table-view-cell';
 	              	  li.innerHTML = data[i].text+'<span class="mui-badge" data-id='+data[i].id+'><span class="location-ico mui-icon iconfont  mui-pull-right" data-id='+data[i].status+'></span></span>';
@@ -192,9 +179,7 @@
 	              	  });
 	              	
             	}
-              
 
-              
             }
       	});
   	});

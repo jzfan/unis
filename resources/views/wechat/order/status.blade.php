@@ -111,7 +111,7 @@
 	   	 			for(var i=0;i<data.length;i++){
 	   	 				var div = document.createElement('div');
 	   	 				    div.className = "w-finshed-menu";
-	   	 				    div.innerHTML = '<ul class="w-cash-all mui-table-view" data-id='+data[i].order_no+'><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+data[i].total+'元(含服务费)</span></li></ul><ul class="menu-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="w-hold mui-pull-right">配送中</span></li><li class="mui-table-view-cell"><div class="teleShow">联系电话: <a href="tel:15586879654">15586879654</a></div></li><li class="mui-table-view-cell">联系姓名：{{$user->name}}</li><li class="mui-table-view-cell">配送地址：中南名族大学北校区学生公寓5B515</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：2016-10-17 11:48&nbsp;&nbsp;&nbsp;&nbsp;预约时间：2016-10-17 12:08</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-bearrive w-want-accept-native" data-id='+data[i].order_no+'>确认送达</button></li></ul>';
+	   	 				    div.innerHTML = '<ul class="w-cash-all mui-table-view" data-id='+data[i].order_no+'><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+data[i].total+'元(含服务费)</span></li></ul><ul class="menu-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="w-hold mui-pull-right">配送中</span></li><li class="mui-table-view-cell"><div class="teleShow">联系电话: <a href="tel:15586879654">15586879654</a></div></li><li class="mui-table-view-cell">联系姓名：{{$user->name}}</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+data[i].paid_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+data[i].taken_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-bearrive w-want-accept-native" data-id='+data[i].order_no+'>确认送达</button></li></ul>';
 
 	   	 				var table = document.body.querySelector('#item2mobile .mui-scroll');
 						var bot = document.body.querySelector('#item2mobile .mui-pull-bottom-tips');
@@ -137,7 +137,7 @@
 	   	 			for(var i=0;i<data.length;i++){
 	   	 				var div = document.createElement('div');
 	   	 				    div.className = "w-finshed-menu";
-	   	 				    div.innerHTML = '<ul class="w-cash-all mui-table-view" data-id='+data[i].order_no+'><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+data[i].total+'元(含服务费)</span></li></ul><ul class="menu-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="w-hold mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="teleShow">联系电话: <a href="tel:15586879654">15586879654</a></div></li><li class="mui-table-view-cell">联系姓名：{{$user->name}}</li><li class="mui-table-view-cell">配送地址：中南名族大学北校区学生公寓5B515</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：2016-10-17 11:48&nbsp;&nbsp;&nbsp;&nbsp;预约时间：2016-10-17 12:08</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-hold w-want-accept-s mui-disabled" data-id='+data[i].order_no+'>等待确认</button></li></ul>';
+	   	 				    div.innerHTML = '<ul class="w-cash-all mui-table-view" data-id='+data[i].order_no+'><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+data[i].total+'元(含服务费)</span></li></ul><ul class="menu-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="w-hold mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="teleShow">联系电话: <a href="tel:15586879654">15586879654</a></div></li><li class="mui-table-view-cell">联系姓名：{{$user->name}}</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+data[i].paid_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+data[i].taken_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-hold w-want-accept-s mui-disabled" data-id='+data[i].order_no+'>等待确认</button></li></ul>';
 
 	   	 				var table = document.body.querySelector('#item3mobile .mui-scroll');
 						var bot = document.body.querySelector('#item3mobile .mui-pull-bottom-tips');
@@ -208,7 +208,6 @@
 											async:true,
 											type:'GET',
 									        success:function(data){
-									        	console.log(data);
 									        	for(var i=0;i<data.length;i++){
 									        		var div = document.createElement('div');
 									        			div.className = "w-finshed-menu";
@@ -263,7 +262,6 @@
 											async:true,
 											type:'GET',
 									        success:function(data){
-									        	console.log(data);
 									        	for(var i=0;i<data.length;i++){
 									        		var div = document.createElement('div');
 									        			div.className = "w-finshed-menu";
@@ -455,13 +453,5 @@
 				});
 			})
 		</script>
-	
-	<script>
-		$(function(){
-			$('.w-want-accept-native').on('touchstart',function(){
-				$(this);
-			})
-		})
-	</script>
 
 @stop

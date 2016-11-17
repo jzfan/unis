@@ -85,7 +85,7 @@
 
 @section('js')
 <script src="/lib/pusher/main.js"></script>
-<script>mui('body').on('tap','a',function(){document.location.href=this.href;});</script>
+<!-- <script>mui('body').on('tap','a',function(){document.location.href=this.href;});</script>
 	<script>
 			mui.init({
 				swipeBack: false,
@@ -135,7 +135,7 @@
 				}, 1000);
 			}
 		</script>
-
+ -->
 
 		<script>
 		/*获取用户openId*/

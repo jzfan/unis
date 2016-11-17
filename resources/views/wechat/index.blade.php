@@ -113,6 +113,7 @@
 												async:true,
 												type:'GET',
 												success:function(data){
+													console.log(data)
 													var foodAll = data.data;
 													page++;
 													if(page>10){
@@ -231,7 +232,7 @@
 												async:true,
 												type:'GET',
 												success:function(data){
-													var takeUp = data.data
+													var takeUp = data.data;
 													for(var i=0;i<takeUp.length;i++){
 														div = document.createElement('div');
 														div.className = "w-finshed-menu";

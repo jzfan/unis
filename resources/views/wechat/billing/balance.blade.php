@@ -95,7 +95,7 @@
 @stop
 
 @section('js')
-	<script>
+	<!-- <script>
 		mui.init({
 				swipeBack: false,
 				pullRefresh: {
@@ -144,8 +144,8 @@
 				}, 1000);
 			}
 		</script>
-
-
+	
+	
 		<script>
 		/*进入页面请求刷新*/
 			$(function(){
@@ -167,7 +167,7 @@
 					}
 				})
 			})
-		</script>
+		</script> -->
 
 		<script>
 		/*获取用户openId*/

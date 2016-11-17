@@ -46,18 +46,33 @@
 		});*/
 
 
-		/*获取用户openId*/
-			$(function(){
-				$.ajax({
-					url:'/wechat/user',
-					dataType:'json',
-					async:false,
-					data:{},
-					type:'GET',
-					success:function(data){
-						$('.w-about-uniserve').attr('data-id',data.wechat_openid);
-					}
-				});
-			})
+/*获取用户openId*/
+	$(function(){
+		$.ajax({
+			url:'/wechat/user',
+			dataType:'json',
+			async:false,
+			data:{},
+			type:'GET',
+			success:function(data){
+				$('.w-about-uniserve').attr('data-id',data.wechat_openid);
+			}
+		});
+	})
+
+
+//弹出消息函数
+$(function(){
+	function msgInfo(msgEle,msgText){
+		$(msgEle).on('touchstart',function(){
+			layer.open({
+				    content: msgText
+				    ,skin: 'msg'
+				    ,time: 2 //2秒后自动关闭
+				  });
+		})
+	};
+	msgInfo('.w-respone-btn','感谢您的反馈！');/*意见反馈*/
+})
 </script>
 @stop

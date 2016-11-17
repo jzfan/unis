@@ -21,7 +21,7 @@ class WechatController extends Controller
                     case 'event':
                         return $this->dispatchEvent($message);
                     case 'text':
-                        return "您好，欢迎关注Uniserve，您可以在线选购食堂套餐，单品和饮品。也可以加入我们配送员大家庭，为其他同学服务的同时也可以创业，赚取一定的生活补贴哦~期待您的加入。点击下方菜单的{我要点餐}进入点餐和接单页面。"; 
+                        return "欢迎关注Uniserve。"; 
                         // $wechat->user->get($message->FromUserName)->nickname;
                     case 'image':
                         # 图片消息...
@@ -74,7 +74,7 @@ class WechatController extends Controller
     {
         switch ($message->Event) {
                    case 'subscribe':
-                        return "欢迎关注 Uniserver！";
+                        return "您好，欢迎关注Uniserve，您可以在线选购食堂套餐，单品和饮品。也可以加入我们配送员大家庭，为其他同学服务的同时也可以创业，赚取一定的生活补贴哦~期待您的加入。点击下方菜单的{我要点餐}进入点餐和接单页面。";
                     case 'CLICK' :
                         return $this->dispatchClick($message);
                    default:

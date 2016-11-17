@@ -9,7 +9,7 @@
 		    
 		<div id="pullrefresh" class="win-scroll-wrapper mui-content mui-scroll-wrapper">
 			<div class="mui-scroll">
-		        		<ul class="w-tab-view mui-table-view">
+		        		<ul class="w-tab-view mui-table-view" style="margin-top: 0px;">
 						    <!-- <li class="mui-table-view-cell mui-media">
 						    		<div class="<mu></mu>i-slider-right mui-disabled">
 						    			<span class="mui-btn mui-btn-red">删除</span>

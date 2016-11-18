@@ -32,3 +32,14 @@ function getWechatOpenid()
 	$openid = $json_obj['openid']; 
 	return $openid;
 }
+
+function getWechatUser()
+{
+	$openid = session('wechat.oauth_user.id');
+    $user = \App\Unis\User\User::where('wechat_openid', $openid)->first();
+    if (! $user){
+        return response()->json(['message' => 'cant find user', 'state' => 'error']);           
+    }
+    $user->address = $user->defaultAddress()->text();
+    return $user;        
+}

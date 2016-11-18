@@ -16,9 +16,24 @@ use App\Unis\Order\Cart;
 use App\Unis\Order\OrderItem;
 use Carbon\Carbon;
 
-class BillingController extends BaseController
+class BillingController extends Controller
 {
-	protected $user;
+	protected $payment;
+
+	public function __construct()
+	{
+		$options = [
+		    'app_id' => env('WECHAT_APPID'),
+		    'payment' => [
+		        'merchant_id'        => env('WECHAT_PAYMENT_MERCHANT_ID'),
+		        'key'                => env('WECHAT_PAYMENT_KEY'),
+		        'cert_path'          => env('WECHAT_PAYMENT_CERT_PATH'), // XXX: 绝对路径！！！！
+		        'key_path'           => env('WECHAT_PAYMENT_KEY_PATH'),      // XXX: 绝对路径！！！！
+		    ],
+		];
+		$app = new Application($options);
+ 		$this->payment = $app->payment;				
+	}
 
     public function balance()
     {
@@ -30,53 +45,54 @@ class BillingController extends BaseController
     	return view('wechat.user.pay');
     }
 
+    protected function prePay($order_no)
+    {
+ 		$attributes = [
+ 		    'trade_type'       => 'JSAPI', // JSAPI，NATIVE，APP...
+ 		    'body'             => 'iPad mini 16G 白色',
+ 		    'detail'           => 'iPad mini 16G 白色',
+ 		    'out_trade_no'     => $order_no,
+ 		    'total_fee'        => 1,
+ 		    'notify_url'       => env('APP_URL').'/wechat/pay_notify',
+ 		    'openid'           => 'oLn0awmzSHZylB1x2MPvX-dSSZlA'
+ 		];
+ 		// 创建订单
+ 		 $order = new Order($attributes);
+ 		 return $this->payment->prepare($order);	
+    }
+
     public function wechatPay()
     {
-    	$this->user = $this->getWechatUser();
-
-		$options = [
-		    // 前面的appid什么的也得保留哦
-		    'app_id' => env('WECHAT_APPID'),
-		    // ...
-		    // payment
-		    'payment' => [
-		        'merchant_id'        => env('WECHAT_PAYMENT_MERCHANT_ID'),
-		        'key'                => env('WECHAT_PAYMENT_KEY'),
-		        'cert_path'          => env('WECHAT_PAYMENT_CERT_PATH'), // XXX: 绝对路径！！！！
-		        'key_path'           => env('WECHAT_PAYMENT_KEY_PATH'),      // XXX: 绝对路径！！！！
-		        'notify_url'         => '/wechat/pay_notify',       // 你也可以在下单时单独设置来想覆盖它
-		    ],
-		];
-
-		$app = new Application($options);
-		$payment = $app->payment;
-
-		$attributes = [
-		    'trade_type'       => 'JSAPI', // JSAPI，NATIVE，APP...
-		    'body'             => 'iPad mini 16G 白色',
-		    'detail'           => 'iPad mini 16G 白色',
-		    'out_trade_no'     => '1217752501201407033233368018',
-		    'total_fee'        => 1,
-		    'notify_url'       => '/wechat/pay_notify', // 支付结果通知网址，如果不设置则会使用配置里的默认地址，我就没有在这里配，因为在.env内已经配置了。
-		    // ...
-		];
-		// 创建订单
-		 $order = new Order($attributes);
-		 $result = $payment->prepare($order);
+    	$user = getWechatUser();
+    	$order_no = self::createOrderNum($user->id);
+    	$result = $this->prePay($order_no);
+return $this->payment->configForPayment($result->prepay_id);
 		 if ($result->return_code == 'SUCCESS' && $result->result_code == 'SUCCESS')
 		 {
-		   //生产那个订单后的逻辑
-		     \Log::info('生成订单号..'.$data->order_guid);
-		     //这一块是以ajax形式返回到页面上。   
+		 	$data = [
+		 		'appId'=> $result->appid,
+		 		'nonceStr'=> $result->nonce_str,
+		 		'package'=> "prepay_id=".$result->prepay_id,
+		 		"signType"=> "MD5",
+		 		"paySign"=> $result->sign,
+		 		'timeStamp'=>(string)time(),
+		 		"total" => 1
+		 	];
+		 	ksort($data);
+return json_encode($data);
+
+		     // \Log::info('生成订单号..'.$data->order_guid);
+		     //这一块是以ajax形式返回到页面上。
 		     //用户的体验就是点击【确认支付】，验证码以弹层页面出来了（没错，还需要一个好用的弹层js）。
-		     $ajax_data=[
-		         'html'         =>   json_encode(\QrCode::size(250)->generate($result['code_url'])),
-		         'out_trade_no' =>  $data->order_guid,
-		         'price'        =>  $data->price
-		     ];
-		     return $ajax_data;
+		     // $ajax_data=[
+		     //     // 'html'         =>   json_encode(\QrCode::size(250)->generate($result['code_url'])),
+		     //     'out_trade_no' =>  $order_no,
+		     //     'price'        =>  11
+		     // ];
+		     // return $ajax_data;
 		 }else{
-		     return back()->withErrors('生成订单错误！');
+		 	abort(403, 'make order error.');
+		    return back()->withErrors('生成订单错误！');
 		 }
 
     }
@@ -111,7 +127,7 @@ class BillingController extends BaseController
 
     public function afterPaid(Request $request)
     {
-    	$user = $this->getWechatUser();
+    	$user = getWechatUser();
 
     	$address = User::find($user->id)->defaultAddress();
 
@@ -129,7 +145,7 @@ class BillingController extends BaseController
     	$total = 0;
     	$order = UnisOrder::create([
     		'school_id' => $address->school_id,
-    		'order_no' => $this->makeOrder(),
+    		'order_no' => self::createOrderNum($user->id),
     		'type' => 'wxpay',
     		'subject' => join('|', $foods->pluck('name')->toArray()),
     		'user_id' => $user->id,
@@ -164,8 +180,8 @@ class BillingController extends BaseController
     	return 'success';
     }
 
-    public function makeOrder()
-    {
-    	return time().str_random(4);
-    }
+	public static function createOrderNum($user_id)
+	{
+		return dechex(time()+$user_id);
+	}
 }

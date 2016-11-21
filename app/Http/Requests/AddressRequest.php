@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Http\Request;
 class AddressRequest extends FormRequest
 {
     /**
@@ -21,8 +21,10 @@ class AddressRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
+        print_r($request->input());
+        exit;
         return [
             'school_id' => 'required|exists:schools,id',
             'campus_id' => 'required|exists:campuses,id',

@@ -13,9 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-// Route::get('/user', function (Request $request) {
-//     return $request->user();
-// })->middleware('auth:api');
+Route::get('/user', function (Request $request) {
+    return $request->user();
+})->middleware('auth:api');
 
 $api = app('Dingo\Api\Routing\Router');
 
@@ -70,6 +70,8 @@ $api->version('v1', function ($api) {
     $api->post('report', 'App\Http\Controllers\Api\V1\ReportController@store');
     //我的消息
     $api->get('feed', 'App\Http\Controllers\Api\V1\FeedController@index');
+    //删除消息
+    $api->delete('feed/{feed_id}', 'App\Http\Controllers\Api\V1\FeedController@destroy');
 
     // $api->get('favorite/{user_id}', 'App\Http\Controllers\Api\V1\FavoriteController@index');
 

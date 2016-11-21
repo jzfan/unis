@@ -49,7 +49,7 @@ class OrderSeeder extends Seeder
 
         	$subject = [];
         	$total = 0;
-            $order_no = date('YmdHis').str_random(4).$orderer->id.$orderer->room_number;
+            $order_no = date('ymdHis').$orderer->id;
 
         	foreach ($foods as $food) {
                 $amount = mt_rand(1, 3);

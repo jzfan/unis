@@ -17,7 +17,7 @@ class BaseController extends Controller
  		$this->user = User::where('wechat_openid', $request->openid)->first();
  		// dd($this->user->id);
  		if (! $this->user){
- 			abort(401, 'Unauthorized action.');
+ 			abort(404, 'User Not Found.');
  		}
  	}
 }

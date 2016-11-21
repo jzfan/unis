@@ -15,10 +15,10 @@ class CreateFeedsTable extends Migration
     {
         Schema::create('feeds', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('order_no');
+            $table->integer('order_id')->unsigned();
             $table->integer('sender_id')->unsigned();
             $table->integer('receiver_id')->unsigned();
-            $table->enum('status', ['send', 'readed'])->default('send');
+            $table->enum('status', ['send', 'read'])->default('send');
             $table->string('type')->default('');
             $table->timestamps();
         });

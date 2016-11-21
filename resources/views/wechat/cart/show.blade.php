@@ -22,7 +22,7 @@
         <span class="mui-tab-label">我的订单</span>
       </a>
       <a class="mui-tab-item mui-active" href="/wechat/cart">
-        <span class="mui-icon iconfont xuangouwuche203"></span>
+        <span class="mui-icon iconfont xuangouwuche203"><span class="w-badge mui-badge">0</span></span>
         <span class="mui-tab-label">购物车</span>
       </a>
       <a class="mui-tab-item" href="/wechat/profile">
@@ -35,77 +35,72 @@
 @section('js')
 <script src="/lib/pusher/main.js"></script>
 
-  <script>mui('body').on('tap','a',function(){document.location.href=this.href;});</script>
+<script>
+  mui('body').on('tap','a',function(){
+    document.location.href=this.href;
+  });
+</script>
+
+<script>
+  if(localStorage.getItem('buyCart') == null) {
+    localStorage.setItem('buyCart', '0');
+  }
+
+  $('.w-badge').text(parseInt(localStorage.getItem('buyCart')));
+</script>
+
   <script>
       /*选择时间*/
-        // $(function(){
-        //     var dtPicker = new mui.DtPicker(); 
+      $(function(){
+          var dtPicker = new mui.DtPicker(); 
 
-        //     $(document).on('touchstart','.app-time li',function(){
-        //     var _this = $(this);
-        //     dtPicker.show(function (selectItems) { 
-        //       _this.html('预约时间：'+selectItems.text+'<span class="mui-icon iconfont youjiantou003 mui-pull-right">');
-        //     })
-        //   })
-        // });
-         
-        
-  </script> 
+          $(document).on('touchstart','.app-time li',function(){
+          var _this = $(this);
+          dtPicker.show(function (selectItems) { 
+            _this.html('预约时间：'+selectItems.text+'<span class="mui-icon iconfont youjiantou003 mui-pull-right">');
+          })
+        })
+      });
+  </script>
 
   <script>
-      $(function(){
-         $.ajax({
-                url:'/wechat/ajax/cart',
-                dataType:'json',
-                async:false,
-                type:'GET',
-                success:function(data){
-                  if(data.data.length > 0) {
-                    $('ul').html('');
-                  }
+    $(function(){
+      var cartFood = JSON.parse(localStorage.getItem('cartFoodId'));
+      var table = document.body.querySelector('.w-tab-view');
+      var total = 0;
 
-                  var foodlist = data.data;
-                  var foodHave = foodlist.length;
-                  var total = 0;
-                  for(var i=0;i<foodlist.length;i++){
-                    total  += parseFloat(foodlist[i].price);
-                    li =document.createElement('li');
-                    li.className = 'mui-table-view-cell mui-media';
-                    li.innerHTML = '<img class="mui-media-object mui-pull-left" src='+foodlist[i].img+'><div class="w-box" data-id='+foodlist[i].id+'><div class="w-menu-left"><p class="menu-name">'+foodlist[i].name+'</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:'+foodlist[i].sold+'&nbsp;&nbsp;点赞:5</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">'+foodlist[i].price+'</span>&nbsp;&nbsp;<span class="origin-value">原价:'+foodlist[i].original_price+'元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon-g"><div class="mui-numbox"><button class="mui-btn mui-numbox-btn-minus" type="button"><span class="mui-icon iconfont jianhao107"></span></button><input class="mui-numbox-input" type="number" value= "1"/><button class="mui-btn mui-numbox-btn-plus" type="button"><span class="mui-icon iconfont jiahao108"></span></button></div></div></div></div>';
-                    table = document.body.querySelector('.w-tab-view');
-                    table.appendChild(li);                    
-                  }
+      if(JSON.parse(localStorage.getItem('cartFoodId')).length > 0) {
+          $(table).find('li:first-child').remove();
+      }
 
-                    if(foodHave>0){
-                      $.ajax({
-                          url:'/wechat/user',
-                          dataType:'json',
-                          async:true,
-                          type:'GET',
-                          success:function(data){
-                            var openId = data.wechat_openid;
-                            var urlAdd = '';
-                             $.ajax({
-                                url:urlAdd,
-                                dataType:'json',
-                                async:true,
-                                type:'GET',
-                                success:function(data){
-                                  console.log(data);
-                                }
+      $.each(cartFood,function(name,value){
+        var ajaxUrl = '/api/food/'+value;
 
-                            });
-                          }
-                      });
-                    div = document.createElement('div');
-                    div.className = 'w-finshed-menu w-cart';
-                    div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right"><span class="cash">'+total+'</span>元(含服务费)</span></li></ul><ul class="menu-che mui-table-view"><li class="mui-table-view-cell">配送地址：{{ $user->address }}</li><li class="mui-table-view-cell"><div>联系电话: <a href="tel:{{ $user->phone }}">{{ $user->phone }}</a></div></li><li class="mui-table-view-cell">联系姓名：{{ $user->name }}</li></ul><ul class="app-time mui-table-view"><li class="mui-table-view-cell Ntime">预约时间：2016-11-17 12:48(默认送达时间) <span class="mui-icon iconfont youjiantou003 mui-pull-right"></span></li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-want-accept">购买</button></li></ul>';
-                      document.body.appendChild(div);
-                    }
-     
-                }
-         })
+        $.ajax({
+          url:ajaxUrl,
+          dataType:'json',
+          async:false,
+          type:'GET',
+          success:function(data){
+            var foodList = data.data;
+
+            var li =document.createElement('li');
+            li.className = 'mui-table-view-cell mui-media';
+            li.innerHTML = '<img class="mui-media-object mui-pull-left" src='+foodList.img+'><div class="w-box" data-id='+foodList.id+'><div class="w-menu-left"><p class="menu-name">'+foodList.name+'</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:'+foodList.sold+'&nbsp;&nbsp;点赞:5</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">'+foodList.price+'</span>&nbsp;&nbsp;<span class="origin-value">原价:'+foodList.original_price+'元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon-g"><div class="mui-numbox"><button class="mui-btn mui-numbox-btn-minus" type="button"><span class="mui-icon iconfont jianhao107"></span></button><input class="mui-numbox-input" type="number" value= "1"/><button class="mui-btn mui-numbox-btn-plus" type="button"><span class="mui-icon iconfont jiahao108"></span></button></div></div></div></div>';
+            table.appendChild(li);
+
+            total  += parseFloat(foodList.price);
+          }
+        });
       })
+
+      if(JSON.parse(localStorage.getItem('cartFoodId')).length > 0) {
+        div = document.createElement('div');
+        div.className = 'w-finshed-menu w-cart';
+        div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right"><span class="cash">'+total+'</span>元(含服务费)</span></li></ul><ul class="menu-che mui-table-view"><li class="mui-table-view-cell">配送地址：{{ $user->address }}</li><li class="mui-table-view-cell"><div>联系电话: <a href="tel:{{ $user->phone }}">{{ $user->phone }}</a></div></li><li class="mui-table-view-cell">联系姓名：{{ $user->name }}</li></ul><ul class="app-time mui-table-view"><li class="mui-table-view-cell Ntime">预约时间：2016-11-17 12:48(默认送达时间) <span class="mui-icon iconfont youjiantou003 mui-pull-right"></span></li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-want-accept">购买</button></li></ul>';
+          document.body.appendChild(div);
+      }
+    });
   </script>
 
   <script>
@@ -241,9 +236,6 @@
       })
   </script>
 
-
-
-
   <script>/*默认时间顺延半小时*/
       $(function(){
         var timestamp = Date.parse(new Date());  
@@ -261,20 +253,6 @@
       })
   </script>
 
-
-
- <!--  <script>
-   $(function(){
-       $.get('/wechat/ajax/cart',function(data){
-         var vule = JSON.stringify(data);
-         var num = data.length;
-         var msgNum;
-         localStorage.setItem(msgNum,num);
-         var name  = localStorage.getItem(msgNum);
-       });
-   })   
- </script> -->
-
 <script type="text/javascript">
     //调用微信JS api 支付
     function jsApiCall(data)
@@ -290,6 +268,11 @@
                       alert('支付失败！（'+res.err_desc+'）');
                       break;
                   case 'get_brand_wcpay_request:ok':
+                      localStorage.setItem('cartFoodId', JSON.stringify(new Array()));
+                      localStorage.setItem('buyCart', '0');
+                      $('.w-finshed-menu').html('');
+                      $('.w-badge').text('0');
+                      $('.w-tab-view').html('<li style="width:100%;height:100%;text-align:center;padding-top:200px;font-size:20px;color:silver;">您还没有购买任何商品！</li>');
                       alert('支付成功！');
                       window.location.replace("/wechat/order/status");
                       break;

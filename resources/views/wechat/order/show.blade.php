@@ -69,12 +69,12 @@
 	@stop
 
 	@section('js')
-		<script>
+		<!-- <script>
 			$(function(){
 				$.get('/api/order/show/583112ca',function(data){
 						console.log(data);
 				});
 			});
 
-		</script>
+		</script> -->
 	@stop

@@ -26,10 +26,10 @@ class FeedSeeder extends Seeder
 
         	$receiver = $orderer = User::inRandomOrder()->first();
         	Feed::create([
-        		'order_no' => (string)Order::inRandomOrder()->first()->order_no,
+        		'order_id' => Order::inRandomOrder()->first()->id,
         		'sender_id' => $sender->id,
         		'receiver_id' => $receiver->id,
-        		'status' => (string)mt_rand(0,1),
+        		'status' => (string)mt_rand(1, 2),
         		'type' => array_rand(array_flip(['paid', 'taken', 'delivered', 'received'])),
 
         	]);

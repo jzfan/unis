@@ -19,8 +19,9 @@
 
 
 ###意见反馈
-* 提交  method:post uri: /api/report?openid=xxxx
-* 我的消息  method:get uri: /api/feed?openid=xxx
+* 提交      method:post   uri: /api/report?openid=xxxx
+* 我的消息  method:get    uri: /api/feed?openid=xxx
+* 删除消息  method:delete uri: /api/feed/{feed_id}?openid=xxx
 
 ###用户信息
 *  method:get  uri: /wechat/user
@@ -57,6 +58,7 @@
 ###食品
 * 取窗口食品列表   method:get     uri:/api/food_of_shop/{shop_id}
 * 食品窗口列表     method:get     uri:/api/shops_of_canteen/{canteen_id}
+* 单个食品         method:get     uri:/api/food/{id}
 
 ###校区
 * 取所有食堂  method:get    uri: /wechat/ajax/index_data

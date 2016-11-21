@@ -14,4 +14,13 @@ class FeedController extends BaseController
     {
     	return Feed::where('sender_id', $this->user->id)->get();
     }
+
+    public function destroy($feed_id)
+    {
+    	$feed = Feed::findOrFail($feed_id);
+    	if ($feed->receiver_id != $this->user->id){
+    		abort(401, 'unauthorized');
+    	}
+    	return 'success';
+    }
 }

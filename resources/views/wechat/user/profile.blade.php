@@ -78,7 +78,7 @@
 				<span class="mui-tab-label">我的订单</span>
 			</a>
 			<a class="mui-tab-item" href="/wechat/cart">
-				<span class="mui-icon iconfont xuangouwuche203"></span>
+				<span class="mui-icon iconfont xuangouwuche203"><span class="w-badge mui-badge">0</span></span>
 				<span class="mui-tab-label">购物车</span>
 			</a>
 			<a class="mui-tab-item mui-active" href="/wechat/profile">
@@ -89,8 +89,21 @@
 	<!--底部nav切换结束-->
 
 @section('js')
-<script>mui('body').on('tap','a',function(){document.location.href=this.href;});</script>
 <script src="/lib/pusher/main.js"></script>
+
+<script>
+	mui('body').on('tap','a',function(){
+		document.location.href=this.href;
+	});
+</script>
+
+<script>
+	if(localStorage.getItem('buyCart') == null) {
+		localStorage.setItem('buyCart', '0');
+	}
+
+	$('.w-badge').text(parseInt(localStorage.getItem('buyCart')));
+</script>
 
 <script>
 		/*获取用户openId*/

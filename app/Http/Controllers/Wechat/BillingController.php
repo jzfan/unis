@@ -160,7 +160,7 @@ class BillingController extends Controller
 
 	protected function createOrderNum()
 	{
-		return date('mdHis').$this->user->id;
+		return date('ymdHis').$this->user->id;
 	}
 
 	protected function getFoods($request)

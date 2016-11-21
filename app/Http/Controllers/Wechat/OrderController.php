@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Unis\Order\Order;
 use Illuminate\Support\Facades\Input;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
@@ -59,29 +60,38 @@ class OrderController extends Controller
        return $orders;
     }
 
-    public function completedBuy()
+    public function allBuy()
     {
         $user = getWechatUser();
-        return Order::where(['type'=>'wxpay', 'user_id'=>$user->id])->whereIn('status', ['received', 'withdrawed'])->orderBy('id', 'DESC')->with('order_items.food', 'orderer')->get();
+        return Order::where(['type'=>'wxpay', 'user_id'=>$user->id])->orderBy('id', 'DESC')->with('order_items.food', 'deliver')->get();
     }
 
     public function completedSale()
     {
         $user = getWechatUser();
-        return Order::where(['type'=>'wxpay', 'deliver_id'=>$user->id])->whereIn('status', ['received', 'withdrawed'])->orderBy('id', 'DESC')->with('order_items.food', 'deliver')->get();
+        return Order::where(['type'=>'wxpay', 'deliver_id'=>$user->id])->whereIn('status', ['received', 'delivered', 'withdrawed'])->orderBy('id', 'DESC')->with('order_items.food', 'orderer')->get();
     }
 
+     public function completedSaleToday()
+    {
+        $start = (new Carbon('now'))->hour(0)->minute(0)->second(0);
+        $end = (new Carbon('now'))->hour(23)->minute(59)->second(59);
+        $user = getWechatUser();
+        return Order::where(['type'=>'wxpay', 'deliver_id'=>$user->id])->whereBetween('delivered_at', [$start , $end])->whereIn('status', ['received', 'delivered', 'withdrawed'])->orderBy('id', 'DESC')->with('order_items.food', 'orderer')->get();
+    }
+
+//未完成的买方
     public function uncompletedBuy()
     {
         $user = getWechatUser();
-        return Order::where(['type'=>'wxpay', 'user_id'=>$user->id])->whereNotIn('status', ['withdrawed', 'received'])->orderBy('id', 'DESC')->with('order_items.food', 'orderer')->get();
+        return Order::where(['type'=>'wxpay', 'user_id'=>$user->id])->whereIn('status', ['paid', 'taken', 'ordered'])->orderBy('id', 'DESC')->with('order_items.food', 'deliver')->get();
     }
 
 //我已接单未完成
     public function uncompletedSale()
     {
         $user = getWechatUser();
-        return Order::where(['type'=>'wxpay', 'deliver_id'=>$user->id])->whereIn('status',['taken', 'delivered'])->orderBy('id', 'DESC')->with('order_items.food', 'deliver')->get();
+        return Order::where(['type'=>'wxpay', 'deliver_id'=>$user->id, 'status'=>'taken'])->orderBy('id', 'DESC')->with('order_items.food', 'orderer')->get();
     }
 //没人接单的
     public function unTakenSale()

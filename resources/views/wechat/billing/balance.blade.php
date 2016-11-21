@@ -17,77 +17,7 @@
 <div id="pullrefresh" class="yu-scroll-wrapper mui-content mui-scroll-wrapper">
 	<div class="mui-scroll">
 		<section class="w-cash-aaa w-self-main">
-			<ul class="mui-table-view">
-			    <li class="mui-table-view-cell">
-					<div class="mui-slider-right mui-disabled">
-					<span class="mui-btn mui-btn-red">删除</span>
-					</div>
-					<div class="mui-slider-handle">
-						<div>订单编号：8546974125412475<span class="my-song mui-pull-right">+34.5元</span></div>
-						<div class="right-del">下单时间：2016-10-17 11:48<span class="my-song mui-pull-right">已完成</span></div>
-					</div>
-				</li>
-			</ul>
-
-			<ul class="mui-table-view">
-			    <li class="mui-table-view-cell">
-					<div class="mui-slider-right mui-disabled">
-					<span class="mui-btn mui-btn-red">删除</span>
-					</div>
-					<div class="mui-slider-handle">
-						<div>订单编号：8546974125412475<span class="my-song mui-pull-right">+34.5元</span></div>
-						<div class="right-del">下单时间：2016-10-17 11:48<span class="my-song mui-pull-right">已完成</span></div>
-					</div>
-				</li>
-			</ul>
-
-			<ul class="mui-table-view">
-			    <li class="mui-table-view-cell">
-					<div class="mui-slider-right mui-disabled">
-					<span class="mui-btn mui-btn-red">删除</span>
-					</div>
-					<div class="mui-slider-handle">
-						<div>订单编号：8546974125412475<span class="my-song mui-pull-right">+34.5元</span></div>
-						<div class="right-del">下单时间：2016-10-17 11:48<span class="my-song mui-pull-right">已完成</span></div>
-					</div>
-				</li>
-			</ul>
-
-			<ul class="mui-table-view">
-			    <li class="mui-table-view-cell">
-					<div class="mui-slider-right mui-disabled">
-					<span class="mui-btn mui-btn-red">删除</span>
-					</div>
-					<div class="mui-slider-handle">
-						<div>订单编号：8546974125412475<span class="my-song mui-pull-right">+34.5元</span></div>
-						<div class="right-del">下单时间：2016-10-17 11:48<span class="my-song mui-pull-right">已完成</span></div>
-					</div>
-				</li>
-			</ul>
-
-			<ul class="mui-table-view">
-			    <li class="mui-table-view-cell">
-					<div class="mui-slider-right mui-disabled">
-					<span class="mui-btn mui-btn-red">删除</span>
-					</div>
-					<div class="mui-slider-handle">
-						<div>订单编号：8546974125412475<span class="my-song mui-pull-right">+34.5元</span></div>
-						<div class="right-del">下单时间：2016-10-17 11:48<span class="my-song mui-pull-right">已完成</span></div>
-					</div>
-				</li>
-			</ul>
-
-			<ul class="mui-table-view">
-			    <li class="mui-table-view-cell">
-					<div class="mui-slider-right mui-disabled">
-					<span class="mui-btn mui-btn-red">删除</span>
-					</div>
-					<div class="mui-slider-handle">
-						<div>订单编号：8546974125412475<span class="my-song mui-pull-right">+34.5元</span></div>
-						<div class="right-del">下单时间：2016-10-17 11:48<span class="my-song mui-pull-right">已完成</span></div>
-					</div>
-				</li>
-			</ul>
+			
 		</section>
 
 	</div>
@@ -95,7 +25,7 @@
 @stop
 
 @section('js')
-	<!-- <script>
+	<script>
 		mui.init({
 				swipeBack: false,
 				pullRefresh: {
@@ -119,9 +49,9 @@
 					for (var i = cells.length, len = i + 3; i < len; i++) {
 						var ul = document.createElement('ul');
 						ul.className = 'mui-table-view';
-						ul.innerHTML = '<li class="mui-table-view-cell"><div class="mui-slider-right mui-disabled"><span class="mui-btn mui-btn-red">删除</span></div><div class="mui-slider-handle"><div>订单编号：8546974125412475<span class="my-song mui-pull-right">+34.5元</span></div><div class="right-del">下单时间：2016-10-17 11:48<span class="my-song mui-pull-right">已完成</span></div></div></li>';
+						// ul.innerHTML = '<li class="mui-table-view-cell"><div class="mui-slider-right mui-disabled"><span class="mui-btn mui-btn-red">删除</span></div><div class="mui-slider-handle"><div>订单编号：8546974125412475<span class="my-song mui-pull-right">+34.5元</span></div><div class="right-del">下单时间：2016-10-17 11:48<span class="my-song mui-pull-right">已完成</span></div></div></li>';
 						//下拉刷新，新纪录插到最前面；
-						table.insertBefore(ul, table.firstChild);
+						// table.insertBefore(ul, table.firstChild);
 					}
 					mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
 				}, 1000);
@@ -138,36 +68,13 @@
 					for (var i = cells.length, len = i + 20; i < len; i++) {
 						var ul = document.createElement('ul');
 						ul.className = 'mui-table-view';
-						ul.innerHTML = '<li class="mui-table-view-cell"><div class="mui-slider-right mui-disabled"><span class="mui-btn mui-btn-red">删除</span></div><div class="mui-slider-handle"><div>订单编号：8546974125412475<span class="my-song mui-pull-right">+34.5元</span></div><div class="right-del">下单时间：2016-10-17 11:48<span class="my-song mui-pull-right">已完成</span></div></div></li>';
-						table.appendChild(ul);
+						// ul.innerHTML = '<li class="mui-table-view-cell"><div class="mui-slider-right mui-disabled"><span class="mui-btn mui-btn-red">删除</span></div><div class="mui-slider-handle"><div>订单编号：8546974125412475<span class="my-song mui-pull-right">+34.5元</span></div><div class="right-del">下单时间：2016-10-17 11:48<span class="my-song mui-pull-right">已完成</span></div></div></li>';
+						// table.appendChild(ul);
 					}
 				}, 1000);
 			}
 		</script>
 	
-	
-		<script>
-		/*进入页面请求刷新*/
-			$(function(){
-				$.ajax({
-					url:'/wechat/ajax/order/completed',
-					dataType:'json',
-					async:true,
-					data:{},
-					type:'GET',
-					success:function(data){
-						console.log(data);
-						for(var i=0;i<data.length;i++){
-							var div =document.createElement('ul');
-								ul.className = "mui-table-view";
-								ul.innerHTML ='<li class="mui-table-view-cell"><div class="mui-slider-right mui-disabled"><span class="mui-btn mui-btn-red">删除</span></div><div class="mui-slider-handle"><div>订单编号：8546974125412475<span class="my-song mui-pull-right">+34.5元</span></div><div class="right-del">下单时间：2016-10-17 11:48<span class="my-song mui-pull-right">已完成</span></div></div></li>';
-								$('.w-cash-aaa').append(ul);
-						}
-						
-					}
-				})
-			})
-		</script> -->
 
 		<script>
 		/*获取用户openId*/
@@ -199,6 +106,30 @@
 					success:function(data){
 						console.log(data);
 						$('.cash-leave-num').html('<span class="cash-rmb">￥</span>'+data);
+					}
+				})
+			})
+		</script>
+
+
+		
+		<script>
+			$(function(){
+				var urlajax = '/wechat/ajax/order';   
+				$.ajax({
+					url:urlajax,
+					dataType:'json',
+					async:true,
+					data:{},
+					type:'GET',
+					success:function(data){
+						for(var i=0;i<data.length;i++){
+							var ul = document.createElement('ul');
+							ul.className = 'mui-table-view';
+							ul.innerHTML = ' <li class="mui-table-view-cell"><div class="mui-slider-right mui-disabled"><span class="mui-btn mui-btn-red">删除</span></div><div class="mui-slider-handle"><div>订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">+'+data[i].total+'元</span></div><div class="right-del">下单时间：'+data[i].created_at+'<span class="my-song mui-pull-right">'+data[i].orderer.status+'</span></div></div></li>';
+							var parent = $('.w-cash-aaa');
+							parent.append(ul);
+						}
 					}
 				})
 			})

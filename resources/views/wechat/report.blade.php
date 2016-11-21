@@ -9,7 +9,7 @@
 		<div class="w-respone">
 			<form class="w-respone-group mui-input-group" id="report" >
 			    <div class="w-respone-textarea">
-			    <textarea type="text" class="mui-input-clear" placeholder="请输入您对于Uniserve的意见以及建议..." name="content"></textarea>
+			    <textarea type="text" class="mui-input-clear" placeholder="请输入您对于Uniserve的意见以及建议..."  name="content" required=""></textarea>
 			    </div>
 				<span class="w-xian"></span>
 			    <button type="button" class="w-respone-btn mui-btn mui-btn-outlined">点击发送</button>
@@ -23,27 +23,21 @@
 @section('js')
 <script src="/lib/pusher/main.js"></script>
 <script>
-	/*意见反馈*/
+
 	$(function(){
 		$('.w-respone-btn').on('touchstart',function(){
-				var textCon = $('textarea').text();
-				var openId = $('.w-respone').attr('data-id');
-				var ajaxUrl = '/api/report?openId='+openId;
-				return;
-		        $.ajax({
-		        type:"POST",
-		        url:ajaxUrl,
-		        data:textCon,
-		        dataType: 'json',
-		        success: function(data){
-		            console.log(data);
-		        },
-		        error: function(data){
-
-		        }
-		    });
-		    });
+			var openId = $('.w-respone').attr('data-id');
+			var ajaxUrl = '/api/report?openId='+openId;
+			$.post(ajaxUrl,$('#report').serialize(),function(data){
+				console.log(data);
+					setTimeout(function(){
+						window.location.href = '/wechat/profile';
+					},800);
+				});
+		
 		});
+
+	})
 
 
 /*获取用户openId*/
@@ -60,23 +54,6 @@
 		});
 	})
 
-
-//弹出消息函数
-$(function(){
-	function msgInfo(msgEle,msgText){
-		$(msgEle).on('touchstart',function(){
-			layer.open({
-				    content: msgText
-				    ,skin: 'msg'
-				    ,time: 2 //2秒后自动关闭
-				  });
-			// setTimeout(function(){
-			// 	window.location.href = '/wechat/profile';
-			// },1000);
-		})
-	};
-	msgInfo('.w-respone-btn','感谢您的反馈！');/*意见反馈*/
-})
 </script>
 
 @stop

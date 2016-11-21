@@ -75,7 +75,7 @@
 		<span class="mui-tab-label">我的订单</span>
 	</a>
 	<a class="mui-tab-item" href="/wechat/cart">
-		<span class="mui-icon iconfont xuangouwuche203"><span class="w-badge mui-badge"></span></span>
+		<span class="mui-icon iconfont xuangouwuche203"><span class="w-badge mui-badge">0</span></span>
 		<span class="mui-tab-label">购物车</span>
 	</a>
 	<a class="mui-tab-item" href="/wechat/profile">
@@ -92,6 +92,14 @@
 	mui('body').on('tap', 'a', function() {
 		document.location.href = this.href;
 	});
+</script>
+
+<script>
+	if(localStorage.getItem('buyCart') == null) {
+		localStorage.setItem('buyCart', '0');
+	}
+
+	$('.w-badge').text(parseInt(localStorage.getItem('buyCart')));
 </script>
 
 <script>
@@ -138,26 +146,25 @@
 					table = document.body.querySelector('#item1mobile .mui-pull-bottom-tips');
 					parent.insertBefore(ul, table);
 
-					if(localStorage.getItem('loveFoodId') == null || localStorage.getItem('cartFoodId') == null) {
-						continue;
+					if(localStorage.getItem('loveFoodId') != null) {
+						//提取本地保存的收藏数据跟加载的数据比对---开始
+						var compare = JSON.parse(localStorage.getItem('loveFoodId'));
+						for(var f = 0; f < compare.length; f++) {
+							if(compare[f] == foodAll[i].id) {
+								$(ul).find('span.dianzan105').removeClass('dianzan105').addClass('dianzan106');
+							}
+						}
 					}
-					
-					var compare = JSON.parse(localStorage.getItem('loveFoodId')); //提取本地保存的收藏数据跟加载的数据比对---开始
-					
-					for(var f = 0; f < compare.length; f++) {
-						if(compare[f] == foodAll[i].id) {
-							$(ul).find('span.dianzan105').removeClass('dianzan105').addClass('dianzan106');
-						}
-					} //提取本地保存的收藏数据跟加载的数据比对---开始	
 
-					var comWith = JSON.parse(localStorage.getItem('cartFoodId')); //提取本地保存的数据跟加载的数据比对---开始
-					
-					for(var k = 0; k < comWith.length; k++) {
-						if(comWith[k] == foodAll[i].id) {
-							console.log(foodAll[i].id);
-							$(ul).find('span.jiahao108').removeClass('jiahao108').addClass('duigou506');
+					if(localStorage.getItem('cartFoodId') != null) {
+						//提取本地保存的数据跟加载的数据比对---开始
+						var comWith = JSON.parse(localStorage.getItem('cartFoodId'));
+						for(var k = 0; k < comWith.length; k++) {
+							if(comWith[k] == foodAll[i].id) {
+								$(ul).find('span.jiahao108').removeClass('jiahao108').addClass('duigou506');
+							}
 						}
-					} //提取本地保存的数据跟加载的数据比对---开始
+					}
 				}
 			}
 		});
@@ -187,9 +194,8 @@
 </script>
 
 <script>
-	/*菜品刷新加载*/
+	/*菜品下拉刷新上拉加载*/
 	mui.init();
-	
 	(function($) {
 		//阻尼系数
 		var deceleration = mui.os.ios ? 0.003 : 0.0009;
@@ -278,7 +284,7 @@
 		});
 
 		$.ajax({
-			url: '/wechat/ajax/order/untaken',
+			url: '/wechat/ajax/order/untaken',//确认
 			dataType: 'json',
 			async: false,
 			type: 'GET',
@@ -287,7 +293,7 @@
 				for(var i = 0; i < takeFood.length; i++) {
 					div = document.createElement('div');
 					div.className = "w-finshed-menu";
-					div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">' + takeFood[i].total + '元(含服务费)</span></li></ul><ul class="w-home-tab mui-table-view"><li class="mui-table-view-cell">订单编号：' + takeFood[i].order_no + '<span class="w-hold mui-pull-right">' + takeFood[i].status + '</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:' + takeFood[i].total + '">' + takeFood[i].total + '</a></div></li><li class="mui-table-view-cell">联系姓名：' + takeFood[i].total + '</li><li class="mui-table-view-cell">配送地址：' + takeFood[i].address + '</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：' + takeFood[i].paid_at + '&nbsp;&nbsp;&nbsp;&nbsp;预约时间：' + takeFood[i].appointment_at + '</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-want-accept"  data-id=' + takeFood[i].id + '>我要带餐</button></li></ul>';
+					div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">' + takeFood[i].total + '元(含服务费)</span></li></ul><ul class="w-home-tab mui-table-view"><li class="mui-table-view-cell">订单编号：' + takeFood[i].order_no + '<span class="w-hold mui-pull-right">' + takeFood[i].status + '</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:' + takeFood[i].orderer.phone + '">' + takeFood[i].orderer.phone + '</a></div></li><li class="mui-table-view-cell">联系姓名：' + takeFood[i].orderer.name + '</li><li class="mui-table-view-cell">配送地址：' + takeFood[i].address + '</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：' + takeFood[i].paid_at + '&nbsp;&nbsp;&nbsp;&nbsp;预约时间：' + takeFood[i].appointment_at + '</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-want-accept"  data-id=' + takeFood[i].id + '>我要带餐</button></li></ul>';
 
 					var table = document.body.querySelector('#item2mobile .mui-pull-bottom-tips');
 					var parent = document.body.querySelector('#item2mobile .mui-scroll');
@@ -378,33 +384,26 @@
 <script>
 	/*添加到购物车，取消*/
 	$(function() {
-		if(localStorage.getItem('buyCart') == null) {
-			$('.w-badge').css('display', 'none');
-		} else {
-			$('.w-badge').text(parseInt(localStorage.getItem('buyCart')));
-		}
-
 		$(document).on('touchstart', '.add-icon', function() {
 			var boolName = $(this).find('span').hasClass('jiahao108');
 			
 			if(boolName) {
 				$(this).find('span').removeClass('jiahao108').addClass('duigou506');
+
 				var foodId = $(this).parents('li.mui-table-view-cell').attr('data-id');
 				var furl = '/wechat/cart/add/' + foodId;
+				var cartFood = new Array(); //定义购物车里食品id数组
 
-				if(localStorage.getItem('cartFoodId') == null) {
-					var cartFood = new Array(); //定义购物车里食品id数组
-					cartFood.push(foodId);
-					localStorage.setItem('buyCart', cartFood.length);
-					localStorage.setItem('cartFoodId', JSON.stringify(cartFood));
-				} else {
-					var cartFood = JSON.parse(localStorage.getItem('cartFoodId'));
-					cartFood.push(foodId);
-					localStorage.setItem('buyCart', cartFood.length);
-					$('.w-badge').text(cartFood.length);
-					localStorage.setItem('cartFoodId', JSON.stringify(cartFood));
-					console.log(cartFood, cartFood.length);
+				if(localStorage.getItem('cartFoodId') != null) {
+					cartFood = JSON.parse(localStorage.getItem('cartFoodId'));
 				}
+				
+				cartFood.push(foodId);
+
+				localStorage.setItem('buyCart', cartFood.length);
+				localStorage.setItem('cartFoodId', JSON.stringify(cartFood));
+
+				$('.w-badge').text(cartFood.length);
 
 				$.ajax({
 					url: furl,

@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 //wechat
 
 Route::any('/', 'WechatController@serve');
+Route::post('/no_ti_fy', 'BillingController@wechatNotify');
+
 Route::group(['middleware'=>['web', 'wechat.oauth']], function () {
 
 	Route::get('/register', 'UserController@register');
@@ -36,9 +38,8 @@ Route::group(['middleware'=>['web', 'wechat.oauth']], function () {
 		Route::get('/balance', 'BillingController@balance');
 		Route::get('/pay', 'BillingController@payPage');
 
-		Route::get('/paytest', 'BillingController@wechatPay');
-		Route::get('/prepay', 'BillingController@wechatPay');
-		Route::get('/pay_notify', 'BillingController@wechatNotify');
+		Route::get('/prepay', 'BillingController@wechatPrepay');
+		Route::get('/pay', 'BillingController@wechatPay');
 
 		Route::get('/paid', 'BillingController@afterPaid');
 

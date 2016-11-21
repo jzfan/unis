@@ -227,17 +227,16 @@
           }
 
           var buyAcash = parseFloat($('.cash').text());
-          var urlajax = '/wechat/paid?openid={{ $user->id }}';
-          $.ajax({
-            url:urlajax,
-            dataType:'json',
-            async:true,
-            data:{'total':buyAcash, 'time':$('.Ntime').attr('data-id'), 'food':buyArray},
-            type:'GET',
-            success:function(data){
+          // var urlajax = '/wechat/paid?openid={{ $user->id }}';
+          var urlajax = '/wechat/prepay';
+          $.get(urlajax,
+            {'total':buyAcash, 'time':$('.Ntime').attr('data-id'), 'food':buyArray},
+            function(data){
               console.log(data);
+              // alert(data);
+              callpay(data);
             }
-          });
+          );
         })
       })
   </script>
@@ -278,22 +277,31 @@
 
 <script type="text/javascript">
     //调用微信JS api 支付
-    function jsApiCall()
+    function jsApiCall(data)
     {
-      $.get('/wechat/prepay', function(data){
-          WeixinJSBridge.invoke(
-         'getBrandWCPayRequest', eval("("+data+")"),
-              function(res){
-                  alert(res.err_code+res.err_desc+res.err_msg);
-                  WeixinJSBridge.log(res.err_msg);
-              }
-          );
-
-        console.log(data);
-      });
+        WeixinJSBridge.invoke(
+       'getBrandWCPayRequest', eval("("+data+")"),
+            function(res){
+              switch(res.err_msg) {
+                  case 'get_brand_wcpay_request:cancel':
+                      alert('用户取消支付！');
+                      break;
+                  case 'get_brand_wcpay_request:fail':
+                      alert('支付失败！（'+res.err_desc+'）');
+                      break;
+                  case 'get_brand_wcpay_request:ok':
+                      alert('支付成功！');
+                      window.location.replace("/wechat/order/status");
+                      break;
+                  default:
+                      alert(JSON.stringify(res));
+                      break;
+              }      
+            }
+        );
     }
 
-    function callpay()
+    function callpay(data)
     {
         if (typeof WeixinJSBridge == "undefined"){
             if( document.addEventListener ){
@@ -303,15 +311,9 @@
                 document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
             }
         }else{
-            jsApiCall();
+            jsApiCall(data);
         }
     }
-
-    $(function(){
-      $('.w-want-accept').on('touchstart',function(){
-        jsApiCall();
-      })
-    })
 </script>
 
 

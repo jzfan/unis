@@ -19,6 +19,12 @@ use Carbon\Carbon;
 class BillingController extends Controller
 {
 	protected $payment;
+	protected $user;
+	protected $foods;
+	protected $order_no;
+	protected $subject;
+	protected $total;
+	protected $appointment_at;
 
 	public function __construct()
 	{
@@ -35,6 +41,19 @@ class BillingController extends Controller
  		$this->payment = $app->payment;				
 	}
 
+	//初始化参数
+	public function init($request)
+	{
+		$this->user = getWechatUser();
+		$this->order_no = $this->createOrderNum();
+		$this->foods = $this->getFoods($request);
+		$this->subject = join('|', $this->foods->pluck('name')->toArray());
+		// $this->total = $this->getTotalFee();
+		$this->total = 1;
+		$this->appointment_at = $request->time ? Carbon::createFromTimestamp($request->time) : Carbon::now()->addMinutes(30);
+	}
+
+
     public function balance()
     {
     	return view('wechat.billing.balance');
@@ -45,66 +64,79 @@ class BillingController extends Controller
     	return view('wechat.user.pay');
     }
 
-    protected function prePay($order_no)
+    //生成prepay_id
+    protected function createWxOrder()
     {
  		$attributes = [
  		    'trade_type'       => 'JSAPI', // JSAPI，NATIVE，APP...
- 		    'body'             => 'iPad mini 16G 白色',
- 		    'detail'           => 'iPad mini 16G 白色',
- 		    'out_trade_no'     => $order_no,
- 		    'total_fee'        => 1,
- 		    'notify_url'       => env('APP_URL').'/wechat/pay_notify',
- 		    'openid'           => 'oLn0awmzSHZylB1x2MPvX-dSSZlA'
+ 		    'body'             => $this->subject,
+ 		    'detail'           => json_encode($this->foods),
+ 		    'out_trade_no'     => $this->order_no,
+ 		    'total_fee'        => $this->total,
+ 		    'notify_url'       => env('APP_URL').'wechat/no_ti_fy/',
+ 		    'openid'           => $this->user->wechat_openid,
  		];
  		// 创建订单
  		 $order = new Order($attributes);
  		 return $this->payment->prepare($order);	
     }
 
-    public function wechatPay()
+    //供ajax调用，返回参数
+    public function wechatPrepay(Request $request)
     {
-    	$user = getWechatUser();
-    	$order_no = self::createOrderNum($user->id);
-    	$result = $this->prePay($order_no);
-return $this->payment->configForPayment($result->prepay_id);
+    	$this->init($request);
+    	$result = $this->createWxOrder();
+    	\Log::info($result);
 		 if ($result->return_code == 'SUCCESS' && $result->result_code == 'SUCCESS')
 		 {
-		 	$data = [
-		 		'appId'=> $result->appid,
-		 		'nonceStr'=> $result->nonce_str,
-		 		'package'=> "prepay_id=".$result->prepay_id,
-		 		"signType"=> "MD5",
-		 		"paySign"=> $result->sign,
-		 		'timeStamp'=>(string)time(),
-		 		"total" => 1
-		 	];
-		 	ksort($data);
-return json_encode($data);
-
-		     // \Log::info('生成订单号..'.$data->order_guid);
-		     //这一块是以ajax形式返回到页面上。
-		     //用户的体验就是点击【确认支付】，验证码以弹层页面出来了（没错，还需要一个好用的弹层js）。
-		     // $ajax_data=[
-		     //     // 'html'         =>   json_encode(\QrCode::size(250)->generate($result['code_url'])),
-		     //     'out_trade_no' =>  $order_no,
-		     //     'price'        =>  11
-		     // ];
-		     // return $ajax_data;
-		 }else{
-		 	abort(403, 'make order error.');
-		    return back()->withErrors('生成订单错误！');
+		 	//生成订单
+		 	$this->createOrder();
+			return $this->payment->configForPayment($result->prepay_id);
 		 }
+
+		return '生成订单错误！';
+    }
+
+    //生成订单入库
+    protected function createOrder()
+    {
+    	$address = $this->user->defaultAddress();
+
+    	\DB::transaction(function() use($address)
+    	{
+	    	$order = UnisOrder::create([
+	    		'school_id' => $address->school_id,
+	    		'order_no' => $this->order_no,
+	    		'type' => 'wxpay',
+	    		'subject' => $this->subject,
+	    		'user_id' => $this->user->id,
+	    		'total' => $this->total,
+	    		'campus_id' => $address->campus_id,
+	    		'dorm_id' => $address->dorm_id,
+	    		'address' => $address->text(),
+	    		'status' => 'ordered',
+	    		'appointment_at' => $this->appointment_at,
+	    	]);
+	    	foreach ($this->foods as $food) {
+		    	OrderItem::create([
+		    		'order_id' => $order->id,
+		    		'food_id' => $food->id,
+		    		'amount' => $food->num,
+		    		'price' => $food->priceAfterDiscount(),
+		    	]);
+
+	    	}
+    	});
 
     }
 
     public function wechatNotify()
     {
-        $app = new Application(config('wechat'));
-		$response = $app->payment->handleNotify(function($notify, $successful){
-		    // 使用通知里的 "微信支付订单号" 或者 "商户订单号" 去自己的数据库找到订单
-		    $order = 查询订单($notify->transaction_id);
-		    if (!$order) { // 如果订单不存在
-		        return 'Order not exist.'; // 告诉微信，我已经处理完了，订单没找到，别再通知我了
+    	$response = $this->payment->handleNotify(function($notify, $successful){
+    		$order = UnisOrder::where('order_no', $notify->out_trade_no)->orderBy('id', 'desc')->first();
+
+    		if (!$order) { // 如果订单不存在
+    		        return 'Order not exist.'; // 告诉微信，我已经处理完了，订单没找到，别再通知我了
 		    }
 		    // 如果订单存在
 		    // 检查订单是否已经更新过支付状态
@@ -121,67 +153,42 @@ return json_encode($data);
 		    }
 		    $order->save(); // 保存订单
 		    return true; // 返回处理完成
-		});
-		return $response;
+    	});
+    	return $response;
+
     }
 
-    public function afterPaid(Request $request)
-    {
-    	$user = getWechatUser();
-
-    	$address = User::find($user->id)->defaultAddress();
-
-    	$foods_arr = $request->food;
-    	$ids = [];
-    	foreach($foods_arr as $food_arr){
-    		$ids[] = $food_arr['id'];
-    	}
-
-    	$foods = Food::whereIn('id', $ids)->get();
-
-    	if (! $foods){
-    		abort('400', 'no food');
-    	}
-    	$total = 0;
-    	$order = UnisOrder::create([
-    		'school_id' => $address->school_id,
-    		'order_no' => self::createOrderNum($user->id),
-    		'type' => 'wxpay',
-    		'subject' => join('|', $foods->pluck('name')->toArray()),
-    		'user_id' => $user->id,
-    		'total' => $total,
-    		'campus_id' => $address->campus_id,
-    		'dorm_id' => $address->dorm_id,
-    		'address' => $address->text(),
-    		'status' => 'paid',
-    		'paid_at' => Carbon::now(),
-    		'appointment_at' => Carbon::createFromTimestamp($request->time)
-    	]);
-
-    	foreach($foods as $key=>$food){
-    		$price = $food->priceAfterDiscount();
-    		$total = $total + $price*$foods_arr[$key]['numb'];
-	    	OrderItem::create([
-	    		'order_id' => $order->id,
-	    		'food_id' => $food->id,
-	    		'amount' => $foods_arr[$key]['numb'],
-	    		'price' => $price,
-	    	]);
-    	}
-
-    	$order->update(['total'=>$total]);
-    	// dd($foods->pluck('name')->toArray());
-    	// dd($address->text());
-
-    	$carts = Cart::where('user_id', $user->id)->get();
-    	foreach($carts as $cart){
-    		$cart->delete();
-    	}
-    	return 'success';
-    }
-
-	public static function createOrderNum($user_id)
+	protected function createOrderNum()
 	{
-		return dechex(time()+$user_id);
+		return date('mdHis').$this->user->id;
+	}
+
+	protected function getFoods($request)
+	{
+		$foods_arr = $request->food;
+		$food_list = [];
+		foreach($foods_arr as $key => $food_arr){
+
+				$food_list[$food_arr['id']] = $food_arr['numb'];
+		}
+		$foods = Food::whereIn('id', array_keys($food_list))->get();
+    	foreach($foods as $key=>$food){
+    		$food->num = $food_list[$food->id];
+    	}
+		if (! $foods){
+			abort('400', 'no food');
+		}
+		return $foods;
+	}
+
+	protected function getTotalFee()
+	{
+		$total = 0;
+		foreach ($this->foods as $key => $food) {
+    		$price = $food->priceAfterDiscount();
+    		$total += $price*$food->num;
+		}
+		//分
+		return $total*100;
 	}
 }

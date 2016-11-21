@@ -26,9 +26,9 @@ class OrderController extends BaseController
     }
     
     //接单
-    public function taken($order_no)
+    public function taken($order_id)
     {
-    	$order = Order::where(['order_no'=>$order_no, 'status'=>'paid'])->first();
+    	$order = Order::where(['id'=>$order_id, 'status'=>'paid'])->first();
         $this->checkNull($order);
 
         $order->update([
@@ -40,9 +40,9 @@ class OrderController extends BaseController
     }
 
     //确认送达
-    public function delivered($order_no)
+    public function delivered($order_id)
     {
-    	$order = Order::where(['order_no'=>$order_no, 'status'=>'taken'])->first();
+    	$order = Order::where(['id'=>$order_id, 'status'=>'taken'])->first();
     	$this->checkNull($order);
     	$order->update([
     		'status'=>'delivered',
@@ -52,9 +52,9 @@ class OrderController extends BaseController
     }
 
     //确认收到
-    public function received($order_no)
+    public function received($order_id)
     {
-    	$order = Order::where(['order_no'=>$order_no, 'status'=>'delivered'])->first();
+    	$order = Order::where(['id'=>$order_id, 'status'=>'delivered'])->first();
     	$this->checkNull($order);
     	$order->status = 'received';
     	$order->received_at = Carbon::now();
@@ -69,9 +69,9 @@ class OrderController extends BaseController
     	}
     }
 
-    public function show($order_no)
+    public function show($order_id)
     {
-        $order = Order::with('order_items.food')->where('order_no', $order_no)->first();
+        $order = Order::with('order_items.food')->where('id', $order_id)->first();
         $this->checkNull($order);
         return $order;
     }

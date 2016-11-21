@@ -1,12 +1,16 @@
 @if (count($errors) > 0)
     <div class="alert alert-danger">
         <ul>
-            @foreach ($errors->all() as $error)
+           
             <script type="text/javascript">
-            	var errs = '{{$error}}';
-            	console.log(errs);
+            	var errs = '{{ $errors->first() }}';
+            	layer.open({
+                    content: errs
+                    ,skin: 'msg'
+                    ,time: 2 //2秒后自动关闭
+                  });
             </script>
-            @endforeach
+            
         </ul>
     </div>
 @endif

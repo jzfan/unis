@@ -45,4 +45,11 @@ class FoodController extends Controller
     	return $this->response->paginator($foods, new FoodTransformer);
     }
 
+    public function showByIds(Request $request)
+    {
+        $ids = $request->ids;
+        dd($ids);
+        return Food::whereIn('id', $ids)->get();
+    }
+
 }

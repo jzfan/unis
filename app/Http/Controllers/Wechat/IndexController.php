@@ -15,7 +15,7 @@ use League\Fractal;
 use League\Fractal\Manager as FractalManager;
 use App\Unis\Suplier\Transformer\FoodTransformer;
 
-class IndexController extends BaseController
+class IndexController extends Controller
 {
 
 
@@ -23,7 +23,7 @@ class IndexController extends BaseController
 
     public function index(Request $request)
     {
-        $address = Address::where('user_id', $this->getWechatUser()->id)->where('status', '1')->first();
+        $address = Address::where('user_id', getWechatUser()->id)->where('status', '1')->first();
         // dd($address);
         if (! $address){
             abort('403', 'the user have no address');
@@ -95,8 +95,13 @@ class IndexController extends BaseController
 
     public function data()
     {
-        $user = $this->getWechatUser();
+        $user = getWechatUser();
         $data['canteens'] = $user->campus()->canteens;
         return $data;
+    }
+
+    public function test()
+    {
+        return view('wechat.test');
     }
 }

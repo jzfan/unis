@@ -44,14 +44,14 @@
 
 ###订单
 * 取订单列表        method:get      uri: /api/order?openid=xxxx
-* 接单             method:get        uri: /api/order/taken/{order_no}
+* 接单             method:get        uri: /api/order/taken/{order_id}
 
-* 确认送达  method:get uri: /api/order/delivered/{order_no}?openid=xxxx
-* 确认收到  method:get uri: /api/order/received/{order_no}?openid=xxxx
-* 确认付款  method:get uri: /wechat/paid/{order_no}
+* 确认送达  method:get uri: /api/order/delivered/{order_id}?openid=xxxx
+* 确认收到  method:get uri: /api/order/received/{order_id}?openid=xxxx
+* 确认付款  method:get uri: /wechat/paid/{order_id}?openid=xxxx
 * 点击付款  method:get  uri: /wechat/paid?shop_id=1&food[]=1&food[]=2
 
-* 订单详情  method:get  uri: /api/order/show/{order_no}
+* 订单详情  method:get  uri: /api/order/show/{order_id}
 
 
 ###食品

@@ -28,7 +28,7 @@ class WechatUserRequest extends FormRequest
             'campus_id' => 'required|exists:campuses,id',
             'dorm_id'   => 'required|exists:dorms,id',
             'room_number'   => 'required|max:255',
-            // 'phone' => 'required|digits_between:13000000000,18999999999'
+            'phone' => 'required|unique:users'
         ];
     }
 }

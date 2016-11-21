@@ -13,7 +13,7 @@ use League\Fractal;
 use League\Fractal\Manager as FractalManager;
 use App\Unis\Suplier\Transformer\FoodTransformer;
 
-class FavoriteController extends BaseController
+class FavoriteController extends Controller
 {
 
     public function index()
@@ -23,7 +23,7 @@ class FavoriteController extends BaseController
 
     public function getList(FractalManager $fractal)
     {
-    	$favorites = User::find($this->getWechatUser()->id)->favorites;
+    	$favorites = User::find(getWechatUser()->id)->favorites;
 		$resource = new Fractal\Resource\Collection($favorites, new FoodTransformer);
     	return $fractal->createData($resource)->toJson();
 
@@ -35,7 +35,7 @@ class FavoriteController extends BaseController
             return response()->json(['message' => 'added already', 'state' => 'error']);
         }
         if (Favorite::create([
-            'user_id' => $this->getWechatUser()->id,
+            'user_id' => getWechatUser()->id,
             'food_id' => $food_id
         ])){
 
@@ -49,7 +49,7 @@ class FavoriteController extends BaseController
     	if (! $this->isExist($food_id)){
     	    return response()->json(['message' => 'cancled already', 'state' => 'error']);
     	}
-        if (Favorite::where(['user_id'=>$this->getWechatUser()->id, 'food_id'=>$food_id])->delete()){
+        if (Favorite::where(['user_id'=>getWechatUser()->id, 'food_id'=>$food_id])->delete()){
             return response()->json(['message' => 'cancle success', 'state' => 'success']);
         }
         return response()->json(['message' => 'cancle failed', 'state' => 'failed']);
@@ -57,6 +57,6 @@ class FavoriteController extends BaseController
 
     protected function isExist($food_id)
     {
-        return Favorite::where(['user_id'=>$this->getWechatUser()->id, 'food_id'=>$food_id])->get()->count() > 0;
+        return Favorite::where(['user_id'=>getWechatUser()->id, 'food_id'=>$food_id])->get()->count() > 0;
     }
 }

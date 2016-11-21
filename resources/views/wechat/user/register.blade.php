@@ -58,7 +58,7 @@
 
 	    <div class="w-clear mui-input-row">
 	        <label>手机:</label>
-	        <input type="number" class="mui-input-clear" placeholder="输入手机号" tabindex="5" id="telephone"  name="phone" required>
+	        <input type="text" class="mui-input-clear" placeholder="输入手机号" tabindex="5" id="telephone"  name="phone" required>
 	        <input type="hidden" name='id' id='user'>
 	        <input type="hidden" name='email' id='email'>
 	        <input type="hidden" name='avatar' id="avatar">
@@ -126,7 +126,7 @@
 			});
 
 
-	/*选择校区选择宿舍*/
+	/*根据校区选择宿舍*/
 	$(function(){
 			$(document).on('touchstart','#school-room input',function(){
 				$('#room-fix li').not('.school-search').remove();
@@ -213,8 +213,7 @@
 	;$(function(){
 		$('.w-entry-btn').on('touchstart',function(){
 			 var phone = $('#telephone').val();
-    			//if(!(/^1(3|4|5|7|8)\d{9}$/.test(phone))){ 
-    			if(!(/^1[0-9]{10}$/.test(phone))){ 
+    			if(!(/^1(3|4|5|7|8)\d{9}$/.test(phone))){ 
         			layer.open({
 				    content: '您输入的手机号码有误'
 				    ,skin: 'msg'

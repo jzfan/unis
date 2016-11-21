@@ -84,10 +84,11 @@
 	   	 		async:true,
 	   	 		type:'GET',
 	   	 		success:function(data){
+	   	 			console.log(data);
 	   	 			for(var i=0;i<data.length;i++){
 	   	 				var div = document.createElement('div');
 	   	 				    div.className = "w-finshed-menu";
-	   	 				    div.innerHTML = '<ul class="w-cash-all mui-table-view" data-id='+data[i].order_no+'><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+data[i].total+'元(含服务费)</span></li></ul><ul class="menu-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+' <span class="w-hold mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="teleShow">联系电话: <a href="tel:15586879654">15586879654</a></div></li><li class="mui-table-view-cell">联系姓名：{{$user->name}}</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+data[i].paid_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+data[i].appointment_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><a href="#"><button class="w-beget w-want-accept-native" data-id='+data[i].order_no+'>确认收货</button></a></li></ul>';
+	   	 				    div.innerHTML = '<ul class="w-cash-all mui-table-view" data-id='+data[i].order_no+'><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+data[i].total+'元(含服务费)</span></li></ul><ul class="menu-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+' <span class="w-hold mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="teleShow">联系电话: <a href="tel:'+data[i].orderer.phone+'">'+data[i].orderer.phone+'</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].orderer.name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+data[i].paid_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+data[i].appointment_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><a href="#"><button class="w-beget w-want-accept-native" data-id='+data[i].id+'>确认收货</button></a></li></ul>';
 
 	   	 				   var table = document.body.querySelector('#item1mobile .mui-scroll');
 						   var bot = document.body.querySelector('#item1mobile .mui-pull-bottom-tips');
@@ -111,7 +112,7 @@
 	   	 			for(var i=0;i<data.length;i++){
 	   	 				var div = document.createElement('div');
 	   	 				    div.className = "w-finshed-menu";
-	   	 				    div.innerHTML = '<ul class="w-cash-all mui-table-view" data-id='+data[i].order_no+'><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+data[i].total+'元(含服务费)</span></li></ul><ul class="menu-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="w-hold mui-pull-right">配送中</span></li><li class="mui-table-view-cell"><div class="teleShow">联系电话: <a href="tel:15586879654">15586879654</a></div></li><li class="mui-table-view-cell">联系姓名：{{$user->name}}</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+data[i].paid_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+data[i].appointment_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-bearrive w-want-accept-native" data-id='+data[i].order_no+'>确认送达</button></li></ul>';
+	   	 				    div.innerHTML = '<ul class="w-cash-all mui-table-view" data-id='+data[i].order_no+'><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+data[i].total+'元(含服务费)</span></li></ul><ul class="menu-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="w-hold mui-pull-right">配送中</span></li><li class="mui-table-view-cell"><div class="teleShow">联系电话: <a href="tel:'+data[i].orderer.phone+'">'+data[i].orderer.phone+'</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].orderer.name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+data[i].paid_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+data[i].appointment_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-bearrive w-want-accept-native" data-id='+data[i].id+'>确认送达</button></li></ul>';
 
 	   	 				var table = document.body.querySelector('#item2mobile .mui-scroll');
 						var bot = document.body.querySelector('#item2mobile .mui-pull-bottom-tips');
@@ -137,7 +138,7 @@
 	   	 			for(var i=0;i<data.length;i++){
 	   	 				var div = document.createElement('div');
 	   	 				    div.className = "w-finshed-menu";
-	   	 				    div.innerHTML = '<ul class="w-cash-all mui-table-view" data-id='+data[i].order_no+'><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+data[i].total+'元(含服务费)</span></li></ul><ul class="menu-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="w-hold mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="teleShow">联系电话: <a href="tel:15586879654">15586879654</a></div></li><li class="mui-table-view-cell">联系姓名：{{$user->name}}</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+data[i].paid_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+data[i].appointment_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-hold w-want-accept-s mui-disabled" data-id='+data[i].order_no+'>等待确认</button></li></ul>';
+	   	 				    div.innerHTML = '<ul class="w-cash-all mui-table-view" data-id='+data[i].order_no+'><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+data[i].total+'元(含服务费)</span></li></ul><ul class="menu-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="w-hold mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="teleShow">联系电话: <a href="tel:'+data[i].orderer.phone+'">'+data[i].orderer.phone+'</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].orderer.name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+data[i].paid_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+data[i].appointment_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-hold w-want-accept-s mui-disabled" data-id='+data[i].order_no+'>等待确认</button></li></ul>';
 
 	   	 				var table = document.body.querySelector('#item3mobile .mui-scroll');
 						var bot = document.body.querySelector('#item3mobile .mui-pull-bottom-tips');
@@ -182,7 +183,7 @@
 									        	for(var i=0;i<data.length;i++){
 									        		var div = document.createElement('div');
 									        			div.className = "w-finshed-menu";
-									        			div.innerHTML = '<ul class="w-cash-all mui-table-view" data-id='+data[i].order_no+'><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+data[i].total+'元(含服务费)</span></li></ul><ul class="menu-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+' <span class="w-hold mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="teleShow">联系电话: <a href="tel:15586879654">15586879654</a></div></li><li class="mui-table-view-cell">联系姓名：{{$user->name}}</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+data[i].paid_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+data[i].appointment_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><a href=""><button class="w-beget w-want-accept-native" data-id='+data[i].order_no+'>确认收货</button></a></li></ul>'; 
+									        			div.innerHTML = '<ul class="w-cash-all mui-table-view" data-id='+data[i].order_no+'><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+data[i].total+'元(含服务费)</span></li></ul><ul class="menu-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+' <span class="w-hold mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="teleShow">联系电话: <a href="tel:'+data[i].orderer.phone+'">'+data[i].orderer.phone+'</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].orderer.name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+data[i].paid_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+data[i].appointment_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><a href=""><button class="w-beget w-want-accept-native" data-id='+data[i].id+'>确认收货</button></a></li></ul>'; 
 
 									        			var table = document.body.querySelector('#item1mobile .mui-scroll');
 														var bot = document.body.querySelector('#item1mobile .mui-pull-bottom-tips');
@@ -211,7 +212,7 @@
 									     //    	for(var i=0;i<data.length;i++){
 									     //    		var div = document.createElement('div');
 									     //    			div.className = "w-finshed-menu";
-									     //    			div.innerHTML = '<ul class="w-cash-all mui-table-view" data-id='+data[i].order_no+'><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+data[i].total+'元(含服务费)</span></li></ul><ul class="menu-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+' <span class="w-hold mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="teleShow">联系电话: <a href="tel:15586879654">15586879654</a></div></li><li class="mui-table-view-cell">联系姓名：{{$user->name}}</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+data[i].paid_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+data[i].appointment_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><a href="#"><button class="w-beget w-want-accept-native" data-id='+data[i].order_no+'>确认收货</button></a></li></ul>'; 
+									     //    			div.innerHTML = '<ul class="w-cash-all mui-table-view" data-id='+data[i].order_no+'><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+data[i].total+'元(含服务费)</span></li></ul><ul class="menu-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+' <span class="w-hold mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="teleShow">联系电话: <a href="'+data[i].orderer.phone+'">'+data[i].orderer.phone+'</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].orderer.name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+data[i].paid_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+data[i].appointment_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><a href="#"><button class="w-beget w-want-accept-native" data-id='+data[i].id+'>确认收货</button></a></li></ul>'; 
 									        			
 									     //    			/*var table = document.body.querySelector('#item1mobile');
               //       	    								table.appendChild(div);   */
@@ -246,6 +247,7 @@
 					indicators: true, //是否显示滚动条
 					deceleration:deceleration
 				});
+
 				$(function() {
 					//初始化下拉刷新，上拉加载。
 					
@@ -262,10 +264,11 @@
 											async:true,
 											type:'GET',
 									        success:function(data){
+									        	console.log(data);
 									        	for(var i=0;i<data.length;i++){
 									        		var div = document.createElement('div');
 									        			div.className = "w-finshed-menu";
-									        			div.innerHTML = '<ul class="w-cash-all mui-table-view" data-id='+data[i].order_no+'><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+data[i].total+'元(含服务费)</span></li></ul><ul class="menu-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+' <span class="w-hold mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="teleShow">联系电话: <a href="tel:15586879654">15586879654</a></div></li><li class="mui-table-view-cell">联系姓名：{{$user->name}}</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+data[i].paid_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+data[i].appointment_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-bearrive w-want-accept-native" data-id='+data[i].order_no+'>确认送达</button></li></ul>'; 
+									        			div.innerHTML = '<ul class="w-cash-all mui-table-view" data-id='+data[i].order_no+'><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+data[i].total+'元(含服务费)</span></li></ul><ul class="menu-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+' <span class="w-hold mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="teleShow">联系电话: <a href="tel:'+data[i].orderer.phone+'">'+data[i].orderer.phone+'</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].orderer.name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+data[i].paid_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+data[i].appointment_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-bearrive w-want-accept-native" data-id='+data[i].id+'>确认送达</button></li></ul>'; 
 									        			
 									        			/*var table = document.body.querySelector('#item1mobile');
                     	    								table.appendChild(div);   */
@@ -294,17 +297,17 @@
 											async:true,
 											type:'GET',
 									        success:function(data){
-									     //    	for(var i=0;i<data.length;i++){
-									     //    		var div = document.createElement('div');
-									     //    			div.className = "w-finshed-menu";
-									     //    			div.innerHTML = '<ul class="w-cash-all mui-table-view" data-id='+data[i].order_no+'><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+data[i].total+'元(含服务费)</span></li></ul><ul class="menu-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+' <span class="w-hold mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="teleShow">联系电话: <a href="tel:15586879654">15586879654</a></div></li><li class="mui-table-view-cell">联系姓名：{{$user->name}}</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+data[i].paid_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+data[i].appointment_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-bearrive w-want-accept-native" data-id='+data[i].order_no+'>确认送达</button></li></ul>'; 
+									       	for(var i=0;i<data.length;i++){
+									       		var div = document.createElement('div');
+									         			div.className = "w-finshed-menu";
+									       			div.innerHTML = '<ul class="w-cash-all mui-table-view" data-id='+data[i].order_no+'><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+data[i].total+'元(含服务费)</span></li></ul><ul class="menu-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+' <span class="w-hold mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="teleShow">联系电话: <a href="tel:'+data[i].orderer.phone+'">'+data[i].orderer.phone+'</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].orderer.name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+data[i].paid_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+data[i].appointment_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-bearrive w-want-accept-native" data-id='+data[i].id+'>确认送达</button></li></ul>'; 
 									        			
-									     //    			/*var table = document.body.querySelector('#item1mobile');
-              //       	    								table.appendChild(div);   */
-              //       	    							var table = document.body.querySelector('#item2mobile .mui-scroll');
-														// var bot = document.body.querySelector('#item2mobile .mui-pull-bottom-tips');
-														// 	   table.insertBefore(div,bot);
-									     //    	}
+									        			/*var table = document.body.querySelector('#item1mobile');
+                   	    								table.appendChild(div);   */
+                  	    							var table = document.body.querySelector('#item2mobile .mui-scroll');
+														 var bot = document.body.querySelector('#item2mobile .mui-pull-bottom-tips');
+															   table.insertBefore(div,bot);
+									      	}
 									        }
 
 											});
@@ -318,11 +321,14 @@
 					
 					
 				});
+
+
 			})(mui);
 		</script>
 
 
-		<script>/*我已完成页面上拉刷新下拉加载*/
+
+		<script>/*我的带餐页面上拉刷新下拉加载*/
 			mui.init();
 			(function($) {
 				//阻尼系数
@@ -332,6 +338,7 @@
 					indicators: true, //是否显示滚动条
 					deceleration:deceleration
 				});
+
 				$(function() {
 					//初始化下拉刷新，上拉加载。
 					
@@ -351,13 +358,10 @@
 									        	for(var i=0;i<data.length;i++){
 									        		var div = document.createElement('div');
 									        			div.className = "w-finshed-menu";
-									        			div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+data[i].total+'元(含服务费)</span></li></ul><ul class="menu-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+' <span class="w-hold mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="teleShow">联系电话: <a href="tel:15586879654">15586879654</a></div></li><li class="mui-table-view-cell">联系姓名：{{$user->name}}</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+data[i].paid_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+data[i].appointment_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-hold w-want-accept-native" data-id='+data[i].order_no+' disabled>等待确认</button></li></ul>'; 
-									        			
-									        			/*var table = document.body.querySelector('#item1mobile');
-                    	    								table.appendChild(div);   */
+									        			div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+data[i].total+'元(含服务费)</span></li></ul><ul class="menu-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+' <span class="w-hold mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="teleShow">联系电话: <a href="tel:'+data[i].orderer.phone+'">'+data[i].orderer.phone+'</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].orderer.name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+data[i].paid_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+data[i].appointment_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-hold w-want-accept-native" data-id='+data[i].id+' disabled>等待确认</button></li></ul>'; 
+
                     	    							var table = document.body.querySelector('#item3mobile .mui-scroll');
 														var bot = document.body.querySelector('#item3mobile .mui-pull-bottom-tips');
-													   	/*$('#item2mobile .mui-scroll').html('');*/
 														table.insertBefore(div,bot);
 									        	}
 									        }
@@ -380,17 +384,15 @@
 											async:true,
 											type:'GET',
 									        success:function(data){
-									     //    	for(var i=0;i<data.length;i++){
-									     //    		var div = document.createElement('div');
-									     //    			div.className = "w-finshed-menu";
-									     //    			div.innerHTML = '<ul class="w-cash-all mui-table-view" data-id='+data[i].order_no+'><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+data[i].total+'元(含服务费)</span></li></ul><ul class="menu-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+' <span class="w-hold mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="teleShow">联系电话: <a href="tel:15586879654">15586879654</a></div></li><li class="mui-table-view-cell">联系姓名：{{$user->name}}</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+data[i].paid_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+data[i].appointment_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-hold w-want-accept-native" data-id='+data[i].order_no+' disabled>等待确认</button></li></ul>'; 
+									       	for(var i=0;i<data.length;i++){
+									        		var div = document.createElement('div');
+									         			div.className = "w-finshed-menu";
+									         			div.innerHTML = '<ul class="w-cash-all mui-table-view" data-id='+data[i].order_no+'><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+data[i].total+'元(含服务费)</span></li></ul><ul class="menu-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+' <span class="w-hold mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="teleShow">联系电话: <a href="tel:'+data[i].orderer.phone+''+data[i].orderer.phone+'">'+data[i].orderer.phone+'</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].orderer.name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+data[i].paid_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+data[i].appointment_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-hold w-want-accept-native" data-id='+data[i].id+' disabled>等待确认</button></li></ul>'; 
 									        			
-									     //    			/*var table = document.body.querySelector('#item1mobile');
-              //       	    								table.appendChild(div);   */
-              //       	    							var table = document.body.querySelector('#item3mobile .mui-scroll');
-														// var bot = document.body.querySelector('#item3mobile .mui-pull-bottom-tips');
-														// 	   table.insertBefore(div,bot);
-									     //    	}
+                  	    								 var table = document.body.querySelector('#item3mobile .mui-scroll');
+														 var bot = document.body.querySelector('#item3mobile .mui-pull-bottom-tips');
+														 	   table.insertBefore(div,bot);
+									      	}
 									        }
 
 											});
@@ -400,7 +402,15 @@
 							}
 
 
+						});
+					
+					
+				});
+
+
+			})(mui);
 		</script>
+
 
 
 	<script>

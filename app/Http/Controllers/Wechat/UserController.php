@@ -10,7 +10,7 @@ use App\Unis\User\User;
 use App\Unis\User\Address;
 use \DB;
 
-class UserController extends BaseController
+class UserController extends Controller
 {
 
     public function store(WechatUserRequest $request)

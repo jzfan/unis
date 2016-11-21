@@ -13,11 +13,11 @@ use League\Fractal;
 use League\Fractal\Manager as FractalManager;
 use App\Unis\Suplier\Transformer\FoodTransformer;
 
-class CartController extends BaseController
+class CartController extends Controller
 {
     public function show()
     {
-        $user = $this->getWechatUser();
+        $user = getWechatUser();
 		return view('wechat.cart.show', compact('user'));
 	}
 
@@ -25,7 +25,7 @@ class CartController extends BaseController
     {
     	$food = Food::findOrFail($request->input('food_id'));
     	Cart::create([
-    		'user_id' => $this->getWechatUser()->id,
+    		'user_id' => getWechatUser()->id,
     		'food_id' => $food->id,
     		]);
     	return redirect()->back()->with('success', '已加入购物车！');
@@ -43,7 +43,7 @@ class CartController extends BaseController
         }
 
         if (Cart::create([
-            'user_id' => $this->getWechatUser()->id,
+            'user_id' => getWechatUser()->id,
             'food_id' => $food_id
         ])){
 
@@ -58,7 +58,7 @@ class CartController extends BaseController
             return response()->json(['message' => 'cancled already', 'state' => 'error']);
         }
 
-        if (Cart::where(['user_id'=>$this->getWechatUser()->id, 'food_id'=>$food_id])->delete()){
+        if (Cart::where(['user_id'=>getWechatUser()->id, 'food_id'=>$food_id])->delete()){
             return response()->json(['message' => 'cancle success', 'state' => 'success']);
         }
         return response()->json(['message' => 'cancle failed', 'state' => 'failed']);
@@ -66,19 +66,19 @@ class CartController extends BaseController
 
     protected function isExist($food_id)
     {
-        return Cart::where(['user_id'=>$this->getWechatUser()->id, 'food_id'=>$food_id])->get()->count() > 0;
+        return Cart::where(['user_id'=>getWechatUser()->id, 'food_id'=>$food_id])->get()->count() > 0;
     }
 
     public function getList(FractalManager $fractal)
     {
-        $cart_items = User::find($this->getWechatUser()->id)->foodsInCart;
+        $cart_items = User::find(getWechatUser()->id)->foodsInCart;
         $resource = new Fractal\Resource\Collection($cart_items, new FoodTransformer);
         return $fractal->createData($resource)->toJson();
     }
 
     public function listByUser(Fractal $fractal)
     {
-        $favorites = User::find($this->getWechatUser()->id)->favorites;
+        $favorites = User::find(getWechatUser()->id)->favorites;
         $resource = new Fractal\Resource\Collection($favorites, new FoodTransformer);
         return $fractal->createData($resource)->toJson();
 

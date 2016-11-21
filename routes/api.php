@@ -58,13 +58,13 @@ $api->version('v1', function ($api) {
     $api->post('address', 'App\Http\Controllers\Api\V1\AddressController@store');
     $api->delete('address/{address_id}', 'App\Http\Controllers\Api\V1\AddressController@destroy')->where(['address_id' => '[0-9]+']);
     //接单
-    $api->get('order/taken/{order_no}', 'App\Http\Controllers\Api\V1\OrderController@taken');
+    $api->get('order/taken/{order_id}', 'App\Http\Controllers\Api\V1\OrderController@taken');
     //确认送达
-    $api->get('order/delivered/{order_no}', 'App\Http\Controllers\Api\V1\OrderController@delivered'); 
+    $api->get('order/delivered/{order_id}', 'App\Http\Controllers\Api\V1\OrderController@delivered'); 
     //确认收到
-    $api->get('order/received/{order_no}', 'App\Http\Controllers\Api\V1\OrderController@received');
+    $api->get('order/received/{order_id}', 'App\Http\Controllers\Api\V1\OrderController@received');
     //订单详情
-    $api->get('order/show/{order_no}', 'App\Http\Controllers\Api\V1\OrderController@show');
+    $api->get('order/show/{order_id}', 'App\Http\Controllers\Api\V1\OrderController@show');
 
     //意见反馈
     $api->post('report', 'App\Http\Controllers\Api\V1\ReportController@store');

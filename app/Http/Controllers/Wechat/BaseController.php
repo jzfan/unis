@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Unis\User\User;
 
-class BaseController extends Controller
+class BaseController_bak extends Controller
 {
 
 	protected function getWechatUser()

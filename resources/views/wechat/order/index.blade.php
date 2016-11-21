@@ -9,9 +9,9 @@
 		<div class="mui-content">
 			<div id="slider" class="mui-slider mui-fullscreen">
 				<div id="sliderSegmentedControl" class="w-tab mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-					<a class="mui-control-item " href="#item1mobile">我的订单</a>
-					<a class="mui-control-item mui-active" href="#item2mobile">我的带餐</a>
-					<a class="mui-control-item" href="#item3mobile">我已带到</a>
+					<a class="mui-control-item mui-active" href="#item1mobile">我的订单</a>
+					<a class="mui-control-item " href="#item2mobile">我的带餐</a>
+					<a class="mui-control-item " href="#item3mobile">我已带到</a>
 				</div>
 	
 				<div class="mui-slider-group">
@@ -312,7 +312,6 @@
 	   	 	$.ajax({
 	   	 		url:'/wechat/ajax/order',
 	   	 		dataType:'json',
-	   	 		/*data:{'page':'1'},*/
 	   	 		async:true,
 	   	 		type:'GET',
 	   	 		success:function(data){
@@ -337,7 +336,6 @@
 	   	 		// url:'/wechat/ajax/order',
 	   	 		url:'/wechat/ajax/order/uncompleted',
 	   	 		dataType:'json',
-	   	 		/*data:{'page':1}*/
 	   	 		async:true,
 	   	 		type:'GET',
 	   	 		success:function(data){
@@ -360,10 +358,8 @@
 	<script>
 	   $(function(){
 	   	 	$.ajax({
-	   	 		// url:'/wechat/ajax/order',
 	   	 		url:'/wechat/ajax/order/completed',
 	   	 		dataType:'json',
-	   	 		/*data:{'page':1}*/
 	   	 		async:true,
 	   	 		type:'GET',
 	   	 		success:function(data){

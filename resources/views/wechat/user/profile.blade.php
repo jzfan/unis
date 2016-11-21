@@ -18,7 +18,7 @@
 			<ul class="mui-table-view">
 			    <li class="mui-table-view-cell">
 			    	<span class="person-ico mui-icon iconfont wodedingdan411"></span>
-			    	<a href="/wechat/order/index2" class="mui-navigate-right">我的订单</a>	    	
+			    	<a href="/wechat/order/index" class="mui-navigate-right">我的订单</a>	    	
 			    </li>
 			</ul>
 
@@ -102,7 +102,6 @@
 					data:{},
 					type:'GET',
 					success:function(data){
-						console.log(data.name);
 						$('.w-self-top').attr('data-id',data.wechat_openid);
 						$('.sign-in a').html(data.name);
 						var imgUrl = data.avatar;
@@ -124,7 +123,6 @@
 					data:{},
 					type:'GET',
 					success:function(data){
-						console.log(data);
 						$('.yue').text(data);
 					}
 				})

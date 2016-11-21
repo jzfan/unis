@@ -9,8 +9,7 @@
     <li style="width:100%;height:100%;text-align:center;padding-top:200px;font-size:20px;color:silver;">
       您还没有购买任何商品！
     </li>
-  </ul>
-            
+  </ul>    
       
 <!--底部nav切换开始-->
     <nav class="win-bar mui-bar mui-bar-tab">
@@ -23,7 +22,7 @@
         <span class="mui-tab-label">我的订单</span>
       </a>
       <a class="mui-tab-item mui-active" href="/wechat/cart">
-        <span class="mui-icon iconfont xuangouwuche203"></span>
+        <span class="mui-icon iconfont xuangouwuche203"><span class="w-badge mui-badge"></span></span>
         <span class="mui-tab-label">购物车</span>
       </a>
       <a class="mui-tab-item" href="/wechat/profile">
@@ -49,12 +48,13 @@
         //     })
         //   })
         // });
-         
+    
         
   </script> 
 
   <script>
       $(function(){
+        $('.w-badge').text(parseInt(localStorage.getItem('buyCart')));
          $.ajax({
                 url:'/wechat/ajax/cart',
                 dataType:'json',
@@ -100,7 +100,7 @@
                       });
                     div = document.createElement('div');
                     div.className = 'w-finshed-menu w-cart';
-                    div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right"><span class="cash">'+total+'</span>元(含服务费)</span></li></ul><ul class="menu-che mui-table-view"><li class="mui-table-view-cell">配送地址：{{ $user->address }}</li><li class="mui-table-view-cell"><div>联系电话: <a href="tel:{{ $user->phone }}">{{ $user->phone }}</a></div></li><li class="mui-table-view-cell">联系姓名：{{ $user->name }}</li></ul><ul class="app-time mui-table-view"><li class="mui-table-view-cell Ntime">预约时间：2016-11-17 12:48(默认送达时间) <span class="mui-icon iconfont youjiantou003 mui-pull-right"></span></li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><a href="/wechat/pay"><button class="w-want-accept">购买</button></a></li></ul>';
+                    div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right"><span class="cash">'+total+'</span>元(含服务费)</span></li></ul><ul class="menu-che mui-table-view"><li class="mui-table-view-cell">配送地址：{{ $user->address }}</li><li class="mui-table-view-cell"><div>联系电话: <a href="tel:{{ $user->phone }}">{{ $user->phone }}</a></div></li><li class="mui-table-view-cell">联系姓名：{{ $user->name }}</li></ul><ul class="app-time mui-table-view"><li class="mui-table-view-cell Ntime">预约时间：2016-11-17 12:48(默认送达时间) <span class="mui-icon iconfont youjiantou003 mui-pull-right"></span></li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-want-accept">购买</button></li></ul>';
                       document.body.appendChild(div);
                     }
      
@@ -217,6 +217,7 @@
       /*购买付款*/
       $(function(){
         $(document).on('touchstart','.w-want-accept',function(){
+          localStorage.setItem("buyCart",'0');//点击购买清空购物车数量
           var buyAcash = parseFloat($('.cash').text());//总额
 
           var buyArray  = new Array();
@@ -229,16 +230,13 @@
 
           var buyAcash = parseFloat($('.cash').text());
           var urlajax = '/wechat/paid?openid={{ $user->id }}';
-          $.ajax({
-            url:urlajax,
-            dataType:'json',
-            async:true,
-            data:{'total':buyAcash, 'time':$('.Ntime').attr('data-id'), 'food':buyArray},
-            type:'GET',
-            success:function(data){
+
+          $.get(urlajax,{'total':buyAcash, 'time':$('.Ntime').attr('data-id'), 'food':buyArray},function(data){
               console.log(data);
             }
-          });
+          );
+
+
         })
       })
   </script>
@@ -276,6 +274,40 @@
        });
    })   
  </script> -->
+
+<script type="text/javascript">
+    //调用微信JS api 支付
+    function jsApiCall()
+    {
+      alert('start');
+      $.get('/wechat/prepay', function(data){
+          WeixinJSBridge.invoke(
+         'getBrandWCPayRequest', eval("("+data+")"),
+              function(res){
+                  WeixinJSBridge.log(res.err_msg);
+                  alert(res.err_code+res.err_desc+res.err_msg);
+                  alert('end');
+              }
+          );
+
+        console.log(data);
+      });
+    }
+
+    function callpay()
+    {
+        if (typeof WeixinJSBridge == "undefined"){
+            if( document.addEventListener ){
+                document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+            }else if (document.attachEvent){
+                document.attachEvent('WeixinJSBridgeReady', jsApiCall); 
+                document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+            }
+        }else{
+            jsApiCall();
+        }
+    }
+</script>
 
 @stop
 

@@ -16,11 +16,13 @@
 		<link href="/css/wechat/new.css" rel="stylesheet" />
 </head>
 <body>
-@include('wechat.partial.alert')
 @yield('content')
 	<!--页面JS加载-->
 		<script src="/js/wechat/jquery-3.1.1.min.js"></script>
 		<script src="/js/wechat/mui.min.js"></script>
+		<script src="/js/wechat/mui.lazyload.js"></script>
+		<script src="/js/wechat/mui.lazyload.img.js"></script>
+		<script src="/js/wechat/mui.picker.min.js"></script>
 		<script src="/js/wechat/layer.js"></script>
 		<script src="/js/wechat/mui.pullToRefresh.js"></script>
 		<script src="/js/wechat/mui.pullToRefresh.material.js"></script>
@@ -34,6 +36,7 @@ $.ajaxSetup({
     }
 });
 </script>
+@include('wechat.partial.alert')
 @yield('js')
 </body>
 </html>

@@ -273,7 +273,7 @@
                       $('.w-finshed-menu').html('');
                       $('.w-badge').text('0');
                       $('.w-tab-view').html('<li style="width:100%;height:100%;text-align:center;padding-top:200px;font-size:20px;color:silver;">您还没有购买任何商品！</li>');
-                      alert('支付成功！');
+                      // alert('支付成功！');
                       window.location.replace("/wechat/order/status");
                       break;
                   default:

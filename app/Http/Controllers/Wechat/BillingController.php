@@ -148,6 +148,7 @@ class BillingController extends Controller
 		        // 不是已经支付状态则修改为已经支付状态
 		        $order->paid_at = time(); // 更新支付时间为当前时间
 		        $order->status = 'paid';
+		        $order->billing_id = $notify->transaction_id;
 		    } else { // 用户支付失败
 		        $order->status = 'paid_fail';
 		    }
@@ -160,7 +161,7 @@ class BillingController extends Controller
 
 	protected function createOrderNum()
 	{
-		return date('ymdHis').$this->user->id;
+		return $this->user->id.date('ymdHis');
 	}
 
 	protected function getFoods($request)

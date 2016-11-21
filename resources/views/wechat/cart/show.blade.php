@@ -22,7 +22,7 @@
         <span class="mui-tab-label">我的订单</span>
       </a>
       <a class="mui-tab-item mui-active" href="/wechat/cart">
-        <span class="mui-icon iconfont xuangouwuche203"><span class="w-badge mui-badge"></span></span>
+        <span class="mui-icon iconfont xuangouwuche203"></span>
         <span class="mui-tab-label">购物车</span>
       </a>
       <a class="mui-tab-item" href="/wechat/profile">
@@ -48,13 +48,12 @@
         //     })
         //   })
         // });
-    
+         
         
   </script> 
 
   <script>
       $(function(){
-        $('.w-badge').text(parseInt(localStorage.getItem('buyCart')));
          $.ajax({
                 url:'/wechat/ajax/cart',
                 dataType:'json',
@@ -217,7 +216,6 @@
       /*购买付款*/
       $(function(){
         $(document).on('touchstart','.w-want-accept',function(){
-          localStorage.setItem("buyCart",'0');//点击购买清空购物车数量
           var buyAcash = parseFloat($('.cash').text());//总额
 
           var buyArray  = new Array();
@@ -229,14 +227,16 @@
           }
 
           var buyAcash = parseFloat($('.cash').text());
-          var urlajax = '/wechat/paid?openid={{ $user->id }}';
-
-          $.get(urlajax,{'total':buyAcash, 'time':$('.Ntime').attr('data-id'), 'food':buyArray},function(data){
+          // var urlajax = '/wechat/paid?openid={{ $user->id }}';
+          var urlajax = '/wechat/prepay';
+          $.get(urlajax,
+            {'total':buyAcash, 'time':$('.Ntime').attr('data-id'), 'food':buyArray},
+            function(data){
               console.log(data);
+              // alert(data);
+              callpay(data);
             }
           );
-
-
         })
       })
   </script>
@@ -277,24 +277,31 @@
 
 <script type="text/javascript">
     //调用微信JS api 支付
-    function jsApiCall()
+    function jsApiCall(data)
     {
-      alert('start');
-      $.get('/wechat/prepay', function(data){
-          WeixinJSBridge.invoke(
-         'getBrandWCPayRequest', eval("("+data+")"),
-              function(res){
-                  WeixinJSBridge.log(res.err_msg);
-                  alert(res.err_code+res.err_desc+res.err_msg);
-                  alert('end');
-              }
-          );
-
-        console.log(data);
-      });
+        WeixinJSBridge.invoke(
+       'getBrandWCPayRequest', eval("("+data+")"),
+            function(res){
+              switch(res.err_msg) {
+                  case 'get_brand_wcpay_request:cancel':
+                      alert('用户取消支付！');
+                      break;
+                  case 'get_brand_wcpay_request:fail':
+                      alert('支付失败！（'+res.err_desc+'）');
+                      break;
+                  case 'get_brand_wcpay_request:ok':
+                      alert('支付成功！');
+                      window.location.replace("/wechat/order/status");
+                      break;
+                  default:
+                      alert(JSON.stringify(res));
+                      break;
+              }      
+            }
+        );
     }
 
-    function callpay()
+    function callpay(data)
     {
         if (typeof WeixinJSBridge == "undefined"){
             if( document.addEventListener ){
@@ -304,10 +311,12 @@
                 document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
             }
         }else{
-            jsApiCall();
+            jsApiCall(data);
         }
     }
 </script>
+
+
 
 @stop
 

@@ -27,16 +27,19 @@
 	$(function(){
 		$('.w-respone-btn').on('touchstart',function(){
 				var textCon = $('textarea').text();
+				var openId = $('.w-respone').attr('data-id');
+				var ajaxUrl = '/api/report?openId='+openId;
 				return;
 		        $.ajax({
 		        type:"POST",
-		        url:'/api/report?openId',
+		        url:ajaxUrl,
 		        data:textCon,
 		        dataType: 'json',
 		        success: function(data){
 		            console.log(data);
 		        },
 		        error: function(data){
+
 		        }
 		    });
 		    });
@@ -44,7 +47,7 @@
 
 
 /*获取用户openId*/
-	/*$(function(){
+	$(function(){
 		$.ajax({
 			url:'/wechat/user',
 			dataType:'json',
@@ -55,7 +58,7 @@
 				$('.w-respone').attr('data-id',data.wechat_openid);
 			}
 		});
-	})*/
+	})
 
 
 //弹出消息函数

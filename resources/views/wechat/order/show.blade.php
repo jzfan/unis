@@ -69,10 +69,9 @@
 	@stop
 
 	@section('js')
-		/api/order/show/{order_no}
 		<script>
 			$(function(){
-				$.get('/api/order/show/{order_no}',function(data){
+				$.get('/api/order/show/583112ca',function(data){
 						console.log(data);
 				});
 			});

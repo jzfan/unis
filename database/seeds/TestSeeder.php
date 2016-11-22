@@ -39,7 +39,7 @@ class TestSeeder extends Seeder
 					'address' => $user->defaultAddress()->text(),
 					'status' => 'paid',
                     'paid_at' => $time,
-					'apponitment_at' => $time,
+					'appointment_at' => $time,
         		]);
                 foreach($foods as $food){                   
                     OrderItem::create([

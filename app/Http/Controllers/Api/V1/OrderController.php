@@ -159,8 +159,7 @@ class OrderController extends BaseController
       $user = $order->deliver;
       $user->balance = $order->total; 
 
-      \DB::transaction(function() use($address)
-      {
+      \DB::transaction(function(){
          $order->save();
          $user->save();
       });

@@ -6,6 +6,7 @@ use App\Unis\Order\OrderItem;
 use App\Unis\User\User;
 use App\Unis\Suplier\Food;
 use App\Unis\School\Dorm;
+use Carbon\Carbon;
 
 class OrderSeeder extends Seeder
 {
@@ -20,74 +21,95 @@ class OrderSeeder extends Seeder
         OrderItem::truncate();
         $faker = Faker\Factory::create();
         $dorm_count = Dorm::all()->count();
-        $id = 1;
-        foreach (range(100, mt_rand(111, 999)) as $index) {
-        	$now = \Carbon\Carbon::now();
-        	$created_at = $now->subMinutes(mt_rand(5, 60*24*30*2));
-        	$orderer = User::inRandomOrder()->with(['addresses'=> function($q){
-                $q->where('status', 1)->first();
-            }])->first();
-
-        	$paid = (bool) ($index % 2 == 0 || $index % 3 == 0);
-        	$paid_at = $paid ? $created_at->addMinutes(mt_rand(1, 5)) : null;
-        	$status = $paid ? 'paid' : 'ordered';
-
-        	$taken = (bool) ($paid && $index % 3 == 0);
-        	$taken_at = $taken ? $paid_at->addMinutes(mt_rand(5, 55)) : null;
-        	$status = $taken ? 'taken' : $status;
-
-        	$delived = (bool) ($taken && $index % 4 != 0);
-        	$deliver_id = $delived ? User::inRandomOrder()->first()->id : null;
-        	$deliver_at = $delived ? $taken_at->addMinutes(mt_rand(5, 60)) : null;
-        	$status = $delived ? 'delivered' : $status;
-
-        	$withdrawed = (bool) ($delived && $index % 5 != 0);
-        	$withdrawed_at = $withdrawed ? $deliver_at->addHours(mt_rand(1, 66)) : null;
-        	$status = $withdrawed ? 'withdrawed' : $status;
-
-        	$foods = Food::inRandomOrder()->take(mt_rand(2, 4))->get();
-
-        	$subject = [];
-        	$total = 0;
-            $order_no = date('ymdHis').$orderer->id;
-
-        	foreach ($foods as $food) {
-                $amount = mt_rand(1, 3);
-                $price = $food->price * (100 - $food->discount)/100;
-                OrderItem::create(['food_id'=>$food->id, 'amount'=>$amount, 'price'=>$price, 'order_id'=>$id]);
-                $sum = $price * $amount;
-        		$subject[] = $food->name;
-        		$total += $sum;
-        	}
-        	$mark = ($index % 7 == 0) ? $faker->sentence : null;
-        	Order::create([
-                'id' => $id,
-        		'type' => 'wxpay',
-        		'order_no' => $order_no,
-        		'subject' => join('|', $subject),
-                'user_id' => $orderer->id,
-                'school_id' => $orderer->defaultAddress()->school->id,
-                'campus_id' => $orderer->defaultAddress()->campus->id,
-        		'dorm_id' => $orderer->defaultAddress()->dorm->id,
-        		'deliver_id' => $deliver_id,
-        		'total' => $total,
-        		'address' => $orderer->defaultAddress()->text(),
-        		'status' => $status,
-        		'paid_at' => $paid_at,
-        		'taken_at' => $taken_at,
-        		'delivered_at' => $deliver_at,
-        		'withdrawed_at' => $withdrawed_at,
-        		'mark' => $mark
-
-        	]);
-            $id++;
+        $users = User::where('id', '>', 1)->get();
+        foreach($users as $user){
+            foreach(range(1, 3) as $index){
+                $time = $faker->DateTime('2016-03-15 02:00:49');
+                $order_no = $user->id.date('ymdHis');
+                $foods = $this->getFoods();
+                $order = Order::create([
+                    'order_no'=> $user->id.date('ymdHis'),
+                    'type' => 'wxpay',
+                    'subject' => str_limit(join('|', $foods->pluck('name')->toArray()), 255),
+                    'user_id' => $user->id,
+                    'school_id' => $user->defaultAddress()->school_id,
+                    'campus_id' => $user->defaultAddress()->campus_id,
+                    'dorm_id' => $user->defaultAddress()->dorm_id,
+                    'total' => $foods->total,
+                    'address' => $user->defaultAddress()->text(),
+                    'status' => 'paid',
+                    'paid_at' => $time,
+                    'appointment_at' => $time,
+                ]);
+                foreach($foods as $food){                   
+                    OrderItem::create([
+                        'food_id'=>$food->id,
+                        'amount'=>$food->num,
+                        'price'=>$food->price,
+                        'order_id'=>$order->id
+                    ]);
+                }
+            }
         }
+
+        $order_count = Order::all()->count();
+        $taken_order = Order::inRandomOrder()->take(ceil($order_count * 0.8))->get();
+        foreach ($taken_order as $order) {
+            $order->status = 'taken';
+            $taken_time = Carbon::instance($order->paid_at)->addMinutes(mt_rand(5, 39));
+            $order->taken_at = $taken_time;
+            $order->save();
+        }
+
+        $taken_order_count = Order::where('status', 'taken')->count();
+        $delived_order = Order::where('status', 'taken')->inRandomOrder()->take(ceil($taken_order_count * 0.8))->get();
+        foreach ($delived_order as $order) {
+            $order->status = 'delivered';
+            $order->delivered_at = Carbon::instance($order->taken_at)->addMinutes(mt_rand(10, 30));
+            $order->save();
+        }   
+
+        $received_order_count = Order::where('status', 'delivered')->count();
+        $received_order = Order::where('status', 'delivered')->inRandomOrder()->take(ceil($received_order_count * 0.8))->get();
+        foreach ($received_order as $order) {
+            $order->status = 'received';
+            $order->received_at = Carbon::instance($order->delivered_at)->addMinutes(mt_rand(10, 30));
+            $order->save();
+        }
+
+        $withdrawed_order_count = Order::where('status', 'received')->count();
+        $withdrawed_order = Order::where('status', 'delivered')->inRandomOrder()->take(ceil($withdrawed_order_count * 0.8))->get();
+        foreach ($withdrawed_order as $order) {
+            $order->status = 'withdrawed';
+            $order->withdrawed_at = Carbon::instance($order->delivered_at)->addMinutes(mt_rand(10, 30));
+            $order->save();
+        } 
+
+        $refund_order_count = Order::where('status', 'paid')->count();
+        $refund_order = Order::where('status', 'paid')->inRandomOrder()->take(ceil($refund_order_count * 0.2))->get();
+        foreach ($refund_order as $order) {
+            $order->status = 'refund';
+            $order->refund_at = Carbon::instance($order->paid_at)->addMinutes(mt_rand(40, 120));
+            $order->save();
+        }     
     }
 
-    private function getOrderer()
+    // private function getOrderer()
+    // {
+    //     return User::inRandomOrder()->with(['addresses'=> function($q){
+    //         $q->where('status', 1)->first();
+    //     }])->first();
+    // }
+
+    private function getFoods()
     {
-        return User::inRandomOrder()->with(['addresses'=> function($q){
-            $q->where('status', 1)->first();
-        }])->first();
+        $foods = Food::inRandomOrder()->take(mt_rand(1, 3))->get();
+        $foods->total = 0;
+        foreach ($foods as $food){
+            $food->num = mt_rand(1,3);
+            $foods->total += $food->priceAfterDiscount()*$food->num*100;
+        }
+        return $foods;
     }
 }
+

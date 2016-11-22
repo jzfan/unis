@@ -30,7 +30,7 @@ class FeedSeeder extends Seeder
         		'sender_id' => $sender->id,
         		'receiver_id' => $receiver->id,
         		'status' => (string)mt_rand(1, 2),
-        		'type' => array_rand(array_flip(['paid', 'taken', 'delivered', 'received'])),
+        		'type' => array_rand(array_flip(['paid', 'taken', 'delivered', 'received', 'refund'])),
 
         	]);
         	}

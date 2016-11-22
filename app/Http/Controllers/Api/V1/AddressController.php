@@ -13,18 +13,7 @@ use \DB;
 class AddressController extends BaseController
 {
  /**
- * @apiDefine UserNotFoundError
- * @apiError UserNotFound  这个<code>openid</code> 的用户未找到.
- * @apiErrorExample 错误返回:
- * HTTP/1.1 401 Unauthorized
- * {
- *    "message": "Unauthorized action.",
- *    "status_code": 401
- * }
- **/
-
- /**
- * @api {get} /address?openid=xxx 取该用户所有地址
+ * @api {get} /address 取该用户所有地址
  * @apiVersion 1.0.0
  * @apiName getAddress
  * @apiGroup Address
@@ -48,7 +37,7 @@ class AddressController extends BaseController
  */
     public function index()
     {
-    	$all = User::find($this->user->id)->addresses;
+    	$all = $this->user->addresses;
         foreach($all as $key=>$obj){
             $data[$key]['text'] = $obj->text();
             $data[$key]['id'] = $obj->id;
@@ -62,7 +51,7 @@ class AddressController extends BaseController
     }
 
     /**
-     * @api {get} /address/default?openid=xxx 取该用户默认地址文本字符
+     * @api {get} /address/default 取该用户默认地址文本字符
      * @apiVersion 1.0.0
      * @apiName getDefault
      * @apiGroup Address
@@ -81,7 +70,7 @@ class AddressController extends BaseController
     }
 
     /**
-     * @api {get} /address/me?openid=xxx 取该用户默认地址数组
+     * @api {get} /address/me 取该用户默认地址数组
      * @apiVersion 1.0.0
      * @apiName getDefaultArr
      * @apiGroup Address
@@ -113,7 +102,7 @@ class AddressController extends BaseController
     }
 
     /**
-     * @api {post} /address?openid=xxx  新建地址保存
+     * @api {post} /address  新建地址保存
      * @apiVersion 1.0.0
      * @apiName  postAddress
      * @apiGroup Address
@@ -123,10 +112,7 @@ class AddressController extends BaseController
      * @apiParam {Number} dorm_id 宿舍id
      * @apiParam {String} room_number 房间号
      *
-     * @apiSuccessExample 成功返回:
-     * HTTP/1.1 200 OK
-     * 
-     *
+     * @apiUse SuccessReturn 
      * @apiUse UserNotFoundError
      */
     public function store(AddressRequest $request)
@@ -152,6 +138,17 @@ class AddressController extends BaseController
     	return 'success';
     }
 
+    /**
+     * @api {put} /address/{address_id}  换默认地址
+     * @apiVersion 1.0.0
+     * @apiName  updateAddress
+     * @apiGroup Address
+     * @apiParam {String} openid 微信用户openid
+     * @apiParam {Number} status 状态，1是默认
+     *
+    * @apiUse SuccessReturn 
+     * @apiUse UserNotFoundError
+     */
     public function update($address_id)
     {
         $default = Address::findOrFail($address_id);
@@ -171,8 +168,34 @@ class AddressController extends BaseController
     	return 'success';
     }
 
-    public function destroy(Address $address)
+    /**
+     * @api {delete} /address/{address_id}  删除地址
+     * @apiVersion 1.0.0
+     * @apiName  deleteAddress
+     * @apiGroup Address
+     * @apiParam {String} openid 微信用户openid
+     *
+    * @apiUse SuccessReturn 
+     * @apiErrorExample 404 地址未找到:
+     *     HTTP/1.1 404 Not Found
+     *     {
+     *       "error": "Address Not Found"
+     *     }
+     * @apiErrorExample 403 禁止删除默认地址:
+     *     HTTP/1.1 403 Not Found
+     *     {
+     *       "error": "Can Not Delete Default Address"
+     *     }
+     */
+    public function destroy(Address $address_id)
     {
+        $address = Address::find($address_id);
+        if (! $address){
+            abort(404, 'Address Not Found');
+        }
+        if ($address->status == '1'){
+            abort(403, 'Can Not Delete Default Address');
+        }
     	$address->delete();
     	return 'success';
     }

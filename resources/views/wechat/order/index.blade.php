@@ -18,7 +18,6 @@
 					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
 						<div id="scroll1" class="mui-scroll-wrapper">
 							<div class="mui-scroll">
-								<a href="#aim"></a>
 
 
 							</div>
@@ -56,6 +55,12 @@
 
 	<!-- 个人中心页面加载我的订单列表 -->
 	<script>
+		mui('.mui-slider-group').on('tap', 'a', function() {
+			document.location.href = this.href;
+		});
+	</script>
+
+	<script>
 	   $(function(){
 	   	 	$.ajax({
 	   	 		url:'/wechat/ajax/order/all_buy',//个人中心我的订单
@@ -63,7 +68,9 @@
 	   	 		async:true,
 	   	 		type:'GET',
 	   	 		success:function(data){
+	   	 			
 	   	 			for(var i=0;i<data.length;i++){
+	   	 				console.log(data[i].id);
 	   	 				var tele = "";
 	   	 				var name = "";
 	   	 				if(data[i].deliver&&data[i].deliver.hasOwnProperty("phone")&&data[i].deliver.hasOwnProperty("name"))
@@ -73,7 +80,7 @@
 	   	 				}
 	   	 				var ul = document.createElement('ul');
 	   	 				    ul.className = "my-menu mui-table-view";
-	   	 				    ul.innerHTML = '<li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:'+tele+'">'+tele+'</a></div></li><li class="mui-table-view-cell">联系姓名：'+name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+data[i].total+'元</li>';
+	   	 				    ul.innerHTML = '<a href="/wechat/order/show/'+data[i].id+'"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:'+tele+'">'+tele+'</a></div></li><li class="mui-table-view-cell">联系姓名：'+name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+data[i].total+'元</li></a>';
 	   	 				table = document.body.querySelector('#item1mobile .mui-scroll');
 	   	 				bot = document.body.querySelector('#item1mobile .mui-scroll .mui-pull-bottom-tips');
 	                    table.insertBefore(ul,bot); 
@@ -96,7 +103,7 @@
 	   	 			for(var i=0;i<data.length;i++){
 	   	 				var ul = document.createElement('ul');
 	   	 				    ul.className = "my-menu mui-table-view";
-	   	 				    ul.innerHTML = '<li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:'+data[i].orderer.phone+'">'+data[i].orderer.phone+'</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].orderer.name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+data[i].total+'元</li>';
+	   	 				    ul.innerHTML = '<a href="/wechat/order/show/'+data[i].id+'"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:'+data[i].orderer.phone+'">'+data[i].orderer.phone+'</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].orderer.name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+data[i].total+'元</li></a>';
 
 	   	 				table = document.body.querySelector('#item2mobile .mui-scroll');
 	   	 				bot = document.body.querySelector('#item2mobile .mui-scroll .mui-pull-bottom-tips');
@@ -120,10 +127,10 @@
 	   	 			for(var i=0;i<data.length;i++){
 	   	 				var ul = document.createElement('ul');
 	   	 				    ul.className = "my-menu mui-table-view";
-	   	 				    ul.innerHTML = '<li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:'+data[i].orderer.phone+'">'+data[i].orderer.phone+'</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].orderer.name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+data[i].total+'元</li>';
+	   	 				    ul.innerHTML = '<a href="/wechat/order/show/'+data[i].id+'"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:'+data[i].orderer.phone+'">'+data[i].orderer.phone+'</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].orderer.name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+data[i].total+'元</li></a>';
 
-	   	 				table = document.body.querySelector('#item2mobile .mui-scroll');
-	   	 				bot = document.body.querySelector('#item2mobile .mui-scroll .mui-pull-bottom-tips');
+	   	 				table = document.body.querySelector('#item3mobile .mui-scroll');
+	   	 				bot = document.body.querySelector('#item3mobile .mui-scroll .mui-pull-bottom-tips');
                     	table.insertBefore(ul,bot); 
 
 	   	 			}
@@ -149,7 +156,7 @@
 				});
 				$(function() {
 					//循环初始化所有下拉刷新，上拉加载。
-					
+						$('.mui-pull-bottom-wrapper').html('');
 						$('.mui-slider-group #item1mobile .mui-scroll').pullToRefresh({
 
 
@@ -177,7 +184,7 @@
 									        			ul.innerHTML = '<li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href=tel:'+tele+'>'+tele+'</a></div></li><li class="mui-table-view-cell">联系姓名：'+name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+data[i].total+'元</li>'; 
 												var table = document.body.querySelector('#item1mobile .mui-scroll');
 								   	 			var bot = document.body.querySelector('#item1mobile .mui-pull-bottom-tips');
-								                    	table.insertBefore(ul,bot); 
+								                    	//table.insertBefore(ul,bot); 
 									        	}
 									        }
 
@@ -215,7 +222,7 @@
                     	    								table.appendChild(ul);   */
                     	    						var table = document.body.querySelector('#item1mobile .mui-scroll');
 								   	 				var bot = document.body.querySelector('#item1mobile .mui-pull-bottom-tips');
-								                    	table.insertBefore(ul,bot); 
+								                    	//table.insertBefore(ul,bot); 
 									        	}
 									        }
 
@@ -247,13 +254,12 @@
 				});
 				$(function() {
 					//循环初始化所有下拉刷新，上拉加载。
-					
+						$('.mui-pull-bottom-wrapper').html('');
 						$('.mui-slider-group #item2mobile .mui-scroll').pullToRefresh({
 
 							down: {
 								callback: function() {
 									var self = this;
-									// var urlajax = "/wechat/ajax/order";
 									var urlajax = "/wechat/ajax/order/uncompleted_sale";//个人中心我的带餐
 									setTimeout(function() {
 										$.ajax({
@@ -262,6 +268,7 @@
 											async:true,
 											type:'GET',
 									        success:function(data){
+									        	console.log(data);
 									        	for(var i=0;i<data.length;i++){
 									        		var ul = document.createElement('ul');
 									        			ul.className = "my-menu mui-table-view";
@@ -269,7 +276,7 @@
 
 									        		var table = document.body.querySelector('#item2mobile .mui-scroll');
 									   	 			var	bot = document.body.querySelector('#item2mobile .mui-scroll .mui-pull-bottom-tips');
-								                    	table.insertBefore(ul,bot); 
+								                    	//table.insertBefore(ul,bot); 
 									        	}
 									        }
 
@@ -298,7 +305,7 @@
 
 									        		var table = document.body.querySelector('#item2mobile .mui-scroll');
 									   	 			var	bot = document.body.querySelector('#item2mobile .mui-scroll .mui-pull-bottom-tips');
-								                    	table.insertBefore(ul,bot);   
+								                    	//table.insertBefore(ul,bot);   
 									        	}
 									        }
 
@@ -329,7 +336,7 @@
 				});
 				$(function() {
 					//循环初始化所有下拉刷新，上拉加载。
-					
+						$('.mui-pull-bottom-wrapper').html('');
 						$('.mui-slider-group #item3mobile .mui-scroll').pullToRefresh({
 
 							down: {
@@ -352,7 +359,7 @@
                     	    								table.appendChild(ul); */  
                     	    						var	table = document.body.querySelector('#item3mobile .mui-scroll');
 									   	 			var	bot = document.body.querySelector('#item3mobile .mui-scroll .mui-pull-bottom-tips');
-								                    	table.insertBefore(ul,bot); 
+								                    	//table.insertBefore(ul,bot); 
 									        	}
 									        }
 
@@ -381,7 +388,7 @@
 
 									        		var	table = document.body.querySelector('#item3mobile .mui-scroll');
 									   	 			var	bot = document.body.querySelector('#item3mobile .mui-scroll .mui-pull-bottom-tips');
-								                    	table.insertBefore(ul,bot); 
+								                    	//table.insertBefore(ul,bot); 
 									        	}
 									        }
 

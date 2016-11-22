@@ -57,7 +57,7 @@
 	$(function(){
 		$(document).on('touchstart','.w-address-save',function(){
 			var openId = $('.w-about-uniserve').attr('data-id');
-			var urlajax = '/api/address/?openid='+openId;
+			var urlajax = '/api/address/?openid='+openId; 
 			$.ajax({
 				url:urlajax,
 				dataType:'json',
@@ -80,7 +80,7 @@
 				}
 			});
 		})
-	})
+	});
 
 
 
@@ -89,7 +89,7 @@
 		$(document).on('touchstart','.w-location-group .mui-table-view-cell',function(){
 			$(this).find("span").removeClass('duigou506');
 			if($(this).find("span").hasClass('shanchu505')){
-				$(this).fadeOut();
+				var _this = $(this);
 				var openId = $('.w-about-uniserve').attr('data-id');
 				var addressId = $('.mui-badge').attr('data-id');
 				var urlajax = '/api/address/'+addressId+'?openid='+openId;
@@ -97,9 +97,9 @@
 				url:urlajax,
 				dataType:'json',
 				async:true,
-				data:{},
 				type:'delete',
 				success:function(data){
+					_this.fadeOut();
 					layer.open({
 					    content: '删除成功'
 					    ,skin: 'msg'

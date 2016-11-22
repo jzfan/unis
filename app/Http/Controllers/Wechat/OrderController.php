@@ -69,7 +69,7 @@ class OrderController extends Controller
     public function completedSale()
     {
         $user = getWechatUser();
-        return Order::where(['type'=>'wxpay', 'deliver_id'=>$user->id])->whereIn('status', ['received', 'delivered', 'withdrawed'])->orderBy('id', 'DESC')->with('order_items.food', 'orderer')->get();
+        return Order::where(['type'=>'wxpay', 'deliver_id'=>$user->id])->whereIn('status', ['received', 'delivered', 'withdrawed'])->orderBy('delivered_at', 'DESC')->with('order_items.food', 'orderer')->get();
     }
 
      public function completedSaleToday()
@@ -77,7 +77,7 @@ class OrderController extends Controller
         $start = (new Carbon('now'))->hour(0)->minute(0)->second(0);
         $end = (new Carbon('now'))->hour(23)->minute(59)->second(59);
         $user = getWechatUser();
-        return Order::where(['type'=>'wxpay', 'deliver_id'=>$user->id])->whereBetween('delivered_at', [$start , $end])->whereIn('status', ['received', 'delivered', 'withdrawed'])->orderBy('id', 'DESC')->with('order_items.food', 'orderer')->get();
+        return Order::where(['type'=>'wxpay', 'deliver_id'=>$user->id])->whereBetween('delivered_at', [$start , $end])->whereIn('status', ['received', 'delivered', 'withdrawed'])->orderBy('delivered_at', 'DESC')->with('order_items.food', 'orderer')->get();
     }
 
 //未完成的买方
@@ -91,7 +91,7 @@ class OrderController extends Controller
     public function uncompletedSale()
     {
         $user = getWechatUser();
-        return Order::where(['type'=>'wxpay', 'deliver_id'=>$user->id, 'status'=>'taken'])->orderBy('id', 'DESC')->with('order_items.food', 'orderer')->get();
+        return Order::where(['type'=>'wxpay', 'deliver_id'=>$user->id, 'status'=>'taken'])->orderBy('taken_at', 'DESC')->with('order_items.food', 'orderer')->get();
     }
 //没人接单的
     public function unTakenSale()

@@ -41,15 +41,15 @@ class BillingController extends Controller
  		$this->payment = $app->payment;				
 	}
 
-	//初始化参数
-	public function init($request)
+	//初始化支付参数
+	public function init4Pay($request)
 	{
 		$this->user = getWechatUser();
 		$this->order_no = $this->createOrderNum();
 		$this->foods = $this->getFoods($request);
 		$this->subject = join('|', $this->foods->pluck('name')->toArray());
-		// $this->total = $this->getTotalFee();
-		$this->total = 1;
+		$this->total = $this->getTotalFee();
+		// $this->total = 100;
 		$this->appointment_at = $request->time ? Carbon::createFromTimestamp($request->time) : Carbon::now()->addMinutes(30);
 	}
 
@@ -84,7 +84,7 @@ class BillingController extends Controller
     //供ajax调用，返回参数
     public function wechatPrepay(Request $request)
     {
-    	$this->init($request);
+    	$this->init4Pay($request);
     	$result = $this->createWxOrder();
     	\Log::info($result);
 		 if ($result->return_code == 'SUCCESS' && $result->result_code == 'SUCCESS')
@@ -191,5 +191,28 @@ class BillingController extends Controller
 		}
 		//分
 		return $total*100;
+	}
+
+	public function init4Bonus()
+	{
+		$data = [
+		    'mch_billno'       => 'xy123456',
+		    'send_name'        => '测试红包',
+		    're_openid'        => $this->user->wechat_openid,
+		    'total_num'        => 1,  //普通红包固定为1，裂变红包不小于3
+		    'total_amount'     => 100,
+		    'wishing'          => '祝福语',
+		    'act_name'         => '测试活动',
+		    'remark'           => '测试备注',
+		];
+	}
+
+	public function refund($order_id)
+	{
+		$order = UnisOrder::where(['id'=>$order_id, 'status'=>'paid'])->first();
+		if (! $order){
+			abort(404, 'Order Not Found');
+		}
+		$result = $this->payment->refundByTransactionId($order->billing_id, $order->id, $order->total);
 	}
 }

@@ -166,6 +166,9 @@
 	   	 				var table = document.body.querySelector('#item3mobile .mui-scroll');
 						var bot = document.body.querySelector('#item3mobile .mui-pull-bottom-tips');
 							   table.insertBefore(div,bot);  
+						if(data[i].status == "已收到"){
+							$('.w-hold').text('已确认');
+						}
 
 	   	 			}
 	   	 		}
@@ -189,7 +192,7 @@
 				});
 				$(function() {
 					//初始化下拉刷新，上拉加载。
-					
+						$('.mui-pull-loading').html('');
 						$('.mui-slider-group  #item1mobile  .mui-scroll').pullToRefresh({
 
 							down: {
@@ -217,7 +220,7 @@
 
 									        			var table = document.body.querySelector('#item1mobile .mui-scroll');
 														var bot = document.body.querySelector('#item1mobile .mui-pull-bottom-tips');
-													   	table.insertBefore(div,bot);
+													   	//table.insertBefore(div,bot);
 									        	}
 									        }
 
@@ -255,7 +258,7 @@
                     	    								table.appendChild(div);   */
                     	    							var table = document.body.querySelector('#item1mobile .mui-scroll');
 														var bot = document.body.querySelector('#item1mobile .mui-pull-bottom-tips');
-															   table.insertBefore(div,bot);
+															   //table.insertBefore(div,bot);
 									        	}
 									        }
 
@@ -287,7 +290,7 @@
 
 				$(function() {
 					//初始化下拉刷新，上拉加载。
-					
+						$('.mui-pull-loading').html('');
 						$('.mui-slider-group  #item2mobile  .mui-scroll').pullToRefresh({
 
 							down: {
@@ -312,7 +315,7 @@
                     	    							var table = document.body.querySelector('#item2mobile .mui-scroll');
 														var bot = document.body.querySelector('#item2mobile .mui-pull-bottom-tips');
 													   /*	$('#item2mobile .mui-scroll').html('');*/
-														table.insertBefore(div,bot);
+														//table.insertBefore(div,bot);
 									        	}
 									        }
 
@@ -343,7 +346,7 @@
                    	    								table.appendChild(div);   */
                   	    							var table = document.body.querySelector('#item2mobile .mui-scroll');
 														 var bot = document.body.querySelector('#item2mobile .mui-pull-bottom-tips');
-															   table.insertBefore(div,bot);
+															   //table.insertBefore(div,bot);
 									      	}
 									        }
 
@@ -378,9 +381,8 @@
 
 				$(function() {
 					//初始化下拉刷新，上拉加载。
-					
+						$('.mui-pull-loading').html('');
 						$('.mui-slider-group  #item3mobile  .mui-scroll').pullToRefresh({
-
 							down: {
 								callback: function() {
 									var self = this;
@@ -399,7 +401,7 @@
 
                     	    							var table = document.body.querySelector('#item3mobile .mui-scroll');
 														var bot = document.body.querySelector('#item3mobile .mui-pull-bottom-tips');
-														table.insertBefore(div,bot);
+														//table.insertBefore(div,bot);
 									        	}
 									        }
 
@@ -428,7 +430,7 @@
 									        			
                   	    								 var table = document.body.querySelector('#item3mobile .mui-scroll');
 														 var bot = document.body.querySelector('#item3mobile .mui-pull-bottom-tips');
-														 	   table.insertBefore(div,bot);
+														 	   //table.insertBefore(div,bot);
 									      	}
 									        }
 

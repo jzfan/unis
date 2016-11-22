@@ -34,7 +34,8 @@ Route::group(['middleware'=>['web', 'wechat.oauth']], function () {
 		Route::get('/favorite', 'FavoriteController@index');
 		Route::get('/favorite/add/{food_id}', 'FavoriteController@add');
 		Route::get('/favorite/cancel/{food_id}', 'FavoriteController@cancel');
-		Route::get('/message', 'UserController@message');
+		Route::get('/message', 'FeedController@index');
+		Route::get('/message/{feed_id}', 'FeedController@show');
 		Route::get('/balance', 'BillingController@balance');
 		Route::get('/pay', 'BillingController@payPage');
 
@@ -47,7 +48,7 @@ Route::group(['middleware'=>['web', 'wechat.oauth']], function () {
 		Route::get('/confirm_delivered', 'OrderController@confirmDelivered');
 		Route::get('/post_report', 'IndexController@postReport');
 
-		Route::get('/ajax/favorite', 'FavoriteController@getList');
+		// Route::get('/ajax/favorite', 'FavoriteController@getList');
 		Route::get('/ajax/order', 'OrderController@orderedByUser');
 		Route::get('/ajax/order/all_buy', 'OrderController@allBuy');
 		Route::get('/ajax/order/completed_sale_today', 'OrderController@completedSaleToday');
@@ -55,7 +56,7 @@ Route::group(['middleware'=>['web', 'wechat.oauth']], function () {
 		Route::get('/ajax/order/uncompleted_buy', 'OrderController@uncompletedBuy');
 		Route::get('/ajax/order/uncompleted_sale', 'OrderController@uncompletedSale');
 		Route::get('/ajax/order/untaken', 'OrderController@unTakenSale');
-		Route::get('/ajax/cart', 'CartController@getList');
+		// Route::get('/ajax/cart', 'CartController@getList');
 
 		Route::get('/ajax/index_data', 'IndexController@data');
 

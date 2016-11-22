@@ -67,11 +67,6 @@ class UserController extends Controller
     	return view('wechat.user.address');
     }
 
-    public function message()
-    {
-    	return view('wechat.user.message');
-    }
-
     public function getInfo()
     {
         $user = session('wechat.oauth_user')->toArray();

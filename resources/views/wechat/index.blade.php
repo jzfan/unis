@@ -108,7 +108,7 @@
 		$.ajax({
 			url: '/wechat/ajax/index_data',
 			dataType: 'json',
-			async: true,
+			async: false,
 			type: 'GET',
 			success: function(data) {
 				var canteen = data.canteens;
@@ -122,14 +122,17 @@
 				
 				$('#addName').html(canteen[0].name); //进入首页默认第一个为用户默认食堂
 				$('#addName').attr('data-id', canteen[0].id);
+				localStorage.setItem('canteen',JSON.stringify(canteen[0].id));//进入首页存默认食堂ID
+				console.log(localStorage.getItem('canteen'));
 			}
 		});
 	});
 
 	/*进入加载点菜食品*/
 	$(function() {
+		var canteenId = $('#addName').attr('data-id');
 		$.ajax({
-			url: '/api/foods_of_canteen/{{ $selected_canteen->id }}',
+			url: '/api/foods_of_canteen/'+canteenId,
 			dataType: 'json',
 			async: false,
 			type: 'GET',
@@ -207,13 +210,17 @@
 
 		$(function() {
 			//循环初始化所有下拉刷新，上拉加载。
+			var page = 1;
+			var load = true;
+
 			$('.mui-slider-group #item1mobile .mui-scroll').pullToRefresh({
 				down: {
 					callback: function() {
 						var self = this;
-						var page = '0';
-						var urlajax = '/api/foods_of_canteen/{{ $selected_canteen->id }}';
-						setTimeout(function() {
+						// setTimeout(function() {
+							var canteenId = document.body.querySelector('#addName').getAttribute('data-id');
+								console.log(canteenId);
+							var urlajax = '/api/foods_of_canteen/'+canteenId;//
 							$.ajax({
 								url: urlajax,
 								dataType: 'json',
@@ -226,42 +233,59 @@
 										ul.className = "w-tab-view mui-table-view";
 										ul.innerHTML = '<li class="mui-table-view-cell mui-media"><img class="mui-media-object mui-pull-left" src=' + foodAll[i].img + '><div class="w-box"><div class="w-menu-left"><p class="menu-name">' + foodAll[i].name + '</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:' + foodAll[i].sold + '&nbsp;&nbsp;点赞:5</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">' + foodAll[i].price + '</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:' + foodAll[i].original_price + '元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
 										var parent = document.body.querySelector('#item1mobile .mui-scroll');
+										var wrap = document.body.querySelector('#item1mobile .mui-scroll ul');
+										wrap.remove();
 										table = document.body.querySelector('#item1mobile .mui-pull-bottom-tips');
 										parent.insertBefore(ul, table);
 									}
 								}
 							})
+
 							self.endPullDownToRefresh();
-						}, 1000);
+					
+							if(page > 1) {
+								page = 1;
+								load = false;
+								self.refresh(true);
+							}
+						// }, 1000);
 					}
 				},
 				up: {
 					callback: function() {
-						var urlajax = '/api/foods_of_canteen/{{ $selected_canteen->id }}';
 						var self = this;
-						setTimeout(function() {
-							$.ajax({
-								url: urlajax,
-								dataType: 'json',
-								data: {
-									'page': 1
-								},
-								async: true,
-								type: 'GET',
-								success: function(data) {
-									var foodAll = data.data;
-									for(var i = 0; i < foodAll.length; i++) {
-										ul = document.createElement('ul');
-										ul.className = "w-tab-view mui-table-view";
-										ul.innerHTML = '<li class="mui-table-view-cell mui-media"><img class="mui-media-object mui-pull-left" src=' + foodAll[i].img + '><div class="w-box"><div class="w-menu-left"><p class="menu-name">' + foodAll[i].name + '</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:' + foodAll[i].sold + '&nbsp;&nbsp;点赞:5</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">' + foodAll[i].price + '</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:' + foodAll[i].original_price + '元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
-										var main = document.body.querySelector('#item1mobile .mui-scroll')
-										var table = document.body.querySelector('#item1mobile .mui-pull-bottom-tips')
-										main.insertBefore(ul, table);
-									}
+
+						if(load == false) {
+							self.endPullupToRefresh(load);
+							load = true;
+							return;
+						}
+
+						page++;
+						var canId = JSON.parse(localStorage.getItem('canteen'));//从本地取出存的食堂ID
+						var urlajax = '/api/foods_of_canteen/'+canId+'?page='+page+'&limit=10';
+
+						$.ajax({
+							url: urlajax,
+							dataType: 'json',
+							async: true,
+							type: 'GET',
+							success: function(data) {
+								var foodAll = data.data;
+
+								for(var i = 0; i < foodAll.length; i++) {
+									ul = document.createElement('ul');
+									ul.className = "w-tab-view mui-table-view";
+									ul.innerHTML = '<li class="mui-table-view-cell mui-media"><img class="mui-media-object mui-pull-left" src=' + foodAll[i].img + '><div class="w-box"><div class="w-menu-left"><p class="menu-name">' + foodAll[i].name + '</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:' + foodAll[i].sold + '&nbsp;&nbsp;点赞:5</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">' + foodAll[i].price + '</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:' + foodAll[i].original_price + '元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
+									var main = document.body.querySelector('#item1mobile .mui-scroll')
+									var table = document.body.querySelector('#item1mobile .mui-pull-bottom-tips')
+									main.insertBefore(ul, table);
 								}
-							})
-							self.endPullUpToRefresh();
-						}, 1000);
+
+								self.endPullUpToRefresh();
+								console.log(page + ' > ' + data.meta.pagination.total_pages);
+							}
+						})
 					}
 				}
 			});
@@ -355,9 +379,6 @@
 							$.ajax({
 								url: urlajax,
 								dataType: 'json',
-								data: {
-									'page': 1
-								},
 								async: true,
 								type: 'GET',
 								success: function(data) {
@@ -593,6 +614,9 @@
 			
 			var newText = $(this).find('span.selectDown').text();
 			var canteenId = $(this).find('span.selectDown').attr('data-id');
+			localStorage.setItem('canteen',JSON.stringify(canteenId));//进入首页存默认食堂ID
+			localStorage.getItem('canteen');
+			console.log(JSON.parse(localStorage.getItem('canteen')));//
 			
 			$('.mui-title').attr('data-id', canteenId);
 			$('.mui-title #addName').text(newText); //改变顶部食堂名称
@@ -620,7 +644,6 @@
 
 			/*根据食堂选窗口*/
 			$('.w-canvas-list').html(''); //换食堂时候清空之前食堂对应的窗口
-			
 			var portUrl = '/api/shops_of_canteen/' + canteenId;
 			
 			$.ajax({

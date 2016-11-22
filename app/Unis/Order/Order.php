@@ -48,7 +48,7 @@ class Order extends Model
     {
     	switch ($value) {
     		case 'ordered':
-    			return '已下单';
+    			return '未付款';
     		case 'paid':
     			return '已付款';
      		case 'paid_fail':

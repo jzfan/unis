@@ -157,9 +157,9 @@ class OrderController extends BaseController
       $order->status = 'received';
       $order->received_at = Carbon::now();
       $user = $order->deliver;
-      $user->balance = $order->total; 
+      $user->balance += $order->total; 
 
-      \DB::transaction(function(){
+      \DB::transaction(function() use($order, $user){
          $order->save();
          $user->save();
       });

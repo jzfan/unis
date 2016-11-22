@@ -81,7 +81,7 @@ class OrderSeeder extends Seeder
         $withdrawed_order = Order::where('status', 'delivered')->inRandomOrder()->take(ceil($withdrawed_order_count * 0.8))->get();
         foreach ($withdrawed_order as $order) {
             $order->status = 'withdrawed';
-            $order->withdrawed_at = Carbon::instance($order->delivered_at)->addMinutes(mt_rand(10, 30));
+            $order->withdrawed_at = Carbon::instance($order->received_at)->addMinutes(mt_rand(10, 30));
             $order->save();
         } 
 

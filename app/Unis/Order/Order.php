@@ -14,10 +14,10 @@ class Order extends Model
 	use SoftDeletes;
 
     protected $fillable = ['billing_id', 'type', 'order_no', 'subject', 'user_id', 'total', 'address', 'status', 'school_id', 'campus_id', 'dorm_id', 'address',
-                    'paid_at', 'taken_at', 'delivered_at', 'received_at', 'withdrawed_at', 'appointment_at', 'deliver_id'
+                    'paid_at', 'taken_at', 'delivered_at', 'received_at', 'withdrawed_at', 'appointment_at', 'deliver_id', 'refund_at'
     ];
 
-    protected $dates = ['paid_at', 'taken_at', 'delivered_at', 'received_at', 'withdrawed_at', 'deleted_at'];
+    protected $dates = ['paid_at', 'taken_at', 'delivered_at', 'received_at', 'withdrawed_at', 'appointment_at', 'deleted_at', 'refund_at'];
 
     public function orderer()
     {
@@ -29,11 +29,6 @@ class Order extends Model
     	return $this->belongsTo(User::class, 'deliver_id', 'id');
     }
 
-    public function room()
-    {
-        return $this->belongsTo(Room::class);
-    }
-
     public function order_items()
     {
         return $this->hasMany(OrderItem::class);
@@ -41,7 +36,7 @@ class Order extends Model
 
     public function foods()
     {
-        return $this->belongsToMany(Food::class, 'order_items', 'order_no', 'food_id');
+        return $this->belongsToMany(Food::class, 'order_items', 'order_id', 'food_id');
     }
 
     public function getStatusAttribute($value)
@@ -61,6 +56,8 @@ class Order extends Model
     			return '已提现';
             case 'received':
                 return '已收到';
+            case 'refund':
+                return '已退款';
     		default:
     			return '未知状态码';
     	}

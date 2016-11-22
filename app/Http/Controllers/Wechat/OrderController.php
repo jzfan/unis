@@ -84,7 +84,7 @@ class OrderController extends Controller
     public function uncompletedBuy()
     {
         $user = getWechatUser();
-        return Order::where(['type'=>'wxpay', 'user_id'=>$user->id])->whereIn('status', ['paid', 'taken', 'ordered', 'delivered'])->orderBy('id', 'DESC')->with('order_items.food', 'deliver')->get();
+        return Order::where(['type'=>'wxpay', 'user_id'=>$user->id])->whereIn('status', ['paid', 'taken', 'delivered'])->orderBy('id', 'DESC')->with('order_items.food', 'deliver')->get();
     }
 
 //我已接单未完成

@@ -31,6 +31,6 @@ class UsersTableSeeder extends Seeder
             'avatar' => '/img/default-avatar.png',
             'status' => 1,
         	]);
-        factory(User::class, 1000)->create();      
+        factory(User::class, 200)->create();      
     }
 }

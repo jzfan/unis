@@ -4,10 +4,15 @@
  * 
  * */
  /* newcss */
+ .win-status .mui-tab-label{
+ 	margin-top: -3px;
+ }
  .w-address-wrap .mui-icon-clear{
  	top:6px;
  }
-
+.win-nav .mui-tab-item.mui-active{
+	color: #fe4e4c;
+}
  .msg{
  	position: absolute;
  	top: 160px;
@@ -28,9 +33,6 @@
  .mui-btn-red{
  	background-color: #e72d2e;
  }
- .win-nav{
-	z-index: 1;
-}
 .w-popover .mui-table-view-radio .mui-table-view-cell{
 	padding-right: 0px;
 }
@@ -47,12 +49,6 @@
 }
 #item3mobile .mui-scroll{
 	padding-bottom: 58px;
-}
-.win-nav .mui-tab-item.mui-active{
-	color:#fe4e4c;
-}
-.win-nav .mui-tab-item .mui-icon~.mui-tab-label{
-	font-size: 12px;
 }
 .win-scroll-wrapper{
 	z-index: -20;
@@ -86,7 +82,7 @@
 	font-size: 16px;
 }
  .mui-pull-bottom-tips{
- 	margin-bottom: 50px;
+ 	margin-bottom: 20px;
  }
  .canvas-main .mui-off-canvas-left{
 	width: 62%!important;
@@ -152,19 +148,6 @@ body .layui-m-layer .layui-m-layer-msg{
 	border-bottom: 1px solid #fff;
 	padding-left: 0.8rem;
 }
-.win-bar .mui-tab-item{
-	color: #555;
-}
-.win-bar .mui-tab-item.mui-active{
-	color: #fe4e4c;
-}
-.win-bar .mui-tab-label{
-	font-size: 12px;
-	font-family: "微软雅黑";
-/*	color: #555;*/
-}
-
-
 
 /*tab切换*/
 .w-tab{

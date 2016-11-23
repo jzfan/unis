@@ -39,7 +39,7 @@
 				<div class="mui-slider-group">
 					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
 						<div id="scroll1" class="mui-scroll-wrapper">
-							<div class="mui-scroll">
+							<div class="mui-scroll" id='kong'>
 
 							</div>
 						</div>
@@ -65,7 +65,7 @@
 <!--主界面部分结束-->
 
 <!--底部nav切换开始-->
-<nav class="win-bar mui-bar mui-bar-tab">
+<nav class="win-nav mui-bar mui-bar-tab">
 	<a id="defaultTab" class="mui-tab-item mui-active" href="/wechat/index">
 		<span class="mui-icon iconfont xuanshouye201"></span>
 		<span class="mui-tab-label">首页</span>
@@ -108,7 +108,7 @@
 		$.ajax({
 			url: '/wechat/ajax/index_data',
 			dataType: 'json',
-			async: false,
+			async: true,
 			type: 'GET',
 			success: function(data) {
 				var canteen = data.canteens;
@@ -122,60 +122,60 @@
 				
 				$('#addName').html(canteen[0].name); //进入首页默认第一个为用户默认食堂
 				$('#addName').attr('data-id', canteen[0].id);
-				localStorage.setItem('canteen',JSON.stringify(canteen[0].id));//进入首页存默认食堂ID
-				console.log(localStorage.getItem('canteen'));
+				localStorage.setItem('canteen',JSON.stringify(canteen[0].id));//将默认食堂id存在本地
 			}
 		});
 	});
 
 	/*进入加载点菜食品*/
-	// $(function() {
-	// 	var canteenId = $('#addName').attr('data-id');
-	// 	$.ajax({
-	// 		url: '/api/foods_of_canteen/'+canteenId,
-	// 		dataType: 'json',
-	// 		async: false,
-	// 		type: 'GET',
-	// 		success: function(data) {
-	// 			var foodAll = data.data;
+	$(function() {
+		var　canteenId  = JSON.parse(localStorage.getItem('canteen'));
+		$.ajax({
+			url: '/api/foods_of_canteen/'+canteenId,
+			dataType: 'json',
+			async: false,
+			type: 'GET',
+			success: function(data) {
+				var foodAll = data.data;
+				var parent = document.body.querySelector('#item1mobile .mui-scroll');
+				var table = document.body.querySelector('#item1mobile .mui-pull-bottom-tips');
 
-	// 			for(var i = 0; i < foodAll.length; i++) {
-	// 				ul = document.createElement('ul');
-	// 				ul.className = "w-tab-view mui-table-view";
-	// 				ul.innerHTML = '<li class="mui-table-view-cell mui-media" data-id=' + foodAll[i].id + '><img class="mui-media-object mui-pull-left" src="' + 
-	// 				(foodAll[i].img == '' ? '/img/wechat/defalut.jpg' : foodAll[i].img) + 
-	// 				'"><div class="w-box"><div class="w-menu-left"><p class="menu-name">' + foodAll[i].name + '</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:' + foodAll[i].sold + '&nbsp;&nbsp;点赞:5</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">' + foodAll[i].price + '</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:' + foodAll[i].original_price + '元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
-	// 				var parent = document.body.querySelector('#item1mobile .mui-scroll');
-	// 				table = document.body.querySelector('#item1mobile .mui-pull-bottom-tips');
-	// 				parent.insertBefore(ul, table);
+				for(var i = 0; i < foodAll.length; i++) {
+					var price  = parseFloat(foodAll[i].price*0.01);
+					ul = document.createElement('ul');
+					ul.className = "w-tab-view mui-table-view";
+					ul.innerHTML = '<li class="mui-table-view-cell mui-media" data-id=' + foodAll[i].id + '><img class="mui-media-object mui-pull-left" src="' + 
+					(foodAll[i].img == '' ? '/img/wechat/defalut.jpg' : foodAll[i].img) + 
+					'"><div class="w-box"><div class="w-menu-left"><p class="menu-name">' + foodAll[i].name + '</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:' + foodAll[i].sold + '&nbsp;&nbsp;点赞:5</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">' + price + '</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:' + foodAll[i].original_price + '元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
+					parent.insertBefore(ul, table);
 
-	// 				if(localStorage.getItem('loveFoodId') != null) {
-	// 					//提取本地保存的收藏数据跟加载的数据比对---开始
-	// 					var compare = JSON.parse(localStorage.getItem('loveFoodId'));
-	// 					for(var f = 0; f < compare.length; f++) {
-	// 						if(compare[f] == foodAll[i].id) {
-	// 							$(ul).find('span.dianzan105').removeClass('dianzan105').addClass('dianzan106');
-	// 						}
-	// 					}
-	// 				}
+					if(localStorage.getItem('loveFoodId') != null) {
+						//提取本地保存的收藏数据跟加载的数据比对---开始
+						var compare = JSON.parse(localStorage.getItem('loveFoodId'));
+						for(var f = 0; f < compare.length; f++) {
+							if(compare[f] == foodAll[i].id) {
+								$(ul).find('span.dianzan105').removeClass('dianzan105').addClass('dianzan106');
+							}
+						}
+					}
 
-	// 				if(localStorage.getItem('cartFoodId') != null) {
-	// 					//提取本地保存的数据跟加载的数据比对---开始
-	// 					var comWith = JSON.parse(localStorage.getItem('cartFoodId'));
-	// 					for(var k = 0; k < comWith.length; k++) {
-	// 						if(comWith[k] == foodAll[i].id) {
-	// 							$(ul).find('span.jiahao108').removeClass('jiahao108').addClass('duigou506');
-	// 						}
-	// 					}
-	// 				}
-	// 			}
-	// 		}
-	// 	});
-	// });
+					if(localStorage.getItem('cartFoodId') != null) {
+						//提取本地保存的数据跟加载的数据比对---开始
+						var comWith = JSON.parse(localStorage.getItem('cartFoodId'));
+						for(var k = 0; k < comWith.length; k++) {
+							if(comWith[k] == foodAll[i].id) {
+								$(ul).find('span.jiahao108').removeClass('jiahao108').addClass('duigou506');
+							}
+						}
+					}
+				}
+			}
+		});
+	});
 
 	/*进入加载默认食堂窗口*/
 	setTimeout(function() {
-		var canteenId = $('#addName').attr('data-id');
+		var canteenId = JSON.parse(localStorage.getItem('canteen'));
 		var portUrl = '/api/shops_of_canteen/' + canteenId;
 		$.ajax({
 			url: portUrl,
@@ -199,6 +199,7 @@
 <script>
 	/*菜品下拉刷新上拉加载*/
 	mui.init();
+
 	(function($) {
 		//阻尼系数
 		var deceleration = mui.os.ios ? 0.003 : 0.0009;
@@ -209,85 +210,126 @@
 		});
 
 		$(function() {
-			//循环初始化所有下拉刷新，上拉加载。
 			var page = 1;
 			var load = true;
 
+			//循环初始化所有下拉刷新，上拉加载。
 			$('.mui-slider-group #item1mobile .mui-scroll').pullToRefresh({
 				down: {
 					callback: function() {
-						console.log('...down');
 						var self = this;
-						// var canteenId = JSON.parse(localStorage.getItem('canteen'));//从本地取出存的食堂ID
-						var canteenId = $('#addName').attr('data-id');
+						var canteenId  = JSON.parse(localStorage.getItem('canteen'));
 						var urlajax = '/api/foods_of_canteen/'+canteenId;
-
-						$.ajax({
-							url: urlajax,
-							dataType: 'json',
-							async: true,
-							type: 'GET',
-							success: function(data) {
-								var foodAll = data.data;
-								for(var i = 0; i < foodAll.length; i++) {
-									ul = document.createElement('ul');
-									ul.className = "w-tab-view mui-table-view";
-									ul.innerHTML = '<li class="mui-table-view-cell mui-media"><img class="mui-media-object mui-pull-left" src=' + foodAll[i].img + '><div class="w-box"><div class="w-menu-left"><p class="menu-name">' + foodAll[i].name + '</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:' + foodAll[i].sold + '&nbsp;&nbsp;点赞:5</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">' + foodAll[i].price + '</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:' + foodAll[i].original_price + '元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
+						setTimeout(function() {
+							$.ajax({
+								url: urlajax,
+								dataType: 'json',
+								async: false,
+								type: 'GET',
+								success: function(data) {
+									var foodAll = data.data;
 									var parent = document.body.querySelector('#item1mobile .mui-scroll');
-									var wrap = document.body.querySelector('#item1mobile .mui-scroll ul');
-									wrap.remove();
-									table = document.body.querySelector('#item1mobile .mui-pull-bottom-tips');
-									parent.insertBefore(ul, table);
-								}
-							}
-						})
+									var table = document.body.querySelector('#item1mobile .mui-pull-bottom-tips');
 
-						self.endPullDownToRefresh();
-				
-						if(page > 1) {
-							page = 1;
-							load = false;
-							// self.refresh(true);
-						}
+										parent.innerHTML = '';
+										parent.appendChild(table);
+
+									for(var i = 0; i < foodAll.length; i++) {
+										var price  = parseFloat(foodAll[i].price*0.01);
+										var ul = document.createElement('ul');
+										ul.className = "w-tab-view mui-table-view";
+										ul.innerHTML = '<li class="mui-table-view-cell mui-media"><img class="mui-media-object mui-pull-left" src=' + foodAll[i].img + '><div class="w-box"><div class="w-menu-left"><p class="menu-name">' + foodAll[i].name + '</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:' + foodAll[i].sold + '&nbsp;&nbsp;点赞:5</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">' + price + '</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:' + foodAll[i].original_price + '元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
+										
+										parent.insertBefore(ul, table);
+
+										if(localStorage.getItem('loveFoodId') != null) {
+											//提取本地保存的收藏数据跟加载的数据比对---开始
+											var compare = JSON.parse(localStorage.getItem('loveFoodId'));
+											for(var f = 0; f < compare.length; f++) {
+												if(compare[f] == foodAll[i].id) {
+													 jQuery(ul).find('span.dianzan105').removeClass('dianzan105').addClass('dianzan106');
+												}
+											}
+										}
+
+										if(localStorage.getItem('cartFoodId') != null) {
+											//提取本地保存的数据跟加载的数据比对---开始
+											var comWith = JSON.parse(localStorage.getItem('cartFoodId'));
+											for(var k = 0; k < comWith.length; k++) {
+												if(comWith[k] == foodAll[i].id) {
+													 jQuery(ul).find('span.jiahao108').removeClass('jiahao108').addClass('duigou506');
+												}
+											}
+										}
+									}
+								}
+							});
+
+							self.endPullDownToRefresh();
+
+							if(page > 1) {
+								page = 1;
+								load = false;
+								self.refresh(true);
+							}
+						}, 1000);
 					}
 				},
 				up: {
 					callback: function() {
-						console.log('...up');
 						var self = this;
 
 						if(load == false) {
+							self.endPullupToRefresh(load);
+							load = true;
 							return;
-							// self.endPullupToRefresh(load);
-							// load = true;
-							// return;
 						}
 
-						page++;
-						var canId = JSON.parse(localStorage.getItem('canteen'));//从本地取出存的食堂ID
-						var urlajax = '/api/foods_of_canteen/'+canId+'?page='+page+'&limit=10';
+						var canteenId  = JSON.parse(localStorage.getItem('canteen'));
+						var urlajax = '/api/foods_of_canteen/'+canteenId+'?page=' + (++page) + '&limit=10';
 
-						$.ajax({
-							url: urlajax,
-							dataType: 'json',
-							async: true,
-							type: 'GET',
-							success: function(data) {
-								var foodAll = data.data;
+						setTimeout(function() {
+							$.ajax({
+								url: urlajax,
+								dataType: 'json',
+								async: true,
+								type: 'GET',
+								success: function(data) {
+									var foodAll = data.data;
+									var main = document.body.querySelector('#item1mobile .mui-scroll');
+									var table = document.body.querySelector('#item1mobile .mui-pull-bottom-tips');
+									var meta = data.meta;
+									for(var i = 0; i < foodAll.length; i++) {
+										var price  = parseFloat(foodAll[i].price*0.01);
+										ul = document.createElement('ul');
+										ul.className = "w-tab-view mui-table-view";
+										ul.innerHTML = '<li class="mui-table-view-cell mui-media" data-id='+foodAll[i].id+'><img class="mui-media-object mui-pull-left" src=' + foodAll[i].img + '><div class="w-box"><div class="w-menu-left"><p class="menu-name">' + foodAll[i].name + '</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:' + foodAll[i].sold + '&nbsp;&nbsp;点赞:5</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">' + price + '</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:' + foodAll[i].original_price + '元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
+										main.insertBefore(ul, table);
 
-								for(var i = 0; i < foodAll.length; i++) {
-									ul = document.createElement('ul');
-									ul.className = "w-tab-view mui-table-view";
-									ul.innerHTML = '<li class="mui-table-view-cell mui-media"><img class="mui-media-object mui-pull-left" src=' + foodAll[i].img + '><div class="w-box"><div class="w-menu-left"><p class="menu-name">' + foodAll[i].name + '</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:' + foodAll[i].sold + '&nbsp;&nbsp;点赞:5</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">' + foodAll[i].price + '</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:' + foodAll[i].original_price + '元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
-									var main = document.body.querySelector('#item1mobile .mui-scroll')
-									var table = document.body.querySelector('#item1mobile .mui-pull-bottom-tips')
-									main.insertBefore(ul, table);
+										if(localStorage.getItem('loveFoodId') != null) {
+											//提取本地保存的收藏数据跟加载的数据比对---开始
+											var compare = JSON.parse(localStorage.getItem('loveFoodId'));
+											for(var f = 0; f < compare.length; f++) {
+												if(compare[f] == foodAll[i].id) {
+													 jQuery(ul).find('span.dianzan105').removeClass('dianzan105').addClass('dianzan106');
+												}
+											}
+										}
+
+										if(localStorage.getItem('cartFoodId') != null) {
+											//提取本地保存的数据跟加载的数据比对---开始
+											var comWith = JSON.parse(localStorage.getItem('cartFoodId'));
+											for(var k = 0; k < comWith.length; k++) {
+												if(comWith[k] == foodAll[i].id) {
+													 jQuery(ul).find('span.jiahao108').removeClass('jiahao108').addClass('duigou506');
+												}
+											}
+										}
+									}
 								}
-
-								self.endPullUpToRefresh(page > data.meta.pagination.total_pages);
-								console.log(page + ' > ' + data.meta.pagination.total_pages);
-							}
-						})
+							})
+							self.endPullUpToRefresh();
+						}, 1000);
 					}
 				}
 			});
@@ -361,10 +403,9 @@
 								success: function(data) {
 									var takeFood = data;
 									for(var i = 0; i < takeFood.length; i++) {
-										var total = parseFloat(takeFood[i].total*0.01);
 										div = document.createElement('div');
 										div.className = "w-finshed-menu";
-										div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">' + total + '元(含服务费)</span></li></ul><ul class="w-home-tab mui-table-view"><li class="mui-table-view-cell">订单编号：' + takeFood[i].id + '<span class="w-hold mui-pull-right">' + takeFood[i].status + '</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:' + takeFood[i].orderer.phone + '">' + takeFood[i].orderer.phone + '</a></div></li><li class="mui-table-view-cell">联系姓名：' + takeFood[i].orderer.name + '</li><li class="mui-table-view-cell">配送地址：' + takeFood[i].address + '</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：' + takeFood[i].paid_at + '&nbsp;&nbsp;&nbsp;&nbsp;预约时间：' + takeFood[i].appointment_at + '</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-want-accept"  data-id=' + takeFood[i].id + '>我要带餐</button></li></ul>';
+										div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">' + takeFood[i].total + '元(含服务费)</span></li></ul><ul class="w-home-tab mui-table-view"><li class="mui-table-view-cell">订单编号：' + takeFood[i].id + '<span class="w-hold mui-pull-right">' + takeFood[i].status + '</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:' + takeFood[i].orderer.phone + '">' + takeFood[i].orderer.phone + '</a></div></li><li class="mui-table-view-cell">联系姓名：' + takeFood[i].orderer.name + '</li><li class="mui-table-view-cell">配送地址：' + takeFood[i].address + '</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：' + takeFood[i].paid_at + '&nbsp;&nbsp;&nbsp;&nbsp;预约时间：' + takeFood[i].appointment_at + '</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-want-accept"  data-id=' + takeFood[i].id + '>我要带餐</button></li></ul>';
 										var table = document.body.querySelector('#item2mobile .mui-pull-bottom-tips');
 										var par = document.body.querySelector('.mui-slider-group #item2mobile .mui-scroll');
 										par.insertBefore(div, table);
@@ -383,6 +424,9 @@
 							$.ajax({
 								url: urlajax,
 								dataType: 'json',
+								data: {
+									'page': 1
+								},
 								async: true,
 								type: 'GET',
 								success: function(data) {
@@ -416,7 +460,6 @@
 				$(this).find('span').removeClass('jiahao108').addClass('duigou506');
 
 				var foodId = $(this).parents('li.mui-table-view-cell').attr('data-id');
-				var furl = '/wechat/cart/add/' + foodId;
 				var cartFood = new Array(); //定义购物车里食品id数组
 
 				if(localStorage.getItem('cartFoodId') != null) {
@@ -430,23 +473,17 @@
 
 				$('.w-badge').text(cartFood.length);
 
-				$.ajax({
-					url: furl,
-					dataType: 'json',
-					async: true,
-					type: 'GET',
-					success: function(data) {
-						layer.open({
+				layer.open({
 							content: '添加成功',
 							skin: 'msg',
 							time: 2 //2秒后自动关闭
 						});
-					}
-				});
-			} else {
+
+			} 
+			else {
 				$(this).find("span").removeClass('duigou506').addClass('jiahao108');
 				var foodId = $(this).parents('li.mui-table-view-cell').attr('data-id');
-				var furl = '/wechat/cart/cancel/' + foodId;
+				//var furl = '/wechat/cart/cancel/' + foodId;
 				var cartFood = JSON.parse(localStorage.getItem('cartFoodId'));
 				console.log(cartFood);
 				Array.prototype.removeByValue = function(val) {
@@ -465,23 +502,17 @@
 				var buy = JSON.parse(localStorage.getItem('cartFoodId'));
 				console.log(buy);
 
-				$.ajax({
-					url: furl,
-					dataType: 'json',
-					async: true,
-					type: 'GET',
-					success: function(data) {
-						layer.open({
+				layer.open({
 							content: '取消添加',
 							skin: 'msg',
 							time: 2 //2秒后自动关闭
 						});
-					}
-				});
 			}
 		});
 	});
 </script>
+
+
 
 <script>
 	/*添加喜欢，取消喜欢*/
@@ -491,7 +522,6 @@
 			if(boolName) {
 				$(this).find('span').removeClass('dianzan105').addClass('dianzan106');
 				var foodId = $(this).parents('li.mui-table-view-cell').attr('data-id');
-				var furl = '/wechat/favorite/add/' + foodId;
 
 				if(localStorage.getItem('loveFoodId') == null) {
 					var loveFood = new Array(); //定义购物车里食品id数组
@@ -506,24 +536,16 @@
 					console.log(loveFood, loveFood.length);
 				}
 
-				$.ajax({
-					url: furl,
-					dataType: 'json',
-					async: true,
-					type: 'GET',
-					success: function(data) {
-						layer.open({
-							content: '收藏成功',
-							skin: 'msg',
-							time: 2 //2秒后自动关闭
-						});
-					}
+				layer.open({
+					content: '收藏成功',
+					skin: 'msg',
+					time: 2 //2秒后自动关闭
 				});
+
 			} else {
 				$(this).find("span").removeClass('dianzan106').addClass('dianzan105');
 				
 				var foodId = $(this).parents('li.mui-table-view-cell').attr('data-id');
-				var furl = '/wechat/favorite/cancel/' + foodId;
 				var loveFood = JSON.parse(localStorage.getItem('loveFoodId'));
 				
 				console.log(loveFood);
@@ -538,24 +560,15 @@
 				} //给数组构造一个方法，删除数组中指定的元素
 
 				loveFood.removeByValue(foodId);
-				// loveFood = read;
 				localStorage.setItem('loveFoodId', JSON.stringify(loveFood));
 				
 				var show = JSON.parse(localStorage.getItem('loveFoodId'));
 				console.log(show);
 
-				$.ajax({
-					url: furl,
-					dataType: 'json',
-					async: true,
-					type: 'GET',
-					success: function(data) {
-						layer.open({
-							content: '取消收藏',
-							skin: 'msg',
-							time: 2 //2秒后自动关闭
-						});
-					}
+				layer.open({
+					content: '取消收藏',
+					skin: 'msg',
+					time: 2 //2秒后自动关闭
 				});
 			}
 		});
@@ -618,15 +631,12 @@
 			
 			var newText = $(this).find('span.selectDown').text();
 			var canteenId = $(this).find('span.selectDown').attr('data-id');
-			localStorage.setItem('canteen',JSON.stringify(canteenId));//进入首页存默认食堂ID
-			localStorage.getItem('canteen');
-			console.log(JSON.parse(localStorage.getItem('canteen')));//
-			
+			localStorage.setItem('canteen',JSON.stringify(canteenId));//切换食堂时将对应食堂ID存在本地
+			console.log(JSON.parse(localStorage.getItem('canteen')));
 			$('.mui-title').attr('data-id', canteenId);
 			$('.mui-title #addName').text(newText); //改变顶部食堂名称
 			
-			var ajaxUrl = '/api/foods_of_canteen/' + canteenId; //根据食堂id选择菜品
-			
+			var ajaxUrl = '/api/foods_of_canteen/' + JSON.parse(localStorage.getItem('canteen')); //根据食堂id选择菜品
 			$('#item1mobile .mui-scroll ul').remove(); //换食堂时候清空食堂之前的菜品列表
 			$.ajax({
 				url: ajaxUrl,
@@ -636,9 +646,10 @@
 				success: function(data) {
 					var foodAll = data.data;
 					for(var i = 0; i < foodAll.length; i++) {
+						var price = parseFloat(foodAll[i].price*0.01);
 						ul = document.createElement('ul');
 						ul.className = "w-tab-view mui-table-view";
-						ul.innerHTML = '<li class="mui-table-view-cell mui-media" data-id=' + foodAll[i].id + '><img class="mui-media-object mui-pull-left" src=' + foodAll[i].img + '><div class="w-box"><div class="w-menu-left"><p class="menu-name">' + foodAll[i].name + '</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:' + foodAll[i].sold + '&nbsp;&nbsp;点赞:5</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">' + foodAll[i].price + '</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:' + foodAll[i].original_price + '元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
+						ul.innerHTML = '<li class="mui-table-view-cell mui-media" data-id=' + foodAll[i].id + '><img class="mui-media-object mui-pull-left" src=' + foodAll[i].img + '><div class="w-box"><div class="w-menu-left"><p class="menu-name">' + foodAll[i].name + '</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:' + foodAll[i].sold + '&nbsp;&nbsp;点赞:5</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">' + price + '</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:' + foodAll[i].original_price + '元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
 						var parent = document.body.querySelector('#item1mobile .mui-scroll');
 						table = document.body.querySelector('#item1mobile .mui-pull-bottom-tips');
 						parent.insertBefore(ul, table);
@@ -648,7 +659,7 @@
 
 			/*根据食堂选窗口*/
 			$('.w-canvas-list').html(''); //换食堂时候清空之前食堂对应的窗口
-			var portUrl = '/api/shops_of_canteen/' + canteenId;
+			var portUrl = '/api/shops_of_canteen/' + JSON.parse(localStorage.getItem('canteen'));
 			
 			$.ajax({
 				url: portUrl,
@@ -675,38 +686,28 @@
 	$(function() {
 		$(document).on('touchstart', '.portName', function() {
 			var shopId = $(this).find('span').attr('data-id');
-			var ajaxUrl = '/api/food_of_shop/' + shopId;
-			
+			localStorage.setItem('shopId',JSON.stringify(shopId));//将默认食堂id存在本地
+			var ajaxUrl = '/api/food_of_shop/' + JSON.parse(localStorage.getItem('shopId'));
 			$('.w-tab-view').remove();
-			
 			mui('.mui-off-canvas-wrap').offCanvas('show');
-	
 			$.ajax({
 				url: ajaxUrl,
 				dataType: 'json',
 				async: true,
 				type: 'GET',
 				success: function(data) {
-					var foodAll = data.foods;
+					var foodAll = data;
 					for(var i = 0; i < foodAll.length; i++) {
+						var price = parseFloat(foodAll[i].price*0.01);
 						ul = document.createElement('ul');
 						ul.className = "w-tab-view mui-table-view";
-						ul.innerHTML = '<li class="mui-table-view-cell mui-media" data-id=' + foodAll[i].id + '><img class="mui-media-object mui-pull-left" src=' + foodAll[i].img + '><div class="w-box"><div class="w-menu-left"><p class="menu-name">' + foodAll[i].name + '</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:' + foodAll[i].sold + '&nbsp;&nbsp;点赞:5</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">' + foodAll[i].price + '</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:' + foodAll[i].original_price + '元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
+						ul.innerHTML = '<li class="mui-table-view-cell mui-media" data-id=' + foodAll[i].id + '><img class="mui-media-object mui-pull-left" src=' + foodAll[i].img + '><div class="w-box"><div class="w-menu-left"><p class="menu-name">' + foodAll[i].name + '</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:' + foodAll[i].sold + '</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">' + price + '</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:' + foodAll[i].original_price + '元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
 						var parent = document.body.querySelector('#item1mobile .mui-scroll');
 						table = document.body.querySelector('#item1mobile .mui-pull-bottom-tips');
 						parent.insertBefore(ul, table);
 					}
 				}
 			});
-		});
-	});
-</script>
-
-<script>
-	/*点击首页我要带餐刷新页面，定位在当前页带餐tab*/
-	$(function() {
-		$('.w-want-accept').on('touchstart', function() {
-			window.location.href = '/wechat/index#item2mobile';
 		});
 	});
 </script>

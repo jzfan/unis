@@ -29,31 +29,33 @@ class ShopController extends Controller
     * @apiParam {Number} shop_id 窗口ID
     * @apiSuccessExample 成功返回:
     * HTTP/1.1 200 OK
-    {
-      "foods": [
-        {
-          "id": 7,
-          "shop_id": 44,
-          "name": "quia食品",
-          "img": "http://lorempixel.com/50/50/?16469",
-          "type": "",
-          "description": "Dignissimos sit aut sint doloremque error. Dolorem molestias aliquam facilis enim ut esse et consequatur. Provident ex sequi iusto explicabo. Error consectetur veritatis tenetur est.",
-          "price": "8.00",
-          "discount": 40,
-          "sold": 19,
-          "favorite": 84,
-          "recommend": 42,
-          "status": "禁用",
-          "created_at": "2016-11-21 16:44:04",
-          "updated_at": "2016-11-21 16:44:04"
-        },
-        ......
-      ]
-    }
+    [
+      {
+        "id": 896,
+        "name": "consequuntur食品",
+        "img": "http://lorempixel.com/50/50/?26143",
+        "price": 900,
+        "original_price": "17.50",
+        "sold": 10
+      },
+      ......
+    ]
     */   
     public function getFoods($shop_id)
     {
-        return Shop::findOrFail($shop_id)->foods;
+        $foods = Shop::findOrFail($shop_id)->foods;
+        $data = [];
+        foreach ($foods as $food){
+           $data[] = [
+              'id' => $food->id,
+              'name' => $food->name,
+              'img' => $food->img,
+              'price' => $food->priceAfterDiscount(),
+              'original_price' => $food->price,
+              'sold' => $food->sold
+            ];          
+        }
+        return $data;
     }
 
     /**

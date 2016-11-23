@@ -12,7 +12,7 @@
   </ul>    
       
 <!--底部nav切换开始-->
-    <nav class="win-bar mui-bar mui-bar-tab">
+    <nav class="win-nav mui-bar mui-bar-tab">
       <a id="defaultTab" class="mui-tab-item " href="/wechat/index">
         <span class="mui-icon iconfont xuanshouye201"></span>
         <span class="mui-tab-label">首页</span>
@@ -83,13 +83,13 @@
           type:'GET',
           success:function(data){
             var foodList = data.data;
-
+            var price = parseFloat(foodList.price*0.01);
             var li =document.createElement('li');
             li.className = 'mui-table-view-cell mui-media';
-            li.innerHTML = '<img class="mui-media-object mui-pull-left" src='+foodList.img+'><div class="w-box" data-id='+foodList.id+'><div class="w-menu-left"><p class="menu-name">'+foodList.name+'</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:'+foodList.sold+'&nbsp;&nbsp;点赞:5</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">'+foodList.price+'</span>&nbsp;&nbsp;<span class="origin-value">原价:'+foodList.original_price+'元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon-g"><div class="mui-numbox"><button class="mui-btn mui-numbox-btn-minus" type="button"><span class="mui-icon iconfont jianhao107"></span></button><input class="mui-numbox-input" type="number" value= "1" readonly/><button class="mui-btn mui-numbox-btn-plus" type="button"><span class="mui-icon iconfont jiahao108"></span></button></div></div></div></div>';
+            li.innerHTML = '<img class="mui-media-object mui-pull-left" src='+foodList.img+'><div class="w-box" data-id='+foodList.id+'><div class="w-menu-left"><p class="menu-name">'+foodList.name+'</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:'+foodList.sold+'&nbsp;&nbsp;点赞:5</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">'+price+'</span>&nbsp;&nbsp;<span class="origin-value">原价:'+foodList.original_price+'元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon-g"><div class="mui-numbox"><button class="mui-btn mui-numbox-btn-minus" type="button"><span class="mui-icon iconfont jianhao107"></span></button><input class="mui-numbox-input" type="number" value= "1" readonly/><button class="mui-btn mui-numbox-btn-plus" type="button"><span class="mui-icon iconfont jiahao108"></span></button></div></div></div></div>';
             table.appendChild(li);
 
-            total  += parseFloat(foodList.price);
+            total  += parseFloat(foodList.price*0.01);
           }
         });
       })
@@ -224,13 +224,11 @@
           }
 
           var buyAcash = parseFloat($('.cash').text());
-          // var urlajax = '/wechat/paid?openid={{ $user->id }}';
           var urlajax = '/wechat/prepay';
           $.get(urlajax,
             {'total':buyAcash, 'time':$('.Ntime').attr('data-id'), 'food':buyArray},
             function(data){
               console.log(data);
-              // alert(data);
               callpay(data);
             }
           );

@@ -104,8 +104,8 @@
 					data:{},
 					type:'GET',
 					success:function(data){
-						console.log(data);
-						$('.cash-leave-num').html('<span class="cash-rmb">￥</span>'+data);
+					var cash = parseFloat(data*0.01);
+						$('.cash-leave-num').html('<span class="cash-rmb">￥</span>'+cash);
 					}
 				})
 			})
@@ -124,9 +124,10 @@
 					type:'GET',
 					success:function(data){
 						for(var i=0;i<data.length;i++){
+							var total = parseFloat(data[i].total*0.01);
 							var ul = document.createElement('ul');
 							ul.className = 'mui-table-view';
-							ul.innerHTML = ' <li class="mui-table-view-cell"><div class="mui-slider-right mui-disabled"><span class="mui-btn mui-btn-red">删除</span></div><div class="mui-slider-handle"><div>订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">+'+data[i].total+'元</span></div><div class="right-del">下单时间：'+data[i].created_at+'<span class="my-song mui-pull-right">'+data[i].orderer.status+'</span></div></div></li>';
+							ul.innerHTML = ' <li class="mui-table-view-cell"><div class="mui-slider-right mui-disabled"><span class="mui-btn mui-btn-red">删除</span></div><div class="mui-slider-handle"><div>订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">+'+total+'元</span></div><div class="right-del">下单时间：'+data[i].created_at+'<span class="my-song mui-pull-right">'+data[i].orderer.status+'</span></div></div></li>';
 							var parent = $('.w-cash-aaa');
 							parent.append(ul);
 						}

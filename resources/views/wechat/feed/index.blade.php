@@ -64,10 +64,10 @@
 		</script>
 
 		<script>
-		//滑动删除消息功能
+		//滑动删除收藏功能
 		$(function(){
-		 	$(document).on('touchstart','.w-card li .mui-disabled',function
-		 		
+		 	$(document).on('touchstart','.w-card li .mui-disabled',function(){
+		 		$(this).parents('div.w-card').fadeOut();
 		 		var openId = $('.w-about-uniserve').attr('data-id');
 		 		var feed_id = $(this).attr('data-id');
 		 		var ajaxUrl ='/api/feed/'+feed_id+'?openid='+openId;   

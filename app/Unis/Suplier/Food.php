@@ -30,7 +30,7 @@ class Food extends Model
 
     public function priceAfterDiscount()
     {
-        return round($this->price * 2 *(100 - $this->discount)/100)/2;
+        return round($this->price * (100 - $this->discount)/100*2)/2*100;
     }
 
 }

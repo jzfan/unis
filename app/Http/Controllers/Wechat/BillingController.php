@@ -9,10 +9,8 @@ use App\Http\Controllers\Controller;
 use EasyWeChat\Payment\Order;
 use EasyWeChat\Foundation\Application;
 use App\Unis\Order\Order as UnisOrder;
-use App\Unis\Suplier\Shop;
 use App\Unis\User\User;
 use App\Unis\Suplier\Food;
-use App\Unis\Order\Cart;
 use App\Unis\Order\OrderItem;
 use Carbon\Carbon;
 
@@ -29,7 +27,7 @@ class BillingController extends Controller
 	public function __construct()
 	{
 		$options = [
-		    'app_id' => env('WECHAT_APPID'),
+		    'app_id'  => env('WECHAT_APPID'),
 		    'payment' => [
 		        'merchant_id'        => env('WECHAT_PAYMENT_MERCHANT_ID'),
 		        'key'                => env('WECHAT_PAYMENT_KEY'),
@@ -37,8 +35,9 @@ class BillingController extends Controller
 		        'key_path'           => env('WECHAT_PAYMENT_KEY_PATH'),      // XXX: 绝对路径！！！！
 		    ],
 		];
-		$app = new Application($options);
- 		$this->payment = $app->payment;				
+		$app              = new Application($options);
+ 		$this->payment    = $app->payment;				
+ 		$this->luckyMoney = $app->lucky_money;				
 	}
 
 	//初始化支付参数
@@ -76,7 +75,7 @@ class BillingController extends Controller
  		    'notify_url'       => env('APP_URL').'wechat/no_ti_fy/',
  		    'openid'           => $this->user->wechat_openid,
  		];
- 		// 创建订单
+ 		// 创建微信订单
  		 $order = new Order($attributes);
  		 return $this->payment->prepare($order);	
     }
@@ -190,21 +189,7 @@ class BillingController extends Controller
     		$total += $price*$food->num;
 		}
 		//分
-		return $total*100;
-	}
-
-	public function init4Bonus()
-	{
-		$data = [
-		    'mch_billno'       => 'xy123456',
-		    'send_name'        => '测试红包',
-		    're_openid'        => $this->user->wechat_openid,
-		    'total_num'        => 1,  //普通红包固定为1，裂变红包不小于3
-		    'total_amount'     => 100,
-		    'wishing'          => '祝福语',
-		    'act_name'         => '测试活动',
-		    'remark'           => '测试备注',
-		];
+		return $total;
 	}
 
 	public function refund($order_id)
@@ -213,6 +198,46 @@ class BillingController extends Controller
 		if (! $order){
 			abort(404, 'Order Not Found');
 		}
+		// $result = $this->payment->refundByTransactionId($order->billing_id, $order->id, $order->total);
 		$result = $this->payment->refundByTransactionId($order->billing_id, $order->id, $order->total);
+	}
+
+	protected function init4LuckyMoney()
+	{
+		$this->user = getWechatUser();
+		$this->order_no = 'W'.$this->createOrderNum();
+	}
+
+	public function LuckyMoney()
+	{
+		$data = [
+		    'mch_billno'       => 'xy123456',
+		    'send_name'        => 'Uniserve',
+		    're_openid'        => $this->user->wechat_openid,
+		    'total_num'        => 1,  //普通红包固定为1，裂变红包不小于3
+		    'total_amount'     => 100,  //单位为分，普通红包不小于100，裂变红包不小于300
+		    'wishing'          => '祝福语',
+		    'client_ip'        => Request::ip(),
+		    'act_name'         => '测试活动',
+		    'remark'           => '测试备注',
+		];
+
+		$this->init4LuckyMoney();
+		$result = $luckyMoney->send($data, \EasyWeChat\Payment\LuckyMoney\API::TYPE_NORMAL);
+\Log::info($result);
+		if ($result === 'success'){
+			LuckyMoney::create([
+				'billing_id' => $data['mch_billno'],
+				'user_id' => $this->user->id,
+				'openid' => $data['re_openid'],
+				'send_name' => $data['send_name'],
+				'total_num' => $data['total_num'],
+				'total_amount' => $data['total_amount'],
+				'client_ip' => $data['client_ip'],
+				'wishing' => $data['wishing'],
+				'act_name' => $data['act_name'],
+				'remark' => $data['remark'],
+			]);
+		}
 	}
 }

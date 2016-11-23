@@ -67,15 +67,6 @@
 	}
 
 /* 底部tab样式 */
-.win-nav{
-	z-index: 1;
-}
-.win-nav .mui-tab-item.mui-active{
-	color:#fe4e4c;
-}
-.win-nav .mui-tab-item .mui-icon~.mui-tab-label{
-	font-size: 12px;
-}
 .w-bar{
 	background-color: #fe4e4c;
 }

@@ -187,7 +187,7 @@ class AddressController extends BaseController
      *       "error": "Can Not Delete Default Address"
      *     }
      */
-    public function destroy(Address $address_id)
+    public function destroy($address_id)
     {
         $address = Address::find($address_id);
         if (! $address){

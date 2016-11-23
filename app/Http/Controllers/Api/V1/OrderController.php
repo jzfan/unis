@@ -23,7 +23,7 @@ class OrderController extends BaseController
         $this->page  = $request->page ? : 1;
     }
     /**
-    * @api {get} /order?openid=xxxx 订单列表分页
+    * @api {get} /order 订单列表分页
     * @apiVersion 1.0.0
     * @apiName getOrderList
     * @apiGroup Order
@@ -100,7 +100,7 @@ class OrderController extends BaseController
     }
 
     /**
-    * @api {get} order/taken/{order_id}  接单
+    * @api {get} /order/taken/{order_id}  接单
     * @apiVersion 1.0.0
     * @apiName OrderTaked
     * @apiGroup Order
@@ -111,9 +111,12 @@ class OrderController extends BaseController
     public function taken($order_id)
     {
     	$order = Order::where(['id'=>$order_id, 'status'=>'paid'])->first();
-        $this->checkNull($order);
-
-        $order->update([
+      $this->checkNull($order);
+      $order->foods->map(function ($food){
+          $food->sold += 1; 
+          $food->save();
+      });
+      $order->update([
             'deliver_id' => $this->user->id,
             'status' => 'taken',
             'taken_at' => Carbon::now()
@@ -122,7 +125,7 @@ class OrderController extends BaseController
     }
 
     /**
-    * @api {get} order/delivered/{order_id}  确认送达
+    * @api {get} /order/delivered/{order_id}  确认送达
     * @apiVersion 1.0.0
     * @apiName OrderDelivered
     * @apiGroup Order
@@ -142,7 +145,7 @@ class OrderController extends BaseController
     }
 
     /**
-    * @api {get} order/delivered/{order_id}  确认收到
+    * @api {get} /order/delivered/{order_id}  确认收到
     * @apiVersion 1.0.0
     * @apiName OrderReceived
     * @apiGroup Order
@@ -175,7 +178,7 @@ class OrderController extends BaseController
     }
 
     /**
-    * @api {get} order/show/{order_id}  取一条订单
+    * @api {get} /order/show/{order_id}  取一条订单
     * @apiVersion 1.0.0
     * @apiName getOneOrder
     * @apiGroup Order

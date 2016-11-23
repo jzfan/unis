@@ -102,6 +102,7 @@ class IndexController extends Controller
 
     public function test()
     {
-        return view('wechat.test');
+        // return view('wechat.test');
+        return storage_path('app').env('WECHAT_PAYMENT_CERT_PATH');
     }
 }

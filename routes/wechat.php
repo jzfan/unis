@@ -17,8 +17,8 @@ Route::group(['middleware'=>['web', 'wechat.oauth']], function () {
 	Route::group(['middleware' => 'register'], function(){
 		Route::get('/index/{canteen_id?}', 'IndexController@index');
 		Route::get('/cart', 'CartController@show');
-		Route::get('/cart/add/{food_id}', 'CartController@add');
-		Route::get('/cart/cancel/{food_id}', 'CartController@cancel');
+		// Route::get('/cart/add/{food_id}', 'CartController@add');
+		// Route::get('/cart/cancel/{food_id}', 'CartController@cancel');
 		Route::get('/about', 'IndexController@about');
 		Route::get('/report', 'IndexController@report');
 		Route::get('/order/status', 'OrderController@status');
@@ -32,8 +32,8 @@ Route::group(['middleware'=>['web', 'wechat.oauth']], function () {
 		Route::get('/profile', 'UserController@show');
 		Route::get('/address', 'UserController@address');
 		Route::get('/favorite', 'FavoriteController@index');
-		Route::get('/favorite/add/{food_id}', 'FavoriteController@add');
-		Route::get('/favorite/cancel/{food_id}', 'FavoriteController@cancel');
+		// Route::get('/favorite/add/{food_id}', 'FavoriteController@add');
+		// Route::get('/favorite/cancel/{food_id}', 'FavoriteController@cancel');
 		Route::get('/message', 'FeedController@index');
 		Route::get('/message/{feed_id}', 'FeedController@show');
 		Route::get('/balance', 'BillingController@balance');

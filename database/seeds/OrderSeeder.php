@@ -45,7 +45,7 @@ class OrderSeeder extends Seeder
                     OrderItem::create([
                         'food_id'=>$food->id,
                         'amount'=>$food->num,
-                        'price'=>$food->price,
+                        'price'=>$food->priceAfterDiscount(),
                         'order_id'=>$order->id
                     ]);
                 }
@@ -78,7 +78,7 @@ class OrderSeeder extends Seeder
         }
 
         $withdrawed_order_count = Order::where('status', 'received')->count();
-        $withdrawed_order = Order::where('status', 'delivered')->inRandomOrder()->take(ceil($withdrawed_order_count * 0.8))->get();
+        $withdrawed_order = Order::where('status', 'received')->inRandomOrder()->take(ceil($withdrawed_order_count * 0.8))->get();
         foreach ($withdrawed_order as $order) {
             $order->status = 'withdrawed';
             $order->withdrawed_at = Carbon::instance($order->received_at)->addMinutes(mt_rand(10, 30));
@@ -107,7 +107,7 @@ class OrderSeeder extends Seeder
         $foods->total = 0;
         foreach ($foods as $food){
             $food->num = mt_rand(1,3);
-            $foods->total += $food->priceAfterDiscount()*$food->num*100;
+            $foods->total += $food->priceAfterDiscount()*$food->num;
         }
         return $foods;
     }

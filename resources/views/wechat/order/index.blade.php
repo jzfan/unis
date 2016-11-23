@@ -71,7 +71,6 @@
 	   	 			
 	   	 			for(var i=0;i<data.length;i++){
 	   	 				var total = parseFloat(data[i].total*0.01);
-	   	 				console.log(data[i].id);
 	   	 				var tele = "";
 	   	 				var name = "";
 	   	 				if(data[i].deliver&&data[i].deliver.hasOwnProperty("phone")&&data[i].deliver.hasOwnProperty("name"))
@@ -81,7 +80,7 @@
 	   	 				}
 	   	 				var ul = document.createElement('ul');
 	   	 				    ul.className = "my-menu mui-table-view";
-	   	 				    ul.innerHTML = '<a href="/wechat/order/show/'+data[i].id+'"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:'+tele+'">'+tele+'</a></div></li><li class="mui-table-view-cell">联系姓名：'+name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+total+'元</li></a>';
+	   	 				    ul.innerHTML = '<a href="/wechat/order/show/'+data[i].id+'"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li></a><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:'+tele+'">'+tele+'</a></div></li><a href="/wechat/order/show/'+data[i].id+'"><li class="mui-table-view-cell">联系姓名：'+name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+total+'元</li></a>';
 	   	 				table = document.body.querySelector('#item1mobile .mui-scroll');
 	   	 				bot = document.body.querySelector('#item1mobile .mui-scroll .mui-pull-bottom-tips');
 	                    table.insertBefore(ul,bot); 
@@ -105,7 +104,7 @@
 	   	 				var total = parseFloat(data[i].total*0.01);
 	   	 				var ul = document.createElement('ul');
 	   	 				    ul.className = "my-menu mui-table-view";
-	   	 				    ul.innerHTML = '<a href="/wechat/order/show/'+data[i].id+'"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:'+data[i].orderer.phone+'">'+data[i].orderer.phone+'</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].orderer.name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+total+'元</li></a>';
+	   	 				    ul.innerHTML = '<a href="/wechat/order/show/'+data[i].id+'"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li></a><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:'+data[i].orderer.phone+'">'+data[i].orderer.phone+'</a></div></li><a href="/wechat/order/show/'+data[i].id+'"><li class="mui-table-view-cell">联系姓名：'+data[i].orderer.name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+total+'元</li></a>';
 
 	   	 				table = document.body.querySelector('#item2mobile .mui-scroll');
 	   	 				bot = document.body.querySelector('#item2mobile .mui-scroll .mui-pull-bottom-tips');
@@ -130,7 +129,7 @@
 	   	 				var total = parseFloat(data[i].total*0.01);
 	   	 				var ul = document.createElement('ul');
 	   	 				    ul.className = "my-menu mui-table-view";
-	   	 				    ul.innerHTML = '<a href="/wechat/order/show/'+data[i].id+'"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:'+data[i].orderer.phone+'">'+data[i].orderer.phone+'</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].orderer.name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+total+'元</li></a>';
+	   	 				    ul.innerHTML = '<a href="/wechat/order/show/'+data[i].id+'"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li></a><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:'+data[i].orderer.phone+'">'+data[i].orderer.phone+'</a></div></li><a href="/wechat/order/show/'+data[i].id+'"><li class="mui-table-view-cell">联系姓名：'+data[i].orderer.name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+total+'元</li></a>';
 
 	   	 				table = document.body.querySelector('#item3mobile .mui-scroll');
 	   	 				bot = document.body.querySelector('#item3mobile .mui-scroll .mui-pull-bottom-tips');
@@ -159,7 +158,7 @@
 				});
 				$(function() {
 					//循环初始化所有下拉刷新，上拉加载。
-						$('.mui-pull-bottom-wrapper').html('');
+						jQuery('.mui-pull-bottom-wrapper').html('');
 						$('.mui-slider-group #item1mobile .mui-scroll').pullToRefresh({
 
 
@@ -259,7 +258,7 @@
 				});
 				$(function() {
 					//循环初始化所有下拉刷新，上拉加载。
-						$('.mui-pull-bottom-wrapper').html('');
+						jQuery('.mui-pull-bottom-wrapper').html('');
 						$('.mui-slider-group #item2mobile .mui-scroll').pullToRefresh({
 
 							down: {
@@ -343,7 +342,7 @@
 				});
 				$(function() {
 					//循环初始化所有下拉刷新，上拉加载。
-						$('.mui-pull-bottom-wrapper').html('');
+						jQuery('.mui-pull-bottom-wrapper').html('');
 						$('.mui-slider-group #item3mobile .mui-scroll').pullToRefresh({
 
 							down: {

@@ -652,7 +652,7 @@
   },
   {
     "type": "get",
-    "url": "order/delivered/{order_id}",
+    "url": "/order/delivered/{order_id}",
     "title": "确认送达",
     "version": "1.0.0",
     "name": "OrderDelivered",
@@ -691,7 +691,7 @@
   },
   {
     "type": "get",
-    "url": "order/delivered/{order_id}",
+    "url": "/order/delivered/{order_id}",
     "title": "确认收到",
     "version": "1.0.0",
     "name": "OrderReceived",
@@ -730,7 +730,7 @@
   },
   {
     "type": "get",
-    "url": "order/taken/{order_id}",
+    "url": "/order/taken/{order_id}",
     "title": "接单",
     "version": "1.0.0",
     "name": "OrderTaked",
@@ -769,7 +769,7 @@
   },
   {
     "type": "get",
-    "url": "order/show/{order_id}",
+    "url": "/order/show/{order_id}",
     "title": "取一条订单",
     "version": "1.0.0",
     "name": "getOneOrder",
@@ -808,7 +808,7 @@
   },
   {
     "type": "get",
-    "url": "/order?openid=xxxx",
+    "url": "/order",
     "title": "订单列表分页",
     "version": "1.0.0",
     "name": "getOrderList",
@@ -966,7 +966,7 @@
       "examples": [
         {
           "title": "成功返回:",
-          "content": "HTTP/1.1 200 OK\n    {\n      \"foods\": [\n        {\n          \"id\": 7,\n          \"shop_id\": 44,\n          \"name\": \"quia食品\",\n          \"img\": \"http://lorempixel.com/50/50/?16469\",\n          \"type\": \"\",\n          \"description\": \"Dignissimos sit aut sint doloremque error. Dolorem molestias aliquam facilis enim ut esse et consequatur. Provident ex sequi iusto explicabo. Error consectetur veritatis tenetur est.\",\n          \"price\": \"8.00\",\n          \"discount\": 40,\n          \"sold\": 19,\n          \"favorite\": 84,\n          \"recommend\": 42,\n          \"status\": \"禁用\",\n          \"created_at\": \"2016-11-21 16:44:04\",\n          \"updated_at\": \"2016-11-21 16:44:04\"\n        },\n        ......\n      ]\n    }",
+          "content": "HTTP/1.1 200 OK\n    [\n      {\n        \"id\": 896,\n        \"name\": \"consequuntur食品\",\n        \"img\": \"http://lorempixel.com/50/50/?26143\",\n        \"price\": 900,\n        \"original_price\": \"17.50\",\n        \"sold\": 10\n      },\n      ......\n    ]",
           "type": "json"
         }
       ]

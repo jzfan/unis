@@ -74,7 +74,7 @@ class WechatController extends Controller
     {
         switch ($message->Event) {
                    case 'subscribe':
-                        return "您好，欢迎关注Uniserve，您可以在线选购食堂套餐，单品和饮品。也可以加入我们配送员大家庭，为其他同学服务的同时也可以创业，赚取一定的生活补贴哦~期待您的加入。点击下方菜单的{我要点餐}进入点餐和接单页面。更有百万餐补等你来领！戳一戳：<a href='http://g.eqxiu.com/s/D0Ez8TIt'>click</a>";
+                        return "您好，欢迎关注Uniserve，您可以在线选购食堂套餐，单品和饮品。也可以加入我们配送员大家庭，为其他同学服务的同时也可以创业，赚取一定的生活补贴哦~期待您的加入。点击下方菜单的{我要点餐}进入点餐和接单页面。更有百万餐补等你来领！戳一戳：<a href='http://g.eqxiu.com/s/D0Ez8TIt'>活动详情</a> 上线倒计时3天哦~敬请期待";
                     case 'CLICK' :
                         return $this->dispatchClick($message);
                    default:

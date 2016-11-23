@@ -29,8 +29,6 @@ $(function() {
 	/*入口表单*/
 	/*msgInfo('.w-want-accept','购买成功');*/
 	/*购物车*/
-	msgInfo('.w-about-uniserve .w-address-save','保存成功');
-	/*保存地址*/
 	msgInfo('.w-respone-btn','感谢您的反馈！');
 	/*意见反馈*/
 	msgInfo('.w-want-accept-native','确认成功');

@@ -74,6 +74,9 @@
 @stop
 
 @section('js')
+
+
+
 <script>
 	mui('.win-nav').on('tap','a',function(){
 		document.location.href=this.href;
@@ -127,8 +130,20 @@
 
 	<script>
 	   $(function(){
+	   	$.ajax({
+				url:'/wechat/user',
+				dataType:'json',
+				async:true,
+				data:{},
+				type:'GET',
+				success:function(data){
+					localStorage.setItem('openid',JSON.stringify(data.wechat_openid));	
+				}
+			});
+
+	   		var urlajax = '/api/order/uncompleted_sale?openid='+JSON.parse(localStorage.getItem('openid'));
 	   	 	$.ajax({
-	   	 		url:'/wechat/ajax/order/uncompleted_sale',//我的订单页面----我的带餐选项
+	   	 		url:urlajax,//我的订单页面----我的带餐选项
 	   	 		dataType:'json',
 	   	 		async:true,
 	   	 		type:'GET',
@@ -245,6 +260,7 @@
 											async:true,
 											type:'GET',
 									        success:function(data){
+									        	self.endPullUpToRefresh(true);
 									        	for(var i=0;i<data.length;i++){
 									        		var total = parseFloat(data[i].total*0.01);
 									        		var tele = "";
@@ -267,7 +283,7 @@
 									        }
 
 											});
-										self.endPullUpToRefresh();
+										//self.endPullUpToRefresh();
 									}, 1000);
 								}
 							}
@@ -300,7 +316,7 @@
 							down: {
 								callback: function() {
 									var self = this;
-									var urlajax = "/wechat/ajax/order/uncompleted_sale";//我的订单页面----我的带餐选项
+									var urlajax = "/api/order/uncompleted_sale?openid="+JSON.parse(localStorage.getItem('openid'));//我的订单页面----我的带餐选项
 									setTimeout(function() {
 										$.ajax({
 											url:urlajax,
@@ -308,7 +324,6 @@
 											async:true,
 											type:'GET',
 									        success:function(data){
-									        	console.log(data);
 									        	for(var i=0;i<data.length;i++){
 									        		var total = parseFloat(data[i].total*0.01);
 									        		var div = document.createElement('div');
@@ -334,7 +349,7 @@
 							up: {
 								callback: function() {
 									var self = this;
-									var urlajax = "/wechat/ajax/order/uncompleted_sale";//我的订单页面----我的带餐选项
+									var urlajax = "/api/order/uncompleted_sale?openid="+JSON.parse(localStorage.getItem('openid'));//我的订单页面----我的带餐选项
 									setTimeout(function() {
 										$.ajax({
 											url:urlajax,
@@ -342,6 +357,7 @@
 											async:true,
 											type:'GET',
 									        success:function(data){
+									        self.endPullUpToRefresh(true);
 									       	for(var i=0;i<data.length;i++){
 									       		var total = parseFloat(data[i].total*0.01);
 									       		var div = document.createElement('div');
@@ -357,7 +373,7 @@
 									        }
 
 											});
-										self.endPullUpToRefresh();
+										//self.endPullUpToRefresh();
 									}, 1000);
 								}
 							}
@@ -430,6 +446,7 @@
 											async:true,
 											type:'GET',
 									        success:function(data){
+									        self.endPullUpToRefresh(true);
 									       	for(var i=0;i<data.length;i++){
 									       			var total = parseFloat(data[i].total*0.01);
 									        		var div = document.createElement('div');
@@ -443,7 +460,7 @@
 									        }
 
 											});
-										self.endPullUpToRefresh();
+										//self.endPullUpToRefresh();
 									}, 1000);
 								}
 							}
@@ -461,21 +478,22 @@
 
 
 	<script>
-			/*我的订单状态确认收货*/
-			$(function(){
-				$(document).on('touchstart','.w-beget',function(){
-					var btn = $(this);
-					var openId = $('.mui-content').attr('data-id'); 
+		/*我的订单状态确认收货*/
+		$(function(){
+			$(document).on('touchstart','.w-beget',function(){
+				var btn = $(this);
+				if(btn.attr('disabled') !="disabled"){
+					var openId = JSON.parse(localStorage.getItem('openid')); 
 					var orderId = $(this).attr('data-id');
 					var urlajax = '/api/order/received/'+orderId+'?openid='+openId;
-
 					$.get(urlajax, function(data) {
 						if(data == 'success') {
 							btn.parent().parent().parent().parent().slideUp();
 						}
 					});
-				})
+				}
 			})
+		})
 	</script>
 
 	<script>
@@ -483,7 +501,7 @@
 			$(function(){
 				$(document).on('touchstart','.w-bearrive',function(){
 					var btn = $(this);
-					var openId = $('.mui-content').attr('data-id'); 
+					var openId = JSON.parse(localStorage.getItem('openid')); 
 					var orderId = $(this).attr('data-id');
 					var urlajax = '/api/order/delivered/'+orderId+'?openid='+openId;
 
@@ -495,22 +513,5 @@
 				})
 			})
 	</script>
-
-
-	<script>
-		/*获取用户openId*/
-			$(function(){
-				$.ajax({
-					url:'/wechat/user',
-					dataType:'json',
-					async:true,
-					data:{},
-					type:'GET',
-					success:function(data){
-						$('.mui-content').attr('data-id',data.wechat_openid);
-					}
-				});
-			})
-		</script>
 
 @stop

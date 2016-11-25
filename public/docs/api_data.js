@@ -23,12 +23,12 @@ define({ "api": [
       "examples": [
         {
           "title": "404 地址未找到:",
-          "content": "HTTP/1.1 404 Not Found\n{\n  \"error\": \"Address Not Found\"\n}",
+          "content": "HTTP/1.1 404 Not Found\n{\n   \"error\": \"Address Not Found\"\n}",
           "type": "json"
         },
         {
           "title": "403 禁止删除默认地址:",
-          "content": "HTTP/1.1 403 Not Found\n{\n  \"error\": \"Can Not Delete Default Address\"\n}",
+          "content": "HTTP/1.1 403 Forbidden\n{\n   \"error\": \"Can Not Delete Default Address\"\n}",
           "type": "json"
         }
       ]
@@ -298,8 +298,8 @@ define({ "api": [
             "group": "Parameter",
             "type": "Number",
             "optional": false,
-            "field": "status",
-            "description": "<p>状态，1是默认</p>"
+            "field": "address_id",
+            "description": "<p>地址ID</p>"
           }
         ]
       }
@@ -603,7 +603,7 @@ define({ "api": [
       "examples": [
         {
           "title": "成功返回:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"feeds\": [\n    {\n      \"id\": 1,\n      \"order_id\": 367,\n      \"sender_id\": 1,\n      \"receiver_id\": 1003,\n      \"status\": \"send\",\n      \"type\": \"received\",\n      \"created_at\": \"2016-11-21 16:44:27\",\n      \"updated_at\": \"2016-11-21 16:44:27\"\n    },\n    ......\n  ]\n}",
+          "content": "HTTP/1.1 200 OK\n[\n  {\n    \"id\": 1,\n    \"title\": \"交易订单消息\",\n    \"status\": \"send\",\n    \"subject\": \"dolores食品|omnis食品\",\n    \"time\": \"1988-01-18\"\n  },\n    ......\n]",
           "type": "json"
         }
       ]
@@ -769,6 +769,102 @@ define({ "api": [
   },
   {
     "type": "get",
+    "url": "/order/all_buy",
+    "title": "我下的单分页",
+    "version": "1.0.0",
+    "name": "getMyAllBuyPage",
+    "group": "Order",
+    "filename": "app/Http/Controllers/Api/V1/OrderController.php",
+    "groupTitle": "Order",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "openid",
+            "description": "<p>微信用户openid</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "成功返回:",
+          "content": "HTTP/1.1 200 OK\n    {\n      \"total\": 7,\n      \"per_page\": 10,\n      \"current_page\": 1,\n      \"last_page\": 1,\n      \"next_page_url\": null,\n      \"prev_page_url\": null,\n      \"from\": 1,\n      \"to\": 7,\n      \"data\": [\n        {\n          \"id\": 92,\n          \"order_no\": \"161121164414229\",\n          \"billing_id\": null,\n          \"type\": \"wxpay\",\n          \"subject\": \"et食品|odit食品\",\n          \"user_id\": 229,\n          \"deliver_id\": null,\n          \"total\": 53,\n          \"school_id\": 1,\n          \"campus_id\": 8,\n          \"dorm_id\": 62,\n          \"address\": \"南昌2大学cupiditate校区minus宿舍5\",\n          \"mark\": null,\n          \"status\": \"未付款\",\n            ......\n          \"order_items\": [\n            {\n              \"id\": 277,\n              \"order_id\": 92,\n              \"food_id\": 1854,\n              \"amount\": 3,\n              \"price\": 16,\n              \"created_at\": \"2016-11-21 16:44:14\",\n              \"updated_at\": \"2016-11-21 16:44:14\",\n              \"food\": {\n                \"id\": 1854,\n                \"shop_id\": 349,\n                \"name\": \"et食品\",\n                ......\n                  }\n                }\n              }\n            },\n            ......\n                }\n              }\n            }\n          ],\n          \"orderer\": {\n            \"id\": 229,\n            \"name\": \"Dr. Wiley Rosenbaum II\",\n            ......\n          }\n        },\n        ......\n      ]\n    }",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/order/completed_sale",
+    "title": "我已接单完成分页",
+    "version": "1.0.0",
+    "name": "getMyCompletedSalePage",
+    "group": "Order",
+    "filename": "app/Http/Controllers/Api/V1/OrderController.php",
+    "groupTitle": "Order",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "openid",
+            "description": "<p>微信用户openid</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "成功返回:",
+          "content": "HTTP/1.1 200 OK\n    {\n      \"total\": 7,\n      \"per_page\": 10,\n      \"current_page\": 1,\n      \"last_page\": 1,\n      \"next_page_url\": null,\n      \"prev_page_url\": null,\n      \"from\": 1,\n      \"to\": 7,\n      \"data\": [\n        {\n          \"id\": 92,\n          \"order_no\": \"161121164414229\",\n          \"billing_id\": null,\n          \"type\": \"wxpay\",\n          \"subject\": \"et食品|odit食品\",\n          \"user_id\": 229,\n          \"deliver_id\": null,\n          \"total\": 53,\n          \"school_id\": 1,\n          \"campus_id\": 8,\n          \"dorm_id\": 62,\n          \"address\": \"南昌2大学cupiditate校区minus宿舍5\",\n          \"mark\": null,\n          \"status\": \"未付款\",\n            ......\n          \"order_items\": [\n            {\n              \"id\": 277,\n              \"order_id\": 92,\n              \"food_id\": 1854,\n              \"amount\": 3,\n              \"price\": 16,\n              \"created_at\": \"2016-11-21 16:44:14\",\n              \"updated_at\": \"2016-11-21 16:44:14\",\n              \"food\": {\n                \"id\": 1854,\n                \"shop_id\": 349,\n                \"name\": \"et食品\",\n                ......\n                  }\n                }\n              }\n            },\n            ......\n                }\n              }\n            }\n          ],\n          \"orderer\": {\n            \"id\": 229,\n            \"name\": \"Dr. Wiley Rosenbaum II\",\n            ......\n          }\n        },\n        ......\n      ]\n    }",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/order/uncompleted_sale",
+    "title": "我已接单未完成分页",
+    "version": "1.0.0",
+    "name": "getMyUncompletedSalePage",
+    "group": "Order",
+    "success": {
+      "examples": [
+        {
+          "title": "成功返回:",
+          "content": "HTTP/1.1 200 OK\n    [\n      {\n        \"id\": 2722,\n        \"order_no\": \"909161123154118\",\n        \"billing_id\": null,\n        \"type\": \"wxpay\",\n        \"subject\": \"quia食品\",\n        \"user_id\": 909,\n        \"deliver_id\": 1003,\n        \"total\": 2100,\n        \"school_id\": 2,\n        \"campus_id\": 18,\n        \"dorm_id\": 53,\n        \"address\": \"上海9大学velit校区odit宿舍8\",\n        \"mark\": null,\n        \"status\": \"配送中\",\n        \"appointment_at\": \"1991-11-13 09:40:09\",\n        \"paid_at\": \"1991-11-13 09:40:09\",\n        \"taken_at\": \"2016-11-24 11:18:38\",\n        \"delivered_at\": null,\n        \"received_at\": null,\n        \"refund_at\": \"2016-11-24 12:09:49\",\n        \"withdrawed_at\": null,\n        \"created_at\": \"2016-11-23 15:41:18\",\n        \"updated_at\": \"2016-11-24 11:18:38\",\n        \"deleted_at\": null,\n        \"order_items\": [\n          {\n            \"id\": 5447,\n            \"order_id\": 2722,\n            \"food_id\": 848,\n            \"amount\": 1,\n            \"price\": 2100,\n            \"created_at\": \"2016-11-23 15:41:18\",\n            \"updated_at\": \"2016-11-23 15:41:18\",\n            \"food\": {\n              \"id\": 848,\n              \"shop_id\": 366,\n              \"name\": \"quia食品\",\n              \"img\": \"http://lorempixel.com/50/50/?33480\",\n              \"type\": \"\",\n              \"description\": \"Repellat eius et nihil. Non ut voluptatem omnis possimus sequi voluptatum ratione in.\",\n              \"price\": \"26.00\",\n              \"discount\": 20,\n              \"sold\": 84,\n              \"favorite\": 75,\n              \"recommend\": 43,\n              \"status\": \"启用\",\n              \"created_at\": \"2016-11-22 16:00:17\",\n              \"updated_at\": \"2016-11-24 11:18:38\"\n            }\n          }\n        ],\n        ......     \n    ]",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/V1/OrderController.php",
+    "groupTitle": "Order",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "openid",
+            "description": "<p>微信用户openid</p>"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "get",
     "url": "/order/show/{order_id}",
     "title": "取一条订单",
     "version": "1.0.0",
@@ -798,7 +894,7 @@ define({ "api": [
       "examples": [
         {
           "title": "成功返回:",
-          "content": "HTTP/1.1 200 OK\n    {\n      \"order\": {\n        \"id\": 2,\n        \"order_no\": \"161121164412922\",\n        \"billing_id\": null,\n        \"type\": \"wxpay\",\n        \"subject\": \"et食品|maiores食品|explicabo食品|est食品\",\n        \"user_id\": 922,\n        \"deliver_id\": null,\n        \"total\": 69,\n        \"school_id\": 2,\n        \"campus_id\": 1,\n        \"dorm_id\": 1,\n        \"address\": \"郑州3大学culpa校区sunt宿舍8\",\n        \"mark\": null,\n        \"status\": \"未付款\",\n        \"appointment_at\": null,\n        \"paid_at\": null,\n        \"taken_at\": null,\n        \"delivered_at\": null,\n        \"received_at\": null,\n        \"withdrawed_at\": null,\n        \"created_at\": \"2016-11-21 16:44:12\",\n        \"updated_at\": \"2016-11-21 16:44:12\",\n        \"deleted_at\": null,\n        \"order_items\": [\n          {\n            \"id\": 6,\n            \"order_id\": 2,\n            \"food_id\": 2077,\n            \"amount\": 2,\n            \"price\": 16,\n            \"created_at\": \"2016-11-21 16:44:12\",\n            \"updated_at\": \"2016-11-21 16:44:12\",\n            \"food\": {\n              \"id\": 2077,\n              \"shop_id\": 50,\n              \"name\": \"est食品\",\n                ......\n            }\n          }\n        ]\n      }\n    }",
+          "content": "HTTP/1.1 200 OK\n    {\n      \"order\": {\n        \"id\": 2,\n        \"order_no\": \"161121164412922\",\n        \"billing_id\": null,\n        \"type\": \"wxpay\",\n        \"subject\": \"et食品|maiores食品|explicabo食品|est食品\",\n        \"user_id\": 922,\n        \"deliver_id\": null,\n        \"total\": 69,\n        \"school_id\": 2,\n        \"campus_id\": 1,\n        \"dorm_id\": 1,\n        \"address\": \"郑州3大学culpa校区sunt宿舍8\",\n        \"mark\": null,\n        \"status\": \"未付款\",\n        \"appointment_at\": null,\n        \"paid_at\": null,\n        \"taken_at\": null,\n        \"delivered_at\": null,\n        \"received_at\": null,\n        \"withdrawed_at\": null,\n        \"created_at\": \"2016-11-21 16:44:12\",\n        \"updated_at\": \"2016-11-21 16:44:12\",\n        \"order_items\": [\n          {\n            \"id\": 6,\n            \"order_id\": 2,\n            \"food_id\": 2077,\n            \"amount\": 2,\n            \"price\": 16,\n            \"created_at\": \"2016-11-21 16:44:12\",\n            \"updated_at\": \"2016-11-21 16:44:12\",\n            \"food\": {\n              \"id\": 2077,\n              \"shop_id\": 50,\n              \"name\": \"est食品\",\n                ......\n            }\n          }\n        ]\n      }\n    }",
           "type": "json"
         }
       ]
@@ -840,17 +936,56 @@ define({ "api": [
         ]
       }
     },
+    "filename": "app/Http/Controllers/Api/V1/OrderController.php",
+    "groupTitle": "Order",
     "success": {
       "examples": [
         {
           "title": "成功返回:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"total\": 7,\n  \"per_page\": 10,\n  \"current_page\": 1,\n  \"last_page\": 1,\n  \"next_page_url\": null,\n  \"prev_page_url\": null,\n  \"from\": 1,\n  \"to\": 7,\n  \"data\": [\n    {\n      \"id\": 92,\n      \"order_no\": \"161121164414229\",\n      \"billing_id\": null,\n      \"type\": \"wxpay\",\n      \"subject\": \"et食品|odit食品\",\n      \"user_id\": 229,\n      \"deliver_id\": null,\n      \"total\": 53,\n      \"school_id\": 1,\n      \"campus_id\": 8,\n      \"dorm_id\": 62,\n      \"address\": \"南昌2大学cupiditate校区minus宿舍5\",\n      \"mark\": null,\n      \"status\": \"未付款\",\n        ......\n      \"order_items\": [\n        {\n          \"id\": 277,\n          \"order_id\": 92,\n          \"food_id\": 1854,\n          \"amount\": 3,\n          \"price\": 16,\n          \"created_at\": \"2016-11-21 16:44:14\",\n          \"updated_at\": \"2016-11-21 16:44:14\",\n          \"food\": {\n            \"id\": 1854,\n            \"shop_id\": 349,\n            \"name\": \"et食品\",\n            ......\n              }\n            }\n          }\n        },\n        ......\n            }\n          }\n        }\n      ],\n      \"orderer\": {\n        \"id\": 229,\n        \"name\": \"Dr. Wiley Rosenbaum II\",\n        ......\n      }\n    },\n    ......\n  ]\n}",
+          "content": "HTTP/1.1 200 OK\n    {\n      \"total\": 7,\n      \"per_page\": 10,\n      \"current_page\": 1,\n      \"last_page\": 1,\n      \"next_page_url\": null,\n      \"prev_page_url\": null,\n      \"from\": 1,\n      \"to\": 7,\n      \"data\": [\n        {\n          \"id\": 92,\n          \"order_no\": \"161121164414229\",\n          \"billing_id\": null,\n          \"type\": \"wxpay\",\n          \"subject\": \"et食品|odit食品\",\n          \"user_id\": 229,\n          \"deliver_id\": null,\n          \"total\": 53,\n          \"school_id\": 1,\n          \"campus_id\": 8,\n          \"dorm_id\": 62,\n          \"address\": \"南昌2大学cupiditate校区minus宿舍5\",\n          \"mark\": null,\n          \"status\": \"未付款\",\n            ......\n          \"order_items\": [\n            {\n              \"id\": 277,\n              \"order_id\": 92,\n              \"food_id\": 1854,\n              \"amount\": 3,\n              \"price\": 16,\n              \"created_at\": \"2016-11-21 16:44:14\",\n              \"updated_at\": \"2016-11-21 16:44:14\",\n              \"food\": {\n                \"id\": 1854,\n                \"shop_id\": 349,\n                \"name\": \"et食品\",\n                ......\n                  }\n                }\n              }\n            },\n            ......\n                }\n              }\n            }\n          ],\n          \"orderer\": {\n            \"id\": 229,\n            \"name\": \"Dr. Wiley Rosenbaum II\",\n            ......\n          }\n        },\n        ......\n      ]\n    }",
           "type": "json"
         }
       ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/order/untaken",
+    "title": "未接订单分页",
+    "version": "1.0.0",
+    "name": "getUntakenPage",
+    "group": "Order",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "order_id",
+            "description": "<p>订单ID</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "openid",
+            "description": "<p>微信用户openid</p>"
+          }
+        ]
+      }
     },
     "filename": "app/Http/Controllers/Api/V1/OrderController.php",
-    "groupTitle": "Order"
+    "groupTitle": "Order",
+    "success": {
+      "examples": [
+        {
+          "title": "成功返回:",
+          "content": "HTTP/1.1 200 OK\n    {\n      \"total\": 7,\n      \"per_page\": 10,\n      \"current_page\": 1,\n      \"last_page\": 1,\n      \"next_page_url\": null,\n      \"prev_page_url\": null,\n      \"from\": 1,\n      \"to\": 7,\n      \"data\": [\n        {\n          \"id\": 92,\n          \"order_no\": \"161121164414229\",\n          \"billing_id\": null,\n          \"type\": \"wxpay\",\n          \"subject\": \"et食品|odit食品\",\n          \"user_id\": 229,\n          \"deliver_id\": null,\n          \"total\": 53,\n          \"school_id\": 1,\n          \"campus_id\": 8,\n          \"dorm_id\": 62,\n          \"address\": \"南昌2大学cupiditate校区minus宿舍5\",\n          \"mark\": null,\n          \"status\": \"未付款\",\n            ......\n          \"order_items\": [\n            {\n              \"id\": 277,\n              \"order_id\": 92,\n              \"food_id\": 1854,\n              \"amount\": 3,\n              \"price\": 16,\n              \"created_at\": \"2016-11-21 16:44:14\",\n              \"updated_at\": \"2016-11-21 16:44:14\",\n              \"food\": {\n                \"id\": 1854,\n                \"shop_id\": 349,\n                \"name\": \"et食品\",\n                ......\n                  }\n                }\n              }\n            },\n            ......\n                }\n              }\n            }\n          ],\n          \"orderer\": {\n            \"id\": 229,\n            \"name\": \"Dr. Wiley Rosenbaum II\",\n            ......\n          }\n        },\n        ......\n      ]\n    }",
+          "type": "json"
+        }
+      ]
+    }
   },
   {
     "type": "post",

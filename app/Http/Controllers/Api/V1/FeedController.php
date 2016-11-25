@@ -18,25 +18,31 @@ class FeedController extends BaseController
     * @apiParam {String} openid 微信用户openid
     * @apiSuccessExample 成功返回:
     *     HTTP/1.1 200 OK
-    {
-      "feeds": [
-        {
-          "id": 1,
-          "order_id": 367,
-          "sender_id": 1,
-          "receiver_id": 1003,
-          "status": "send",
-          "type": "received",
-          "created_at": "2016-11-21 16:44:27",
-          "updated_at": "2016-11-21 16:44:27"
-        },
+    [
+      {
+        "id": 1,
+        "title": "交易订单消息",
+        "status": "send",
+        "subject": "dolores食品|omnis食品",
+        "time": "1988-01-18"
+      },
         ......
-      ]
-    }
+    ]
     */
     public function getList()
     {
-    	return Feed::where('receiver_id', $this->user->id)->get();
+    	$feeds = Feed::where('receiver_id', $this->user->id)->with('order')->get();
+        $data = [];
+        foreach ($feeds as $feed) {
+            $data[] = [
+                'id'      => $feed->id,
+                'title'   => $feed->type == 'taken' ? '通知消息' : '交易订单消息',
+                'status'  => $feed->status,
+                'subject' => $feed->order->subject,
+                'time'    => $feed->order->taken_at->toDateString()
+            ];
+        }
+        return $data;
     }
 
     /**

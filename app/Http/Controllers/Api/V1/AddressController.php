@@ -117,17 +117,17 @@ class AddressController extends BaseController
      */
     public function store(AddressRequest $request)
     {
-        dd($request->input());
     	DB::beginTransaction();
     	try {
-    		Address::where(['status'=>'1', 'id'=>$this->user->id])
+    		Address::where(['status'=>'1', 'user_id'=>$this->user->id])
     		          ->update(['status' => '0']);
 
     		Address::create([
     			'user_id' => $this->user->id,
     			'school_id' => $request->school_id,
     			'campus_id' => $request->campus_id,
-    			'dorm_id' => $request->dorm_id,
+                'dorm_id' => $request->dorm_id,
+    			'room_number' => $request->room_number,
     			'status' => '1'
     		]);
     	    DB::commit();
@@ -144,7 +144,7 @@ class AddressController extends BaseController
      * @apiName  updateAddress
      * @apiGroup Address
      * @apiParam {String} openid 微信用户openid
-     * @apiParam {Number} status 状态，1是默认
+     * @apiParam {Number} address_id 地址ID
      *
     * @apiUse SuccessReturn 
      * @apiUse UserNotFoundError
@@ -177,15 +177,15 @@ class AddressController extends BaseController
      *
     * @apiUse SuccessReturn 
      * @apiErrorExample 404 地址未找到:
-     *     HTTP/1.1 404 Not Found
-     *     {
-     *       "error": "Address Not Found"
-     *     }
+     * HTTP/1.1 404 Not Found
+     * {
+     *    "error": "Address Not Found"
+     * }
      * @apiErrorExample 403 禁止删除默认地址:
-     *     HTTP/1.1 403 Not Found
-     *     {
-     *       "error": "Can Not Delete Default Address"
-     *     }
+     * HTTP/1.1 403 Forbidden
+     * {
+     *    "error": "Can Not Delete Default Address"
+     * }
      */
     public function destroy($address_id)
     {

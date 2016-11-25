@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\ClearOrders::class,
     ];
 
     /**
@@ -26,6 +26,10 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+
+        $schedule->command('unis:clear_order')->daily()->appendOutputTo(storage_path('app/out.txt'));
+
+        $schedule->call('App\Unis\Order\WechatPay@refund')->daily();
     }
 
     /**

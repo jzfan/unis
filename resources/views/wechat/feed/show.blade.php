@@ -18,8 +18,6 @@
 @stop
 
 @section('js')
-<script src="/lib/pusher/main.js"></script>
-
 	<script>
 	/*获取用户openId*/
 		$(function(){

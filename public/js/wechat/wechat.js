@@ -7,11 +7,6 @@ $(function() {
 	});
 });
 
-$(function() {
-	$('#home-left-icon').on('touchstart',function() {
-		console.log($('.mui-popover'));
-	});
-});
 
 //弹出消息函数
 $(function() {
@@ -24,11 +19,7 @@ $(function() {
 			});
 		});
 	};
-	
-	/*msgInfo('.w-entry-btn','信息提交成功');*/
-	/*入口表单*/
-	/*msgInfo('.w-want-accept','购买成功');*/
-	/*购物车*/
+
 	msgInfo('.w-respone-btn','感谢您的反馈！');
 	/*意见反馈*/
 	msgInfo('.w-want-accept-native','确认成功');
@@ -84,10 +75,4 @@ $(function() {
 	$("img").one("error", function() {
 	 $(this).attr("src", "/img/wechat/defalut.jpg");
 	});
-
-	/*地址请求失败的时候显示的默认图像*/
-	var imgSrc = $("img").attr('src');
-	if(imgSrc == '') {
-		$(this).attr("src", "/img/wechat/defalut.jpg");
-	}
 });

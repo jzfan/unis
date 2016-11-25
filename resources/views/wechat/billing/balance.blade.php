@@ -39,38 +39,63 @@
 					}
 				}
 			});
-			/**
-			 * 下拉刷新具体业务实现
-			 */
+
+			/* 下拉刷新具体业务实现*/
+			var page = 1;
 			function pulldownRefresh() {
 				setTimeout(function() {
 					var table = document.body.querySelector('.w-cash-aaa');
-					var cells = document.body.querySelectorAll('.mui-table-view');
-					for (var i = cells.length, len = i + 3; i < len; i++) {
-						var ul = document.createElement('ul');
-						ul.className = 'mui-table-view';
-						// ul.innerHTML = '<li class="mui-table-view-cell"><div class="mui-slider-right mui-disabled"><span class="mui-btn mui-btn-red">删除</span></div><div class="mui-slider-handle"><div>订单编号：8546974125412475<span class="my-song mui-pull-right">+34.5元</span></div><div class="right-del">下单时间：2016-10-17 11:48<span class="my-song mui-pull-right">已完成</span></div></div></li>';
-						//下拉刷新，新纪录插到最前面；
-						// table.insertBefore(ul, table.firstChild);
-					}
+					var openid = $('.w-cash-leave').attr('data-id');
+					page =1;
+					var urlajax = '/api/order/completed_sale?openid='+openid+'&page=1&limit=10';   
+					$.ajax({
+						url:urlajax,
+						dataType:'json',
+						async:true,
+						type:'GET',
+						success:function(data){
+							jQuery('.mui-table-view').remove();
+							var menu = data.data;
+							for (var i = 0; i<menu.length; i++) {
+								var total = parseFloat(menu[i].total*0.01);
+								var ul = document.createElement('ul');
+								ul.className = 'mui-table-view';
+								ul.innerHTML = '<li class="mui-table-view-cell"><div class="mui-slider-right mui-disabled"><span class="mui-btn mui-btn-red">删除</span></div><div class="mui-slider-handle"><div>订单编号：'+menu[i].order_no+'<span class="my-song mui-pull-right">+'+total+'元</span></div><div class="right-del">下单时间：'+menu[i].created_at+'<span class="my-song mui-pull-right">'+menu[i].status+'</span></div></div></li>';
+								table.append(ul);
+							}
+						}
+					});
 					mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
 				}, 1000);
 			}
-			var count = 0;
-			/**
-			 * 上拉加载具体业务实现
-			 */
+			
+
+			/* 上拉加载具体业务实现*/
+			
 			function pullupRefresh() {
 				setTimeout(function() {
-					mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > 2)); //参数为true代表没有更多数据了。
+					var newpage =page+1;
 					var table = document.body.querySelector('.w-cash-aaa');
-					var cells = document.body.querySelectorAll('.mui-table-view-cell');
-					for (var i = cells.length, len = i + 20; i < len; i++) {
-						var ul = document.createElement('ul');
-						ul.className = 'mui-table-view';
-						// ul.innerHTML = '<li class="mui-table-view-cell"><div class="mui-slider-right mui-disabled"><span class="mui-btn mui-btn-red">删除</span></div><div class="mui-slider-handle"><div>订单编号：8546974125412475<span class="my-song mui-pull-right">+34.5元</span></div><div class="right-del">下单时间：2016-10-17 11:48<span class="my-song mui-pull-right">已完成</span></div></div></li>';
-						// table.appendChild(ul);
-					}
+					var openid = $('.w-cash-leave').attr('data-id');
+					var urlajax = '/api/order/completed_sale?openid='+openid+'&page='+newpage+'&limit=10';   
+					$.ajax({
+						url:urlajax,
+						dataType:'json',
+						async:true,
+						type:'GET',
+						success:function(data){
+							page++;
+							mui('#pullrefresh').pullRefresh().endPullupToRefresh((page>data.last_page));//到最后一页时显示没有更多数据了
+							var menu = data.data;
+							for (var i = 0; i<menu.length; i++) {
+								var total = parseFloat(menu[i].total*0.01);
+								var ul = document.createElement('ul');
+								ul.className = 'mui-table-view';
+								ul.innerHTML = '<li class="mui-table-view-cell"><div class="mui-slider-right mui-disabled"><span class="mui-btn mui-btn-red">删除</span></div><div class="mui-slider-handle"><div>订单编号：'+menu[i].order_no+'<span class="my-song mui-pull-right">+'+total+'元</span></div><div class="right-del">下单时间：'+menu[i].created_at+'<span class="my-song mui-pull-right">'+menu[i].status+'</span></div></div></li>';
+								table.appendChild(ul);
+							}
+						}
+					});
 				}, 1000);
 			}
 		</script>
@@ -112,22 +137,23 @@
 		</script>
 
 
-		
+		<!-- 进入页面加载数据 -->
 		<script>
 			$(function(){
-				var urlajax = '/wechat/ajax/order';   
+				var openid = $('.w-cash-leave').attr('data-id');
+				var urlajax = '/api/order/completed_sale?openid='+openid+'&page=1&limit=10';   
 				$.ajax({
 					url:urlajax,
 					dataType:'json',
 					async:true,
-					data:{},
 					type:'GET',
 					success:function(data){
+						var data = data.data;
 						for(var i=0;i<data.length;i++){
 							var total = parseFloat(data[i].total*0.01);
 							var ul = document.createElement('ul');
 							ul.className = 'mui-table-view';
-							ul.innerHTML = ' <li class="mui-table-view-cell"><div class="mui-slider-right mui-disabled"><span class="mui-btn mui-btn-red">删除</span></div><div class="mui-slider-handle"><div>订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">+'+total+'元</span></div><div class="right-del">下单时间：'+data[i].created_at+'<span class="my-song mui-pull-right">'+data[i].orderer.status+'</span></div></div></li>';
+							ul.innerHTML = ' <li class="mui-table-view-cell"><div class="mui-slider-handle"><div>订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">+'+total+'元</span></div><div class="right-del">下单时间：'+data[i].created_at+'<span class="my-song mui-pull-right">'+data[i].status+'</span></div></div></li>';
 							var parent = $('.w-cash-aaa');
 							parent.append(ul);
 						}

@@ -31,16 +31,16 @@ Route::group(['middleware'=>['web', 'wechat.oauth']], function () {
 		Route::get('/user_info', 'UserController@getInfo');
 		Route::get('/profile', 'UserController@show');
 		Route::get('/address', 'UserController@address');
+		Route::get('/address/create', 'UserController@createAddress');
 		Route::get('/favorite', 'FavoriteController@index');
 		// Route::get('/favorite/add/{food_id}', 'FavoriteController@add');
 		// Route::get('/favorite/cancel/{food_id}', 'FavoriteController@cancel');
 		Route::get('/message', 'FeedController@index');
 		Route::get('/message/{feed_id}', 'FeedController@show');
 		Route::get('/balance', 'BillingController@balance');
-		Route::get('/pay', 'BillingController@payPage');
+		// Route::get('/pay', 'BillingController@payPage');
 
 		Route::get('/prepay', 'BillingController@wechatPrepay');
-		Route::get('/pay', 'BillingController@wechatPay');
 
 		// Route::get('/paid', 'BillingController@afterPaid');
 
@@ -50,12 +50,12 @@ Route::group(['middleware'=>['web', 'wechat.oauth']], function () {
 
 		// Route::get('/ajax/favorite', 'FavoriteController@getList');
 		Route::get('/ajax/order', 'OrderController@orderedByUser');
-		Route::get('/ajax/order/all_buy', 'OrderController@allBuy');
+		// Route::get('/ajax/order/all_buy', 'OrderController@allBuy');
 		Route::get('/ajax/order/completed_sale_today', 'OrderController@completedSaleToday');
-		Route::get('/ajax/order/completed_sale', 'OrderController@completedSale');
+		// Route::get('/ajax/order/completed_sale', 'OrderController@completedSale');
 		Route::get('/ajax/order/uncompleted_buy', 'OrderController@uncompletedBuy');
-		Route::get('/ajax/order/uncompleted_sale', 'OrderController@uncompletedSale');
-		Route::get('/ajax/order/untaken', 'OrderController@unTakenSale');
+		// Route::get('/ajax/order/uncompleted_sale', 'OrderController@uncompletedSale');
+		// Route::get('/ajax/order/untaken', 'OrderController@unTakenSale');
 		// Route::get('/ajax/cart', 'CartController@getList');
 
 		Route::get('/ajax/index_data', 'IndexController@data');
@@ -64,6 +64,7 @@ Route::group(['middleware'=>['web', 'wechat.oauth']], function () {
 
 		// Route::get('/test', 'CartController@test');
 		Route::get('/demo', 'IndexController@demo');
+		// Route::get('/test_refund/{order_id}', 'BillingController@refund');
 	});
 
 	// Route::get('/order_received', function() {

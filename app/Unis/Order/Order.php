@@ -3,7 +3,6 @@
 namespace App\Unis\Order;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Unis\User\User;
 use App\Unis\School\Room;
 use App\Unis\Suplier\Food;
@@ -11,13 +10,11 @@ use App\Unis\Order\OrderItem;
 
 class Order extends Model
 {
-	use SoftDeletes;
-
     protected $fillable = ['billing_id', 'type', 'order_no', 'subject', 'user_id', 'total', 'address', 'status', 'school_id', 'campus_id', 'dorm_id', 'address',
                     'paid_at', 'taken_at', 'delivered_at', 'received_at', 'withdrawed_at', 'appointment_at', 'deliver_id', 'refund_at'
     ];
 
-    protected $dates = ['paid_at', 'taken_at', 'delivered_at', 'received_at', 'withdrawed_at', 'appointment_at', 'deleted_at', 'refund_at'];
+    protected $dates = ['paid_at', 'taken_at', 'delivered_at', 'received_at', 'withdrawed_at', 'appointment_at', 'refund_at'];
 
     public function orderer()
     {
@@ -61,5 +58,23 @@ class Order extends Model
     		default:
     			return '未知状态码';
     	}
+    }
+
+//清除3小时以上未被接单的订单
+    public static function clearNotPay()
+    {
+        $hoursAgo = \Carbon\Carbon::now()->subHours(3);
+        \DB::transaction(function() use($hoursAgo) {
+            $ids = self::where('status', 'ordered')->where('created_at', '<', $hoursAgo)->lockForUpdate()->pluck('id')->toArray();
+            self::destroy($ids);
+            OrderItem::whereIn('order_id', $ids)->delete();
+        });
+        return 'success';
+    }
+
+//送货员确认送达后3个小时自动为买方确认收货
+    public static function confirmReceived()
+    {
+
     }
 }

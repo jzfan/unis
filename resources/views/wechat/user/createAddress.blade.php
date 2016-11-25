@@ -1,14 +1,19 @@
 @extends('wechat.layout')
 
 @section('title')
-绑定地址
+收货地址
 @stop
 
 @section('content')
-	<div class="w-entry">
-		<div class="w-logo-wrap"><img src="/img/wechat/logo.png" alt=""></div>
-	</div>
-	<form class="w-input-group mui-input-group" id="info" action='/wechat/user' method='POST'>
+<header class="w-about-uniserve  mui-bar-nav mui-action-menu">
+	      <h1 class="mui-title">新建地址</h1>
+</header>
+
+
+<!-- 重新选择地址 -->
+<section class="check-address" style="margin-top: 20px;">
+
+<form class="w-input-group mui-input-group" id="info" style="background-color: #efeff4;">
 	{!! csrf_field() !!}
 		<div class="mui-input-row" id="school">
 	        <label>学校:</label>
@@ -53,20 +58,11 @@
 	        <label>寝室:</label>
 	        <input type="text" class="mui-input-clear" placeholder="输入寝室号" tabindex="4" name="room_number" required>
 	        <input type="hidden"  value="" class="trueVal">
+	        <input type="hidden" name='openid' id='openid'>
 
 	    </div>
 
-	    <div class="w-clear mui-input-row">
-	        <label>手机:</label>
-	        <input type="text" class="mui-input-clear" placeholder="输入手机号" tabindex="5" id="telephone"  name="phone" required>
-	        <input type="hidden" name='id' id='user'>
-	        <input type="hidden" name='email' id='email'>
-	        <input type="hidden" name='avatar' id="avatar">
-	        <input type="hidden" name='nickname' id="nickname">
-
-
-	    </div>
-	    <button type="submit" class="w-entry-btn mui-btn mui-btn-danger" id="btn">完成</button>
+	    <button type="button" class="w-entry-btn mui-btn mui-btn-danger" id="btn">完成</button>
 	</form>
 
 
@@ -161,81 +157,74 @@
 
 	</script>
 
-
 	
 
 	<script>
 	/*搜索功能开始*/
-	// $('#school-fix .win-search').keyup(function(){
-	// 	$('#school-fix li').not('.school-search').remove();//重选学校时清空li列表，保留搜索li
-	// 	$('#school-fix').fadeIn();
-	// 	var searchText = $('#school-fix .win-search').val();
-	// 	var searchUrl = '/api/school/like/'+searchText;
-	// 	$.ajax({
-	// 		url:searchUrl,
-	// 		dataType:'json',
-	// 		async:true,
-	// 		type:'GET',
-	// 		success:function(data){
-	// 			/*console.log(data.schools);*/
-	// 			arrs = data.schools;
-	// 			console.log(arrs);
-	// 			for(var j=0;j<arrs.length;j++){
-	// 				console.log(arrs[j].name);
-	// 				$('#school-fix').append('<li class="mui-table-view-cell"><span class="mui-navigate-right">'+arrs[j].name+'</span><span class="sid" style="visibility: hidden;">'+arrs[j].id+'</span></li>');
-	// 				$('#school-fix li').not(".school-search").on('tap',function(){
-	// 				var which = $(this).find('span.mui-navigate-right').text();
-	// 				var IDs = $(this).find('span.sid').text();
-	// 				$('#school input').val(which);
-	// 				$('#school input.trueVal').val(parseInt(IDs));
-	// 				$('#school label').html('学校:'+'<span class="schoolId" style="visibility: hidden;">'+IDs+'</span>');
-	// 				$('#school-fix').fadeOut();
-	// 				});
+	$('#school-fix .win-search').keyup(function(){
+		$('#school-fix li').not('.school-search').remove();//重选学校时清空li列表，保留搜索li
+		$('#school-fix').fadeIn();
+		var searchText = $('#school-fix .win-search').val();
+		var searchUrl = '/api/school/like/'+searchText;
+		$.ajax({
+			url:searchUrl,
+			dataType:'json',
+			async:true,
+			type:'GET',
+			success:function(data){
+				arrs = data.schools;
+				for(var j=0;j<arrs.length;j++){
+					console.log(arrs[j].name);
+					$('#school-fix').append('<li class="mui-table-view-cell"><span class="mui-navigate-right">'+arrs[j].name+'</span><span class="sid" style="visibility: hidden;">'+arrs[j].id+'</span></li>');
+					$('#school-fix li').not(".school-search").on('tap',function(){
+					var which = $(this).find('span.mui-navigate-right').text();
+					var IDs = $(this).find('span.sid').text();
+					$('#school input').val(which);
+					$('#school input.trueVal').val(parseInt(IDs));
+					$('#school label').html('学校:'+'<span class="schoolId" style="visibility: hidden;">'+IDs+'</span>');
+					$('#school-fix').fadeOut();
+					});
 
-	// 			}
-	// 		}
-	// 	});
-	// });
+				}
+			}
+		});
+	});
 	/*搜索功能结束*/
 
 
-
-
-	/*拿用户信息*/
+	/*新建地址*/
 	$(function(){
-     $.ajax({
-            url:'/wechat/wx_user',
-            dataType:'json',
-            async:true,
-            type:'GET',
-            success:function(data){
-              $('#user').val(data.id);
-              $('#email').val(data.email);
-              $('#avatar').val(data.avatar);
-              $('#nickname').val(data.nickname);
-            }
-      	});
-  	});
+		$.ajax({
+				url:'/wechat/user',
+				dataType:'json',
+				async:true,
+				data:{},
+				type:'GET',
+				success:function(data){
+					localStorage.setItem('openid',JSON.stringify(data.wechat_openid));
+					 $('#openid').val(data.wechat_openid);	
+				}
+			});
 
-
-
-	/*入口手机号码正则*/
-	;$(function(){
 		$('.w-entry-btn').on('touchstart',function(){
-			 var phone = $('#telephone').val();
-    			if(!(/^1(3|4|5|7|8)\d{9}$/.test(phone))){ 
-        			layer.open({
-				    content: '您输入的手机号码有误'
-				    ,skin: 'msg'
-				    ,time: 2 //2秒后自动关闭
-				  }); 
+			var urlAddress = '/api/address?openid='+JSON.parse(localStorage.getItem('openid'));
+			console.log($('#info').serialize());
+			$.post(urlAddress,$('#info').serialize(),function(data){
+				if(data == 'success'){
 
-        			
-    			} 
-		});
+					layer.open({
+					    content: '新建成功'
+					    ,skin: 'msg'
+					    ,time: 1 //2秒后自动关闭
+				  	});
+
+					setTimeout(function(){
+						window.location.href = '/wechat/address';
+					},1000)
+				}
+			})
+		})
 	})
-
-
 
 	</script>
 

@@ -109,8 +109,6 @@
 	<!--底部nav切换结束-->
 
 @section('js')
-<script src="/lib/pusher/main.js"></script>
-
 <script>
 	mui('body').on('tap','a',function(){
 		document.location.href=this.href;

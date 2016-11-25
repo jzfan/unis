@@ -4,6 +4,7 @@ namespace App\Unis\Message;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Unis\User\User;
+use App\Unis\Order\Order;
 
 class Feed extends Model
 {
@@ -17,5 +18,10 @@ class Feed extends Model
     public function receiver()
     {
     	return $this->belongsTo(User::class, 'receiver_id', 'id');
+    }
+
+    public function order()
+    {
+    	return $this->belongsTo(Order::class);
     }
 }

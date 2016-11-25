@@ -17,8 +17,6 @@
 @stop
 
 @section('js')
-<script src="/lib/pusher/main.js"></script>
-
 	<script>
 	 /*刷新功能开始*/
 		mui.init({

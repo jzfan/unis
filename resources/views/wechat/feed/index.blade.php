@@ -18,8 +18,6 @@
 @stop
 
 @section('js')
-<script src="/lib/pusher/main.js"></script>
-
 		<script>
 		/*获取用户openId*/
 			$(function(){
@@ -48,12 +46,11 @@
 					data:{},
 					type:'GET',
 					success:function(data){
-						var  msg = data.feeds;
-						console.log(msg);
+						var  msg = data;
 						for(var i=0;i<msg.length;i++){
 							var div =document.createElement('div');
 							div.className = "w-card mui-card";
-							div.innerHTML ='<a href="/wechat/message/'+msg[i].id+'"><ul class="mui-table-view"><li class="mui-table-view-cell"><div class="mui-slider-right mui-disabled" data-id='+msg[i].id+'><span class="mui-btn mui-btn-red">删除</span></div><div class="mui-slider-handle"><div class="w-card-header">互动消息<small class="w-card-time mui-pull-right">'+msg[i].created_at+'</small></div><div class="w-card-info">订单已签收！您购买的[酸辣土豆丝]已签收，欢迎再...</div></div></li></ul></a>';
+							div.innerHTML ='<ul class="mui-table-view"><li class="mui-table-view-cell"><div class="mui-slider-right mui-disabled" data-id='+msg[i].id+'><span class="mui-btn mui-btn-red">删除</span></div><div class="mui-slider-handle"><a href="/wechat/message/'+msg[i].id+'"><div class="w-card-header">'+msg[i].title+'<small class="w-card-time mui-pull-right">'+msg[i].time+'</small></div><div class="w-card-info">'+msg[i].subject+'</div></a></div></li></ul>';
 							var parent = $('.mui-scroll');
 							parent.append(div);
 						}
@@ -66,11 +63,11 @@
 		<script>
 		//滑动删除收藏功能
 		$(function(){
-		 	$(document).on('touchstart','.w-card li .mui-disabled',function(){
+		 	$(document).on('touchstart','.w-card .mui-disabled',function(){
 		 		$(this).parents('div.w-card').fadeOut();
 		 		var openId = $('.w-about-uniserve').attr('data-id');
 		 		var feed_id = $(this).attr('data-id');
-		 		var ajaxUrl ='/api/feed/'+feed_id+'?openid='+openId;   
+		 		var ajaxUrl ='/api/feed/'+feed_id+'?openid='+openId; 
 		 		$.ajax({
 		 			url:ajaxUrl,
 					dataType:'json',

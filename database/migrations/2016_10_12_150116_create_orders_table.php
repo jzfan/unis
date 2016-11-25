@@ -36,8 +36,6 @@ class CreateOrdersTable extends Migration
             $table->timestamp('withdrawed_at')->nullable();
             $table->timestamp('refund_at')->nullable();
             $table->timestamps();
-            $table->softDeletes();
-
         });
     }
 

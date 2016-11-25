@@ -46,7 +46,7 @@ $api->version('v1', function ($api) {
     $api->get('/food_of_shop/{shop_id}', 'App\Http\Controllers\Api\V1\ShopController@getFoods');
 
     $api->get('food/{id}', 'App\Http\Controllers\Api\V1\FoodController@getOne');
-    $api->get('foods_of_canteen/{canteen_id}', 'App\Http\Controllers\Api\V1\FoodController@pageByCanteen');
+    // $api->get('foods_of_canteen/{canteen_id}', 'App\Http\Controllers\Api\V1\FoodController@pageByCanteen');
     $api->get('food', 'App\Http\Controllers\Api\V1\FoodController@getList');
 
     //余额
@@ -65,6 +65,15 @@ $api->version('v1', function ($api) {
     $api->get('order/received/{order_id}', 'App\Http\Controllers\Api\V1\OrderController@received');
     //订单详情
     $api->get('order/show/{order_id}', 'App\Http\Controllers\Api\V1\OrderController@getOne');
+
+    //未接单的
+    $api->get('order/untaken', 'App\Http\Controllers\Api\V1\OrderController@unTakenSale');
+    //我下的订单
+    $api->get('order/all_buy', 'App\Http\Controllers\Api\V1\OrderController@allBuy');
+    //我已接单未完成
+    $api->get('order/uncompleted_sale', 'App\Http\Controllers\Api\V1\OrderController@uncompletedSale');
+    //我已完成的接单
+    $api->get('order/completed_sale', 'App\Http\Controllers\Api\V1\OrderController@completedSale');
 
     //意见反馈
     $api->post('report', 'App\Http\Controllers\Api\V1\ReportController@store');

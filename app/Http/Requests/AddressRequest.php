@@ -21,10 +21,8 @@ class AddressRequest extends FormRequest
      *
      * @return array
      */
-    public function rules(Request $request)
+    public function rules()
     {
-        // print_r($request->input());
-        // exit;
         return [
             'school_id' => 'required|exists:schools,id',
             'campus_id' => 'required|exists:campuses,id',

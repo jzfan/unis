@@ -24,7 +24,7 @@ class CreateLuckyMoneysTable extends Migration
             $table->string('client_ip')->nullable();
             $table->string('act_name');
             $table->string('remark');
-            $table->enum('status', ['received', 'waiting']);
+            $table->timestamp('read_at')->nullable();
             $table->timestamps();
         });
     }

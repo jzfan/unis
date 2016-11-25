@@ -10,8 +10,6 @@ class Food extends Model
 {
 	use StatusAttribute;
 	
-	use PriceAttribute;
-	
 	protected $fillable = ['shop_id', 'name', 'img', 'type', 'description', 'price', 'discount', 'favorite', 'recommend', 'status'];
 
 	
@@ -31,6 +29,11 @@ class Food extends Model
     public function priceAfterDiscount()
     {
         return round($this->price * (100 - $this->discount)/100*2)/2*100;
+    }
+
+    public function getPriceAttribute($value)
+    {
+        return number_format($value/100, 2);
     }
 
 }

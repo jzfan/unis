@@ -131,25 +131,33 @@
 		$(function(){
 		 	$(document).on('touchstart','.w-tab-view li .mui-disabled',function(){
 		 		$(this).parents('li.mui-media').fadeOut();
-		 		var food_id = $(this).attr('data-id');
-		 		var ajaxUrl ='/wechat/favorite/cancel/'+food_id;
-		 		$.ajax({
-		 			url:ajaxUrl,
-					dataType:'json',
-					async:true,
-					data:{},
-					type:'GET',
-					success:function(data){
-						layer.open({
-						    content: '删除成功'
-						    ,skin: 'msg'
-						    ,time: 2 //2秒后自动关闭
-						  });
+		 		var foodId = $(this).attr('data-id');
+				var loveFood = JSON.parse(localStorage.getItem('loveFoodId'));
+
+				Array.prototype.removeByValue = function(val) {
+					for(var i = 0; i < this.length; i++) {
+						if(this[i] == val) {
+							this.splice(i, 1);
+							break;
 						}
-		 			})
+					}
+				} //给数组构造一个方法，删除数组中指定的元素
+
+				loveFood.removeByValue(foodId);
+				localStorage.setItem('loveFoodId', JSON.stringify(loveFood));
+				
+				var show = JSON.parse(localStorage.getItem('loveFoodId'));
+				console.log(show);
+
+				layer.open({
+					content: '取消收藏',
+					skin: 'msg',
+					time: 2 //2秒后自动关闭
+				});
 		 		});
 		});
 	</script>
+
 
 	<script>
 	/*添加到购物车，从购物车取消功能*/

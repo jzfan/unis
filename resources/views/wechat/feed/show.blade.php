@@ -6,12 +6,12 @@
 
 @section('content')
 	<header class="w-about-uniserve  mui-bar-nav mui-action-menu">
-			      <h1 class="mui-title">交易订单信息</h1>
+			      <h1 class="mui-title">我的消息</h1>
 		</header>
 
 	<section class="w-sale-wrap">
-		<div class="w-sale-text"><span class="info-title">订单已签收！</span><br>
-		<span class="info-text">您购买的[酸辣土豆丝]已签收，欢迎再次订餐！</span><br>
+		<div class="w-sale-text"><span class="info-title"></span><br>
+		<span class="info-text"></span><br>
 		<span class="info-no"></span></div>
 	</section>
 
@@ -44,11 +44,9 @@
 	     var urlajax = '/api/feed/'+feed_id+'?openid='+openId;
 			$(function(){
 				$.get( urlajax,function(data){
-					var info = data.feed;
-					console.log(info);
-					// $('.info-title').text(data.title);
-					// $('.info-text').text(data.text);
-					$('.info-no').html('订单编号：'+info.order_id);
+					$('.info-title').text(data.title);
+					 $('.info-text').html('您购买的['+data.subject+']已签收，欢迎再次订餐！');
+					$('.info-no').html('订单编号：'+data.order_no);
 				})
 			});
 	})

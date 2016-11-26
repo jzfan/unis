@@ -32,3 +32,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'namespace' => 'Back
 Route::get('/region', 'Common\RegionController@index');
 Route::get('/test', 'Common\RegionController@test');
 
+	Route::get('set/{id}', 'Frontend\IndexController@set');
+	Route::get('get', 'Frontend\IndexController@get');
+	Route::get('show', 'Frontend\IndexController@show');
+

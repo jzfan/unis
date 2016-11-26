@@ -117,7 +117,6 @@
 	   	 		async:true,
 	   	 		type:'GET',
 	   	 		success:function(data){
-	   	 			console.log(data);
 	   	 			for(var i=0;i<data.length;i++){
 	   	 				var total = parseFloat(data[i].total*0.01);
 	   	 				var ul = document.createElement('ul');
@@ -183,6 +182,7 @@
 						$('.mui-slider-group #item1mobile .mui-scroll').pullToRefresh({
 						down: {
 								callback: function() {
+									page = 1;
 									var self = this;
 									var openid = jQuery('.mui-content').attr('data-id');
 									var urlajax = '/api/order/all_buy?openid='+openid+'&page=1&limit=15';//个人中心我的订单
@@ -219,13 +219,12 @@
 								}
 							},
 
-
 							up: {
 								callback: function() {
-									page++;
 									var self = this;
+									var newpage =page+1;
 									var openid = jQuery('.mui-content').attr('data-id');
-									var urlajax = '/api/order/all_buy?openid='+openid+'&page='+page+'&limit=10';//个人中心我的订单
+									var urlajax = '/api/order/all_buy?openid='+openid+'&page='+newpage+'&limit=10';//个人中心我的订单
 									setTimeout(function() {
 										$.ajax({
 											url:urlajax,
@@ -233,6 +232,7 @@
 											async:true,
 											type:'GET',
 									        success:function(data){
+									        	page++;
 									        	self.endPullUpToRefresh(page>=data.last_page);
 									        	for(var i=0;i<data.length;i++){
 									        		var total = parseFloat(data[i].total*0.01);
@@ -365,6 +365,7 @@
 						$('.mui-slider-group #item3mobile .mui-scroll').pullToRefresh({
 							down: {
 								callback: function() {
+									page = 1;
 									var self = this;
 									var openid = jQuery('.mui-content').attr('data-id');
 	   								var urlajax = '/api/order/completed_sale?openid='+openid+'&page=1&limit=15';//个人中心我已带到
@@ -398,10 +399,10 @@
 
 							up: {
 								callback: function() {
-									page++;
 									var self = this;
+									var newpage = page+1;
 									var openid = jQuery('.mui-content').attr('data-id');
-	   								var urlajax = '/api/order/completed_sale?openid='+openid+'&page='+page+'&limit=15';//个人中心我已带到
+	   								var urlajax = '/api/order/completed_sale?openid='+openid+'&page='+newpage+'&limit=15';//个人中心我已带到
 									setTimeout(function() {
 										$.ajax({
 											url:urlajax,
@@ -409,9 +410,9 @@
 											async:true,
 											type:'GET',
 									        success:function(data){
+									        	page++;
 									        	self.endPullUpToRefresh(page>=data.last_page);
 									        	var data = data.data;
-
 									        	for(var i=0;i<data.length;i++){
 									        		var	table = document.body.querySelector('#item3mobile .mui-scroll');
 									   	 			var	bot = document.body.querySelector('#item3mobile .mui-scroll .mui-pull-bottom-tips');

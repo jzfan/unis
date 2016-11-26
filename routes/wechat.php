@@ -76,4 +76,8 @@ Route::group(['middleware'=>['web', 'wechat.oauth']], function () {
 	// Route::resource('/food', 'FoodController');
 	// Route::get('/user', 'UserController@index');
 	// Route::post('/user', 'UserController@store');
+
+	Route::get('index2', function () {
+		return view('wechat.index2');
+	});
 });

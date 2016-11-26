@@ -175,16 +175,16 @@ class OrderController extends BaseController
     */ 
     public function received($order_id)
     {
-    	$order = Order::where(['id'=>$order_id, 'status'=>'delivered'])->first();
-      $this->checkNull($order);
-      $order->status = 'received';
-      $order->received_at = Carbon::now();
-      $user = $order->deliver;
-      $user->balance += $order->total; 
+      \DB::transaction( function () {
+          $order = Order::where(['id'=>$order_id, 'status'=>'delivered'])->lockForUpdate()->first();
+          $this->checkNull($order);
+          $order->status = 'received';
+          $order->received_at = Carbon::now();
+          $user = $order->deliver;
+          $user->balance += $order->total; 
 
-      \DB::transaction(function() use($order, $user){
-         $order->save();
-         $user->save();
+          $order->save();
+          $user->save();
       });
 
     	return 'success';

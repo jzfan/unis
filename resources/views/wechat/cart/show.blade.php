@@ -66,8 +66,7 @@
       var cartFood = JSON.parse(localStorage.getItem('cartFoodId'));
       var table = document.body.querySelector('.w-tab-view');
       var total = 0;
-
-      if(JSON.parse(localStorage.getItem('cartFoodId')).length > 0) {
+      if(cartFood != null) {
           $(table).find('li:first-child').remove();
       }
 
@@ -81,18 +80,29 @@
           type:'GET',
           success:function(data){
             var foodList = data.data;
+            console.log(foodList);
             var price = parseFloat(foodList.price*0.01);
             var li =document.createElement('li');
             li.className = 'mui-table-view-cell mui-media';
-            li.innerHTML = '<img class="mui-media-object mui-pull-left" src='+foodList.img+'><div class="w-box" data-id='+foodList.id+'><div class="w-menu-left"><p class="menu-name">'+foodList.name+'</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:'+foodList.sold+'&nbsp;&nbsp;点赞:5</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">'+price+'</span>&nbsp;&nbsp;<span class="origin-value">原价:'+foodList.original_price+'元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon-g"><div class="mui-numbox"><button class="mui-btn mui-numbox-btn-minus" type="button"><span class="mui-icon iconfont jianhao107"></span></button><input class="mui-numbox-input" type="number" value= "1" readonly/><button class="mui-btn mui-numbox-btn-plus" type="button"><span class="mui-icon iconfont jiahao108"></span></button></div></div></div></div>';
+            li.innerHTML = '<img class="mui-media-object mui-pull-left" src='+foodList.img+'><div class="w-box" data-id='+foodList.id+'><div class="w-menu-left"><p class="menu-name">'+foodList.name+'</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:'+foodList.sold+'&nbsp;&nbsp;点赞:5</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">'+price+'</span>&nbsp;&nbsp;<span class="origin-value">原价:'+foodList.original_price+'元</span></p></div><div class="w-menu-right"><div class="love-icon" data-id='+foodList.id+'><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon-g"><div class="mui-numbox"><button class="mui-btn mui-numbox-btn-minus" type="button"><span class="mui-icon iconfont jianhao107"></span></button><input class="mui-numbox-input" type="number" value= "1" readonly/><button class="mui-btn mui-numbox-btn-plus" type="button"><span class="mui-icon iconfont jiahao108"></span></button></div></div></div></div>';
             table.appendChild(li);
 
             total  += parseFloat(foodList.price*0.01);
+
+            if(localStorage.getItem('loveFoodId') != null) {
+                //提取本地保存的收藏数据跟加载的数据比对---开始
+                var compare = JSON.parse(localStorage.getItem('loveFoodId'));
+                for(var f = 0; f < compare.length; f++) {
+                  if(compare[f] == foodList.id) {
+                    $('.love-icon').find('span.dianzan105').removeClass('dianzan105').addClass('dianzan106');
+                  }
+                }
+              }
           }
         });
       })
 
-      if(JSON.parse(localStorage.getItem('cartFoodId')).length > 0) {
+      if(JSON.parse(localStorage.getItem('cartFoodId')) != null) {
         div = document.createElement('div');
         div.className = 'w-finshed-menu w-cart';
         div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right"><span class="cash">'+total+'</span>元(含服务费)</span></li></ul><ul class="menu-che mui-table-view"><li class="mui-table-view-cell">配送地址：{{ $user->address }}</li><li class="mui-table-view-cell"><div>联系电话: <a href="tel:{{ $user->phone }}">{{ $user->phone }}</a></div></li><li class="mui-table-view-cell">联系姓名：{{ $user->name }}</li></ul><ul class="app-time mui-table-view"><li class="mui-table-view-cell Ntime">预约时间：2016-11-17 12:48(默认送达时间) <span class="mui-icon iconfont youjiantou003 mui-pull-right"></span></li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-want-accept">购买</button></li></ul>';
@@ -158,53 +168,64 @@
 
 
 <script>/*添加喜欢，取消喜欢*/
-      $(function(){
-        function collect(coName,ifName,haveName,coText1,coText2,typeA){
-          $(document).on('touchstart',coName,function(){
-            var boolName = $(this).find('span').hasClass(ifName);
-            if(boolName){
-              $(this).find('span').removeClass(ifName).addClass(haveName);
-              var foodId = $(this).parents('div.w-box').attr('data-id');
-              var furl = '/wechat/'+typeA+'/add/'+foodId;
-              $.ajax({
-                url:furl,
-                dataType:'json',
-                async:true,
-                type:'GET',
-                success:function(data){
-                  layer.open({
-                    content: coText1
-                    ,skin: 'msg'
-                    ,time: 2 //2秒后自动关闭
-                  });
-                }
-              });
-            }
+  $(function() {
+    $(document).on('touchstart', '.love-icon', function() {
+      var boolName = $(this).find('span').hasClass('dianzan105');
+      if(boolName) {
+        $(this).find('span').removeClass('dianzan105').addClass('dianzan106');
+        var foodId = $(this).attr('data-id');
 
-            else{
-              $(this).find("span").removeClass(haveName).addClass(ifName);
-              var foodId = $(this).parents('div.w-box').attr('data-id');
-              var furl = '/wechat/'+typeA+'/cancel/'+foodId;
-              $.ajax({
-                url:furl,
-                dataType:'json',
-                async:true,
-                type:'GET',
-                success:function(data){
-                  layer.open({
-                    content: coText2
-                    ,skin: 'msg'
-                    ,time: 2 //2秒后自动关闭
-                  });
-                }
-              });
+        if(localStorage.getItem('loveFoodId') == null) {
+          var loveFood = new Array(); //定义购物车里食品id数组
+          loveFood.push(foodId);
+          console.log(foodId);
+          console.log(loveFood);
+          localStorage.setItem('loveFoodId', JSON.stringify(loveFood));
+        } else {
+          var loveFood = JSON.parse(localStorage.getItem('loveFoodId'));
+          loveFood.push(foodId);
+          localStorage.setItem('loveFoodId', JSON.stringify(loveFood));
+          console.log(loveFood, loveFood.length);
+        }
+
+        layer.open({
+          content: '收藏成功',
+          skin: 'msg',
+          time: 2 //2秒后自动关闭
+        });
+
+      } else {
+        $(this).find("span").removeClass('dianzan106').addClass('dianzan105');
+        
+        var foodId = $(this).attr('data-id');
+        var loveFood = JSON.parse(localStorage.getItem('loveFoodId'));
+        
+        console.log(loveFood);
+
+        Array.prototype.removeByValue = function(val) {
+          for(var i = 0; i < this.length; i++) {
+            if(this[i] == val) {
+              this.splice(i, 1);
+              break;
             }
-            
-          })
-        };
-        collect('.love-icon','dianzan105','dianzan106','收藏成功','取消收藏','favorite');
-      });
-    </script>
+          }
+        } //给数组构造一个方法，删除数组中指定的元素
+
+        loveFood.removeByValue(foodId);
+        localStorage.setItem('loveFoodId', JSON.stringify(loveFood));
+        
+        var show = JSON.parse(localStorage.getItem('loveFoodId'));
+        console.log(show);
+
+        layer.open({
+          content: '取消收藏',
+          skin: 'msg',
+          time: 2 //2秒后自动关闭
+        });
+      }
+    });
+  });
+</script>
 
 
     <script>

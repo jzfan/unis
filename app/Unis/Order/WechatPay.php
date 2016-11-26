@@ -145,9 +145,8 @@ class WechatPay
 				 if ($result->return_code == 'SUCCESS' && $result->result_code == 'SUCCESS')
 				 {
 				 	$order->update(['status'=>'refund']);
-				 }else {
-				 	\Log::warning($result);
 				 }
+				 \Log::warning($result);
 			}
 		});
 		return 'success';

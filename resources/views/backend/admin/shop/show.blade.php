@@ -25,7 +25,7 @@
       <div class="panel-body">
         <p> {{ $food->description }} </p>
         <p><small>单价：</small> {{ $food->price }} </p>
-        <a href="/admin/food/{{ $shop->id }}" class='btn btn-primary pull-right'>查看 >></a>
+        <a href="/admin/food/{{ $food->id }}" class='btn btn-primary pull-right'>查看 >></a>
       </div>
     </div>
     @endforeach

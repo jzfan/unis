@@ -91,14 +91,21 @@ class FeedController extends BaseController
     */
     public function getOne($feed_id)
     {
-        $feed = Feed::find($feed_id);
+        $feed = Feed::with('order')->find($feed_id);
         if (! $feed){
             abort(404, 'Feed Not Found.');
         }
        if (! $this->checkAuth($feed)){
             abort(401);
        }
-        return $feed;
+        return [
+            'id'          => $feed->id,
+            'title'       => $feed->type == 'taken' ? '通知消息' : '交易订单消息',
+            'status'      => $feed->status,
+            'subject'     => $feed->order->subject,
+            'time'        => $feed->order->taken_at->toDateString(),
+            'order_no'    => $feed->order->order_no
+        ];
     }
 
     protected function checkAuth(Feed $feed)

@@ -73,31 +73,6 @@
 	<script>
 	/*选择学校*/
 
-	
-
-	// $(function(){
-	// 	$.get('/api/school',function(data){
-	// 	for(var i=0;i<data.length;i++){
-	// 		$('#school-fix').append('<li class="mui-table-view-cell"><span class="mui-navigate-right">'+data[i].text+'</span><span class="sid" style="visibility: hidden;">'+data[i].id+'</span></li>');
-	// 	}
-
-	// 	$(document).on('touchstart','#school input',function(){
-	// 		$('#school-fix li').not('.school-search').remove();//重选学校时清空li列表，保留搜索li
-	// 		$('#school-fix').fadeIn();
-	// 			$('#school-fix li').not(".school-search").on('tap',function(){
-	// 					var which = $(this).find('span.mui-navigate-right').text();
-	// 					var IDs = $(this).find('span.sid').text();
-	// 					$('#school input').val(which);
-	// 					$('#school input.trueVal').val(parseInt(IDs));
-	// 					$('#school label').html('学校:'+'<span class="schoolId" style="visibility: hidden;">'+IDs+'</span>');
-	// 					$('#school-fix').fadeOut();
-	// 				});
-				
-	// 		})
-	// 	});
-		
-	// });
-
 	/*根据学校选择校区*/
 		$(function(){
 			var sid  = parseInt($('.schoolId').text());

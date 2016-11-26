@@ -4,7 +4,6 @@ namespace App\Unis\Order;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Unis\User\User;
-use App\Unis\School\Room;
 use App\Unis\Suplier\Food;
 use App\Unis\Order\OrderItem;
 

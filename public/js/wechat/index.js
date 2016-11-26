@@ -35,7 +35,6 @@
 			type: 'GET',
 			success: function(data) {
 				var takeFood = data.data;
-				console.log(takeFood);
 				for(var i = 0; i < takeFood.length; i++) {
 					var total = parseFloat(takeFood[i].total*0.01);
 					div = document.createElement('div');

@@ -18,7 +18,7 @@
 	<div class="mui-inner-wrap">
 		<header class="w-bar mui-bar mui-bar-nav">
 			<a id='left_menu' href="#offCanvasSide" class="mui-icon iconfont caidanlan101 mui-pull-left"></a>
-			<h1 class="mui-title"><span class="mui-icon iconfont dingwei104"></span>&nbsp;&nbsp;<span class="address-name" id="addName">一食堂：诗香苑</span>&nbsp;&nbsp;<span class="mui-icon  iconfont youjiantou003" id="arrow"></span></h1>
+			<h1 class="mui-title"><span class="mui-icon iconfont dingwei104"></span>&nbsp;&nbsp;<span class="address-name" id="addName"></span>&nbsp;&nbsp;<span class="mui-icon  iconfont youjiantou003" id="arrow"></span></h1>
 		</header>
 
 
@@ -34,7 +34,7 @@
 			<div id="slider" class="mui-slider mui-fullscreen">
 				<div id="sliderSegmentedControl" class="w-tab mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
 					
-				<a class="mui-control-item mui-active" href="#item1mobile">点餐</a>
+				<a class="mui-control-item mui-active" href="#item1mobile" id="activeAdd">点餐</a>
 				<a class="mui-control-item" href="#item2mobile">接单</a>
 				</div>
 
@@ -125,9 +125,10 @@
 											jQuery('#item1mobile .mui-scroll ul').remove();//插入数据之前清空容器
 											for(var i = 0; i < data.length; i++) {
 												var price = parseFloat(data[i].price*0.01);
+												var original = parseFloat(data[i].original_price);
 												ul = document.createElement('ul');
 												ul.className = "w-tab-view mui-table-view";
-												ul.innerHTML = '<li class="mui-table-view-cell mui-media" data-id=' + data[i].id + '><img class="mui-media-object mui-pull-left" src='+data[i].img+'><div class="w-box"><div class="w-menu-left"><p class="menu-name">' + data[i].name + '</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:' + data[i].sold + '</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">' + price + '</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:' + data[i].original_price + '元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
+												ul.innerHTML = '<li class="mui-table-view-cell mui-media" data-id=' + data[i].id + '><img class="mui-media-object mui-pull-left" src='+data[i].img+'><div class="w-box"><div class="w-menu-left"><p class="menu-name">' + data[i].name + '</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:' + data[i].sold + '</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">' + price + '</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:' + original + '元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
 												var parent = document.body.querySelector('#item1mobile .mui-scroll');
 												table = document.body.querySelector('#item1mobile .mui-pull-bottom-tips');
 												parent.insertBefore(ul, table);
@@ -224,9 +225,10 @@
 					jQuery('#item1mobile .mui-scroll ul').remove();//插入数据之前清空容器
 					for(var i = 0; i < data.length; i++) {
 						var price = parseFloat(data[i].price*0.01);
+						var original = parseFloat(data[i].original_price);
 						ul = document.createElement('ul');
 						ul.className = "w-tab-view mui-table-view";
-						ul.innerHTML = '<li class="mui-table-view-cell mui-media" data-id=' + data[i].id + '><img class="mui-media-object mui-pull-left" src='+data[i].img+'><div class="w-box"><div class="w-menu-left"><p class="menu-name">' + data[i].name + '</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:' + data[i].sold + '</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">' + price + '</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:' + data[i].original_price + '元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
+						ul.innerHTML = '<li class="mui-table-view-cell mui-media" data-id=' + data[i].id + '><img class="mui-media-object mui-pull-left" src='+data[i].img+'><div class="w-box"><div class="w-menu-left"><p class="menu-name">' + data[i].name + '</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:' + data[i].sold + '</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">' + price + '</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:' + original + '元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
 						var parent = document.body.querySelector('#item1mobile .mui-scroll');
 						table = document.body.querySelector('#item1mobile .mui-pull-bottom-tips');
 						parent.insertBefore(ul, table);
@@ -280,7 +282,6 @@
 			var newText = $(this).find('span.selectDown').text();
 			var canteenId = $(this).find('span.selectDown').attr('data-id');
 			localStorage.setItem('canteen',JSON.stringify(canteenId));//切换食堂时将对应食堂ID存在本地
-			console.log(JSON.parse(localStorage.getItem('canteen')));
 			$('.mui-title').attr('data-id', canteenId);
 			$('.mui-title #addName').text(newText); //改变顶部食堂名称
 
@@ -320,9 +321,10 @@
 					jQuery('#item1mobile .mui-scroll ul').remove();//插入数据之前清空容器
 					for(var i = 0; i < data.length; i++) {
 						var price = parseFloat(data[i].price*0.01);
+						var original = parseFloat(data[i].original_price);
 						ul = document.createElement('ul');
 						ul.className = "w-tab-view mui-table-view";
-						ul.innerHTML = '<li class="mui-table-view-cell mui-media" data-id=' + data[i].id + '><img class="mui-media-object mui-pull-left" src='+data[i].img+'><div class="w-box"><div class="w-menu-left"><p class="menu-name">' + data[i].name + '</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:' + data[i].sold + '</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">' + price + '</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:' + data[i].original_price + '元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
+						ul.innerHTML = '<li class="mui-table-view-cell mui-media" data-id=' + data[i].id + '><img class="mui-media-object mui-pull-left" src='+data[i].img+'><div class="w-box"><div class="w-menu-left"><p class="menu-name">' + data[i].name + '</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:' + data[i].sold + '</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">' + price + '</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:' + original + '元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
 						var parent = document.body.querySelector('#item1mobile .mui-scroll');
 						table = document.body.querySelector('#item1mobile .mui-pull-bottom-tips');
 						parent.insertBefore(ul, table);
@@ -336,6 +338,7 @@
 
 		/*点击窗口时保存窗口id到本地*/
 		$(document).on('touchstart','.portName',function(){
+			$('#activeAdd').addClass('mui-active');
 			mui('.mui-off-canvas-wrap').offCanvas('show');//点击窗口关闭侧边栏
 			localStorage.setItem('shopId',JSON.stringify($(this).find('span').attr('data-id')));//存当前点击的窗口id
 
@@ -351,9 +354,10 @@
 					jQuery('#item1mobile .mui-scroll ul').remove();//插入数据之前清空容器
 					for(var i = 0; i < data.length; i++) {
 						var price = parseFloat(data[i].price*0.01);
+						var original = parseFloat(data[i].original_price);
 						ul = document.createElement('ul');
 						ul.className = "w-tab-view mui-table-view";
-						ul.innerHTML = '<li class="mui-table-view-cell mui-media" data-id=' + data[i].id + '><img class="mui-media-object mui-pull-left" src='+data[i].img+'><div class="w-box"><div class="w-menu-left"><p class="menu-name">' + data[i].name + '</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:' + data[i].sold + '</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">' + price + '</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:' + data[i].original_price + '元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
+						ul.innerHTML = '<li class="mui-table-view-cell mui-media" data-id=' + data[i].id + '><img class="mui-media-object mui-pull-left" src='+data[i].img+'><div class="w-box"><div class="w-menu-left"><p class="menu-name">' + data[i].name + '</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:' + data[i].sold + '</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">' + price + '</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:' + original + '元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
 						var parent = document.body.querySelector('#item1mobile .mui-scroll');
 						table = document.body.querySelector('#item1mobile .mui-pull-bottom-tips');
 						parent.insertBefore(ul, table);

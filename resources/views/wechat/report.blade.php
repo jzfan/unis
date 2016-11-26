@@ -23,8 +23,16 @@
 
 	$(function(){
 		$('.w-respone-btn').on('touchstart',function(){
+			var report = $('.mui-input-clear').val();
+			if(report.length<10){
+				layer.open({
+					content: '请输入至少10个字符',
+					skin: 'msg',
+					time: 2 //2秒后自动关闭
+				});
+			}
 			var openId = $('.w-respone').attr('data-id');
-			var ajaxUrl = '/api/report?openId='+openId;
+			var ajaxUrl = '/api/report?openid='+openId;
 			$.post(ajaxUrl,$('#report').serialize(),function(data){
 				console.log(data);
 					setTimeout(function(){
@@ -34,14 +42,6 @@
 		});
 	});
 
-
-	$(function(){
-		$('#report textarea').change(function(){
-			var info = $('#report textarea').value;
-			console.log(info);
-		})
-		
-	})
 
 /*获取用户openId*/
 	$(function(){

@@ -10,14 +10,6 @@
 	      <a href="/wechat/address/create"><span class="w-address-save mui-pull-right">新建地址</span></a>
 </header>
 
-<!-- <section class="w-address-check">
-			<form class="w-address-wrap mui-input-group">
-			    <div class="mui-input-row">
-			        <label>武汉</label>
-			        <input type="text" class="mui-input-clear" placeholder="请输入内容" name>
-			    </div>
-			</form>
-</section> -->
 
 <section>
 	<div class="present-location"><span class="mui-icon iconfont dingwei104"></span>&nbsp;点击定位当前位置</div>
@@ -65,7 +57,6 @@ $(function(){
         async:true,
         type:'GET',
         success:function(data){
-        	console.log(data);
         	for(var i=0;i<data.length;i++){
         		var li = document.createElement('li');
               	  li.className = 'mui-table-view-cell';

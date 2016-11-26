@@ -17,11 +17,7 @@ class OrderDataTable extends DataTable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', 'backend.admin.partial.actionDt.order')
-            // ->editColumn('room_id', function($obj){
-            //     return $obj->room->dorm->campus->school->name.$obj->room->dorm->campus->name.$obj->room->dorm->name.$obj->room->number;
-            // })
             ->editColumn('total', '￥ {!! $total !!} 元')
-            // ->addColum('aaaa', '')
             ->make(true);
     }
 
@@ -32,7 +28,7 @@ class OrderDataTable extends DataTable
      */
     public function query()
     {
-        $query = Order::query()->with('orderer', 'deliver', 'room.dorm.campus.school');
+        $query = Order::query()->with('orderer', 'deliver');
 
         return $this->applyScopes($query);
     }

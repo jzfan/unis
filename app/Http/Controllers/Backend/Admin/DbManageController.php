@@ -22,13 +22,14 @@ class DbManageController extends Controller
 
 	    $path = $request->file->storeAs('excel', time().'.xls');
     	
-    	Excel::load(storage_path('app/').$path, function($reader) {
+    	Excel::selectSheetsByIndex(0)->load(storage_path('app/').$path, function($reader) {
     	        $data = $reader->all();
-    	        dd($data);
     	        foreach ($data as $item) {
+    	        	// dd($item);
     	        	Food::create($item->toArray());
     	        }
     	    });
-    	return redirect('/admi/food')->with('success', '导入成功！');
+    	session()->flash('success', '导入成功！');
+    	return 'success';
     }
 }

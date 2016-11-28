@@ -83,6 +83,7 @@
 	   	 		async:true,
 	   	 		type:'GET',
 	   	 		success:function(data){
+	   	 			console.log(data);
 	   	 			var data = data.data;
 	   	 			for(var i=0;i<data.length;i++){
 	   	 				var total = parseFloat(data[i].total*0.01);

@@ -109,6 +109,14 @@
           document.body.appendChild(div);
       }
     });
+
+    $(function(){
+      var kong = JSON.parse(localStorage.getItem('buyCart'));
+      if(kong ==0){
+        $('.w-tab-view').html('<li style="width:100%;height:100%;text-align:center;padding-top:200px;font-size:20px;color:silver;">您还没有购买任何商品！</li>');
+      }
+    })/*解决取消购物车*/
+
   </script>
 
   <script>
@@ -116,10 +124,10 @@
 /*计算总价*/
    $(function(){
 
-        var adds =  $('.mui-numbox-btn-plus');
+        var adds = $('.mui-numbox-btn-plus');
         var shans = $('.mui-numbox-btn-minus');
-        var price =$('.vue-number');
-        var inputs =$('.mui-numbox-input');
+        var price = $('.vue-number');
+        var inputs = $('.mui-numbox-input');
         var total = 0;
 
         for (var i = 0; i < adds.length; i++) {

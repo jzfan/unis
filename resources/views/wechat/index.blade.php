@@ -138,7 +138,7 @@
 						table.appendChild(li);
 					}
 					localStorage.setItem('shopId',JSON.stringify(port[0].id));//将默认窗口id存在本地
-					localStorage.setItem('defalutshopId',JSON.stringify(port[0].id));//将默认窗口id存在本地
+					localStorage.setItem('defalutshopId',JSON.stringify(port[0].id));//将首次进入页面默认窗口id存在本地
 					console.log(localStorage.getItem('shopId'));
 				}
 			});

@@ -56,7 +56,9 @@ $('.dropzone').dropzone({
         maxFiles: 1,
         acceptedFiles: ".xls",
         success: function(file, response){
-          console.log(response);
+          if (response == 'success'){
+            window.location.href = '/admin/food';
+          }
         }
 });
 

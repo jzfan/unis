@@ -253,7 +253,7 @@ class OrderController extends BaseController
     */ 
     public function getOne($order_id)
     {
-        $order = Order::with('order_items.food')->where('id', $order_id)->first();
+        $order = Order::with('order_items.food', 'deliver', 'orderer')->where('id', $order_id)->first();
         $this->checkNull($order);
         return $order;
     }

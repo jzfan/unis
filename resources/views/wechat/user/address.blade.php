@@ -12,14 +12,14 @@
 
 
 <section>
-	<div class="present-location"><span class="mui-icon iconfont dingwei104"></span>&nbsp;点击定位当前位置</div>
+	<div class="present-location"><!-- <span class="mui-icon iconfont dingwei104"></span>&nbsp;点击定位当前位置 --></div>
 	<div class="present-address-all">
 		<span><span class="mui-icon iconfont zhinanzhen503"></span>&nbsp;以往地址</span> <span class="write-del mui-pull-right"><span class="mui-icon iconfont bianji504"></span>&nbsp;编辑</span>
 	</div>
 
 	<div>
 		<ul class="w-location-group mui-table-view">
-		    
+ 
 		</ul>
 	</div>
 </section>

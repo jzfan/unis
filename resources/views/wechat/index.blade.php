@@ -92,79 +92,55 @@
 
 @section('js')
 <script src='/js/wechat/index.js'></script>
-	<script>
-			mui.init();
-			(function($) {
-				//阻尼系数
-				var deceleration = mui.os.ios?0.003:0.0009;
-				$('.mui-scroll-wrapper').scroll({
-					bounce: false,
-					indicators: true, //是否显示滚动条
-					deceleration:deceleration
+
+<script>/*菜品的下拉刷新上拉加载*/
+	mui.init();
+	(function($) {
+		//阻尼系数
+		var deceleration = mui.os.ios?0.003:0.0009;
+		$('.mui-scroll-wrapper').scroll({
+			bounce: false,
+			indicators: true, //是否显示滚动条
+			deceleration:deceleration
+		});
+		$(function() {
+			//初始化下拉刷新，上拉加载。
+				$('.mui-slider-group  #item1mobile .mui-scroll').pullToRefresh({
+
+					down: {
+						callback: function() {
+							var self = this;
+							setTimeout(function() {
+								
+							/*根据窗口取食品列表*/
+							portFoodList();//调用根据窗口取食品列表函数
+
+							self.endPullDownToRefresh(true);
+
+							}, 1000);
+						}
+					},
+
+
+					up: {
+						callback: function() {
+							var self = this;
+							setTimeout(function() {
+								
+								self.endPullUpToRefresh(true);
+							}, 1000);
+						}
+					}
+
 				});
-				$(function() {
-					//循环初始化所有下拉刷新，上拉加载。
-					
-						$('.mui-slider-group  #item1mobile .mui-scroll').pullToRefresh({
 
-
-							down: {
-								callback: function() {
-									var self = this;
-									setTimeout(function() {
-										
-									/*根据窗口取食品列表*/
-									var shopId  = JSON.parse(localStorage.getItem('shopId'));//取当前点击的窗口id
-									var portUrl = '/api/food_of_shop/'+shopId;
-									$.ajax({
-										url: portUrl,
-										dataType: 'json',
-										async: true,
-										type: 'GET',
-										success: function(data) {
-											jQuery('#item1mobile .mui-scroll ul').remove();//插入数据之前清空容器
-											for(var i = 0; i < data.length; i++) {
-												var price = parseFloat(data[i].price*0.01);
-												var original = parseFloat(data[i].original_price);
-												ul = document.createElement('ul');
-												ul.className = "w-tab-view mui-table-view";
-												ul.innerHTML = '<li class="mui-table-view-cell mui-media" data-id=' + data[i].id + '><img class="mui-media-object mui-pull-left" src='+data[i].img+'><div class="w-box"><div class="w-menu-left"><p class="menu-name">' + data[i].name + '</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:' + data[i].sold + '</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">' + price + '</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:' + original + '元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
-												var parent = document.body.querySelector('#item1mobile .mui-scroll');
-												table = document.body.querySelector('#item1mobile .mui-pull-bottom-tips');
-												parent.insertBefore(ul, table);
-											}
-										}
-									});
-
-
-
-										self.endPullDownToRefresh(true);
-									}, 1000);
-								}
-							},
-
-
-							up: {
-								callback: function() {
-									var self = this;
-									setTimeout(function() {
-										
-										self.endPullUpToRefresh(true);
-									}, 1000);
-								}
-							}
-
-
-						});
-					
-					
-				});
-			})(mui);
-		</script>
+		});
+	})(mui);
+</script>
 
 		
 <script>
-	/*进入页面加载默认用户校区所有食堂*/
+/*进入页面加载默认用户校区所有食堂*/
 	$(function() {
 		$.ajax({
 			url: '/wechat/ajax/index_data',
@@ -176,7 +152,7 @@
 				for(var i = 0; i < canteen.length; i++) {
 					var li = document.createElement('li');
 					li.className = 'mui-table-view-cell';
-					li.innerHTML = '<span class="mui-navigate-right selectDown" data-id=' + canteen[i].id + '>' + canteen[i].name + '</span>';
+					li.innerHTML = '<span class="mui-navigate-right selectDown" data-id=' + canteen[i].id + '>' +canteen[i].name+'</span>';
 					var ul = document.body.querySelector('#canteen-li');
 					ul.appendChild(li);
 				}
@@ -214,29 +190,7 @@
 
 		/*根据默认窗口取食品列表*/
 
-			var shopId  = JSON.parse(localStorage.getItem('shopId'));//取当前点击的窗口id
-			var portUrl = '/api/food_of_shop/'+shopId;
-			$.ajax({
-				url: portUrl,
-				dataType: 'json',
-				async: true,
-				type: 'GET',
-				success: function(data) {
-					jQuery('#item1mobile .mui-scroll ul').remove();//插入数据之前清空容器
-					for(var i = 0; i < data.length; i++) {
-						var price = parseFloat(data[i].price*0.01);
-						var original = parseFloat(data[i].original_price);
-						ul = document.createElement('ul');
-						ul.className = "w-tab-view mui-table-view";
-						ul.innerHTML = '<li class="mui-table-view-cell mui-media" data-id=' + data[i].id + '><img class="mui-media-object mui-pull-left" src='+data[i].img+'><div class="w-box"><div class="w-menu-left"><p class="menu-name">' + data[i].name + '</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:' + data[i].sold + '</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">' + price + '</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:' + original + '元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
-						var parent = document.body.querySelector('#item1mobile .mui-scroll');
-						table = document.body.querySelector('#item1mobile .mui-pull-bottom-tips');
-						parent.insertBefore(ul, table);
-					}
-				}
-			});
-
-
+			portFoodList();//调用根据窗口取食品列表函数
 
 	});
 
@@ -273,6 +227,8 @@
 	/*根据食堂选窗口*/
 	$(function() {
 		$(document).on('touchstart', '#canteen-li .mui-table-view-cell', function() {
+			var canteenId = $(this).find('span.selectDown').attr('data-id');
+			localStorage.setItem('canteen',JSON.stringify(canteenId));//切换食堂时将对应食堂ID存在本地
 			mui('.mui-popover').popover('toggle', document.getElementById("openPopover")); //点击食堂名称收起povper
 			
 			if($('.mui-title').find('span.xiajiantou002').hasClass("xiajiantou002")) {
@@ -280,9 +236,6 @@
 			} //更改首页首页头部箭头方向
 			
 			var newText = $(this).find('span.selectDown').text();
-			var canteenId = $(this).find('span.selectDown').attr('data-id');
-			localStorage.setItem('canteen',JSON.stringify(canteenId));//切换食堂时将对应食堂ID存在本地
-			$('.mui-title').attr('data-id', canteenId);
 			$('.mui-title #addName').text(newText); //改变顶部食堂名称
 
 
@@ -308,76 +261,32 @@
 			});
 
 
-			/*根据默认窗口取食品列表*/
+			setTimeout(function(){/*不延时取不到当前窗口id,会取上一个窗口id*/
+				/*根据默认窗口取食品列表*/
+					portFoodList();//调用根据窗口取食品列表函数
 
-			var shopId  = JSON.parse(localStorage.getItem('shopId'));//取当前点击的窗口id
-			var portUrl = '/api/food_of_shop/'+shopId;
-			$.ajax({
-				url: portUrl,
-				dataType: 'json',
-				async: true,
-				type: 'GET',
-				success: function(data) {
-					jQuery('#item1mobile .mui-scroll ul').remove();//插入数据之前清空容器
-					for(var i = 0; i < data.length; i++) {
-						var price = parseFloat(data[i].price*0.01);
-						var original = parseFloat(data[i].original_price);
-						ul = document.createElement('ul');
-						ul.className = "w-tab-view mui-table-view";
-						ul.innerHTML = '<li class="mui-table-view-cell mui-media" data-id=' + data[i].id + '><img class="mui-media-object mui-pull-left" src='+data[i].img+'><div class="w-box"><div class="w-menu-left"><p class="menu-name">' + data[i].name + '</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:' + data[i].sold + '</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">' + price + '</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:' + original + '元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
-						var parent = document.body.querySelector('#item1mobile .mui-scroll');
-						table = document.body.querySelector('#item1mobile .mui-pull-bottom-tips');
-						parent.insertBefore(ul, table);
-					}
-				}
-			});
-
+			},300)
 
 		});
 
 
 		/*点击窗口时保存窗口id到本地*/
 		$(document).on('touchstart','.portName',function(){
-			$('#activeAdd').addClass('mui-active');
+			mui('.mui-slider-group #item1mobile .mui-scroll-wrapper').scroll().scrollTo(0,0);
 			mui('.mui-off-canvas-wrap').offCanvas('show');//点击窗口关闭侧边栏
 			localStorage.setItem('shopId',JSON.stringify($(this).find('span').attr('data-id')));//存当前点击的窗口id
 
 			/*根据窗口取食品列表*/
-			var shopId  = JSON.parse(localStorage.getItem('shopId'));//取当前点击的窗口id
-			var portUrl = '/api/food_of_shop/'+shopId;
-			$.ajax({
-				url: portUrl,
-				dataType: 'json',
-				async: true,
-				type: 'GET',
-				success: function(data) {
-					jQuery('#item1mobile .mui-scroll ul').remove();//插入数据之前清空容器
-					for(var i = 0; i < data.length; i++) {
-						var price = parseFloat(data[i].price*0.01);
-						var original = parseFloat(data[i].original_price);
-						ul = document.createElement('ul');
-						ul.className = "w-tab-view mui-table-view";
-						ul.innerHTML = '<li class="mui-table-view-cell mui-media" data-id=' + data[i].id + '><img class="mui-media-object mui-pull-left" src='+data[i].img+'><div class="w-box"><div class="w-menu-left"><p class="menu-name">' + data[i].name + '</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:' + data[i].sold + '</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">' + price + '</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:' + original + '元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
-						var parent = document.body.querySelector('#item1mobile .mui-scroll');
-						table = document.body.querySelector('#item1mobile .mui-pull-bottom-tips');
-						parent.insertBefore(ul, table);
-					}
-				}
-			});
+			portFoodList();//调用根据窗口取食品列表函数
 
 		});
 
 	});
+
+
+	window.onbeforeunload=function (){
+		localStorage
+	}
 </script>
-
-
-<script>
-
-
-
-</script>
-
-
-
 
 @stop

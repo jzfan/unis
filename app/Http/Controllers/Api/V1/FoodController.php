@@ -63,7 +63,7 @@ class FoodController extends Controller
     */
 	public function getList()
 	{
-    	Input::merge(["page" => $this->page]);
+    Input::merge(["page" => $this->page]);
 		$foods = Food::paginate($this->limit);
 		return $this->response->paginator($foods, new FoodTransformer);    	
 	}
@@ -89,7 +89,7 @@ class FoodController extends Controller
     */    
     public function getOne($id)
     {
-        return $this->response->item(Food::findOrFail($id), new FoodTransformer);
+        return $this->response->item(Food::with('shop.canteen')->findOrFail($id), new FoodTransformer);
     }
 
     /**

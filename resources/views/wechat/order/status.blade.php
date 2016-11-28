@@ -167,8 +167,8 @@
 
 
 	<script>
-	   $(function(){
-	   	 	$.ajax({
+		function taken(){/*我已带到函数*/
+		   		$.ajax({
 	   	 		url:'/wechat/ajax/order/completed_sale_today',//我的订单页面----我已带到选项
 	   	 		dataType:'json',
 	   	 		async:true,
@@ -190,6 +190,10 @@
 	   	 			}
 	   	 		}
 	   	 	})
+		  }
+
+	   $(function(){  	
+		  taken();//调用我已带到函数
 	   })
 	</script>
 
@@ -510,6 +514,8 @@
 							btn.parent().parent().parent().slideUp();
 						}
 					});
+
+					taken();//调用我已带到函数
 				})
 			})
 	</script>

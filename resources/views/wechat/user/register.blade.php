@@ -22,30 +22,25 @@
 
     	<div class="mui-input-row" id="school-area">
 	        <label>校区:</label>
-		    	<input type="text" class="" placeholder="选择校区" tabIndex="2" required>
+		    	<input type="text" class="" placeholder="选择校区" tabIndex="2" required readonly="readonly">
 		    	<input type="hidden" name='campus_id' value="" class="trueVal">
 		    	<span class="w-arrow-right mui-icon mui-icon-arrowright"></span>
     	</div>
 
     	<ul class="mui-table-view mui-table-view-radio" id="area-fix">
-			<!-- <li class="school-search mui-table-view-cell">
-				<input type="search" class="win-search" placeholder="搜索">
-			</li> -->
-			
+
 		</ul>
 
     	<div class="mui-input-row" id="school-room">
 	        <label>宿舍:</label>
-		    	<input type="text" class="" placeholder="选择宿舍楼" tabindex="3" required>
+		    	<input type="text" class="" placeholder="选择宿舍楼" tabindex="3" required readonly="readonly">
 		    	<input type="hidden" name="dorm_id" value="" class="trueVal">
 		    	<span class="w-arrow-right mui-icon mui-icon-arrowright"></span>
     	</div>
 
 
     	<ul class="mui-table-view mui-table-view-radio" id="room-fix">
-			<!-- <li class="school-search mui-table-view-cell">
-				<input type="search" class="win-search" placeholder="搜索">
-			</li> -->
+    	
 		</ul>
 
 
@@ -75,32 +70,6 @@
 @section('js')
 	<script>mui('body').on('tap','a',function(){document.location.href=this.href;});</script>
 	<script>
-	/*选择学校*/
-
-	
-
-	// $(function(){
-	// 	$.get('/api/school',function(data){
-	// 	for(var i=0;i<data.length;i++){
-	// 		$('#school-fix').append('<li class="mui-table-view-cell"><span class="mui-navigate-right">'+data[i].text+'</span><span class="sid" style="visibility: hidden;">'+data[i].id+'</span></li>');
-	// 	}
-
-	// 	$(document).on('touchstart','#school input',function(){
-	// 		$('#school-fix li').not('.school-search').remove();//重选学校时清空li列表，保留搜索li
-	// 		$('#school-fix').fadeIn();
-	// 			$('#school-fix li').not(".school-search").on('tap',function(){
-	// 					var which = $(this).find('span.mui-navigate-right').text();
-	// 					var IDs = $(this).find('span.sid').text();
-	// 					$('#school input').val(which);
-	// 					$('#school input.trueVal').val(parseInt(IDs));
-	// 					$('#school label').html('学校:'+'<span class="schoolId" style="visibility: hidden;">'+IDs+'</span>');
-	// 					$('#school-fix').fadeOut();
-	// 				});
-				
-	// 		})
-	// 	});
-		
-	// });
 
 	/*根据学校选择校区*/
 		$(function(){
@@ -165,41 +134,6 @@
 	
 
 	<script>
-	/*搜索功能开始*/
-	// $('#school-fix .win-search').keyup(function(){
-	// 	$('#school-fix li').not('.school-search').remove();//重选学校时清空li列表，保留搜索li
-	// 	$('#school-fix').fadeIn();
-	// 	var searchText = $('#school-fix .win-search').val();
-	// 	var searchUrl = '/api/school/like/'+searchText;
-	// 	$.ajax({
-	// 		url:searchUrl,
-	// 		dataType:'json',
-	// 		async:true,
-	// 		type:'GET',
-	// 		success:function(data){
-	// 			/*console.log(data.schools);*/
-	// 			arrs = data.schools;
-	// 			console.log(arrs);
-	// 			for(var j=0;j<arrs.length;j++){
-	// 				console.log(arrs[j].name);
-	// 				$('#school-fix').append('<li class="mui-table-view-cell"><span class="mui-navigate-right">'+arrs[j].name+'</span><span class="sid" style="visibility: hidden;">'+arrs[j].id+'</span></li>');
-	// 				$('#school-fix li').not(".school-search").on('tap',function(){
-	// 				var which = $(this).find('span.mui-navigate-right').text();
-	// 				var IDs = $(this).find('span.sid').text();
-	// 				$('#school input').val(which);
-	// 				$('#school input.trueVal').val(parseInt(IDs));
-	// 				$('#school label').html('学校:'+'<span class="schoolId" style="visibility: hidden;">'+IDs+'</span>');
-	// 				$('#school-fix').fadeOut();
-	// 				});
-
-	// 			}
-	// 		}
-	// 	});
-	// });
-	/*搜索功能结束*/
-
-
-
 
 	/*拿用户信息*/
 	$(function(){

@@ -14,9 +14,10 @@ class AdminController extends Controller
 {
     public function index()
     {
-    	$members = User::member()->count();
-    	$agents = User::agent()->count();
-    	$schools = School::all()->count();
-    	return view('backend.admin.index', compact('members', 'agents', 'schools'));
+    	$members_count  = User::member()->count();
+    	$agents_count   = User::agent()->count();
+    	$schools_count  = School::all()->count();
+    	$supliers_count = Suplier::all()->count(); 
+    	return view('backend.admin.index', compact('members_count', 'agents_count', 'schools_count', 'supliers_count'));
     }
 }

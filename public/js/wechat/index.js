@@ -23,6 +23,60 @@
 
 
 
+	/*首页保存在本地的数据比对函数*/
+	function compare(foodCom){
+		if(localStorage.getItem('loveFoodId') != null) {
+			//提取本地保存的收藏数据跟加载的数据比对---开始
+			var compare = JSON.parse(localStorage.getItem('loveFoodId'));
+			for(var f = 0; f < compare.length; f++) {
+				if(compare[f] == foodCom) {
+					jQuery('.love-icon').find('span.dianzan105').removeClass('dianzan105').addClass('dianzan106');
+				}
+			}
+		}
+
+		if(localStorage.getItem('cartFoodId') != null) {
+			//提取本地保存的数据跟加载的数据比对---开始
+			var comWith = JSON.parse(localStorage.getItem('cartFoodId'));
+			for(var k = 0; k < comWith.length; k++) {
+				if(comWith[k] == foodCom) {
+					jQuery('.add-icon').find('span.jiahao108').removeClass('jiahao108').addClass('duigou506');
+				}
+			}
+		}
+	}
+
+
+	/*首页根据窗口id选择食品*/
+	function  portFoodList(){
+		var shopId  = JSON.parse(localStorage.getItem('shopId'));//取当前点击的窗口id
+			var portUrl = '/api/food_of_shop/'+shopId;
+			$.ajax({
+				url: portUrl,
+				dataType: 'json',
+				async: true,
+				type: 'GET',
+				success: function(data) {
+					jQuery('#item1mobile .mui-scroll ul').remove();//插入数据之前清空容器
+					for(var i = 0; i < data.length; i++) {
+						var price = parseFloat(data[i].price*0.01);
+						var original = parseFloat(data[i].original_price);
+						ul = document.createElement('ul');
+						ul.className = "w-tab-view mui-table-view";
+						ul.innerHTML = '<li class="mui-table-view-cell mui-media" data-id=' + data[i].id + '><img class="mui-media-object mui-pull-left" src='+data[i].img+'><div class="w-box"><div class="w-menu-left"><p class="menu-name">' + data[i].name + '</p><small class="menu-address">'+data[i].canteen+'</small><p class="menu-number"><span>月售:' + data[i].sold + '</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">' + price + '</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:' + original + '元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
+						var parent = document.body.querySelector('#item1mobile .mui-scroll');
+						table = document.body.querySelector('#item1mobile .mui-pull-bottom-tips');
+						parent.insertBefore(ul, table);
+
+						compare(data[i].id);//调用数据比对函数			
+					}
+
+				}
+			});
+	}
+
+
+
 	/*进入页面加载带餐*/
 	$(function() {
 

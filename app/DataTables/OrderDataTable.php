@@ -17,7 +17,7 @@ class OrderDataTable extends DataTable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', 'backend.admin.partial.actionDt.order')
-            ->editColumn('total', '￥ {!! $total !!} 元')
+            ->editColumn('total', '￥ {!! number_format($total/100, 2) !!} 元')
             ->make(true);
     }
 
@@ -43,7 +43,7 @@ class OrderDataTable extends DataTable
         return $this->builder()
                     ->columns($this->getColumns())
                     ->ajax('')
-                    ->addAction(['width' => '180px'])
+                    ->addAction(['width' => '80px'])
                     ->parameters($this->getBuilderParameters());
     }
 
@@ -55,6 +55,7 @@ class OrderDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            'id',
             'No'=>['name'=>'order_no', 'data'=>'order_no'],
             '物品'=>['name'=>'subject', 'data'=>'subject'],
             '下单人'=>['name'=>'orderer.name', 'data'=>'orderer.name', 'orderable'=>false],

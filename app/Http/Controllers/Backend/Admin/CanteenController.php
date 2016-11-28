@@ -19,7 +19,7 @@ class CanteenController extends Controller
 
     public function index(CanteenDataTable $dataTable)
     {
-    	return $dataTable->render('backend.admin.dt');
+    	return $dataTable->render('backend.admin.canteen.index');
     }
 
     public function show($canteen)

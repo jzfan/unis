@@ -38,11 +38,19 @@ $(function() {
 	$('.write-del').on('touchstart',function() {
 		_this =$(this);
 		$('.w-location-group .mui-badge .location-ico').removeClass('duigou506').addClass('shanchu505');
-		setTimeout(function() {
-			_this.html('<a href="" style="color:#fff;">完成</a>');
-		},200);
+		setTimeout(function(){
+			_this.html('<span style="color:#fff;" id="complete">完成</span>');
+		},300)
 	});
 });
+
+$(function(){
+	$('.write-del').on('touchstart',function(){
+		if($("#complete").text() =='完成'){
+			window.location.href = "/wechat/address";
+		}
+	})
+})
 
 //滑动删除函数
 $(function() {

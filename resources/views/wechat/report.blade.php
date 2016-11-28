@@ -1,3 +1,4 @@
+
 @extends('wechat.layout')
 
 @section('title')
@@ -34,7 +35,6 @@
 			var openId = $('.w-respone').attr('data-id');
 			var ajaxUrl = '/api/report?openid='+openId;
 			$.post(ajaxUrl,$('#report').serialize(),function(data){
-				console.log(data);
 					setTimeout(function(){
 						window.location.href = '/wechat/profile';
 					},800);

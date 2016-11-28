@@ -20,7 +20,8 @@ class FoodTransformer extends TransformerAbstract
 	        'price'  => $food->priceAfterDiscount(),
 	        'original_price' => number_format($food->price, 1),
 	        'img' => $food->img,
-	        'sold' => $food->sold
+	        'sold' => $food->sold,
+	        'canteen' => $food->shop->canteen->name
 	    ];
 	}
 

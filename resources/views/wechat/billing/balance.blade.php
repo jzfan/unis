@@ -10,7 +10,7 @@
 				<div class="cash-leave-num"><span class="cash-rmb">￥</span></div>
 				<div class="cash-leave-text">当前余额</div>
 			</div>
-			<a class="cash-out" href="#">提现</a>
+			<a class="cash-out" href="#"></a>
 		</section>
 
 

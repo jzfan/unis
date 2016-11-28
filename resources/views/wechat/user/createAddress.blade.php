@@ -27,7 +27,7 @@
 
     	<div class="mui-input-row" id="school-area">
 	        <label>校区:</label>
-		    	<input type="text" class="" placeholder="选择校区" tabIndex="2" required>
+		    	<input type="text" class="" placeholder="选择校区" tabIndex="2" required readonly="readonly">
 		    	<input type="hidden" name='campus_id' value="" class="trueVal">
 		    	<span class="w-arrow-right mui-icon mui-icon-arrowright"></span>
     	</div>
@@ -41,7 +41,7 @@
 
     	<div class="mui-input-row" id="school-room">
 	        <label>宿舍:</label>
-		    	<input type="text" class="" placeholder="选择宿舍楼" tabindex="3" required>
+		    	<input type="text" class="" placeholder="选择宿舍楼" tabindex="3" required readonly="readonly">
 		    	<input type="hidden" name="dorm_id" value="" class="trueVal">
 		    	<span class="w-arrow-right mui-icon mui-icon-arrowright"></span>
     	</div>
@@ -149,7 +149,6 @@
 			success:function(data){
 				arrs = data.schools;
 				for(var j=0;j<arrs.length;j++){
-					console.log(arrs[j].name);
 					$('#school-fix').append('<li class="mui-table-view-cell"><span class="mui-navigate-right">'+arrs[j].name+'</span><span class="sid" style="visibility: hidden;">'+arrs[j].id+'</span></li>');
 					$('#school-fix li').not(".school-search").on('tap',function(){
 					var which = $(this).find('span.mui-navigate-right').text();
@@ -183,7 +182,6 @@
 
 		$('.w-entry-btn').on('touchstart',function(){
 			var urlAddress = '/api/address?openid='+JSON.parse(localStorage.getItem('openid'));
-			console.log($('#info').serialize());
 			$.post(urlAddress,$('#info').serialize(),function(data){
 				if(data == 'success'){
 

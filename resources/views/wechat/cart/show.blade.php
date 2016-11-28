@@ -84,7 +84,7 @@
             var original = parseFloat(foodList.original_price);
             var li =document.createElement('li');
             li.className = 'mui-table-view-cell mui-media';
-            li.innerHTML = '<img class="mui-media-object mui-pull-left" src='+foodList.img+'><div class="w-box" data-id='+foodList.id+'><div class="w-menu-left"><p class="menu-name">'+foodList.name+'</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:'+foodList.sold+'&nbsp;&nbsp;点赞:5</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">'+price+'</span>&nbsp;&nbsp;<span class="origin-value">原价:'+original+'元</span></p></div><div class="w-menu-right"><div class="love-icon" data-id='+foodList.id+'><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon-g"><div class="mui-numbox"><button class="mui-btn mui-numbox-btn-minus" type="button"><span class="mui-icon iconfont jianhao107"></span></button><input class="mui-numbox-input" type="number" value= "1" readonly/><button class="mui-btn mui-numbox-btn-plus" type="button"><span class="mui-icon iconfont jiahao108"></span></button></div></div></div></div>';
+            li.innerHTML = '<img class="mui-media-object mui-pull-left" src='+foodList.img+'><div class="w-box" data-id='+foodList.id+'><div class="w-menu-left"><p class="menu-name">'+foodList.name+'</p><small class="menu-address">'+foodList.canteen+'</small><p class="menu-number"><span>月售:'+foodList.sold+'</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">'+price+'</span>&nbsp;&nbsp;<span class="origin-value">原价:'+original+'元</span></p></div><div class="w-menu-right"><div class="love-icon" data-id='+foodList.id+'><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon-g"><div class="mui-numbox"><button class="mui-btn mui-numbox-btn-minus" type="button"><span class="mui-icon iconfont jianhao107"></span></button><input class="mui-numbox-input" type="number" value= "1" readonly/><button class="mui-btn mui-numbox-btn-plus" type="button"><span class="mui-icon iconfont jiahao108"></span></button></div></div></div></div>';
             table.appendChild(li);
 
             total  += parseFloat(foodList.price*0.01);
@@ -129,7 +129,6 @@
         adds.on('touchstart',function() {
           var numb = $(this).parent().find('.mui-numbox-input').eq(0);
           var cash = $('.cash').eq(0);
-          
           total = parseFloat(cash.html()) + 
           parseFloat($(this).parent().parent().parent().parent().find('.vue-number').eq(0).html());
 
@@ -138,6 +137,8 @@
           if(numb.val() >=1){
             $(this).parent().find('span.jianhao107').eq(0).css('color','#338fcd');
           }
+          $('.w-want-accept').removeAttr('disabled');
+
         });
 
         shans.on('touchstart',function() {
@@ -153,13 +154,17 @@
             else if(numb.val() >=1){
             $(this).find('span.jianhao107').css('color','#338fcd');
           }
-          
+
           total = parseFloat(cash.html()) - 
           parseFloat($(this).parent().parent().parent().parent().find('.vue-number').eq(0).html());
 
           cash.html(total);
 
           numb.val(parseInt(numb.val()) - 1);
+
+          if(parseInt(total) == 0){
+              $('.w-want-accept').attr('disabled','disabled');
+          }
         });
       });
 
@@ -178,14 +183,11 @@
         if(localStorage.getItem('loveFoodId') == null) {
           var loveFood = new Array(); //定义购物车里食品id数组
           loveFood.push(foodId);
-          console.log(foodId);
-          console.log(loveFood);
           localStorage.setItem('loveFoodId', JSON.stringify(loveFood));
         } else {
           var loveFood = JSON.parse(localStorage.getItem('loveFoodId'));
           loveFood.push(foodId);
           localStorage.setItem('loveFoodId', JSON.stringify(loveFood));
-          console.log(loveFood, loveFood.length);
         }
 
         layer.open({
@@ -200,7 +202,6 @@
         var foodId = $(this).attr('data-id');
         var loveFood = JSON.parse(localStorage.getItem('loveFoodId'));
         
-        console.log(loveFood);
 
         Array.prototype.removeByValue = function(val) {
           for(var i = 0; i < this.length; i++) {
@@ -214,8 +215,6 @@
         loveFood.removeByValue(foodId);
         localStorage.setItem('loveFoodId', JSON.stringify(loveFood));
         
-        var show = JSON.parse(localStorage.getItem('loveFoodId'));
-        console.log(show);
 
         layer.open({
           content: '取消收藏',
@@ -236,10 +235,13 @@
 
           var buyArray  = new Array();
           for (var i=0;i<$('.menu-name').length;i++){
-              buyArray.push({
-                'id':$('.w-box').eq(i).attr('data-id'),
-                'numb':$('.mui-numbox-input').eq(i).val()
-              });
+              if($('.mui-numbox-input').eq(i).val() != 0){
+                  buyArray.push({
+                    'id':$('.w-box').eq(i).attr('data-id'),
+                    'numb':$('.mui-numbox-input').eq(i).val()
+                  });
+              }
+              
           }
 
           var buyAcash = parseFloat($('.cash').text());
@@ -247,7 +249,6 @@
           $.get(urlajax,
             {'total':buyAcash, 'time':$('.Ntime').attr('data-id'), 'food':buyArray},
             function(data){
-              // console.log(data);
               callpay(data);
             }
           );

@@ -66,14 +66,12 @@
 		 		var openId = $('.w-about-uniserve').attr('data-id');
 		 		var feed_id = $(this).attr('data-id');
 		 		var ajaxUrl ='/api/feed/'+feed_id+'?openid='+openId; 
-		 		console.log(ajaxUrl);
 		 		$.ajax({
 		 			url:ajaxUrl,
 					dataType:'json',
 					async:false,
 					type:'delete',
 					success:function(data){
-						console.log(data);
 						$(this).parents('div.w-card').fadeOut();
 						layer.open({
 						    content: '删除成功'

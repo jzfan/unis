@@ -10,16 +10,6 @@ use App\Unis\Suplier\Shop;
 
 class ShopController extends Controller
 {
-    public function dt(Request $request)
-    {
-    	$shops = Shop::with('canteen.campus.school', 'suplier')->orderBy('id', 'desc')->get()->toArray();
-    	return [
-    				'draw' => (int)$request->draw,
-    				'recordsTotal'=> Shop::all()->count(),
-    				'recordsFiltered'=> Shop::all()->count(),
-    				'data' => $shops
-    			];
-    }
 
     /**
     * @api {get} /food_of_shop/{shop_id}  取窗口食品
@@ -37,22 +27,26 @@ class ShopController extends Controller
         "price": 900,
         "original_price": "17.50",
         "sold": 10
+        "canteen": xx食堂
       },
       ......
     ]
     */   
     public function getFoods($shop_id)
     {
-        $foods = Shop::findOrFail($shop_id)->foods;
+        $shop    = Shop::findOrFail($shop_id);
+        $foods   = $shop->foods;
+        $canteen = $shop->canteen->name;
         $data = [];
         foreach ($foods as $food){
            $data[] = [
-              'id' => $food->id,
-              'name' => $food->name,
-              'img' => $food->img,
-              'price' => $food->priceAfterDiscount(),
+              'id'             => $food->id,
+              'name'           => $food->name,
+              'img'            => $food->img,
+              'price'          => $food->priceAfterDiscount(),
               'original_price' => $food->price,
-              'sold' => $food->sold
+              'sold'           => $food->sold,
+              'canteen'        => $canteen
             ];          
         }
         return $data;

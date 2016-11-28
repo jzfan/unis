@@ -40,14 +40,14 @@
 	     var openId = $('.menu-detail').attr('data-id');
 	     var urlajax = '/api/order/show/'+order_id+'?openid='+openId;
 			$.get( urlajax,function(data){
-				console.log(data);
 				var order = data.order;
 				var orderItem = order.order_items;
 				for(var i=0;i<orderItem.length;i++){
 					var price = parseFloat(orderItem[i].price*0.01);
+					var original = parseFloat(orderItem[i].food.price);
 					var li = document.createElement('li');
 					li.className = "mui-table-view-cell mui-media";
-					li.innerHTML = '<a href="javascript:;"><img class="mui-media-object mui-pull-left" src='+orderItem[i].food.img+'><div class="w-box"><div class="w-menu-left"><p class="menu-name">'+orderItem[i].food.name+'</p><small class="menu-address">教工食堂</small><p class="menu-number"><span>月售:'+orderItem[i].food.sold+'&nbsp;&nbsp;点赞:'+orderItem[i].food.recommend+'</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">'+price+'</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:'+orderItem[i].food.price+'元</span></p></div><div class="w-menu-right"><div class="love-icon" data-id='+orderItem[i].food.id+'><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon-a"><span class="num-menu-num">份数：'+orderItem[i].amount+'</span></div></div></div></a>';
+					li.innerHTML = '<a href="javascript:;"><img class="mui-media-object mui-pull-left" src='+orderItem[i].food.img+'><div class="w-box"><div class="w-menu-left"><p class="menu-name">'+orderItem[i].food.name+'</p><small class="menu-address">诗香苑</small><p class="menu-number"><span>月售:'+orderItem[i].food.sold+'&nbsp;&nbsp;点赞:'+orderItem[i].food.recommend+'</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">'+price+'</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:'+original+'元</span></p></div><div class="w-menu-right"><div class="love-icon" data-id='+orderItem[i].food.id+'><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon-a"><span class="num-menu-num">份数：'+orderItem[i].amount+'</span></div></div></div></a>';
 					var ul = document.body.querySelector('.w-tab-view');
 					ul.appendChild(li);
 
@@ -86,14 +86,11 @@
 				if(localStorage.getItem('loveFoodId') == null) {
 					var loveFood = new Array(); //定义购物车里食品id数组
 					loveFood.push(foodId);
-					console.log(foodId);
-					console.log(loveFood);
 					localStorage.setItem('loveFoodId', JSON.stringify(loveFood));
 				} else {
 					var loveFood = JSON.parse(localStorage.getItem('loveFoodId'));
 					loveFood.push(foodId);
 					localStorage.setItem('loveFoodId', JSON.stringify(loveFood));
-					console.log(loveFood, loveFood.length);
 				}
 
 				layer.open({
@@ -107,8 +104,6 @@
 				
 				var foodId = $(this).attr('data-id');
 				var loveFood = JSON.parse(localStorage.getItem('loveFoodId'));
-				
-				console.log(loveFood);
 
 				Array.prototype.removeByValue = function(val) {
 					for(var i = 0; i < this.length; i++) {
@@ -122,8 +117,7 @@
 				loveFood.removeByValue(foodId);
 				localStorage.setItem('loveFoodId', JSON.stringify(loveFood));
 				
-				var show = JSON.parse(localStorage.getItem('loveFoodId'));
-				console.log(show);
+				//var show = JSON.parse(localStorage.getItem('loveFoodId'));
 
 				layer.open({
 					content: '取消收藏',

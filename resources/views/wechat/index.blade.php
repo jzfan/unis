@@ -92,6 +92,66 @@
 
 @section('js')
 <script src='/js/wechat/index.js'></script>
+	
+<script>
+/*进入页面加载默认用户校区所有食堂*/
+	$(function() {
+		$.ajax({
+			url: '/wechat/ajax/index_data',
+			dataType: 'json',
+			async: true,
+			type: 'GET',
+			success: function(data) {
+				var canteen = data.canteens;
+				for(var i = 0; i < canteen.length; i++) {
+					var li = document.createElement('li');
+					li.className = 'mui-table-view-cell';
+					li.innerHTML = '<span class="mui-navigate-right selectDown" data-id=' + canteen[i].id + '>' +canteen[i].name+'</span>';
+					var ul = document.body.querySelector('#canteen-li');
+					ul.appendChild(li);
+				}
+				
+				$('#addName').html(canteen[0].name); //进入首页默认第一个为用户默认食堂
+				$('#addName').attr('data-id', canteen[0].id);
+				localStorage.setItem('canteen',JSON.stringify(canteen[0].id));//将默认食堂id存在本地
+				localStorage.setItem('canteens', JSON.stringify(canteen));
+
+			}
+		});
+
+
+		/*根据食堂选默认窗口*/
+			$('.w-canvas-list').html(''); //换食堂时候清空之前食堂对应的窗口
+			var portUrl = '/api/shops_of_canteen/' + JSON.parse(localStorage.getItem('canteen'));
+			$.ajax({
+				url: portUrl,
+				dataType: 'json',
+				async: true,
+				type: 'GET',
+				success: function(data) {
+					var port = data.shops;
+					for(var i = 0; i < port.length; i++) {
+						li = document.createElement('li');
+						li.className = "portName";
+						li.innerHTML = port[i].name + '<span data-id=' + port[i].id + '></span>';
+						var table = document.body.querySelector('.w-canvas-list');
+						table.appendChild(li);
+					}
+					localStorage.setItem('shopId',JSON.stringify(port[0].id));//将默认窗口id存在本地
+					localStorage.setItem('defalutshopId',JSON.stringify(port[0].id));//将默认窗口id存在本地
+					console.log(localStorage.getItem('shopId'));
+				}
+			});
+
+
+		/*根据默认窗口取食品列表*/
+
+		portFoodList();//调用根据窗口取食品列表函数
+
+	});
+
+</script>
+
 
 <script>/*菜品的下拉刷新上拉加载*/
 	mui.init();
@@ -136,64 +196,6 @@
 
 		});
 	})(mui);
-</script>
-
-		
-<script>
-/*进入页面加载默认用户校区所有食堂*/
-	$(function() {
-		$.ajax({
-			url: '/wechat/ajax/index_data',
-			dataType: 'json',
-			async: true,
-			type: 'GET',
-			success: function(data) {
-				var canteen = data.canteens;
-				for(var i = 0; i < canteen.length; i++) {
-					var li = document.createElement('li');
-					li.className = 'mui-table-view-cell';
-					li.innerHTML = '<span class="mui-navigate-right selectDown" data-id=' + canteen[i].id + '>' +canteen[i].name+'</span>';
-					var ul = document.body.querySelector('#canteen-li');
-					ul.appendChild(li);
-				}
-				
-				$('#addName').html(canteen[0].name); //进入首页默认第一个为用户默认食堂
-				$('#addName').attr('data-id', canteen[0].id);
-				localStorage.setItem('canteen',JSON.stringify(canteen[0].id));//将默认食堂id存在本地
-				localStorage.setItem('canteens', JSON.stringify(canteen));
-				
-			}
-		});
-
-
-		/*根据食堂选默认窗口*/
-			$('.w-canvas-list').html(''); //换食堂时候清空之前食堂对应的窗口
-			var portUrl = '/api/shops_of_canteen/' + JSON.parse(localStorage.getItem('canteen'));
-			$.ajax({
-				url: portUrl,
-				dataType: 'json',
-				async: true,
-				type: 'GET',
-				success: function(data) {
-					var port = data.shops;
-					for(var i = 0; i < port.length; i++) {
-						li = document.createElement('li');
-						li.className = "portName";
-						li.innerHTML = port[i].name + '<span data-id=' + port[i].id + '></span>';
-						var table = document.body.querySelector('.w-canvas-list');
-						table.appendChild(li);
-					}
-					localStorage.setItem('shopId',JSON.stringify(port[0].id));//将默认窗口id存在本地
-				}
-			});
-
-
-		/*根据默认窗口取食品列表*/
-
-			portFoodList();//调用根据窗口取食品列表函数
-
-	});
-
 </script>
 
 
@@ -269,7 +271,6 @@
 
 		});
 
-
 		/*点击窗口时保存窗口id到本地*/
 		$(document).on('touchstart','.portName',function(){
 			mui('.mui-slider-group #item1mobile .mui-scroll-wrapper').scroll().scrollTo(0,0);
@@ -284,8 +285,9 @@
 	});
 
 
-	window.onbeforeunload=function (){
-		localStorage
+	window.onbeforeunload = function(){
+		var defalutId = JSON.parse(localStorage.getItem('defalutshopId'));
+		localStorage.setItem('shopId',JSON.stringify(defalutId));//暂时解决关闭后重新进入页面错误问题
 	}
 </script>
 

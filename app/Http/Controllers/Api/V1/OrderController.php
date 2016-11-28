@@ -165,7 +165,7 @@ class OrderController extends BaseController
     }
 
     /**
-    * @api {get} /order/delivered/{order_id}  确认收到
+    * @api {get} /order/received/{order_id}  确认收到
     * @apiVersion 1.0.0
     * @apiName OrderReceived
     * @apiGroup Order
@@ -175,7 +175,7 @@ class OrderController extends BaseController
     */ 
     public function received($order_id)
     {
-      \DB::transaction( function () {
+      \DB::transaction( function () use ($order_id){
           $order = Order::where(['id'=>$order_id, 'status'=>'delivered'])->lockForUpdate()->first();
           $this->checkNull($order);
           $order->status = 'received';

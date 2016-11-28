@@ -30,7 +30,7 @@
 			var compare = JSON.parse(localStorage.getItem('loveFoodId'));
 			for(var f = 0; f < compare.length; f++) {
 				if(compare[f] == foodCom) {
-					jQuery('.love-icon').find('span.dianzan105').removeClass('dianzan105').addClass('dianzan106');
+					jQuery(ul).find('span.dianzan105').removeClass('dianzan105').addClass('dianzan106');
 				}
 			}
 		}
@@ -40,7 +40,7 @@
 			var comWith = JSON.parse(localStorage.getItem('cartFoodId'));
 			for(var k = 0; k < comWith.length; k++) {
 				if(comWith[k] == foodCom) {
-					jQuery('.add-icon').find('span.jiahao108').removeClass('jiahao108').addClass('duigou506');
+					jQuery(ul).find('span.jiahao108').removeClass('jiahao108').addClass('duigou506');
 				}
 			}
 		}

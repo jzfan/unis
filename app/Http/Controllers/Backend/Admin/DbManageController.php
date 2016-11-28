@@ -11,15 +11,24 @@ use App\Unis\Suplier\Food;
 
 class DbManageController extends Controller
 {
-    public function import()
+
+	public function importIndex()
+	{
+		return view('backend.admin.db.importIndex');
+	}
+
+    public function excelImport(Request $request)
     {
-    	$filePath = 'storage/foods.xls';
-    	Excel::load($filePath, function($reader) {
+
+	    $path = $request->file->storeAs('excel', time().'.xls');
+    	
+    	Excel::load(storage_path('app/').$path, function($reader) {
     	        $data = $reader->all();
+    	        dd($data);
     	        foreach ($data as $item) {
     	        	Food::create($item->toArray());
     	        }
     	    });
-    	return 'done';
+    	return redirect('/admi/food')->with('success', '导入成功！');
     }
 }

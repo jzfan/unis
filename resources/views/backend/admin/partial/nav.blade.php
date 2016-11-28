@@ -121,20 +121,20 @@
       </div>
     </div>
 
-    <div class="panel @if(Request::is('admin/Db*')) panel-primary @else panel-default @endif">
+    <div class="panel @if(Request::is('admin/db*')) panel-primary @else panel-default @endif">
       <div class="panel-heading" role="tab" id="headingTwo">
         <h4 class="panel-title">
           <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-            <span class="glyphicon glyphicon-map-marker"></span>
+            <span class="glyphicon glyphicon glyphicon-cloud"></span>
             数据库管理
           </a>
         </h4>
       </div>
-      <div id="collapseThree" class="panel-collapse collapse @if(Request::is('admin/Db*')) in @else panel-default @endif"" role="tabpanel" aria-labelledby="headingTwo">
+      <div id="collapseThree" class="panel-collapse collapse @if(Request::is('admin/db*')) in @else panel-default @endif"" role="tabpanel" aria-labelledby="headingTwo">
         <div class="panel-body">
           <div class="list-group">
-            <a href="/admin/Db/excel/import" class="list-group-item @if(Request::is('admin/Db/excel/import*')) active @endif">
-              <span class="glyphicon glyphicon-book"></span>
+            <a href="/admin/db/excel/import" class="list-group-item @if(Request::is('admin/db/excel/import*')) active @endif">
+              <span class="glyphicon glyphicon-cloud-upload"></span>
               Excel导入
             </a>
           </div>

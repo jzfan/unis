@@ -88,5 +88,5 @@ $('.dropzone').dropzone({
         }
 });
 
-    </script>
+</script>
 @stop

@@ -123,35 +123,63 @@
   
 /*计算总价*/
    $(function(){
-
+        var icon = $('.love-icon');
         var adds = $('.mui-numbox-btn-plus');
         var shans = $('.mui-numbox-btn-minus');
         var price = $('.vue-number');
         var inputs = $('.mui-numbox-input');
         var total = 0;
+        var addTotal  = 0;
+        var service = 3;
 
         for (var i = 0; i < adds.length; i++) {
+          if(localStorage.getItem(icon.eq(i).attr('data-id')) == null) {
+            localStorage.setItem(icon.eq(i).attr('data-id'), inputs.eq(i).val());
+          }
+          
+          inputs.eq(i).val(localStorage.getItem(icon.attr('data-id')));
+
           total = total + parseFloat(price.eq(i).text())*inputs.eq(i).val();
         }
+        
+        addTotal = total;
+
+        if(total > 0 && total == addTotal) {
+          total = total + service;
+        }
+
+        $('.cash').eq(0).html(total);
 
         adds.on('touchstart',function() {
           var numb = $(this).parent().find('.mui-numbox-input').eq(0);
           var cash = $('.cash').eq(0);
+          var temp = parseInt(cash.html());
+          var addId = $(this).parent().parent().parent().parent().attr('data-id');
+
           total = parseFloat(cash.html()) + 
           parseFloat($(this).parent().parent().parent().parent().find('.vue-number').eq(0).html());
 
+          if(temp == 0) {
+            total = total + service;
+            console.log(total);
+          }
+
           cash.html(total);
           numb.val(parseInt(numb.val()) + 1);
+
+          localStorage.setItem(addId, numb.val());
+
           if(numb.val() >=1){
             $(this).parent().find('span.jianhao107').eq(0).css('color','#338fcd');
           }
-          $('.w-want-accept').removeAttr('disabled');
 
+          $('.w-want-accept').removeAttr('disabled');
         });
 
         shans.on('touchstart',function() {
           var numb = $(this).parent().find('.mui-numbox-input').eq(0);
           var cash = $('.cash').eq(0);
+          var addId = $(this).parent().parent().parent().parent().attr('data-id');
 
           if(numb.val() == 1) {
             $(this).find('span.jianhao107').css('color','#ccc');
@@ -168,7 +196,15 @@
 
           cash.html(total);
 
+          if(parseFloat(cash.html()) == service) {
+            total = parseFloat(cash.html()) - service;
+          }
+
+          cash.html(total);
+
           numb.val(parseInt(numb.val()) - 1);
+          
+          localStorage.setItem(addId, numb.val());
 
           if(parseInt(total) == 0){
               $('.w-want-accept').attr('disabled','disabled');

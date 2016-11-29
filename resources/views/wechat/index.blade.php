@@ -116,38 +116,35 @@
 				localStorage.setItem('canteen',JSON.stringify(canteen[0].id));//将默认食堂id存在本地
 				localStorage.setItem('canteens', JSON.stringify(canteen));
 
+
+
+				/*根据食堂选默认窗口*/
+					$('.w-canvas-list').html(''); //换食堂时候清空之前食堂对应的窗口
+					var portUrl = '/api/shops_of_canteen/' + JSON.parse(localStorage.getItem('canteen'));
+					$.ajax({
+						url: portUrl,
+						dataType: 'json',
+						async: true,
+						type: 'GET',
+						success: function(data) {
+							var port = data.shops;
+							for(var i = 0; i < port.length; i++) {
+								li = document.createElement('li');
+								li.className = "portName";
+								li.innerHTML = port[i].name + '<span data-id=' + port[i].id + '></span>';
+								var table = document.body.querySelector('.w-canvas-list');
+								table.appendChild(li);
+							}
+							localStorage.setItem('shopId',JSON.stringify(port[0].id));//将默认窗口id存在本地
+							localStorage.setItem('defalutshopId',JSON.stringify(port[0].id));//将首次进入页面默认窗口id存在本地
+							console.log(localStorage.getItem('shopId'));
+
+							/*根据默认窗口取食品列表*/
+							portFoodList();//调用根据窗口取食品列表函数
+						}
+					});		
 			}
 		});
-
-
-		/*根据食堂选默认窗口*/
-			$('.w-canvas-list').html(''); //换食堂时候清空之前食堂对应的窗口
-			var portUrl = '/api/shops_of_canteen/' + JSON.parse(localStorage.getItem('canteen'));
-			$.ajax({
-				url: portUrl,
-				dataType: 'json',
-				async: true,
-				type: 'GET',
-				success: function(data) {
-					var port = data.shops;
-					for(var i = 0; i < port.length; i++) {
-						li = document.createElement('li');
-						li.className = "portName";
-						li.innerHTML = port[i].name + '<span data-id=' + port[i].id + '></span>';
-						var table = document.body.querySelector('.w-canvas-list');
-						table.appendChild(li);
-					}
-					localStorage.setItem('shopId',JSON.stringify(port[0].id));//将默认窗口id存在本地
-					localStorage.setItem('defalutshopId',JSON.stringify(port[0].id));//将首次进入页面默认窗口id存在本地
-					console.log(localStorage.getItem('shopId'));
-				}
-			});
-
-
-		/*根据默认窗口取食品列表*/
-
-		portFoodList();//调用根据窗口取食品列表函数
-
 	});
 
 </script>

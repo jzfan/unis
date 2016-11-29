@@ -132,7 +132,7 @@ class WechatPay
     		$total += $price*$food->num;
 		}
 		//分
-		return $total;
+		return $total + 300;
 	}
 
 	public function refund()

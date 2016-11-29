@@ -43,7 +43,7 @@ class ShopController extends Controller
               'id'             => $food->id,
               'name'           => $food->name,
               'img'            => $food->img,
-              'price'          => $food->priceAfterDiscount(),
+              'price'          => $food->sale_price,
               'original_price' => $food->price,
               'sold'           => $food->sold,
               'canteen'        => $canteen

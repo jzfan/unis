@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Input;
 use App\Unis\Order\Order;
 use App\Unis\Message\Feed;
 use Carbon\Carbon;
+use App\Unis\Order\Transformer\OrderTransformer;
+use League\Fractal;
+use League\Fractal\Manager;
 
 class OrderController extends BaseController
 {
@@ -19,74 +22,62 @@ class OrderController extends BaseController
   * @apiSuccessExample 成功返回:
   * HTTP/1.1 200 OK
     {
-      "total": 7,
-      "per_page": 10,
-      "current_page": 1,
-      "last_page": 1,
-      "next_page_url": null,
-      "prev_page_url": null,
-      "from": 1,
-      "to": 7,
       "data": [
         {
-          "id": 92,
-          "order_no": "161121164414229",
-          "billing_id": null,
-          "type": "wxpay",
-          "subject": "et食品|odit食品",
-          "user_id": 229,
-          "deliver_id": null,
-          "total": 53,
-          "school_id": 1,
-          "campus_id": 8,
-          "dorm_id": 62,
-          "address": "南昌2大学cupiditate校区minus宿舍5",
-          "mark": null,
-          "status": "未付款",
-            ......
-          "order_items": [
-            {
-              "id": 277,
-              "order_id": 92,
-              "food_id": 1854,
-              "amount": 3,
-              "price": 16,
-              "created_at": "2016-11-21 16:44:14",
-              "updated_at": "2016-11-21 16:44:14",
-              "food": {
-                "id": 1854,
-                "shop_id": 349,
-                "name": "et食品",
-                ......
-                  }
-                }
-              }
-            },
-            ......
-                }
-              }
-            }
-          ],
+          "id": 3031,
+          "order_no": "1003161126192356",
           "orderer": {
-            "id": 229,
-            "name": "Dr. Wiley Rosenbaum II",
-            ......
+            "name": "LMercury小敏",
+            "phone": "18622525566"
+          },
+          "deliver": null,
+          "address": "上海9大学dicta校区aspernatur宿舍22",
+          "total": "上海9大学dicta校区aspernatur宿舍22",
+          "apponitment_at": "2016/11/26 - 19:53",
+          "status": "未付款",
+          "foods": {
+            "data": [
+              {
+                "id": 141,
+                "name": "est食品",
+                "price": "14.0",
+                "quntity": null,
+                "original_price": "20.0",
+                "img": "http://lorempixel.com/50/50/?52894",
+                "sold": 79,
+                "canteen": "ad食堂"
+              }
+            ]
           }
         },
         ......
-      ]
+      ],
+      "meta": {
+        "pagination": {
+          "total": 18,
+          "count": 2,
+          "per_page": 8,
+          "current_page": 3,
+          "total_pages": 3,
+          "links": {
+            "previous": "http://unis.com/api/order?page=2"
+          }
+        }
+      }
     }
   *
   */ 
 
     protected $limit;
     protected $page;
+    protected $fractal;
 
-    public function __construct(Request $request)
+    public function __construct(Request $request, Manager $fractal)
     {
         parent::__construct($request);
         $this->limit = $request->limit ? : config('site.perPage');
         $this->page  = $request->page ? : 1;
+        $this->fractal = $fractal;
     }
     /**
     * @api {get} /order 订单列表分页
@@ -102,8 +93,8 @@ class OrderController extends BaseController
     {
       Input::merge(["page" => $this->page]);
     	$campus = $this->user->defaultAddress()->campus;
-      return Order::where('campus_id', $campus->id)->with('order_items.food.shop.canteen', 'orderer')
-                            ->where('status', 'ordered')->orderBy('created_at', 'asc')->paginate($this->limit);
+      $paginator = Order::where('campus_id', $campus->id)->with('orderer', 'deliver')->where('status', 'ordered')->orderBy('created_at', 'asc')->paginate($this->limit);
+      return $this->trans4page($paginator);
     }
 
     /**
@@ -205,57 +196,46 @@ class OrderController extends BaseController
     * @apiUse openidParam
     * @apiParam {Number} order_id 订单ID
     * @apiSuccessExample 成功返回:
-    *     HTTP/1.1 200 OK
-        {
-          "order": {
-            "id": 2,
-            "order_no": "161121164412922",
-            "billing_id": null,
-            "type": "wxpay",
-            "subject": "et食品|maiores食品|explicabo食品|est食品",
-            "user_id": 922,
-            "deliver_id": null,
-            "total": 69,
-            "school_id": 2,
-            "campus_id": 1,
-            "dorm_id": 1,
-            "address": "郑州3大学culpa校区sunt宿舍8",
-            "mark": null,
-            "status": "未付款",
-            "appointment_at": null,
-            "paid_at": null,
-            "taken_at": null,
-            "delivered_at": null,
-            "received_at": null,
-            "withdrawed_at": null,
-            "created_at": "2016-11-21 16:44:12",
-            "updated_at": "2016-11-21 16:44:12",
-            "order_items": [
+    * HTTP/1.1 200 OK
+      {
+        "data": {
+          "id": 100,
+          "order_no": "35161123154028",
+          "orderer": {
+            "name": "Julian Padberg IV",
+            "phone": "18884950881"
+          },
+          "deliver": null,
+          "address": "南京7大学numquam校区et宿舍1",
+          "total": 81.5,
+          "apponitment_at": "2003/10/23 - 23:21",
+          "status": "已提现",
+          "foods": {
+            "data": [
               {
-                "id": 6,
-                "order_id": 2,
-                "food_id": 2077,
-                "amount": 2,
-                "price": 16,
-                "created_at": "2016-11-21 16:44:12",
-                "updated_at": "2016-11-21 16:44:12",
-                "food": {
-                  "id": 2077,
-                  "shop_id": 50,
-                  "name": "est食品",
-                    ......
-                }
-              }
+                "id": 2291,
+                "name": "odio食品",
+                "price": "2.0",
+                "quntity": null,
+                "original_price": "3.5",
+                "img": "http://lorempixel.com/50/50/?79622",
+                "sold": 57,
+                "canteen": "blanditiis食堂"
+              },
+              ......
             ]
           }
         }
+      }
     *
     */ 
     public function getOne($order_id)
     {
-        $order = Order::with('order_items.food', 'deliver', 'orderer')->where('id', $order_id)->first();
+        $order = Order::with('foods', 'deliver', 'orderer')->where('id', $order_id)->first();
         $this->checkNull($order);
-        return $order;
+        $resource = new Fractal\Resource\Item($order, new OrderTransformer);
+        return $this->fractal->parseIncludes('foods')->createData($resource)->toArray();
+
     }
 
     /**
@@ -272,7 +252,8 @@ class OrderController extends BaseController
     {
         Input::merge(["page" => $this->page]);
         $hoursAgo = Carbon::now()->subHours(3);
-        return Order::where(['type'=>'wxpay', 'deliver_id'=>null, 'status'=>'paid'])->where('user_id', '<>', $this->user->id)->where('paid_at', '>', $hoursAgo)->with('order_items.food', 'orderer')->orderBy('id', 'ASC')->paginate($this->limit);      
+        $paginator = Order::where(['type'=>'wxpay', 'deliver_id'=>null, 'status'=>'paid'])->where('user_id', '<>', $this->user->id)->where('paid_at', '>', $hoursAgo)->with('orderer')->orderBy('id', 'ASC')->paginate($this->limit);
+        return $this->trans4page($paginator);      
     }
 
     /**
@@ -287,77 +268,48 @@ class OrderController extends BaseController
     public function allBuy()
     {
         Input::merge(["page" => $this->page]);
-        return Order::where(['type'=>'wxpay', 'user_id'=>$this->user->id])->orderBy('id', 'DESC')->with('order_items.food', 'deliver')->paginate($this->limit);
+        $paginator = Order::where(['type'=>'wxpay', 'user_id'=>$this->user->id])->orderBy('id', 'DESC')->with('deliver')->paginate($this->limit);
+        return $this->trans4page($paginator);
     }
 
 
     /**
-    * @api {get} /order/uncompleted_sale  我已接单未完成分页
+    * @api {get} /order/uncompleted_sale  我已接单未完成列表
     * @apiVersion 1.0.0
     * @apiName getMyUncompletedSalePage
     * @apiGroup Order
     * @apiUse openidParam
     * @apiSuccessExample 成功返回:
     * HTTP/1.1 200 OK
-    [
       {
-        "id": 2722,
-        "order_no": "909161123154118",
-        "billing_id": null,
-        "type": "wxpay",
-        "subject": "quia食品",
-        "user_id": 909,
-        "deliver_id": 1003,
-        "total": 2100,
-        "school_id": 2,
-        "campus_id": 18,
-        "dorm_id": 53,
-        "address": "上海9大学velit校区odit宿舍8",
-        "mark": null,
-        "status": "配送中",
-        "appointment_at": "1991-11-13 09:40:09",
-        "paid_at": "1991-11-13 09:40:09",
-        "taken_at": "2016-11-24 11:18:38",
-        "delivered_at": null,
-        "received_at": null,
-        "refund_at": "2016-11-24 12:09:49",
-        "withdrawed_at": null,
-        "created_at": "2016-11-23 15:41:18",
-        "updated_at": "2016-11-24 11:18:38",
-        "deleted_at": null,
-        "order_items": [
+        "data": [
           {
-            "id": 5447,
-            "order_id": 2722,
-            "food_id": 848,
-            "amount": 1,
-            "price": 2100,
-            "created_at": "2016-11-23 15:41:18",
-            "updated_at": "2016-11-23 15:41:18",
-            "food": {
-              "id": 848,
-              "shop_id": 366,
-              "name": "quia食品",
-              "img": "http://lorempixel.com/50/50/?33480",
-              "type": "",
-              "description": "Repellat eius et nihil. Non ut voluptatem omnis possimus sequi voluptatum ratione in.",
-              "price": "26.00",
-              "discount": 20,
-              "sold": 84,
-              "favorite": 75,
-              "recommend": 43,
-              "status": "启用",
-              "created_at": "2016-11-22 16:00:17",
-              "updated_at": "2016-11-24 11:18:38"
-            }
-          }
-        ],
-        ......     
-    ]
+            "id": 1099,
+            "order_no": "368161123154046",
+            "orderer": {
+              "name": "Dr. Narciso O'Kon",
+              "phone": "14849947418"
+            },
+            "deliver": {
+              "name": "LMercury小敏",
+              "phone": "18622525566"
+            },
+            "address": "合肥9大学laborum校区asperiores宿舍3",
+            "total": 74.5,
+            "apponitment_at": "2013/12/13 - 17:17",
+            "status": "配送中"
+          },
+          ......
+        ]
+      }
+    *
     */ 
     public function uncompletedSale()
     {
-        return Order::where(['type'=>'wxpay', 'deliver_id'=>$this->user->id, 'status'=>'taken'])->orderBy('taken_at', 'DESC')->with('order_items.food', 'orderer')->get()->toArray();
+        $orders = Order::where(['type'=>'wxpay', 'deliver_id'=>$this->user->id, 'status'=>'taken'])->orderBy('taken_at', 'DESC')->with('orderer')->get();
+        $resource = new Fractal\Resource\Collection($orders, new OrderTransformer);
+        return $this->fractal->createData($resource)->toJson();
+
     }
 
     /**
@@ -371,6 +323,15 @@ class OrderController extends BaseController
     public function completedSale()
     {
         Input::merge(["page" => $this->page]);
-        return Order::where(['type'=>'wxpay', 'deliver_id'=>$this->user->id])->whereIn('status', ['received', 'delivered', 'withdrawed'])->orderBy('delivered_at', 'DESC')->with('order_items.food', 'orderer')->paginate($this->limit);
+        $paginator = Order::where(['type'=>'wxpay', 'deliver_id'=>$this->user->id])->whereIn('status', ['received', 'delivered', 'withdrawed'])->orderBy('delivered_at', 'DESC')->with('orderer')->paginate($this->limit);
+        return $this->trans4page($paginator);
+    }
+
+    protected function trans4page($paginator)
+    {
+      $orders = $paginator->getCollection();
+      $resource = new Fractal\Resource\Collection($orders, new OrderTransformer);
+      $resource->setPaginator(new Fractal\Pagination\IlluminatePaginatorAdapter($paginator));
+      return $this->fractal->createData($resource)->toJson();
     }
 }

@@ -25,14 +25,9 @@ class Order extends Model
     	return $this->belongsTo(User::class, 'deliver_id', 'id');
     }
 
-    public function order_items()
-    {
-        return $this->hasMany(OrderItem::class);
-    }
-
     public function foods()
     {
-        return $this->belongsToMany(Food::class, 'order_items', 'order_id', 'food_id');
+        return $this->belongsToMany(Food::class, 'order_items', 'order_id', 'food_id')->withPivot('quantity', 'price');
     }
 
     public function getStatusAttribute($value)

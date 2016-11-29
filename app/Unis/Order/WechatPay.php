@@ -75,8 +75,8 @@ class WechatPay
 		    	OrderItem::create([
 		    		'order_id' => $order->id,
 		    		'food_id' => $food->id,
-		    		'amount' => $food->num,
-		    		'price' => $food->priceAfterDiscount(),
+		    		'quantity' => $food->num,
+		    		'price' => $food->sale_price,
 		    	]);
 
 	    	}
@@ -128,11 +128,11 @@ class WechatPay
 	{
 		$total = 0;
 		foreach ($this->foods as $key => $food) {
-    		$price = $food->priceAfterDiscount();
+    		$price = $food->sale_price;
     		$total += $price*$food->num;
 		}
 		//分
-		return $total;
+		return $total + 300;
 	}
 
 	public function refund()

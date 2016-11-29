@@ -12,28 +12,16 @@ class Food extends Model
 	
 	protected $fillable = ['shop_id', 'name', 'img', 'type', 'description', 'price', 'discount', 'favorite', 'recommend', 'status'];
 
-	
+	protected $appends = ['sale_price'];
+
     public function shop()
     {
     	return $this->belongsTo(Shop::class);
     }
 
-    public function getTypeAttribute($value)
+    public function getSalePriceAttribute()
     {
-    	if ($value == null){
-    		$value = '';
-    	}
-    	return $value;
-    }
-
-    public function priceAfterDiscount()
-    {
-        return round($this->price * (100 - $this->discount)/100*2)/2*100;
-    }
-
-    public function getPriceAttribute($value)
-    {
-        return number_format($value/100, 2);
+        return round($this->price/100 * (100 - $this->discount)/100*2)/2*100;
     }
 
 }

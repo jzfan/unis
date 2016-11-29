@@ -7,7 +7,7 @@ use App\Unis\Suplier\Food;
 
 class OrderItem extends Model
 {
-    protected $fillable = ['order_id', 'food_id', 'amount', 'price', 'order_no'];
+    protected $fillable = ['order_id', 'food_id', 'quantity', 'price', 'order_no'];
 
     public function food()
     {

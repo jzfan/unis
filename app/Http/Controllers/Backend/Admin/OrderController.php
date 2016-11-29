@@ -24,13 +24,7 @@ class OrderController extends Controller
 
     public function show($order)
     {
-    	$order = Order::with('orderer', 'deliver')->find($order);
+    	$order = Order::with('foods', 'orderer', 'deliver')->find($order);
     	return view('backend.admin.order.show', compact('order'));
-    }
-
-    public function destroy(Order $order)
-    {
-    	$order->delete();
-    	return redirect()->back()->with('success', '删除成功！');
     }
 }

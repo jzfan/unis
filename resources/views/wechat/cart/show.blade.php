@@ -80,14 +80,14 @@
           type:'GET',
           success:function(data){
             var foodList = data.data;
-            var price = parseFloat(foodList.price*0.01);
+            var price = parseFloat(foodList.price);
             var original = parseFloat(foodList.original_price);
             var li =document.createElement('li');
             li.className = 'mui-table-view-cell mui-media';
             li.innerHTML = '<img class="mui-media-object mui-pull-left" src='+foodList.img+'><div class="w-box" data-id='+foodList.id+'><div class="w-menu-left"><p class="menu-name">'+foodList.name+'</p><small class="menu-address">'+foodList.canteen+'</small><p class="menu-number"><span>月售:'+foodList.sold+'</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">'+price+'</span>&nbsp;&nbsp;<span class="origin-value">原价:'+original+'元</span></p></div><div class="w-menu-right"><div class="love-icon" data-id='+foodList.id+'><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon-g"><div class="mui-numbox"><button class="mui-btn mui-numbox-btn-minus" type="button"><span class="mui-icon iconfont jianhao107"></span></button><input class="mui-numbox-input" type="number" value= "1" readonly/><button class="mui-btn mui-numbox-btn-plus" type="button"><span class="mui-icon iconfont jiahao108"></span></button></div></div></div></div>';
             table.appendChild(li);
 
-            total  += parseFloat(foodList.price*0.01);
+            total  += parseFloat(foodList.price);
 
             if(localStorage.getItem('loveFoodId') != null) {
                 //提取本地保存的收藏数据跟加载的数据比对---开始
@@ -123,35 +123,63 @@
   
 /*计算总价*/
    $(function(){
-
+        var icon = $('.love-icon');
         var adds = $('.mui-numbox-btn-plus');
         var shans = $('.mui-numbox-btn-minus');
         var price = $('.vue-number');
         var inputs = $('.mui-numbox-input');
         var total = 0;
+        var addTotal  = 0;
+        var service = 3;
 
         for (var i = 0; i < adds.length; i++) {
+          if(localStorage.getItem(icon.eq(i).attr('data-id')) == null) {
+            localStorage.setItem(icon.eq(i).attr('data-id'), inputs.eq(i).val());
+          }
+          
+          inputs.eq(i).val(localStorage.getItem(icon.attr('data-id')));
+
           total = total + parseFloat(price.eq(i).text())*inputs.eq(i).val();
         }
+        
+        addTotal = total;
+
+        if(total > 0 && total == addTotal) {
+          total = total + service;
+        }
+
+        $('.cash').eq(0).html(total);
 
         adds.on('touchstart',function() {
           var numb = $(this).parent().find('.mui-numbox-input').eq(0);
           var cash = $('.cash').eq(0);
+          var temp = parseInt(cash.html());
+          var addId = $(this).parent().parent().parent().parent().attr('data-id');
+
           total = parseFloat(cash.html()) + 
           parseFloat($(this).parent().parent().parent().parent().find('.vue-number').eq(0).html());
 
+          if(temp == 0) {
+            total = total + service;
+            console.log(total);
+          }
+
           cash.html(total);
           numb.val(parseInt(numb.val()) + 1);
+
+          localStorage.setItem(addId, numb.val());
+
           if(numb.val() >=1){
             $(this).parent().find('span.jianhao107').eq(0).css('color','#338fcd');
           }
-          $('.w-want-accept').removeAttr('disabled');
 
+          $('.w-want-accept').removeAttr('disabled');
         });
 
         shans.on('touchstart',function() {
           var numb = $(this).parent().find('.mui-numbox-input').eq(0);
           var cash = $('.cash').eq(0);
+          var addId = $(this).parent().parent().parent().parent().attr('data-id');
 
           if(numb.val() == 1) {
             $(this).find('span.jianhao107').css('color','#ccc');
@@ -168,7 +196,15 @@
 
           cash.html(total);
 
+          if(parseFloat(cash.html()) == service) {
+            total = parseFloat(cash.html()) - service;
+          }
+
+          cash.html(total);
+
           numb.val(parseInt(numb.val()) - 1);
+          
+          localStorage.setItem(addId, numb.val());
 
           if(parseInt(total) == 0){
               $('.w-want-accept').attr('disabled','disabled');

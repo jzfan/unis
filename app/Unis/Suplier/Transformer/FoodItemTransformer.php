@@ -5,7 +5,7 @@ namespace App\Unis\Suplier\Transformer;
 use League\Fractal\TransformerAbstract;
 use App\Unis\Suplier\Food;
 
-class FoodTransformer extends TransformerAbstract
+class FoodItemTransformer extends TransformerAbstract
 {
 
 	public function transform(Food $food)
@@ -13,7 +13,8 @@ class FoodTransformer extends TransformerAbstract
 	    return [
 	        'id'      => (int) $food->id,
 	        'name'   => $food->name,
-	        'price'  => number_format($food->sale_price/100, 1),
+	        'price'  => number_format($food->pivot->price/100, 1),
+	        'quantity'  => $food->pivot->quantity,
 	        'original_price' => number_format($food->price/100, 1),
 	        'img' => $food->img,
 	        'sold' => $food->sold,

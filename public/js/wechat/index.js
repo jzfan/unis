@@ -60,7 +60,7 @@
 					jQuery('#item1mobile .mui-scroll ul').remove();//插入数据之前清空容器
 					for(var i = 0; i < data.length; i++) {
 						var price = parseFloat(data[i].price*0.01);
-						var original = parseFloat(data[i].original_price);
+						var original = parseFloat(data[i].original_price*0.01);
 						ul = document.createElement('ul');
 						ul.className = "w-tab-view mui-table-view";
 						ul.innerHTML = '<li class="mui-table-view-cell mui-media" data-id=' + data[i].id + '><img class="mui-media-object mui-pull-left" src='+data[i].img+'><div class="w-box"><div class="w-menu-left"><p class="menu-name">' + data[i].name + '</p><small class="menu-address">'+data[i].canteen+'</small><p class="menu-number"><span>月售:' + data[i].sold + '</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">' + price + '</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:' + original + '元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';
@@ -79,28 +79,30 @@
 
 	/*进入页面加载带餐*/
 	$(function() {
+		setTimeout(function(){
+			var openid = JSON.parse(localStorage.getItem('openid'));
+			var takeUrl = '/api/order/untaken/?openid='+openid+'&page=1&limit=10';
+			$.ajax({
+				url: takeUrl,
+				dataType: 'json',
+				async: true,
+				type: 'GET',
+				success: function(data) {
+					var takeFood = data.data;
+					for(var i = 0; i < takeFood.length; i++) {
+						var total = parseFloat(takeFood[i].total*0.01);
+						div = document.createElement('div');
+						div.className = "w-finshed-menu";
+						div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">' + total + '元(含服务费)</span></li></ul><ul class="w-home-tab mui-table-view"><li class="mui-table-view-cell">订单编号：' + takeFood[i].order_no + '<span class="w-hold mui-pull-right">' + takeFood[i].status + '</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:' + takeFood[i].orderer.phone + '">' + takeFood[i].orderer.phone + '</a></div></li><li class="mui-table-view-cell">联系姓名：' + takeFood[i].orderer.name + '</li><li class="mui-table-view-cell">配送地址：' + takeFood[i].address + '</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：' + takeFood[i].paid_at + '&nbsp;&nbsp;&nbsp;&nbsp;预约时间：' + takeFood[i].appointment_at + '</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-want-accept"  data-id=' + takeFood[i].id + '>我要带餐</button></li></ul>';
 
-		var openid = JSON.parse(localStorage.getItem('openid'));
-		var takeUrl = '/api/order/untaken/?openid='+openid+'&page=1&limit=10';
-		$.ajax({
-			url: takeUrl,
-			dataType: 'json',
-			async: true,
-			type: 'GET',
-			success: function(data) {
-				var takeFood = data.data;
-				for(var i = 0; i < takeFood.length; i++) {
-					var total = parseFloat(takeFood[i].total*0.01);
-					div = document.createElement('div');
-					div.className = "w-finshed-menu";
-					div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">' + total + '元(含服务费)</span></li></ul><ul class="w-home-tab mui-table-view"><li class="mui-table-view-cell">订单编号：' + takeFood[i].order_no + '<span class="w-hold mui-pull-right">' + takeFood[i].status + '</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:' + takeFood[i].orderer.phone + '">' + takeFood[i].orderer.phone + '</a></div></li><li class="mui-table-view-cell">联系姓名：' + takeFood[i].orderer.name + '</li><li class="mui-table-view-cell">配送地址：' + takeFood[i].address + '</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：' + takeFood[i].paid_at + '&nbsp;&nbsp;&nbsp;&nbsp;预约时间：' + takeFood[i].appointment_at + '</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-want-accept"  data-id=' + takeFood[i].id + '>我要带餐</button></li></ul>';
-
-					var table = document.body.querySelector('#item2mobile .mui-pull-bottom-tips');
-					var parent = document.body.querySelector('#item2mobile .mui-scroll');
-					parent.insertBefore(div, table);
+						var table = document.body.querySelector('#item2mobile .mui-pull-bottom-tips');
+						var parent = document.body.querySelector('#item2mobile .mui-scroll');
+						parent.insertBefore(div, table);
+					}
 				}
-			}
-		});
+			});
+		},200);
+		
 	});
 
 

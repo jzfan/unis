@@ -17,7 +17,7 @@ class CreateOrderItemsTable extends Migration
             $table->increments('id');
             $table->integer('order_id')->unsigned();
             $table->integer('food_id')->unsigned();
-            $table->integer('amount')->unsigned();
+            $table->integer('quantity')->unsigned();
             $table->integer('price');
             $table->timestamps();
         });

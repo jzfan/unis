@@ -85,7 +85,7 @@
 	   	 		success:function(data){
 	   	 			var data = data.data;
 	   	 			for(var i=0;i<data.length;i++){
-	   	 				var total = parseFloat(data[i].total*0.01);
+	   	 				var total = parseFloat(data[i].total);
 	   	 				var tele = "";
 	   	 				var name = "";
 	   	 				if(data[i].deliver&&data[i].deliver.hasOwnProperty("phone")&&data[i].deliver.hasOwnProperty("name"))
@@ -117,8 +117,9 @@
 	   	 		async:true,
 	   	 		type:'GET',
 	   	 		success:function(data){
+	   	 			var data = data.data;
 	   	 			for(var i=0;i<data.length;i++){
-	   	 				var total = parseFloat(data[i].total*0.01);
+	   	 				var total = parseFloat(data[i].total);
 	   	 				var ul = document.createElement('ul');
 	   	 				    ul.className = "my-menu mui-table-view";
 	   	 				    ul.innerHTML = '<a href="/wechat/order/show/'+data[i].id+'"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li></a><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:'+data[i].orderer.phone+'">'+data[i].orderer.phone+'</a></div></li><a href="/wechat/order/show/'+data[i].id+'"><li class="mui-table-view-cell">联系姓名：'+data[i].orderer.name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+total+'元</li></a>';
@@ -146,7 +147,7 @@
 	   	 		success:function(data){
 	   	 			var data = data.data;
 	   	 			for(var i=0;i<data.length;i++){
-	   	 				var total = parseFloat(data[i].total*0.01);
+	   	 				var total = parseFloat(data[i].total);
 	   	 				var ul = document.createElement('ul');
 	   	 				    ul.className = "my-menu mui-table-view";
 	   	 				    ul.innerHTML = '<a href="/wechat/order/show/'+data[i].id+'"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li></a><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:'+data[i].orderer.phone+'">'+data[i].orderer.phone+'</a></div></li><a href="/wechat/order/show/'+data[i].id+'"><li class="mui-table-view-cell">联系姓名：'+data[i].orderer.name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+total+'元</li></a>';
@@ -196,7 +197,7 @@
 											jQuery('#item1mobile .mui-scroll ul').remove();
 											var data =data.data;
 									        	for(var i=0;i<data.length;i++){
-									        		var total = parseFloat(data[i].total*0.01);
+									        		var total = parseFloat(data[i].total);
 									        		var tele = "";
 								   	 				var name = "";
 								   	 				if(data[i].deliver&&data[i].deliver.hasOwnProperty("phone")&&data[i].deliver.hasOwnProperty("name"))
@@ -233,9 +234,10 @@
 											type:'GET',
 									        success:function(data){
 									        	page++;
-									        	self.endPullUpToRefresh(page>=data.last_page);
+									        	self.endPullUpToRefresh(page>=data.meta.pagination.total_pages);
+									        	var data = data.data;
 									        	for(var i=0;i<data.length;i++){
-									        		var total = parseFloat(data[i].total*0.01);
+									        		var total = parseFloat(data[i].total);
 									        		var tele = "";
 								   	 				var name = "";
 								   	 				if(data[i].deliver&&data[i].deliver.hasOwnProperty("phone")&&data[i].deliver.hasOwnProperty("name"))
@@ -293,11 +295,12 @@
 											async:true,
 											type:'GET',
 									        success:function(data){
+									        	var data = data.data;
 									        	jQuery('#item2mobile .mui-scroll ul').remove();
 									        	for(var i=0;i<data.length;i++){
 									        		var table = document.body.querySelector('#item2mobile .mui-scroll');
 									   	 			var	bot = document.body.querySelector('#item2mobile .mui-scroll .mui-pull-bottom-tips');
-									        		var total = parseFloat(data[i].total*0.01);
+									        		var total = parseFloat(data[i].total);
 									        		var ul = document.createElement('ul');
 									        			ul.className = "my-menu mui-table-view";
 									        			ul.innerHTML = '<li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:'+data[i].orderer.phone+'">'+data[i].orderer.phone+'</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].orderer.name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+total+'元</li>'; 
@@ -325,11 +328,12 @@
 											async:true,
 											type:'GET',
 									        success:function(data){
+									        	var data = data.data;
 									        	self.endPullUpToRefresh(true);
 									        	for(var i=0;i<data.length;i++){
 									        		var table = document.body.querySelector('#item2mobile .mui-scroll');
 									   	 			var	bot = document.body.querySelector('#item2mobile .mui-scroll .mui-pull-bottom-tips');
-									        		var total = parseFloat(data[i].total*0.01);
+									        		var total = parseFloat(data[i].total);
 									        		var ul = document.createElement('ul');
 									        			ul.className = "my-menu mui-table-view";
 									        			ul.innerHTML = '<li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:'+data[i].orderer.phone+'">'+data[i].orderer.phone+'</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].orderer.name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+total+'元</li>'; 
@@ -381,7 +385,7 @@
 									        	for(var i=0;i<data.length;i++){
 									        		var	table = document.body.querySelector('#item3mobile .mui-scroll');
 									   	 			var	bot = document.body.querySelector('#item3mobile .mui-scroll .mui-pull-bottom-tips');
-									        		var total = parseFloat(data[i].total*0.01);
+									        		var total = parseFloat(data[i].total);
 									        		var ul = document.createElement('ul');
 									        			ul.className = "my-menu mui-table-view";
 									        			ul.innerHTML = '<li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:'+data[i].orderer.phone+'">'+data[i].orderer.phone+'</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].orderer.name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+total+'元</li>'; 
@@ -416,7 +420,7 @@
 									        	for(var i=0;i<data.length;i++){
 									        		var	table = document.body.querySelector('#item3mobile .mui-scroll');
 									   	 			var	bot = document.body.querySelector('#item3mobile .mui-scroll .mui-pull-bottom-tips');
-									        		var total = parseFloat(data[i].total*0.01);
+									        		var total = parseFloat(data[i].total);
 									        		var ul = document.createElement('ul');
 									        			ul.className = "my-menu mui-table-view";
 									        			ul.innerHTML = '<li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:'+data[i].orderer.phone+'">'+data[i].orderer.phone+'</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].orderer.name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+total+'元</li>'; 

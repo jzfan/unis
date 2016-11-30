@@ -148,8 +148,9 @@
 	   	 		async:true,
 	   	 		type:'GET',
 	   	 		success:function(data){
+	   	 			var data = data.data;
 	   	 			for(var i=0;i<data.length;i++){
-	   	 				var total = parseFloat(data[i].total*0.01);
+	   	 				var total = parseFloat(data[i].total);
 	   	 				var div = document.createElement('div');
 	   	 				    div.className = "w-finshed-menu";
 	   	 				    div.innerHTML = '<ul class="w-cash-all mui-table-view" data-id='+data[i].order_no+'><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">'+total+'元(含服务费)</span></li></ul><ul class="menu-tab mui-table-view"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="w-hold mui-pull-right">'+data[i].status+'</span></li><li class="mui-table-view-cell"><div class="teleShow">联系电话: <a href="tel:'+data[i].orderer.phone+'">'+data[i].orderer.phone+'</a></div></li><li class="mui-table-view-cell">联系姓名：'+data[i].orderer.name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：'+data[i].paid_at+'&nbsp;&nbsp;&nbsp;&nbsp;预约时间：'+data[i].appointment_at+'</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-bearrive w-want-accept-native" data-id='+data[i].id+'>确认送达</button></li></ul>';

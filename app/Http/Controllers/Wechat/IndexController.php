@@ -61,7 +61,7 @@ class IndexController extends Controller
             $this->selected_canteen = Canteen::find($canteen_id);
             // $shops_id = $this->selected_canteen->shops->pluck('id');
         }else{
-            $this->selected_canteen = $canteens->last();
+            $this->selected_canteen = $canteens->first();
         }
         $shops_id = $this->selected_canteen->shops->pluck('id');
         $paginator = Food::whereIn('shop_id', $shops_id)->with('shop')->paginate(config('site.perPage'));
@@ -79,7 +79,7 @@ class IndexController extends Controller
             $q->where(['campus_id'=>$campus->id, 'status'=>'1']);
         })->pluck('id');
 
-        return Order::where('campus_id', $campus->id)->with('order_items.food.shop.canteen', 'orderer')
+        return Order::where('campus_id', $campus->id)->with('foods.shop.canteen', 'orderer')
                             ->where('status', 'ordered')->orderBy('created_at', 'asc')->simplePaginate(config('site.perPage'));
     }
 

@@ -60,7 +60,7 @@
 					jQuery('#item1mobile .mui-scroll ul').remove();//插入数据之前清空容器
 					for(var i = 0; i < data.length; i++) {
 						var price = parseFloat(data[i].price*0.01);
-						var original = parseFloat(data[i].original_price);
+						var original = parseFloat(data[i].original_price*0.01);
 						ul = document.createElement('ul');
 						ul.className = "w-tab-view mui-table-view";
 						ul.innerHTML = '<li class="mui-table-view-cell mui-media" data-id=' + data[i].id + '><img class="mui-media-object mui-pull-left" src='+data[i].img+'><div class="w-box"><div class="w-menu-left"><p class="menu-name">' + data[i].name + '</p><small class="menu-address">'+data[i].canteen+'</small><p class="menu-number"><span>月售:' + data[i].sold + '</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">' + price + '</span>&nbsp;&nbsp;&nbsp;<span class="origin-value">原价:' + original + '元</span></p></div><div class="w-menu-right"><div class="love-icon"><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon"><span class="mui-icon iconfont jiahao108"></span></div></div></div></li>';

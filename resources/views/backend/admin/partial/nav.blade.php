@@ -126,7 +126,7 @@
         <h4 class="panel-title">
           <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
             <span class="glyphicon glyphicon glyphicon-cloud"></span>
-            数据库管理
+            数据管理
           </a>
         </h4>
       </div>

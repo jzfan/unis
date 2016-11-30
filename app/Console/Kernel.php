@@ -14,6 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\ClearOrders::class,
+        Commands\WechatRefund::class,
+        Commands\WechatRefundByParms::class,
     ];
 
     /**

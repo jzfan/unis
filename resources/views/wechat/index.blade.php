@@ -137,7 +137,6 @@
 							}
 							localStorage.setItem('shopId',JSON.stringify(port[0].id));//将默认窗口id存在本地
 							localStorage.setItem('defalutshopId',JSON.stringify(port[0].id));//将首次进入页面默认窗口id存在本地
-							console.log(localStorage.getItem('shopId'));
 
 							/*根据默认窗口取食品列表*/
 							portFoodList();//调用根据窗口取食品列表函数
@@ -225,7 +224,7 @@
 
 	/*根据食堂选窗口*/
 	$(function() {
-		$(document).on('touchstart', '#canteen-li .mui-table-view-cell', function() {
+		$(document).on('tap', '#canteen-li .mui-table-view-cell', function() {
 			var canteenId = $(this).find('span.selectDown').attr('data-id');
 			localStorage.setItem('canteen',JSON.stringify(canteenId));//切换食堂时将对应食堂ID存在本地
 			mui('.mui-popover').popover('toggle', document.getElementById("openPopover")); //点击食堂名称收起povper
@@ -269,7 +268,7 @@
 		});
 
 		/*点击窗口时保存窗口id到本地*/
-		$(document).on('touchstart','.portName',function(){
+		$(document).on('tap','.portName',function(){
 			mui('.mui-slider-group #item1mobile .mui-scroll-wrapper').scroll().scrollTo(0,0);
 			mui('.mui-off-canvas-wrap').offCanvas('show');//点击窗口关闭侧边栏
 			localStorage.setItem('shopId',JSON.stringify($(this).find('span').attr('data-id')));//存当前点击的窗口id

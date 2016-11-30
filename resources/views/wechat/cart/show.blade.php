@@ -137,7 +137,7 @@
             localStorage.setItem(icon.eq(i).attr('data-id'), inputs.eq(i).val());
           }
           
-          inputs.eq(i).val(localStorage.getItem(icon.attr('data-id')));
+          inputs.eq(i).val(localStorage.getItem(icon.eq(i).attr('data-id')));
 
           total = total + parseFloat(price.eq(i).text())*inputs.eq(i).val();
         }

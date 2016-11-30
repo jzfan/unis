@@ -144,12 +144,41 @@ class WechatPay
 				 $result = $this->payment->refundByTransactionId($order->billing_id, $order->id, $order->total);
 				 if ($result->return_code == 'SUCCESS' && $result->result_code == 'SUCCESS')
 				 {
-				 	$order->update(['status'=>'refund']);
+				 	$order->update(['status'=>'refund', 'refund_at'=>Carbon::now()]);
 				 }
 				 \Log::warning($result);
 			}
 		});
 		return 'success';
+	}
+
+	public function refundByTransactionId($billing_id)
+	{
+		\DB::transaction( function () use ($billing_id) {
+
+			 $order = Order::where('billing_id', $billing_id)->lockForUpdate()->first();
+			 $result = $this->payment->refundByTransactionId($order->billing_id, $order->id, $order->total);
+			 if ($result->return_code == 'SUCCESS' && $result->result_code == 'SUCCESS')
+			 {
+			 	$order->update(['status'=>'refund', 'refund_at'=>Carbon::now()]);
+			 }
+			 \Log::warning($result);
+
+		});
+		return 'success';
+	}
+
+	public function refundByParms($billing_id, $order_no, $total)
+	{
+
+		 $result = $this->payment->refundByTransactionId($billing_id, $order_no, $total);
+		 if ($result->return_code != 'SUCCESS' || $result->result_code != 'SUCCESS')
+		 {
+		 	file_put_contents(storage_path('logs/refund.log'), json_encode($result), FILE_APPEND);
+		 	return $result;
+		 }
+		 \Log::warning($result);
+		 return true;
 	}
 
 	protected function init4LuckyMoney()

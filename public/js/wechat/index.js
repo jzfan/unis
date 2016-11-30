@@ -225,6 +225,9 @@
 				var foodId = $(this).parents('li.mui-table-view-cell').attr('data-id');
 				//var furl = '/wechat/cart/cancel/' + foodId;
 				var cartFood = JSON.parse(localStorage.getItem('cartFoodId'));
+
+				localStorage.removeItem(foodId);
+				
 				console.log(cartFood);
 				Array.prototype.removeByValue = function(val) {
 						for(var i = 0; i < this.length; i++) {

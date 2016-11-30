@@ -470,6 +470,19 @@ define({ "api": [
     "version": "1.0.0",
     "name": "foodsPageByCanteen",
     "group": "Food",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "openid",
+            "description": "<p>微信用户openid</p>"
+          }
+        ]
+      }
+    },
     "success": {
       "examples": [
         {
@@ -492,6 +505,13 @@ define({ "api": [
     "parameter": {
       "fields": {
         "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "openid",
+            "description": "<p>微信用户openid</p>"
+          },
           {
             "group": "Parameter",
             "type": "Number",
@@ -528,11 +548,63 @@ define({ "api": [
     "version": "1.0.0",
     "name": "getOneFood",
     "group": "Food",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "openid",
+            "description": "<p>微信用户openid</p>"
+          }
+        ]
+      }
+    },
     "success": {
       "examples": [
         {
           "title": "成功返回:",
           "content": "HTTP/1.1 200 OK\n    {\n      \"data\": {\n        \"id\": 77,\n        \"name\": \"牛肉拉面\",\n        \"price\": 11,\n        \"original_price\": \"12.0\",\n        \"img\": \"/uploads/food/14793132235u.jpg\",\n        \"sold\": 0\n      }\n    }",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/V1/FoodController.php",
+    "groupTitle": "Food"
+  },
+  {
+    "type": "post",
+    "url": "/food/ids",
+    "title": "根据多个ID取食品列表",
+    "version": "1.0.0",
+    "name": "postIdsToGetFoods",
+    "group": "Food",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "openid",
+            "description": "<p>微信用户openid</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "ids",
+            "description": "<p>多个食品id以逗号链接</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "成功返回:",
+          "content": "HTTP/1.1 200 OK\n      {\n        \"data\": [\n          {\n            \"id\": 11,\n            \"name\": \"nostrum食品\",\n            \"price\": 1300,\n            \"original_price\": \"26.0\",\n            \"img\": \"http://lorempixel.com/50/50/?94472\",\n            \"sold\": 151,\n            \"canteen\": \"dicta食堂\"\n          },\n          .......\n        ]\n      }",
           "type": "json"
         }
       ]

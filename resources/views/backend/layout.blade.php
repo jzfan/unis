@@ -11,16 +11,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-<link href="/c_files/bootstrap.min.css" rel="stylesheet">
-<link href="/c_files/cropper.min.css" rel="stylesheet">
-<link href="/c_files/main.css" rel="stylesheet">
-    <link href="/css/backend.css" rel="stylesheet">
-    <link href="/css/city-picker.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/select2.css">
-    <link rel="stylesheet" href="/css/select2-bootstrap.css">
-    <link rel="stylesheet" href="/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/dataTables.min.css">
-    <link rel="stylesheet" href="/css/buttons.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="/css/backend.css">
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
@@ -102,17 +93,7 @@
 
 <!-- Scripts -->
 
-<script src="/c_files/jquery.min.js"></script>
-<script src="/c_files/bootstrap.min.js"></script>
-
-<script src="/js/city-picker.data.js"></script>
-<script src="/js/city-picker.js"></script>
-<script src="/js/select2.js"></script>
-<script src="/js/dataTables.min.js"></script>
-<script src="/js/dataTables.buttons.min.js"></script>
-<script src="/vendor/datatables/buttons.server-side.js"></script>
-<script src="/c_files/cropper.min.js"></script>
-<script src="/c_files/main.js"></script>
+<script src="/js/backend.js"></script>
 @yield('js')
 </body>
 </html>

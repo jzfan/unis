@@ -63,59 +63,98 @@
 
   <script>
     $(function(){
+
+
       var cartFood = JSON.parse(localStorage.getItem('cartFoodId'));
+      var ids = 'ids='+cartFood.join(",");
       var table = document.body.querySelector('.w-tab-view');
       var total = 0;
       if(cartFood != null) {
           $(table).find('li:first-child').remove();
       }
 
-      $.each(cartFood,function(name,value){
-        var ajaxUrl = '/api/food/'+value;
+      var ajaxUrl = '/api/food/ids?openid='+JSON.parse(localStorage.getItem('openid'));
 
         $.ajax({
           url:ajaxUrl,
           dataType:'json',
           async:false,
-          type:'GET',
+          data:ids,
+          type:'POST',
           success:function(data){
             var foodList = data.data;
-            var price = parseFloat(foodList.price);
-            var original = parseFloat(foodList.original_price);
-            var li =document.createElement('li');
-            li.className = 'mui-table-view-cell mui-media';
-            li.innerHTML = '<img class="mui-media-object mui-pull-left" src='+foodList.img+'><div class="w-box" data-id='+foodList.id+'><div class="w-menu-left"><p class="menu-name">'+foodList.name+'</p><small class="menu-address">'+foodList.canteen+'</small><p class="menu-number"><span>月售:'+foodList.sold+'</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">'+price+'</span>&nbsp;&nbsp;<span class="origin-value">原价:'+original+'元</span></p></div><div class="w-menu-right"><div class="love-icon" data-id='+foodList.id+'><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon-g"><div class="mui-numbox"><button class="mui-btn mui-numbox-btn-minus" type="button"><span class="mui-icon iconfont jianhao107"></span></button><input class="mui-numbox-input" type="number" value= "1" readonly/><button class="mui-btn mui-numbox-btn-plus" type="button"><span class="mui-icon iconfont jiahao108"></span></button></div></div></div></div>';
-            table.appendChild(li);
+            var foodUl = new Array();
 
-            total  += parseFloat(foodList.price);
+            for(var i=0;i<cartFood.length;i++){
+              var find = false;
+              for(var j=0;j<foodList.length;j++){
+                if(cartFood[i] == foodList[j].id){
+                  find = true;
+                  foodUl.push(foodList[j]); 
+                  break;
+                }
+              }
+              if(!find)
+              {
+                cartFood.splice(i, 1);
+                i--;
+              }
+            }
 
-            if(localStorage.getItem('loveFoodId') != null) {
+
+            localStorage.setItem('buyCart',JSON.stringify(foodList.length));
+            $('.w-badge').text(foodList.length);
+            localStorage.setItem('cartFoodId', JSON.stringify(cartFood));
+
+            foodList = foodUl;//按照本地收藏顺序排序
+            for(var i=0;i<foodList.length;i++){
+
+              var price = parseFloat(foodList[i].price);
+              var original = parseFloat(foodList[i].original_price);
+              var li =document.createElement('li');
+              li.className = 'mui-table-view-cell mui-media';
+              li.innerHTML = '<img class="mui-media-object mui-pull-left" src='+foodList[i].img+'><div class="w-box" data-id='+foodList[i].id+'><div class="w-menu-left"><p class="menu-name">'+foodList[i].name+'</p><small class="menu-address">'+foodList[i].canteen+'</small><p class="menu-number"><span>月售:'+foodList[i].sold+'</span></p><p class="menu-footer"><span class="vule-icon">￥</span><span class="vue-number">'+price+'</span>&nbsp;&nbsp;<span class="origin-value">原价:'+original+'元</span></p></div><div class="w-menu-right"><div class="love-icon" data-id='+foodList[i].id+'><span class="mui-icon iconfont dianzan105"></span></div><div class="add-icon-g"><div class="mui-numbox"><button class="mui-btn mui-numbox-btn-minus" type="button"><span class="mui-icon iconfont jianhao107"></span></button><input class="mui-numbox-input" type="number" value= "1" readonly/><button class="mui-btn mui-numbox-btn-plus" type="button"><span class="mui-icon iconfont jiahao108"></span></button></div></div></div></div>';
+              table.appendChild(li);
+              if(localStorage.getItem('loveFoodId') != null) {
                 //提取本地保存的收藏数据跟加载的数据比对---开始
                 var compare = JSON.parse(localStorage.getItem('loveFoodId'));
                 for(var f = 0; f < compare.length; f++) {
-                  if(compare[f] == foodList.id) {
-                    $('.love-icon').find('span.dianzan105').removeClass('dianzan105').addClass('dianzan106');
+                  if(compare[f] == foodList[i].id) {
+                    $(li).find('span.dianzan105').removeClass('dianzan105').addClass('dianzan106');
                   }
                 }
               }
+            }
+
+            
           }
         });
-      })
 
       if(JSON.parse(localStorage.getItem('cartFoodId')) != null) {
         div = document.createElement('div');
         div.className = 'w-finshed-menu w-cart';
-        div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right"><span class="cash">'+total+'</span>元(含服务费)</span></li></ul><ul class="menu-che mui-table-view"><li class="mui-table-view-cell">配送地址：{{ $user->address }}</li><li class="mui-table-view-cell"><div>联系电话: <a href="tel:{{ $user->phone }}">{{ $user->phone }}</a></div></li><li class="mui-table-view-cell">联系姓名：{{ $user->name }}</li></ul><ul class="app-time mui-table-view"><li class="mui-table-view-cell Ntime">预约时间：2016-11-17 12:48(默认送达时间) <span class="mui-icon iconfont youjiantou003 mui-pull-right"></span></li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-want-accept">购买</button></li></ul>';
+        div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right"><span class="cash">'+total+'</span>元(含服务费)</span></li></ul><ul class="menu-che mui-table-view"><li class="mui-table-view-cell">配送地址：{{ $user->address }}</li><li class="mui-table-view-cell"><div>联系电话: <a href="tel:{{ $user->phone }}">{{ $user->phone }}</a></div></li><li class="mui-table-view-cell">联系姓名：{{ $user->name }}</li></ul><ul class="app-time mui-table-view"><li class="mui-table-view-cell Ntime">预约时间<span class="mui-icon iconfont youjiantou003 mui-pull-right"></span></li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-want-accept">购买</button></li></ul>';
           document.body.appendChild(div);
       }
     });
 
     $(function(){
       var kong = JSON.parse(localStorage.getItem('buyCart'));
+      var cartKong = JSON.parse(localStorage.getItem('cartFoodId'));
       if(kong ==0){
         $('.w-tab-view').html('<li style="width:100%;height:100%;text-align:center;padding-top:200px;font-size:20px;color:silver;">您还没有购买任何商品！</li>');
+        $('.w-finshed-menu').remove();
+      }
+ 
+      if(cartKong.length == 0){
+        localStorage.setItem('buyCart','0');
+        $('.w-tab-view').html('<li style="width:100%;height:100%;text-align:center;padding-top:200px;font-size:20px;color:silver;">您还没有购买任何商品！</li>');
+        $('.w-finshed-menu').remove();
+
       }
     })/*解决取消购物车*/
+
+
 
   </script>
 

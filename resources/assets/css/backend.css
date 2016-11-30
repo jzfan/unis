@@ -1,0 +1,18 @@
+#app>.container-fluid{
+	padding-bottom: 40px;
+}
+.glyphicon{
+	margin-right: 4px;
+}
+.avatar-small{
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+}
+
+.avatar-middle{
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	margin-right: 15px;
+}

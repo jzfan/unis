@@ -42,4 +42,12 @@ elixir(mix => {
 			'./resources/assets/lib/cropper/cropper.min.js',
 			'./resources/assets/lib/cropper/main.js',
 	], 'public/js/backend.js');
+
+	mix.styles([
+			'./resources/assets/lib/bootstrap/bootstrap.min.css',
+		], 'public/css/frontend.css')
+		.scripts([
+			'./resources/assets/js/jquery.min.js',
+			'./resources/assets/lib/bootstrap/bootstrap.min.js',
+		], 'public/js/frontend.js');
 });

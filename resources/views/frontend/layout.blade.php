@@ -11,7 +11,7 @@
     <title>{{ config('app.name', 'Unisever') }}</title>
 
     <!-- Styles -->
-    <link href="/css/app.css" rel="stylesheet">
+    <link href="/css/frontend.css" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -83,6 +83,6 @@
     </div>
 
     <!-- Scripts -->
-    <script src="/js/app.js"></script>
+    <script src="/js/frontend.js"></script>
 </body>
 </html>

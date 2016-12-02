@@ -49,6 +49,8 @@ $api->version('v1', function ($api) {
     // $api->get('foods_of_canteen/{canteen_id}', 'App\Http\Controllers\Api\V1\FoodController@pageByCanteen');
     $api->get('food', 'App\Http\Controllers\Api\V1\FoodController@getList');
 
+    $api->post('food/ids', 'App\Http\Controllers\Api\V1\FoodController@getByIds');
+
     //余额
     $api->get('user/balance', 'App\Http\Controllers\Api\V1\UserController@balance');
     $api->get('address/default', 'App\Http\Controllers\Api\V1\AddressController@getDefault');

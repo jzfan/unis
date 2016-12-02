@@ -11,6 +11,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->sql();
+    }
+
+    private function fake()
+    {
         $this->call(SchoolsTableSeeder::class);
         $this->call(SupliersTableSeeder::class);
         $this->call(SchoolSuplierSeeder::class);
@@ -25,5 +30,17 @@ class DatabaseSeeder extends Seeder
         // $this->call(TestSeeder::class);
         $this->call(FeedSeeder::class);
         // $this->call(RegionTableSeeder::class);
+    }
+
+    private function sql()
+    {
+        $arr = ['schools', 'supliers', 'campuses', 'shops', 'foods', 'dorms', 'canteens'];
+        $base_path = storage_path('app/sql/'); 
+
+        foreach($arr as $t){
+            // $this->command->info(file_get_contents($base_path.$t.'.sql'));
+            \DB::unprepared(file_get_contents($base_path.$t.'.sql'));
+            $this->command->info($t.' table seeded!');
+        }
     }
 }

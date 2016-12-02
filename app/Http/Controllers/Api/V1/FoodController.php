@@ -30,6 +30,7 @@ class FoodController extends Controller
     * @apiVersion 1.0.0
     * @apiName getFoodList
     * @apiGroup Food
+    * @apiParam {String} openid 微信用户openid
     * @apiParam {Number} page 第几页
     * @apiParam {Number} limit 每页多少条
     * @apiSuccessExample 成功返回:
@@ -73,6 +74,7 @@ class FoodController extends Controller
     * @apiVersion 1.0.0
     * @apiName getOneFood
     * @apiGroup Food
+    * @apiParam {String} openid 微信用户openid
     * @apiSuccessExample 成功返回:
     *     HTTP/1.1 200 OK
         {
@@ -97,6 +99,7 @@ class FoodController extends Controller
     * @apiVersion 1.0.0
     * @apiName foodsPageByCanteen
     * @apiGroup Food
+    * @apiParam {String} openid 微信用户openid
     * @apiSuccessExample 成功返回:
     *     HTTP/1.1 200 OK
         {
@@ -132,6 +135,36 @@ class FoodController extends Controller
     	$shops = Canteen::find($canteen_id)->shops->pluck('id')->toArray();
     	$foods = Food::whereIn('shop_id', $shops)->paginate($this->limit);
     	return $this->response->paginator($foods, new FoodTransformer);
+    }
+
+    /**
+    * @api {post} /food/ids  根据多个ID取食品列表
+    * @apiVersion 1.0.0
+    * @apiName postIdsToGetFoods
+    * @apiGroup Food
+    * @apiParam {String} openid 微信用户openid
+    * @apiParam {String} ids 多个食品id以逗号链接
+    * @apiSuccessExample 成功返回:
+    * HTTP/1.1 200 OK
+      {
+        "data": [
+          {
+            "id": 11,
+            "name": "nostrum食品",
+            "price": "13.0",
+            "original_price": "26.0",
+            "img": "http://lorempixel.com/50/50/?94472",
+            "sold": 151,
+            "canteen": "dicta食堂"
+          },
+      }
+    *
+    */  
+    public function getByIds(Request $request)
+    {
+      $ids = explode(',', $request->ids);
+      $foods = Food::whereIn('id', $ids)->get();
+      return $this->response->collection($foods, new FoodTransformer);
     }
 
 }

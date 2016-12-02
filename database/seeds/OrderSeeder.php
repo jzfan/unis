@@ -25,30 +25,31 @@ class OrderSeeder extends Seeder
         foreach($users as $user){
             foreach(range(1, 3) as $index){
                 $time = $faker->DateTime('2016-03-15 02:00:49');
-                $order_no = $user->id.date('ymdHis');
-                $foods = $this->getFoods();
-                $order = Order::create([
-                    'order_no'=> $user->id.date('ymdHis'),
-                    'type' => 'wxpay',
-                    'subject' => str_limit(join('|', $foods->pluck('name')->toArray()), 255),
-                    'user_id' => $user->id,
-                    'school_id' => $user->defaultAddress()->school_id,
-                    'campus_id' => $user->defaultAddress()->campus_id,
-                    'dorm_id' => $user->defaultAddress()->dorm_id,
-                    'total' => $foods->total,
-                    'address' => $user->defaultAddress()->text(),
-                    'status' => 'paid',
-                    'paid_at' => $time,
-                    'appointment_at' => $time,
-                ]);
-                foreach($foods as $food){                   
-                    OrderItem::create([
-                        'food_id'=>$food->id,
-                        'amount'=>$food->num,
-                        'price'=>$food->priceAfterDiscount(),
-                        'order_id'=>$order->id
-                    ]);
-                }
+                // $order_no = $user->id.date('ymdHis');
+                // $foods = $this->getFoods();
+                // $order = Order::create([
+                //     'order_no'=> $user->id.date('ymdHis'),
+                //     'type' => 'wxpay',
+                //     'subject' => str_limit(join('|', $foods->pluck('name')->toArray()), 255),
+                //     'user_id' => $user->id,
+                //     'school_id' => $user->defaultAddress()->school_id,
+                //     'campus_id' => $user->defaultAddress()->campus_id,
+                //     'dorm_id' => $user->defaultAddress()->dorm_id,
+                //     'total' => $foods->total,
+                //     'address' => $user->defaultAddress()->text(),
+                //     'status' => 'paid',
+                //     'paid_at' => $time,
+                //     'appointment_at' => $time,
+                // ]);
+                // foreach($foods as $food){                   
+                //     OrderItem::create([
+                //         'food_id'=>$food->id,
+                //         'amount'=>$food->num,
+                //         'price'=>$food->priceAfterDiscount(),
+                //         'order_id'=>$order->id
+                //     ]);
+                // }
+                $this->createOrderAndItems($user, $time);
             }
         }
 
@@ -106,10 +107,50 @@ class OrderSeeder extends Seeder
         $foods = Food::inRandomOrder()->take(mt_rand(1, 3))->get();
         $foods->total = 0;
         foreach ($foods as $food){
-            $food->num = mt_rand(1,3);
-            $foods->total += $food->priceAfterDiscount()*$food->num;
+            $food->quantity = mt_rand(1,3);
+            $foods->total += $food->sale_price*$food->quantity;
         }
         return $foods;
+    }
+
+    public function createTakeAble($uid, $num=10)
+    {
+        $campus_id = User::findOrFail($uid)->defaultAddress()->campus_id;
+        $users = User::whereHas('addresses', function($q) use ($campus_id) {
+            $q->where(['status'=>1, 'campus_id'=>$campus_id]);
+        })->take($num)->get();
+        $time = Carbon::now();
+        foreach ($users as $user) {
+            $this->createOrderAndItems($user, $time);
+        }
+        return 'created success.';
+    }
+
+    private function createOrderAndItems($user, $time)
+    {       
+        $foods = $this->getFoods();
+        $order = Order::create([
+            'order_no'=> $$user->id.date('ymdHis'),
+            'type' => 'wxpay',
+            'subject' => str_limit(join('|', $foods->pluck('name')->toArray()), 255),
+            'user_id' => $user->id,
+            'school_id' => $user->defaultAddress()->school_id,
+            'campus_id' => $user->defaultAddress()->campus_id,
+            'dorm_id' => $user->defaultAddress()->dorm_id,
+            'total' => $foods->total,
+            'address' => $user->defaultAddress()->text(),
+            'status' => 'paid',
+            'paid_at' => $time,
+            'appointment_at' => $time,
+        ]);
+        foreach($foods as $food){                   
+            OrderItem::create([
+                'food_id'=>$food->id,
+                'amount'=>$food->num,
+                'price'=>$food->priceAfterDiscount(),
+                'order_id'=>$order->id
+            ]);
+        }
     }
 }
 

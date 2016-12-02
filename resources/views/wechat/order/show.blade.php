@@ -56,7 +56,7 @@
 						//提取本地保存的收藏数据跟加载的数据比对---开始
 						var compare = JSON.parse(localStorage.getItem('loveFoodId'));
 						for(var f = 0; f < compare.length; f++) {
-							if(compare[f] == orderItem[i].food.id) {
+							if(compare[f] == orderItem[i].id) {
 								 jQuery(ul).find('span.dianzan105').removeClass('dianzan105').addClass('dianzan106');
 							}
 						}

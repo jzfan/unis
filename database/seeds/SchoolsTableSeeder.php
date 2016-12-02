@@ -16,8 +16,6 @@ class SchoolsTableSeeder extends Seeder
         School::truncate();
         Campus::truncate();
 
-        factory(School::class, 5)->create()->each( function ($school) {
-        	$school->campuses()->saveMany(factory(Campus::class, mt_rand(2,4))->make());
-        });
+        factory(School::class, 5)->create();
     }
 }

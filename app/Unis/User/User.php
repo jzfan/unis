@@ -102,5 +102,14 @@ class User extends Authenticatable
             $this->attributes['avatar'] = $value;
         }
     }
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = urlencode($value);
+    }
+
+    public function getNameAttribute($value)
+    {
+        return urldecode($value);
+    }
 
 }

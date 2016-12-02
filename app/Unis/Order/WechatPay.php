@@ -14,6 +14,7 @@ use Carbon\Carbon;
 class WechatPay
 {
 	public    $payment;
+	public    $merchantPay;
 	public    $luckyMoney;
 	protected $user;
 	protected $foods;
@@ -22,20 +23,11 @@ class WechatPay
 	protected $total;
 	protected $appointment_at;
 
-	public function __construct()
+	public function __construct(Application $app)
 	{
-		$options = [
-		    'app_id'  => env('WECHAT_APPID'),
-		    'payment' => [
-		        'merchant_id'        => env('WECHAT_PAYMENT_MERCHANT_ID'),
-		        'key'                => env('WECHAT_PAYMENT_KEY'),
-		        'cert_path'          => storage_path('app').env('WECHAT_PAYMENT_CERT_PATH'), // XXX: 绝对路径！！！！
-		        'key_path'           => storage_path('app').env('WECHAT_PAYMENT_KEY_PATH'),      // XXX: 绝对路径！！！！
-		    ],
-		];
-		$app              = new Application($options);
- 		$this->payment    = $app->payment;				
- 		$this->luckyMoney = $app->lucky_money;				
+ 		$this->payment     = $app->payment;				
+ 		$this->luckyMoney  = $app->lucky_money;
+ 		$this->merchantPay = $app->merchant_pay;				
 	}
 
 	//初始化支付参数
@@ -218,5 +210,19 @@ class WechatPay
 				'remark' => $data['remark'],
 			]);
 		}
+	}
+
+	public function merchantPay()
+	{
+		$merchantPayData = [
+		        'partner_trade_no' => str_random(16), //随机字符串作为订单号，跟红包和支付一个概念。
+		        'openid' => $openid, //收款人的openid
+		        'check_name' => 'NO_CHECK',  //文档中有三种校验实名的方法 NO_CHECK OPTION_CHECK FORCE_CHECK
+		        // 're_user_name'=>'张三',     //OPTION_CHECK FORCE_CHECK 校验实名的时候必须提交
+		        'amount' => 100,  //单位为分
+		        'desc' => '企业付款',
+		        'spbill_create_ip' => '192.168.0.1',  //发起交易的IP地址
+		    ];
+		$result = $merchantPay->send($merchantPayData);
 	}
 }

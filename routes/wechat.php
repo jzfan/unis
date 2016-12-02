@@ -23,7 +23,6 @@ Route::group(['middleware'=>['web', 'wechat.oauth']], function () {
 		Route::get('/report', 'IndexController@report');
 		Route::get('/order/status', 'OrderController@status');
 		Route::get('/order/index', 'OrderController@index');
-		Route::get('/test', 'IndexController@test');
 
 		Route::get('/order/show/{order_id}', 'OrderController@show');
 		Route::get('/order/{status?}', 'OrderController@getList');
@@ -62,7 +61,6 @@ Route::group(['middleware'=>['web', 'wechat.oauth']], function () {
 
 
 
-		// Route::get('/test', 'CartController@test');
 		Route::get('/demo', 'IndexController@demo');
 		// Route::get('/test_refund/{order_id}', 'BillingController@refund');
 	});

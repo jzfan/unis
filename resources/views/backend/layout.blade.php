@@ -35,11 +35,8 @@
 
                         <!-- Branding Image -->
                         <a class="navbar-brand" href="{{ url('/') }}">
-                            <img alt="Brand" src="http://temp.im/30x30/007AFF/fff">
+                            <img alt="Brand" src="/img/logo.png">
                         </a>
-                        <span class='navbar-brand'>   
-                            {{ config('app.name', 'Laravel') }}
-                        </span>
                     </div>
 
                     <div class="collapse navbar-collapse" id="app-navbar-collapse">

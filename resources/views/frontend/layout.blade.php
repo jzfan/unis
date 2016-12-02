@@ -36,7 +36,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Unisever') }}
+                        <img alt="Brand" src="/img/logo.png">
                     </a>
                 </div>
 

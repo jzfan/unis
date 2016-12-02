@@ -40,6 +40,6 @@ function getWechatUser()
     if (! $user){
         return response()->json(['message' => 'cant find user', 'state' => 'error']);           
     }
-    $user->address = $user->defaultAddress()->text();
+    // $user->address = $user->defaultAddress()->text();
     return $user;        
 }

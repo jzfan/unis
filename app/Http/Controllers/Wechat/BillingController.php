@@ -60,4 +60,30 @@ class BillingController extends Controller
 
     }
 
+    public function wechatWithdraw(WechatPay $wechatPay, Request $request)
+    {
+    	$wechatPay->init4MerchantPay();
+    	$balance  = $wechatPay->user->balance;
+    	$amount   = $request->amount;
+	    if (!$balance || !$amount || $balance < $amount){
+	    	abort(403);
+	    }
+
+    	$merchantPayData = [
+	        'partner_trade_no' => $wechatPay->order_no,
+	        'openid' => $wechatPay->user->wechat_openid, //收款人的openid
+	        'check_name' => 'NO_CHECK',  //文档中有三种校验实名的方法 NO_CHECK OPTION_CHECK FORCE_CHECK
+	        'amount' => $amount,  //单位为分
+	        'desc' => 'Uniserve提现',
+	        'spbill_create_ip' => request()->ip(),  //发起交易的IP地址
+	    ];
+    	$result = $wechatPay->merchantPay->send($merchantPayData);
+    	if ($result->return_code == 'SUCCESS' && $result->result_code == 'SUCCESS'){
+    		$wechatPay->user->update([
+    			'balance' => $balance - $amount
+    		]);
+    	}
+    	return $result;
+    }
+
 }

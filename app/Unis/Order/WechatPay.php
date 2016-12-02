@@ -16,9 +16,9 @@ class WechatPay
 	public    $payment;
 	public    $merchantPay;
 	public    $luckyMoney;
-	protected $user;
+	public    $order_no;
+	public    $user;
 	protected $foods;
-	protected $order_no;
 	protected $subject;
 	protected $total;
 	protected $appointment_at;
@@ -40,6 +40,12 @@ class WechatPay
 		$this->total = $this->getTotalFee();
 		// $this->total = 100;
 		$this->appointment_at = $request->time ? Carbon::createFromTimestamp($request->time) : Carbon::now()->addMinutes(30);
+	}
+
+	public function init4MerchantPay()
+	{
+		$this->user = getWechatUser();
+		$this->order_no = $this->createOrderNum();
 	}
 
 
@@ -67,8 +73,8 @@ class WechatPay
 		    	OrderItem::create([
 		    		'order_id' => $order->id,
 		    		'food_id' => $food->id,
-		    		'quantity' => $food->num,
-		    		'price' => $food->sale_price,
+		    		'amount' => $food->num,
+		    		'price' => $food->priceAfterDiscount(),
 		    	]);
 
 	    	}
@@ -120,7 +126,7 @@ class WechatPay
 	{
 		$total = 0;
 		foreach ($this->foods as $key => $food) {
-    		$price = $food->sale_price;
+    		$price = $food->priceAfterDiscount();
     		$total += $price*$food->num;
 		}
 		//分
@@ -210,19 +216,5 @@ class WechatPay
 				'remark' => $data['remark'],
 			]);
 		}
-	}
-
-	public function merchantPay()
-	{
-		$merchantPayData = [
-		        'partner_trade_no' => str_random(16), //随机字符串作为订单号，跟红包和支付一个概念。
-		        'openid' => $openid, //收款人的openid
-		        'check_name' => 'NO_CHECK',  //文档中有三种校验实名的方法 NO_CHECK OPTION_CHECK FORCE_CHECK
-		        // 're_user_name'=>'张三',     //OPTION_CHECK FORCE_CHECK 校验实名的时候必须提交
-		        'amount' => 100,  //单位为分
-		        'desc' => '企业付款',
-		        'spbill_create_ip' => '192.168.0.1',  //发起交易的IP地址
-		    ];
-		$result = $merchantPay->send($merchantPayData);
 	}
 }

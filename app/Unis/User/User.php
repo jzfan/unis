@@ -53,16 +53,6 @@ class User extends Authenticatable
         return $this->addresses()->where('status', '1')->first();
     }
 
-    public function favorites()
-    {
-        return $this->belongsToMany(Food::class, 'favorites', 'user_id', 'food_id');
-    }
-
-    public function foodsInCart()
-    {
-        return $this->belongsToMany(Food::class, 'carts', 'user_id', 'food_id');
-    }
-
     public function recommends()
     {
         return $this->belongsToMany(Food::class, 'recommends', 'user_id', 'food_id');
@@ -80,10 +70,6 @@ class User extends Authenticatable
     {
         return $this->defaultAddress()->dorm;
     }
-    // public function getAddress()
-    // {
-    //     return $this->addresses();
-    // }
 
     public function getAvatarAttribute($value)
     {

@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Unis\Order\WechatPay;
+use App\Unis\Business\WechatPay;
 class WechatRefundByParms extends Command
 {
     /**

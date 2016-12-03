@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Wechat;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Unis\Order\Order;
-use App\Unis\Order\WechatPay;
+use App\Unis\Business\WechatPay;
 
 class BillingController extends Controller
 {

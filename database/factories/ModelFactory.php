@@ -28,6 +28,20 @@ $factory->define(App\Unis\User\User::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->defineAs(App\Unis\User\User::class, 'admin', function (Faker\Generator $faker) {
+    return [
+        'name' => 'xman',
+        'email' => 'admin@unis.com',
+        'password' => bcrypt('123'),
+        'avatar' => $faker->imageUrl(100, 100),
+        'phone' => (string)mt_rand(13111111111,18888888888),
+        'remember_token' => str_random(10),
+        'status' => (string)mt_rand(0 ,1),
+        'balance' => mt_rand(0, 4)*100,
+        'role' => 'admin'
+    ];
+});
+
 $factory->define(App\Unis\User\Address::class, function (Faker\Generator $faker) {
 $faker = Faker\Factory::create('zh_CN');
 

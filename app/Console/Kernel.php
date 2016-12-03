@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
         Commands\ClearOrders::class,
         Commands\WechatRefund::class,
         Commands\WechatRefundByParms::class,
+        Commands\CouponGenerate::class,
     ];
 
     /**
@@ -31,7 +32,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('unis:clear_order')->daily()->appendOutputTo(storage_path('app/out.txt'));
 
-        $schedule->call('App\Unis\Order\WechatPay@refund')->daily();
+        $schedule->call('App\Unis\Business\WechatPay@refund')->daily();
     }
 
     /**

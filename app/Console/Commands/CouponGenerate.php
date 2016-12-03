@@ -3,35 +3,32 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Unis\Business\WechatPay;
+use App\Unis\Business\Coupon;
 
-class WechatRefund extends Command
+class CouponGenerate extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'wechat:refund {transactionId}';
+    protected $signature = 'coupon:generate {num}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'wechat pay refund by transaction id';
+    protected $description = 'Create some coupons';
 
     /**
      * Create a new command instance.
      *
      * @return void
      */
-    protected $wechatPay;
-
-    public function __construct(WechatPay $wechatPay)
+    public function __construct()
     {
         parent::__construct();
-        $this->wechatPay = $wechatPay;
     }
 
     /**
@@ -41,8 +38,8 @@ class WechatRefund extends Command
      */
     public function handle()
     {
-        $transactionId = $this->argument('transactionId');
-        $this->wechatPay->refundByTransactionId($transactionId);
-        $this->info('refund success!');
+        $num = $this->argument('num');
+        Coupon::generate($num);
+        $this->info('Generate '.$num.' coupons success!');
     }
 }

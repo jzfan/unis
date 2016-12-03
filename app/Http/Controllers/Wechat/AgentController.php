@@ -13,4 +13,25 @@ class AgentController extends Controller
     {
     	return view('wechat.agent.index');
     }
+
+    public function orderIndex()
+    {
+    	return view('wechat.agent.orderIndex');
+    }
+
+    public function profile()
+    {
+    	return view('wechat.agent.profile');
+    }
+
+    public function balance()
+    {
+    	return view('wechat.agent.balance');
+    }
+
+    public function message()
+    {
+    	return view('wechat.agent.message');
+    }
+
 }

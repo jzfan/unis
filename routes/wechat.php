@@ -61,8 +61,9 @@ Route::group(['middleware'=>['web', 'wechat.oauth']], function () {
 		Route::get('/ajax/index_data', 'IndexController@data');
 
 
-
-		Route::get('/demo', 'IndexController@demo');
+		Route::group(['middleware' => 'agent'], function () {
+			Route::get('/agent/index', 'AgentController@index');
+		});
 		// Route::get('/test_refund/{order_id}', 'BillingController@refund');
 	});
 

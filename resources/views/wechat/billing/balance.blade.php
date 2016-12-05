@@ -6,13 +6,20 @@
 
 @section('content')
 		<section class="w-cash-leave">
-			<!-- <a class="cash-bank" href="#">绑定银行卡</a> -->
+			<a class="cash-bank" href="#">绑定银行卡</a>
 			<div class="self-cash-leave">
 				<div class="cash-leave-num"><span class="cash-rmb">￥</span></div>
 				<div class="cash-leave-text">当前余额</div>
 			</div>
 			<a class="cash-out" href="#" id='promptBtn'>提现</a>
+		</div>
 		</section>
+
+
+
+
+		
+
 
 
 <div id="pullrefresh" class="yu-scroll-wrapper mui-content mui-scroll-wrapper">
@@ -163,10 +170,11 @@
 			})
 		</script>
 
-	<script>/*提现*/
+		<script>/*提现功能*/
 			document.getElementById("promptBtn").addEventListener('tap', function(e) {
 				e.detail.gesture.preventDefault(); //修复iOS 8.x平台存在的bug，使用plus.nativeUI.prompt会造成输入法闪一下又没了
 				var btnArray = ['取消', '提现'];
+
 				mui.prompt('请输入提现金额：', '金额：', '申请提现到微信', btnArray, function(e) {
 					if (e.index == 1) {
 						var ajaxUrl = '/wechat/withdraw?openid='+$('.w-cash-leave').attr('data-id');
@@ -180,20 +188,11 @@
 								async:true,
 								type:'POST',
 								success:function(data){
-									if(data.message == 'success'){
-										layer.open({
-											content: '提现申请成功！',
-											skin: 'msg',
-											time: 2 //2秒后自动关闭
-										});
-									}else if(data.message == 'failed'){
-										layer.open({
-											content: '提现申请失败！',
-											skin: 'msg',
-											time: 2 //2秒后自动关闭
-										});
-									}
-									
+									layer.open({
+										content: '提现申请成功！',
+										skin: 'msg',
+										time: 2 //2秒后自动关闭
+									});
 								}
 							})
 						}
@@ -212,6 +211,7 @@
 						});
 					}
 				})
+
 			});
 		</script>
 @stop

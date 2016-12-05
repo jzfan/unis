@@ -12,7 +12,7 @@
 				<div class="out-input">
 					<p class="out-sub">提现金额</p>
 					<input type="number" id="inputNum">
-					<p class="out-text">零钱余额￥<span class="out-out">48.56</span>,<span>全部提现</span></p>
+					<p class="out-text">零钱余额￥<span class="out-out"></span>,<span>全部提现</span></p>
 				</div>
 			</header>
 
@@ -44,7 +44,7 @@
 
 	<script>
 		$(function(){//提现
-			$('.out-btn').on('click',function(){
+			$('.out-btn').on('touchstart',function(){
 				var e = $('#inputNum').val();
 				var openId =  JSON.parse(localStorage.getItem('openid'));
 				var cash = parseFloat($('.out-out').text(cash));

@@ -25,8 +25,6 @@ class FoodsTableSeeder extends Seeder
 	            'price' => $faker->numberBetween(4, 60) / 2,
                 'discount' => $faker->numberBetween(1, 5) * 10,
                 'sold' => $faker->numberBetween(0, 200),
-	            'favorite' => mt_rand(1, 100),
-	            'recommend' => mt_rand(1, 100),
 	            'status' => (string)mt_rand(0 ,1)
         	]);
         }

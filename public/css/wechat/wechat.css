@@ -627,7 +627,18 @@ body .layui-m-layer .layui-m-layer-msg{
 	font-family: '微软雅黑';
 	font-size: 15px;
 }
+.cash-bank{
+	position: absolute;
+	left: 2rem;
+	top: 1.6rem;
+	color: #fff;
+	font-family: '微软雅黑';
+	font-size: 15px;
+}
 .cash-out:active{
+	color: #fff;
+}
+.cash-bank:active{
 	color: #fff;
 }
 .self-img{

@@ -3,6 +3,17 @@
 	font-family: '微软雅黑';
 	font-size: 10px;
 }
+.mui-popup-button{
+	color: #8c8c8c;
+}
+.mui-popup-button-bold{
+	color: green;
+}
+.mui-popup-input input{
+	height: 40px;
+	font-size: 18px;
+	font-family: "微软雅黑";
+}
 /* 刷新加载样式开始 */
 .mui-bar~.mui-content .mui-fullscreen {
 	top: 44px;
@@ -616,7 +627,18 @@ body .layui-m-layer .layui-m-layer-msg{
 	font-family: '微软雅黑';
 	font-size: 15px;
 }
+.cash-bank{
+	position: absolute;
+	left: 2rem;
+	top: 1.6rem;
+	color: #fff;
+	font-family: '微软雅黑';
+	font-size: 15px;
+}
 .cash-out:active{
+	color: #fff;
+}
+.cash-bank:active{
 	color: #fff;
 }
 .self-img{

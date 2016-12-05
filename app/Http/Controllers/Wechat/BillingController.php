@@ -14,6 +14,11 @@ class BillingController extends Controller
     	return view('wechat.billing.balance');
     }
 
+    public function wechatWithdrawView()
+    {
+    	return view('wechat.billing.withdraw');
+    }
+
     //供ajax调用，返回参数
     public function wechatPrepay(Request $request, WechatPay $wechatPay)
     {
@@ -64,7 +69,10 @@ class BillingController extends Controller
     {
     	$wechatPay->init4MerchantPay();
     	$balance  = $wechatPay->user->balance;
-    	$amount   = $request->amount;
+    	$amount   = $request->cashnumber;
+    	// echo 'balance:'. $balance .'<br>';
+    	// echo 'amount:'. $amount .'<br>';
+    	// exit;
 	    if (!$balance || !$amount || $balance < $amount){
 	    	abort(403);
 	    }
@@ -82,8 +90,11 @@ class BillingController extends Controller
     		$wechatPay->user->update([
     			'balance' => $balance - $amount
     		]);
+    		return ['message'=>'success'];
     	}
-    	return $result;
+    	return ['message'=>'failed'];
     }
+
+
 
 }

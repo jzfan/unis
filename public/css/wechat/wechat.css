@@ -3,6 +3,17 @@
 	font-family: '微软雅黑';
 	font-size: 10px;
 }
+.mui-popup-button{
+	color: #8c8c8c;
+}
+.mui-popup-button-bold{
+	color: green;
+}
+.mui-popup-input input{
+	height: 40px;
+	font-size: 18px;
+	font-family: "微软雅黑";
+}
 /* 刷新加载样式开始 */
 .mui-bar~.mui-content .mui-fullscreen {
 	top: 44px;
@@ -953,4 +964,52 @@ body .layui-m-layer .layui-m-layer-msg{
 }
 .school-area ul,.school-room ul{
 	margin-top: -10px;
+}
+/* 提现 */
+.output{
+	padding: 2rem 1.5rem;
+}
+.out-title{
+	height: 6rem;
+	line-height: 6rem;
+	background-color: #f0f0f0;
+	text-indent: 2rem;
+	font-size: 2rem;
+	color: #525252;
+}
+.out-title span{
+	color: #1aad19;
+	margin-left: 5.7rem;
+}
+.out-input{
+	height: 17.5rem;
+	background-color: #fff;
+	padding: 2rem;
+}
+.out-input input{
+	height: 7.5rem;
+	font-size: 5rem;
+	border: none;
+	border-bottom: 1px solid #c4c4c4;
+}
+.out-btn{
+	width: 100%;
+	color: #fff;
+	font-size: 2rem;
+	font-weight: 500;
+	height: 4.5rem;
+	border:1px solid #ff4d4d;
+	margin-top: 4rem;
+	background-color: #fd6f6f;
+}
+.out-sub{
+	color:#000;
+	font-size: 1.8rem;
+}
+.out-text{
+	color: #949494;
+	font-size: 1.6rem;
+}
+.out-text span{
+	color: #fe4e4c;
 }

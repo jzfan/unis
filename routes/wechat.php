@@ -40,7 +40,8 @@ Route::group(['middleware'=>['web', 'wechat.oauth']], function () {
 		// Route::get('/pay', 'BillingController@payPage');
 
 		Route::get('/prepay', 'BillingController@wechatPrepay');
-		Route::get('/withdraw', 'BillingController@wechatWithdraw');
+		Route::post('/withdraw', 'BillingController@wechatWithdraw');
+		Route::get('/withdraw', 'BillingController@wechatWithdrawView');
 
 		// Route::get('/paid', 'BillingController@afterPaid');
 

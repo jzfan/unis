@@ -34,4 +34,9 @@ class AgentController extends Controller
     	return view('wechat.agent.message');
     }
 
+    public function profileOrder()
+    {
+        return view('wechat.agent.profileOrder');
+    }
+
 }

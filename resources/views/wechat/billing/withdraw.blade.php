@@ -6,7 +6,6 @@
 
 @section('content')
 	<section class="output">
-		<form action="">
 			<header class="out-wrap">
 				<div class="out-title">转账到<span>微信钱包</span></div>
 				<div class="out-input">
@@ -17,7 +16,6 @@
 			</header>
 
 			<button class="out-btn">提现</button>
-		</form>
 	</section>
 @stop
 
@@ -47,9 +45,10 @@
 			$('.out-btn').on('touchstart',function(){
 				var e = $('#inputNum').val();
 				var openId =  JSON.parse(localStorage.getItem('openid'));
-				var cash = parseFloat($('.out-out').text(cash));
+				var cash = parseFloat($('.out-out').text());
 				var ajaxUrl = '/wechat/withdraw?openid='+openId;
-				if(true){
+
+				if(cash>=e){
 						$.ajax({
 							url:ajaxUrl,
 							dataType:'json',

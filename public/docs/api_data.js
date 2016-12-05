@@ -604,7 +604,7 @@ define({ "api": [
       "examples": [
         {
           "title": "成功返回:",
-          "content": "HTTP/1.1 200 OK\n      {\n        \"data\": [\n          {\n            \"id\": 11,\n            \"name\": \"nostrum食品\",\n            \"price\": 1300,\n            \"original_price\": \"26.0\",\n            \"img\": \"http://lorempixel.com/50/50/?94472\",\n            \"sold\": 151,\n            \"canteen\": \"dicta食堂\"\n          },\n          .......\n        ]\n      }",
+          "content": "HTTP/1.1 200 OK\n      {\n        \"data\": [\n          {\n            \"id\": 11,\n            \"name\": \"nostrum食品\",\n            \"price\": \"13.0\",\n            \"original_price\": \"26.0\",\n            \"img\": \"http://lorempixel.com/50/50/?94472\",\n            \"sold\": 151,\n            \"canteen\": \"dicta食堂\"\n          },\n      }",
           "type": "json"
         }
       ]
@@ -1019,6 +1019,99 @@ define({ "api": [
         }
       ]
     }
+  },
+  {
+    "type": "get",
+    "url": "/orders",
+    "title": "订单条件分页",
+    "version": "1.0.0",
+    "name": "getOrdersByQueryStr",
+    "group": "Order",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "billing_id",
+            "description": "<p>订单交易号</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "type",
+            "description": "<p>订单交易类型</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "order_no",
+            "description": "<p>订单流水号</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "user_id",
+            "description": "<p>下单用户ID</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "status",
+            "description": "<p>订单状态</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "school_id",
+            "description": "<p>订单所属学校ID</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "campus_id",
+            "description": "<p>订单所属校区ID</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "dorm_id",
+            "description": "<p>订单所属宿舍ID</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "appointment_at",
+            "description": "<p>订单预约时间</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Bool",
+            "optional": false,
+            "field": "direction",
+            "description": "<p>顺序或倒序</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "openid",
+            "description": "<p>微信用户openid</p>"
+          }
+        ]
+      }
+    },
+    "filename": "app/Http/Controllers/Api/V1/OrderController.php",
+    "groupTitle": "Order"
   },
   {
     "type": "get",

@@ -68,6 +68,7 @@ Route::group(['middleware'=>['web', 'wechat.oauth']], function () {
 			Route::get('/agent/profile', 'AgentController@profile');
 			Route::get('/agent/balance', 'AgentController@balance');
 			Route::get('/agent/message', 'AgentController@message');
+			Route::get('/agent/profile/order', 'AgentController@profileOrder');
 		});
 		// Route::get('/test_refund/{order_id}', 'BillingController@refund');
 	});

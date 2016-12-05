@@ -13,10 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:api');
-
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', function ($api) {
@@ -86,10 +82,8 @@ $api->version('v1', function ($api) {
     //删除消息
     $api->delete('feed/{feed_id}', 'App\Http\Controllers\Api\V1\FeedController@delete');
 
-    // $api->get('favorite/{user_id}', 'App\Http\Controllers\Api\V1\FavoriteController@index');
-
-    // $api->get('shop/dt', 'App\Http\Controllers\Api\V1\ShopController@dt');
-    // $api->get('dt_server/{table}', 'App\Http\Controllers\Api\V1\DatatableController@ajax');
+    //条件获取订单  
+    $api->get('orders', 'App\Http\Controllers\Api\V1\Agent\OrderController@getList');
 
 
 });

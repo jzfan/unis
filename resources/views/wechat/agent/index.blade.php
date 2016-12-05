@@ -40,7 +40,7 @@
 			<div class="mui-content">
 			<div id="slider" class="mui-slider mui-fullscreen">
 				<div id="sliderSegmentedControl" class="w-tab mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-				<a class="mui-control-item" href="#item2mobile">接单</a>
+				<a class="mui-control-item mui-active" href="#item2mobile">接单</a>
 				</div>
 
 				<div class="mui-slider-group">
@@ -69,7 +69,7 @@
 
 <!--底部nav切换开始-->
 <nav class="win-nav mui-bar mui-bar-tab">
-	<a id="defaultTab" class="mui-tab-item " href="/wechat/agent/index">
+	<a id="defaultTab" class="mui-tab-item mui-active" href="/wechat/agent/index">
 		<span class="mui-icon iconfont xuanshouye201"></span>
 		<span class="mui-tab-label">首页</span>
 	</a>
@@ -77,7 +77,7 @@
 		<span class="mui-icon iconfont dingdan111"></span>
 		<span class="mui-tab-label">我的订单</span>
 	</a>
-	<a class="mui-tab-item mui-active" href="/wechat/agent/profile">
+	<a class="mui-tab-item" href="/wechat/agent/profile">
 		<span class="mui-icon iconfont xuangerenzhongxin204"></span>
 		<span class="mui-tab-label">个人中心</span>
 	</a>

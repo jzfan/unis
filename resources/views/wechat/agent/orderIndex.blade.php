@@ -46,11 +46,11 @@
 				<span class="mui-icon iconfont xuanshouye201"></span>
 				<span class="mui-tab-label">首页</span>
 			</a>
-			<a class="mui-tab-item" href="/wechat/agent/order/index">
+			<a class="mui-tab-item mui-active" href="/wechat/agent/order/index">
 				<span class="mui-icon iconfont dingdan111"></span>
 				<span class="mui-tab-label">我的订单</span>
 			</a>
-			<a class="mui-tab-item mui-active" href="/wechat/agent/profile">
+			<a class="mui-tab-item" href="/wechat/agent/profile">
 				<span class="mui-icon iconfont xuangerenzhongxin204"></span>
 				<span class="mui-tab-label">个人中心</span>
 			</a>

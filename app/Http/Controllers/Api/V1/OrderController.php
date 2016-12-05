@@ -78,6 +78,7 @@ class OrderController extends BaseController
         $this->limit = $request->limit ? : config('site.perPage');
         $this->page  = $request->page ? : 1;
         $this->fractal = $fractal;
+        Input::merge(["page" => $this->page]);
     }
     /**
     * @api {get} /order 订单列表分页
@@ -91,7 +92,6 @@ class OrderController extends BaseController
     */    
     public function getPage()
     {
-      Input::merge(["page" => $this->page]);
     	$campus = $this->user->defaultAddress()->campus;
       $paginator = Order::where('campus_id', $campus->id)->with('orderer', 'deliver')->where('status', 'ordered')->orderBy('created_at', 'asc')->paginate($this->limit);
       return $this->trans4page($paginator);
@@ -250,9 +250,8 @@ class OrderController extends BaseController
     */ 
     public function unTakenSale()
     {
-        Input::merge(["page" => $this->page]);
-        $hoursAgo = Carbon::now()->subHours(3);
-        $paginator = Order::where(['type'=>'wxpay', 'deliver_id'=>null, 'status'=>'paid'])->where('user_id', '<>', $this->user->id)->where('paid_at', '>', $hoursAgo)->with('orderer')->orderBy('id', 'ASC')->paginate($this->limit);
+        $ago = Carbon::now()->subMinutes(3);
+        $paginator = Order::where(['type'=>'wxpay', 'deliver_id'=>null, 'status'=>'paid'])->where('user_id', '<>', $this->user->id)->where('paid_at', '>', $ago)->with('orderer')->orderBy('id', 'ASC')->paginate($this->limit);
         return $this->trans4page($paginator);      
     }
 
@@ -267,7 +266,6 @@ class OrderController extends BaseController
     */
     public function allBuy()
     {
-        Input::merge(["page" => $this->page]);
         $paginator = Order::where(['type'=>'wxpay', 'user_id'=>$this->user->id])->orderBy('id', 'DESC')->with('deliver')->paginate($this->limit);
         return $this->trans4page($paginator);
     }
@@ -322,7 +320,6 @@ class OrderController extends BaseController
     */ 
     public function completedSale()
     {
-        Input::merge(["page" => $this->page]);
         $paginator = Order::where(['type'=>'wxpay', 'deliver_id'=>$this->user->id])->whereIn('status', ['received', 'delivered', 'withdrawed'])->orderBy('delivered_at', 'DESC')->with('orderer')->paginate($this->limit);
         return $this->trans4page($paginator);
     }
@@ -333,5 +330,39 @@ class OrderController extends BaseController
       $resource = new Fractal\Resource\Collection($orders, new OrderTransformer);
       $resource->setPaginator(new Fractal\Pagination\IlluminatePaginatorAdapter($paginator));
       return $this->fractal->createData($resource)->toJson();
+    }
+
+    /**
+    * @api {get} /orders  订单条件分页
+    * @apiVersion 1.0.0
+    * @apiName getOrdersByQueryStr
+    * @apiGroup Order
+    * @apiUse openidParam
+    * @apiParam {String} billing_id 订单交易号
+    * @apiParam {String} type       订单交易类型
+    * @apiParam {String} order_no 订单流水号
+    * @apiParam {Number} user_id   下单用户ID
+    * @apiParam {String} status 订单状态
+    * @apiParam {Number} school_id 订单所属学校ID
+    * @apiParam {Number} campus_id 订单所属校区ID
+    * @apiParam {Number} dorm_id   订单所属宿舍ID
+    * @apiParam {Number} school_id 订单所属学校ID
+    * @apiParam {String} appointment_at   订单预约时间
+    * @apiParam {Bool} direction   顺序或倒序
+    *
+    */ 
+    public function getList(Request $request, Order $order)
+    {
+      $fields   = ['billing_id', 'type', 'order_no', 'user_id', 'status', 'school_id', 'campus_id', 'dorm_id'];
+      $sortkeys = ['id', 'school_id', 'campus_id', 'dorm_id', 'appointment_at'];
+      $map = [];
+      foreach ($fields as $key){
+        if ($request->$key){
+          $map = array_merge($map, [$key => $request->$key]);
+        }
+      }
+      $sort = ($request->order && in_array($reqeust->sort, $orders)) ? $request->sort : 'id';
+      $direction = $request->direction ? 'asc' : 'desc';
+      return $order->with('orderer', 'deliver')->where($map)->orderBy($sort, $direction)->paginate($this->limit);
     }
 }

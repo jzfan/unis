@@ -69,6 +69,7 @@ class WechatPay
 	    		'status' => 'ordered',
 	    		'appointment_at' => $this->appointment_at,
 	    	]);
+	    	$canteen_ids = [];
 	    	foreach ($this->foods as $food) {
 		    	OrderItem::create([
 		    		'order_id' => $order->id,
@@ -76,8 +77,10 @@ class WechatPay
 		    		'quantity' => $food->num,
 		    		'price' => $food->sale_price,
 		    	]);
+		    	$canteen_ids[] = $food->shop->canteen->id;
 
 	    	}
+	    	$order->canteens()->attach(array_unique($canteen_ids));
     	});
 
     }

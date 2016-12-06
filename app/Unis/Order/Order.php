@@ -2,10 +2,11 @@
 
 namespace App\Unis\Order;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Unis\User\User;
 use App\Unis\Suplier\Food;
+use App\Unis\School\Canteen;
 use App\Unis\Order\OrderItem;
+use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
@@ -23,6 +24,11 @@ class Order extends Model
     public function deliver()
     {
     	return $this->belongsTo(User::class, 'deliver_id', 'id');
+    }
+
+    public function canteens()
+    {
+        return $this->belongsToMany(Canteen::class);
     }
 
     public function foods()

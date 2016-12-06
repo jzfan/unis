@@ -13,7 +13,7 @@
 		        <div class="mui-scroll">
 		          <h1 class="w-classify">菜品分类</h1>
 		          
-		          <ul class="w-canvas-list">
+		          <ul class="w-canvas-list" style="margin-bottom: 6rem;">
 		          	
 		          </ul>
 		        </div>
@@ -85,7 +85,7 @@
 <!--底部nav切换结束-->
 
 @section('js')
-<script src='/js/wechat/index.js'></script>
+<script src='/js/wechat/menu.js'></script>
 	
 <script>
 /*进入页面加载默认用户校区所有食堂*/
@@ -111,31 +111,27 @@
 				localStorage.setItem('canteens', JSON.stringify(canteen));
 
 
-
-				/*根据食堂选默认窗口*/
-					$('.w-canvas-list').html(''); //换食堂时候清空之前食堂对应的窗口
-					var portUrl = '/api/shops_of_canteen/' + JSON.parse(localStorage.getItem('canteen'));
-					$.ajax({
-						url: portUrl,
-						dataType: 'json',
-						async: true,
-						type: 'GET',
-						success: function(data) {
-							var port = data.shops;
-							for(var i = 0; i < port.length; i++) {
-								li = document.createElement('li');
-								li.className = "portName";
-								li.innerHTML = port[i].name + '<span data-id=' + port[i].id + '></span>';
-								var table = document.body.querySelector('.w-canvas-list');
-								table.appendChild(li);
-							}
-							localStorage.setItem('shopId',JSON.stringify(port[0].id));//将默认窗口id存在本地
-							localStorage.setItem('defalutshopId',JSON.stringify(port[0].id));//将首次进入页面默认窗口id存在本地
-
-							/*根据默认窗口取食品列表*/
-							portFoodList();//调用根据窗口取食品列表函数
+				/*选宿舍*/
+				$('.w-canvas-list').html(''); //换食堂时候清空之前食堂对应的窗口
+				var portUrl = '/api/campuses/{{ $campus_id }}/dorms';
+				$.ajax({
+					url: portUrl,
+					dataType: 'json',
+					async: true,
+					type: 'GET',
+					success: function(data) {
+						for(var i = 0; i < data.length; i++) {
+							li = document.createElement('li');
+							li.className = "portName";
+							li.innerHTML = data[i].text + '<span data-id=' + data[i].id + '></span>';
+							var table = document.body.querySelector('.w-canvas-list');
+							table.appendChild(li);
 						}
-					});		
+						localStorage.setItem('dormId',JSON.stringify(data[0].id));//将默认窗口id存在本地
+					}
+				});
+
+
 			}
 		});
 	});
@@ -186,45 +182,39 @@
 			$('.mui-title #addName').text(newText); //改变顶部食堂名称
 
 
-			/*根据食堂选窗口*/
-			$('.w-canvas-list').html(''); //换食堂时候清空之前食堂对应的窗口
-			var portUrl = '/api/shops_of_canteen/' + JSON.parse(localStorage.getItem('canteen'));
+			/*根据食堂删选订单*/
+			var  takeUrl = '/api/canteens/'+canteenId+'/orders?openid='+JSON.parse(localStorage.getItem('openid'));
 			$.ajax({
-				url: portUrl,
+				url: takeUrl,
 				dataType: 'json',
 				async: true,
 				type: 'GET',
 				success: function(data) {
-					var port = data.shops;
-					for(var i = 0; i < port.length; i++) {
-						li = document.createElement('li');
-						li.className = "portName";
-						li.innerHTML = port[i].name + '<span data-id=' + port[i].id + '></span>';
-						var table = document.body.querySelector('.w-canvas-list');
-						table.appendChild(li);
+					jQuery('#item2mobile .mui-scroll ul').remove();//插入数据之前清空容器
+					var takeFood = data.data;
+					for(var i = 0; i < takeFood.length; i++) {
+						var total = parseFloat(takeFood[i].total);
+						div = document.createElement('div');
+						div.className = "w-finshed-menu";
+						div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">' + total + '元(含服务费)</span></li></ul><ul class="w-home-tab mui-table-view"><li class="mui-table-view-cell">订单编号：' + takeFood[i].order_no + '<span class="w-hold mui-pull-right">' + takeFood[i].status + '</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:' + takeFood[i].orderer.phone + '">' + takeFood[i].orderer.phone + '</a></div></li><li class="mui-table-view-cell">联系姓名：' + takeFood[i].orderer.name + '</li><li class="mui-table-view-cell">配送地址：' + takeFood[i].address + '</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：' + takeFood[i].paid_at + '&nbsp;&nbsp;&nbsp;&nbsp;预约时间：' + takeFood[i].appointment_at + '</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-want-accept"  data-id=' + takeFood[i].id + '>我要带餐</button></li></ul>';
+
+						var table = document.body.querySelector('#item2mobile .mui-pull-bottom-tips');
+						var parent = document.body.querySelector('#item2mobile .mui-scroll');
+						parent.insertBefore(div, table);
 					}
-					localStorage.setItem('shopId',JSON.stringify(port[0].id));//将默认窗口id存在本地
+
 				}
 			});
 
-
-			setTimeout(function(){/*不延时取不到当前窗口id,会取上一个窗口id*/
-				/*根据默认窗口取食品列表*/
-					portFoodList();//调用根据窗口取食品列表函数
-
-			},300)
 
 		});
 
 		/*点击窗口时保存窗口id到本地*/
 		$(document).on('tap','.portName',function(){
-			mui('.mui-slider-group #item1mobile .mui-scroll-wrapper').scroll().scrollTo(0,0);
+			//mui('.mui-slider-group #item1mobile .mui-scroll-wrapper').scroll().scrollTo(0,0);
 			mui('.mui-off-canvas-wrap').offCanvas('show');//点击窗口关闭侧边栏
-			localStorage.setItem('shopId',JSON.stringify($(this).find('span').attr('data-id')));//存当前点击的窗口id
-
-			/*根据窗口取食品列表*/
-			portFoodList();//调用根据窗口取食品列表函数
-
+			localStorage.setItem('dormId',JSON.stringify($(this).find('span').attr('data-id')));//存当前点击的窗口id
+			menuList();
 		});
 
 	});

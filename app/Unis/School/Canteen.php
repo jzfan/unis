@@ -2,9 +2,10 @@
 
 namespace App\Unis\School;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Unis\Order\Order;
 use App\Unis\Suplier\Shop;
 use App\Unis\Traits\StatusAttribute;
+use Illuminate\Database\Eloquent\Model;
 
 class Canteen extends Model
 {
@@ -25,6 +26,11 @@ class Canteen extends Model
     public function campus()
     {
     	return $this->belongsTo(Campus::class);
+    }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class);
     }
 
     public function DormsOfTheSameCampus()

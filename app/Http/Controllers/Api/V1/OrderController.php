@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use Illuminate\Http\Request;
-
+use Carbon\Carbon;
+use League\Fractal;
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Input;
 use App\Unis\Order\Order;
 use App\Unis\Message\Feed;
-use Carbon\Carbon;
-use App\Unis\Order\Transformer\OrderTransformer;
-use League\Fractal;
 use League\Fractal\Manager;
+use App\Unis\School\Canteen;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Input;
+use App\Unis\Order\Transformer\OrderTransformer;
 
 class OrderController extends BaseController
 {
@@ -363,6 +363,14 @@ class OrderController extends BaseController
       }
       $sort = ($request->order && in_array($reqeust->sort, $orders)) ? $request->sort : 'id';
       $direction = $request->direction ? 'asc' : 'desc';
-      return $order->with('orderer', 'deliver')->where($map)->orderBy($sort, $direction)->paginate($this->limit);
+      $paginator = $order->with('orderer', 'deliver')->where($map)->orderBy($sort, $direction)->paginate($this->limit);
+      return $this->trans4page($paginator); 
+    }
+
+    public function getListByCanteen(Request $request, $canteen_id)
+    {
+        $order_ids = Canteen::findOrFail($canteen_id)->orders->pluck('id')->toArray();
+       $paginator = Order::with('orderer')->whereIn('id', $order_ids)->paginate($this->limit);
+       return $this->trans4page($paginator);     
     }
 }

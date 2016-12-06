@@ -62,14 +62,15 @@ Route::group(['middleware'=>['web', 'wechat.oauth']], function () {
 		Route::get('/ajax/index_data', 'IndexController@data');
 
 
-		Route::group(['middleware' => 'agent'], function () {
+		// Route::group(['middleware' => 'agent'], function () {
 			Route::get('/agent/index', 'AgentController@index');
 			Route::get('/agent/order/index', 'AgentController@orderIndex');
 			Route::get('/agent/profile', 'AgentController@profile');
 			Route::get('/agent/balance', 'AgentController@balance');
+			Route::get('/agent/report', 'AgentController@report');
 			Route::get('/agent/message', 'AgentController@message');
 			Route::get('/agent/profile/order', 'AgentController@profileOrder');
-		});
+		// });
 		// Route::get('/test_refund/{order_id}', 'BillingController@refund');
 	});
 

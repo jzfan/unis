@@ -17,21 +17,21 @@
 			<ul class="mui-table-view">
 			    <li class="mui-table-view-cell">
 			    	<span class="person-ico mui-icon iconfont wodedingdan411"></span>
-			    	<a href="#" class="mui-navigate-right">我的订单</a>	    	
+			    	<a href="/wechat/agent/profile/order" class="mui-navigate-right">我的订单</a>	    	
 			    </li>
 			</ul>
 
 			<ul class="mui-table-view" style="margin-top:20px;">
 			    <li class="mui-table-view-cell">
 			    	<span class="person-ico mui-icon iconfont yue412"></span>
-			    	<a href="/wechat/balance" class="mui-navigate-right">我的余额</a>
+			    	<a href="/wechat/agent/balance" class="mui-navigate-right">我的余额</a>
 			    </li>
 			</ul>
 
 			<ul class="mui-table-view" style="margin-top:20px;">
 			    <li class="mui-table-view-cell">
 				    <span class="person-ico mui-icon iconfont xiaoxi415"></span>
-				    <a href="/wechat/message" class="mui-navigate-right">我的消息</a>
+				    <a href="/wechat/agent/message" class="mui-navigate-right">我的消息</a>
 			    </li>
 			</ul>
 

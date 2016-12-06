@@ -88,20 +88,10 @@ class IndexController extends Controller
         return Canteen::find($canteen_id)->shops;
     }
 
-    public function demo()
-    {
-        return view('wechat.demo.json');
-    }
-
     public function data()
     {
         $user = getWechatUser();
         $data['canteens'] = $user->campus()->canteens;
         return $data;
-    }
-
-    public function test()
-    {
-        return view('wechat.test');
     }
 }

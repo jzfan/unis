@@ -31,7 +31,7 @@ $api->version('v1', function ($api) {
     $api->get('canteens_of_campus/{campus_id}', 'App\Http\Controllers\Api\V1\CanteenController@listByCampus');
     $api->get('shops_of_canteen/{canteen_id}', 'App\Http\Controllers\Api\V1\ShopController@listByCanteen');
     $api->get('campus/query_by_dorm/{dorm_id}', 'App\Http\Controllers\Api\V1\DormController@getCampusBy');
-    $api->get('dorms_of_campus/{campus_id}', 'App\Http\Controllers\Api\V1\DormController@listByCampus');
+    $api->get('campuses/{campus_id}/dorms', 'App\Http\Controllers\Api\V1\DormController@listByCampus');
 
 //必须加参数在结尾  ?openid=xxxx
     $api->get('user/{id}', 'App\Http\Controllers\Api\V1\UserController@show')->where(['id' => '[0-9]+']);
@@ -83,7 +83,9 @@ $api->version('v1', function ($api) {
     $api->delete('feed/{feed_id}', 'App\Http\Controllers\Api\V1\FeedController@delete');
 
     //条件获取订单  
-    $api->get('orders', 'App\Http\Controllers\Api\V1\Agent\OrderController@getList');
+    $api->get('orders', 'App\Http\Controllers\Api\V1\OrderController@getList');
+    //食堂订单
+    $api->get('canteens/{canteen_id}/orders', 'App\Http\Controllers\Api\V1\OrderController@getListByCanteen');
 
 
 });

@@ -53,7 +53,7 @@ class ShopController extends Controller
     }
 
     /**
-    * @api {get} shops_of_canteen/{canteen_id}  取食堂窗口列表
+    * @api {get} /shops_of_canteen/{canteen_id}  取食堂窗口列表
     * @apiVersion 1.0.0
     * @apiName listShopsOfCanteen
     * @apiGroup Shop

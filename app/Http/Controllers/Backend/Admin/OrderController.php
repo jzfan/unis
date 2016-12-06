@@ -27,4 +27,10 @@ class OrderController extends Controller
     	$order = Order::with('foods', 'orderer', 'deliver')->find($order);
     	return view('backend.admin.order.show', compact('order'));
     }
+
+    public function getListByDeliver()
+    {
+        // $user = 
+        // $orders = Order::with('orderer')->where('deliver_id', )
+    }
 }

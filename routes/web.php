@@ -26,9 +26,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'namespace' => 'Back
 	Route::resource('/room', 'RoomController');
 	Route::resource('/order', 'OrderController');
 	Route::post('/food/upload_img', 'FoodController@uploadImg');
-	// Route::get('/excel/import', 'DbManageController@import');
 	Route::get('/db/excel/import', 'DbManageController@importIndex');
 	Route::post('/db/excel/upload', 'DbManageController@excelImport');
+	Route::get('/withdraws', 'WithdrawController@index');
+	Route::get('/users/{user_id}/orders', 'OrderController@getListByDeliver');
 });
 
 //test

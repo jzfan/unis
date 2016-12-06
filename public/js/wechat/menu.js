@@ -16,32 +16,33 @@
 		});
 	})
 
-
 	/*首页根据宿舍id筛选订单*/
 	function  menuList(){
+		var openId = JSON.parse(localStorage.getItem('openid'));
+		var canteenId = JSON.parse(localStorage.getItem('canteen'));
 		var dormId  = JSON.parse(localStorage.getItem('dormId'));//取当前点击的窗口id
-			var portUrl = '/api/orders/?openid='+JSON.parse(localStorage.getItem('openid'))+'&dorm_id='+dormId;
-			$.ajax({
-				url: portUrl,
-				dataType: 'json',
-				async: true,
-				type: 'GET',
-				success: function(data) {
-					jQuery('#item2mobile .mui-scroll ul').remove();//插入数据之前清空容器
-					var takeFood = data.data;
-					for(var i = 0; i < takeFood.length; i++) {
-						var total = parseFloat(takeFood[i].total);
-						div = document.createElement('div');
-						div.className = "w-finshed-menu";
-						div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">' + total + '元(含服务费)</span></li></ul><ul class="w-home-tab mui-table-view"><li class="mui-table-view-cell">订单编号：' + takeFood[i].order_no + '<span class="w-hold mui-pull-right">' + takeFood[i].status + '</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:' + takeFood[i].orderer.phone + '">' + takeFood[i].orderer.phone + '</a></div></li><li class="mui-table-view-cell">联系姓名：' + takeFood[i].orderer.name + '</li><li class="mui-table-view-cell">配送地址：' + takeFood[i].address + '</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：' + takeFood[i].paid_at + '&nbsp;&nbsp;&nbsp;&nbsp;预约时间：' + takeFood[i].appointment_at + '</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-want-accept"  data-id=' + takeFood[i].id + '>我要带餐</button></li></ul>';
+		var portUrl = '/api/canteens/'+canteenId+'/orders/?openid='+openId+'&dorm_id='+dormId+'&status=paid';
+		$.ajax({
+			url: portUrl,
+			dataType: 'json',
+			async: true,
+			type: 'GET',
+			success: function(data) {
+				jQuery('#item2mobile .mui-scroll ul').remove();//插入数据之前清空容器
+				var takeFood = data.data;
+				for(var i = 0; i < takeFood.length; i++) {
+					var total = parseFloat(takeFood[i].total);
+					div = document.createElement('div');
+					div.className = "w-finshed-menu";
+					div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">' + total + '元(含服务费)</span></li></ul><ul class="w-home-tab mui-table-view"><li class="mui-table-view-cell">订单编号：' + takeFood[i].order_no + '<span class="w-hold mui-pull-right">' + takeFood[i].status + '</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:' + takeFood[i].orderer.phone + '">' + takeFood[i].orderer.phone + '</a></div></li><li class="mui-table-view-cell">联系姓名：' + takeFood[i].orderer.name + '</li><li class="mui-table-view-cell">配送地址：' + takeFood[i].address + '</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：' + takeFood[i].paid_at + '&nbsp;&nbsp;&nbsp;&nbsp;预约时间：' + takeFood[i].appointment_at + '</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-want-accept"  data-id=' + takeFood[i].id + '>我要带餐</button></li></ul>';
 
-						var table = document.body.querySelector('#item2mobile .mui-pull-bottom-tips');
-						var parent = document.body.querySelector('#item2mobile .mui-scroll');
-						parent.insertBefore(div, table);
-					}
-
+					var table = document.body.querySelector('#item2mobile .mui-pull-bottom-tips');
+					var parent = document.body.querySelector('#item2mobile .mui-scroll');
+					parent.insertBefore(div, table);
 				}
-			});
+
+			}
+		});
 	}
 
 
@@ -50,7 +51,7 @@
 	$(function() {
 		setTimeout(function(){
 			var openid = JSON.parse(localStorage.getItem('openid'));
-			var takeUrl = '/api/orders/'+JSON.parse(localStorage.getItem('canteen'))+'/orders?openid='+JSON.parse(localStorage.getItem('openid'));//接口改为根据食堂取所有的订单
+			var takeUrl = '/api/orders?openid='+openid+'&status=paid'+'&dorm_id=';//接口改为根据食堂取所有的订单
 			$.ajax({
 				url: takeUrl,
 				dataType: 'json',
@@ -75,9 +76,6 @@
 	});
 
 
-
-
-
 	/*带餐下拉刷新上拉加载开始*/
 	mui.init();
 	
@@ -99,7 +97,7 @@
 					callback: function() {
 						var self = this;
 						var openid = JSON.parse(localStorage.getItem('openid'));
-						var urlajax = '/api/order/untaken/?openid='+openid+'&page=1&limit=15'; 
+						var urlajax = '/api/orders?openid='+openid+'&status=paid'+'&page=1&limit=15'+'&dorm_id='; 
 						setTimeout(function() {
 							$.ajax({
 								url: urlajax,
@@ -110,7 +108,7 @@
 									jQuery('#item2mobile .mui-scroll  .w-finshed-menu').remove();
 									var takeFood = data.data;
 									for(var i = 0; i < takeFood.length; i++) {
-										var total = parseFloat(takeFood[i].total*0.01);
+										var total = parseFloat(takeFood[i].total);
 										div = document.createElement('div');
 										div.className = "w-finshed-menu";
 										div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">' + total + '元(含服务费)</span></li></ul><ul class="w-home-tab mui-table-view"><li class="mui-table-view-cell">订单编号：' + takeFood[i].order_no + '<span class="w-hold mui-pull-right">' + takeFood[i].status + '</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:' + takeFood[i].orderer.phone + '">' + takeFood[i].orderer.phone + '</a></div></li><li class="mui-table-view-cell">联系姓名：' + takeFood[i].orderer.name + '</li><li class="mui-table-view-cell">配送地址：' + takeFood[i].address + '</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：' + takeFood[i].paid_at + '&nbsp;&nbsp;&nbsp;&nbsp;预约时间：' + takeFood[i].appointment_at + '</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-want-accept"  data-id=' + takeFood[i].id + '>我要带餐</button></li></ul>';
@@ -128,7 +126,7 @@
 					callback: function() {
 						page++;
 						var openid = JSON.parse(localStorage.getItem('openid'));
-						var urlajax = '/api/order/untaken/?openid='+openid+'&page='+page+'&limit=10';
+						var urlajax = '/api/orders?openid='+openid+'&status=paid'+'&page='+page+'&limit=10'+'&dorm_id=';
 						var self = this;
 						setTimeout(function() {
 							$.ajax({
@@ -140,7 +138,7 @@
 									self.endPullUpToRefresh(page>data.last_page);
 									var takeFood = data.data;
 									for(var i = 0; i < takeFood.length; i++) {
-										var total = parseFloat(takeFood[i].total*0.01);
+										var total = parseFloat(takeFood[i].total);
 										div = document.createElement('div');
 										div.className = "w-finshed-menu";
 										div.innerHTML = '<ul class="w-cash-all mui-table-view"><li class="mui-table-view-cell">合计总额:<span class="mui-pull-right">' + total + '元(含服务费)</span></li></ul><ul class="w-home-tab mui-table-view"><li class="mui-table-view-cell">订单编号：' + takeFood[i].order_no + '<span class="w-hold mui-pull-right">' + takeFood[i].status + '</span></li><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:' + takeFood[i].orderer.phone + '">' + takeFood[i].orderer.phone + '</a></div></li><li class="mui-table-view-cell">联系姓名：' + takeFood[i].orderer.name + '</li><li class="mui-table-view-cell">配送地址：' + takeFood[i].address + '</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell">下单时间：' + takeFood[i].paid_at + '&nbsp;&nbsp;&nbsp;&nbsp;预约时间：' + takeFood[i].appointment_at + '</li></ul><ul class="mui-table-view"><li class="mui-table-view-cell"><button class="w-want-accept"  data-id=' + takeFood[i].id + '>我要带餐</button></li></ul>';

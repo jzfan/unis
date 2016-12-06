@@ -96,7 +96,7 @@
 								setTimeout(function(){
 									$('#room-fix li').not('.school-search').remove();
 									var sid  = parseInt($('.schoolArea').text());
-										var urlajax = "/api/dorms_of_campus/"+sid
+										var urlajax = "/api/campuses/"+sid+"/dorms"
 										$.get(urlajax,function(data){
 											for(var i=0;i<data.length;i++){
 												$('#room-fix').append('<li class="mui-table-view-cell"><span class="mui-navigate-right">'+data[i].text+'</span><span class="sid" style="visibility: hidden;">'+data[i].id+'</span></li>');

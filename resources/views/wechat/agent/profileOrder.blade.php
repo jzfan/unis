@@ -62,34 +62,32 @@
 				}
 			});
 	})
-	</script> 
 
 <!-- 个人中心页面加载我的带餐列表 -->
-	<script>
-	   $(function(){
-	   	var openid = $('.mui-content').attr('data-id');
-	   	var urlajax = '/api/order/uncompleted_sale?openid='+openid;//个人中心我的带餐
-	   	 	$.ajax({
-	   	 		url:urlajax, 
-	   	 		dataType:'json',
-	   	 		async:true,
-	   	 		type:'GET',
-	   	 		success:function(data){
-	   	 			var data = data.data;
-	   	 			for(var i=0;i<data.length;i++){
-	   	 				var total = parseFloat(data[i].total);
-	   	 				var ul = document.createElement('ul');
-	   	 				    ul.className = "my-menu mui-table-view";
-	   	 				    ul.innerHTML = '<a href="/wechat/order/show/'+data[i].id+'"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li></a><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:'+data[i].orderer.phone+'">'+data[i].orderer.phone+'</a></div></li><a href="/wechat/order/show/'+data[i].id+'"><li class="mui-table-view-cell">联系姓名：'+data[i].orderer.name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+total+'元</li></a>';
+   $(function(){
+   	var openid = $('.mui-content').attr('data-id');
+   	var urlajax = '/api/order/uncompleted_sale?openid='+openid;//个人中心我的带餐
+   	 	$.ajax({
+   	 		url:urlajax, 
+   	 		dataType:'json',
+   	 		async:true,
+   	 		type:'GET',
+   	 		success:function(data){
+   	 			var data = data.data;
+   	 			for(var i=0;i<data.length;i++){
+   	 				var total = parseFloat(data[i].total);
+   	 				var ul = document.createElement('ul');
+   	 				    ul.className = "my-menu mui-table-view";
+   	 				    ul.innerHTML = '<a href="/wechat/order/show/'+data[i].id+'"><li class="mui-table-view-cell">订单编号：'+data[i].order_no+'<span class="my-song mui-pull-right">'+data[i].status+'</span></li></a><li class="mui-table-view-cell"><div class="telShow">联系电话：<a href="tel:'+data[i].orderer.phone+'">'+data[i].orderer.phone+'</a></div></li><a href="/wechat/order/show/'+data[i].id+'"><li class="mui-table-view-cell">联系姓名：'+data[i].orderer.name+'</li><li class="mui-table-view-cell">配送地址：'+data[i].address+'</li><li class="mui-table-view-cell">合计总额：'+total+'元</li></a>';
 
-	   	 				table = document.body.querySelector('#item2mobile .mui-scroll');
-	   	 				bot = document.body.querySelector('#item2mobile .mui-scroll .mui-pull-bottom-tips');
-                    	table.insertBefore(ul,bot); 
+   	 				table = document.body.querySelector('#item2mobile .mui-scroll');
+   	 				bot = document.body.querySelector('#item2mobile .mui-scroll .mui-pull-bottom-tips');
+                	table.insertBefore(ul,bot); 
 
-	   	 			}
-	   	 		}
-	   	 	})
-	   })
+   	 			}
+   	 		}
+   	 	})
+   })
 	</script>
 
 	<!-- 个人中心页面加载我已带到列表 -->
@@ -119,6 +117,7 @@
 	   	 	})
 	   })
 	</script>
+
 
 		<script>/*上拉刷新下拉加载我的带餐列表*/
 			mui.init();
@@ -289,6 +288,7 @@
 				});
 			})(mui);
 		</script>
+
 
 
 @stop

@@ -348,29 +348,58 @@ class OrderController extends BaseController
     * @apiParam {Number} dorm_id   订单所属宿舍ID
     * @apiParam {Number} school_id 订单所属学校ID
     * @apiParam {String} appointment_at   订单预约时间
+    * @apiParam {String} sort       排序字段
     * @apiParam {Bool} direction   顺序或倒序
     *
     */ 
     public function getList(Request $request, Order $order)
     {
-      $fields   = ['billing_id', 'type', 'order_no', 'user_id', 'status', 'school_id', 'campus_id', 'dorm_id'];
-      $sortkeys = ['id', 'school_id', 'campus_id', 'dorm_id', 'appointment_at'];
-      $map = [];
-      foreach ($fields as $key){
-        if ($request->$key){
-          $map = array_merge($map, [$key => $request->$key]);
-        }
-      }
-      $sort = ($request->order && in_array($reqeust->sort, $orders)) ? $request->sort : 'id';
-      $direction = $request->direction ? 'asc' : 'desc';
+      list($map, $sort, $direction) = $this->getMap($request);
       $paginator = $order->with('orderer', 'deliver')->where($map)->orderBy($sort, $direction)->paginate($this->limit);
       return $this->trans4page($paginator); 
     }
 
+    /**
+    * @api {get} /canteens/{canteen_id}/orders  食堂订单条件分页
+    * @apiVersion 1.0.0
+    * @apiName getOrdersByCanteen
+    * @apiGroup Order
+    * @apiUse openidParam
+    * @apiParam {String} billing_id 订单交易号
+    * @apiParam {String} type       订单交易类型
+    * @apiParam {String} order_no  订单流水号
+    * @apiParam {Number} user_id   下单用户ID
+    * @apiParam {String} status    订单状态
+    * @apiParam {Number} school_id 订单所属学校ID
+    * @apiParam {Number} campus_id 订单所属校区ID
+    * @apiParam {Number} canteen_id 订单所属食堂ID
+    * @apiParam {Number} dorm_id   订单所属宿舍ID
+    * @apiParam {Number} school_id 订单所属学校ID
+    * @apiParam {String} appointment_at   订单预约时间
+    * @apiParam {String} sort       排序字段
+    * @apiParam {Bool} direction   顺序或倒序
+    *
+    */
     public function getListByCanteen(Request $request, $canteen_id)
     {
-        $order_ids = Canteen::findOrFail($canteen_id)->orders->pluck('id')->toArray();
-       $paginator = Order::with('orderer')->whereIn('id', $order_ids)->paginate($this->limit);
+      list($map, $sort, $direction) = $this->getMap($request);
+       $order_ids = Canteen::findOrFail($canteen_id)->orders->pluck('id')->toArray();
+       $paginator = Order::with('orderer')->whereIn('id', $order_ids)->where($map)->orderBy($sort, $direction)->paginate($this->limit);
        return $this->trans4page($paginator);     
+    }
+
+    protected function getMap($request)
+    {
+        $fields   = ['billing_id', 'type', 'order_no', 'user_id', 'status', 'school_id', 'campus_id', 'dorm_id'];
+        $sortkeys = ['id', 'school_id', 'campus_id', 'dorm_id', 'appointment_at'];
+        $map = [];
+        foreach ($fields as $key){
+          if ($request->$key){
+            $map = array_merge($map, [$key => $request->$key]);
+          }
+        }
+        $sort = ($request->sort && in_array($reqeust->sort, $sortkeys)) ? $request->sort : 'id';
+        $direction = $request->direction ? 'asc' : 'desc';
+        return [$map, $sort, $direction];
     }
 }

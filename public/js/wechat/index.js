@@ -326,6 +326,13 @@
 			$.get(urlajax, function(data) {
 				if(data == 'success') {
 					btn.parent().parent().parent().slideUp();
+				}else{
+						layer.open({
+						content: '此订单已被接单！',
+						skin: 'msg',
+						time: 2 //2秒后自动关闭
+					});
+					btn.attr('disabled','disabled');
 				}
 			});
 		});

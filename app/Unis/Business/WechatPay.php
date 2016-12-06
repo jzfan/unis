@@ -220,4 +220,13 @@ class WechatPay
 			]);
 		}
 	}
+
+	public function getReturnByResult($result, $success)
+	{
+		if ($result->return_code == 'SUCCESS' && $result->result_code == 'SUCCESS'){
+			$success();
+			return ['message'=>'success'];
+		}
+		return ['message'=>'failed'];
+	}
 }

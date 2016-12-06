@@ -4,7 +4,6 @@
 我是代理
 @stop
 
-
 @section('content')
 <div id="offCanvasWrapper" class="canvas-main mui-off-canvas-wrap mui-draggable mui-slide-in">
 			<!--侧滑菜单部分开始-->
@@ -183,7 +182,8 @@
 
 
 			/*根据食堂删选订单*/
-			var  takeUrl = '/api/canteens/'+canteenId+'/orders?openid='+JSON.parse(localStorage.getItem('openid'));
+			var openId = JSON.parse(localStorage.getItem('openid'));
+			var  takeUrl = '/api/canteens/'+canteenId+'/orders?openid='+openId+'&status=paid';
 			$.ajax({
 				url: takeUrl,
 				dataType: 'json',

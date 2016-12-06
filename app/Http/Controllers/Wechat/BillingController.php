@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Wechat;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Unis\Order\Order;
+use Illuminate\Http\Request;
+use App\Unis\Business\Withdraw;
 use App\Unis\Business\WechatPay;
+use App\Http\Controllers\Controller;
 
 class BillingController extends Controller
 {
@@ -67,15 +68,7 @@ class BillingController extends Controller
 
     public function wechatWithdraw(WechatPay $wechatPay, Request $request)
     {
-    	$wechatPay->init4MerchantPay();
-    	$balance  = $wechatPay->user->balance;
-    	$amount   = $request->cashnumber;
-    	// echo 'balance:'. $balance .'<br>';
-    	// echo 'amount:'. $amount .'<br>';
-    	// exit;
-	    if (!$balance || !$amount || $balance < $amount){
-	    	abort(403);
-	    }
+        list($balance, $amount) = $this->checkAmount($wechatPay, $request);
 
     	$merchantPayData = [
 	        'partner_trade_no' => $wechatPay->order_no,
@@ -86,13 +79,32 @@ class BillingController extends Controller
 	        'spbill_create_ip' => request()->ip(),  //发起交易的IP地址
 	    ];
     	$result = $wechatPay->merchantPay->send($merchantPayData);
-    	if ($result->return_code == 'SUCCESS' && $result->result_code == 'SUCCESS'){
-    		$wechatPay->user->update([
-    			'balance' => $balance - $amount
-    		]);
-    		return ['message'=>'success'];
-    	}
-    	return ['message'=>'failed'];
+        return $wechatPay->getReturnByResult($result, function() use($wechatPay) {
+        		$wechatPay->user->update([
+        			'balance' => $balance - $amount
+        		]);            
+        });
+    }
+
+    public function wechatPendingForWithdraw(Request $request, WechatPay $wechatPay)
+    {
+        list($balance, $amount) = $this->checkAmount($wechatPay, $request);
+
+        Withdraw::create(['user_id'=>$wechatPay->user->id, 'amount'=>$amount]);
+
+        return ['message'=>'success'];
+    }
+
+    protected function checkAmount($wechatPay, $request)
+    {
+        $wechatPay->init4MerchantPay();
+        $balance  = $wechatPay->user->balance;
+        $amount   = $request->cashnumber;
+        if (!$balance || !$amount || $balance < $amount){
+            abort(403);
+        }
+
+        return [$balance, $amount];        
     }
 
 

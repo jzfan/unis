@@ -1022,6 +1022,113 @@ define({ "api": [
   },
   {
     "type": "get",
+    "url": "/canteens/{canteen_id}/orders",
+    "title": "食堂订单条件分页",
+    "version": "1.0.0",
+    "name": "getOrdersByCanteen",
+    "group": "Order",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "billing_id",
+            "description": "<p>订单交易号</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "type",
+            "description": "<p>订单交易类型</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "order_no",
+            "description": "<p>订单流水号</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "user_id",
+            "description": "<p>下单用户ID</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "status",
+            "description": "<p>订单状态</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "school_id",
+            "description": "<p>订单所属学校ID</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "campus_id",
+            "description": "<p>订单所属校区ID</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "canteen_id",
+            "description": "<p>订单所属食堂ID</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "dorm_id",
+            "description": "<p>订单所属宿舍ID</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "appointment_at",
+            "description": "<p>订单预约时间</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "sort",
+            "description": "<p>排序字段</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Bool",
+            "optional": false,
+            "field": "direction",
+            "description": "<p>顺序或倒序</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "openid",
+            "description": "<p>微信用户openid</p>"
+          }
+        ]
+      }
+    },
+    "filename": "app/Http/Controllers/Api/V1/OrderController.php",
+    "groupTitle": "Order"
+  },
+  {
+    "type": "get",
     "url": "/orders",
     "title": "订单条件分页",
     "version": "1.0.0",
@@ -1092,6 +1199,13 @@ define({ "api": [
             "optional": false,
             "field": "appointment_at",
             "description": "<p>订单预约时间</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "sort",
+            "description": "<p>排序字段</p>"
           },
           {
             "group": "Parameter",
@@ -1276,7 +1390,7 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "shops_of_canteen/{canteen_id}",
+    "url": "/shops_of_canteen/{canteen_id}",
     "title": "取食堂窗口列表",
     "version": "1.0.0",
     "name": "listShopsOfCanteen",

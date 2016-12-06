@@ -1,0 +1,1 @@
+<a href="/admin/users/{{ $user_id }}/orders" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-search"></span>查看</a>

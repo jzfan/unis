@@ -38,7 +38,7 @@
 			<ul class="mui-table-view" style="margin-top:20px;">
 			    <li class="mui-table-view-cell">
 				    <span class="person-ico mui-icon iconfont fankui416"></span>
-				    <a href="/wechat/report" class="mui-navigate-right">意见反馈</a>
+				    <a href="/wechat/agent/report" class="mui-navigate-right">意见反馈</a>
 			    </li>
 			</ul>
 

@@ -63,15 +63,21 @@
 @section('js')
 
 
-
 <script>
 	mui('.win-nav').on('tap','a',function(){
 		document.location.href=this.href;
 	});
 </script>
 
+<script>
+	if(localStorage.getItem('buyCart') == null) {
+		localStorage.setItem('buyCart', '0');
+	}
+
+	$('.w-badge').text(parseInt(localStorage.getItem('buyCart')));
+</script>
+
 	<!-- 进入加载页面 -->
-	
 	<script>
 	   $(function(){
 	   	$.ajax({
@@ -141,7 +147,6 @@
 		  taken();//调用我已带到函数
 	   })
 	</script>
-
 
 
 
@@ -325,6 +330,25 @@
 		</script>
 
 
+
+	<script>
+		/*我的订单状态确认收货*/
+		$(function(){
+			$(document).on('touchstart','.w-beget',function(){
+				var btn = $(this);
+				if(btn.attr('disabled') !="disabled"){
+					var openId = JSON.parse(localStorage.getItem('openid')); 
+					var orderId = $(this).attr('data-id');
+					var urlajax = '/api/order/received/'+orderId+'?openid='+openId;
+					$.get(urlajax, function(data) {
+						if(data == 'success') {
+							btn.parent().parent().parent().parent().slideUp();
+						}
+					});
+				}
+			})
+		})
+	</script>
 
 	<script>
 			/*我的订单状态确认送达*/

@@ -53,6 +53,8 @@ class Order extends Model
     			return '已提现';
             case 'received':
                 return '已收到';
+            case 'pending':
+                return '审核中';
             case 'refund':
                 return '已退款';
     		default:
@@ -68,6 +70,7 @@ class Order extends Model
             $ids = self::where('status', 'ordered')->where('created_at', '<', $hoursAgo)->lockForUpdate()->pluck('id')->toArray();
             self::destroy($ids);
             OrderItem::whereIn('order_id', $ids)->delete();
+            \DB::table('canteen_order')->destroy($ids);
         });
         return 'success';
     }
@@ -76,5 +79,10 @@ class Order extends Model
     public static function confirmReceived()
     {
 
+    }
+
+    public function isDeliveredBy(User $user)
+    {
+        return $this->deliver_id === $user->id;
     }
 }

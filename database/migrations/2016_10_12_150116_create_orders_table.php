@@ -27,7 +27,7 @@ class CreateOrdersTable extends Migration
             $table->integer('dorm_id');
             $table->string('address');
             $table->string('mark')->nullable();
-            $table->enum('status', ['ordered', 'paid', 'paid_fail', 'taken', 'received', 'delivered', 'withdrawed', 'refund'])->default('ordered');
+            $table->enum('status', ['ordered', 'paid', 'paid_fail', 'taken', 'received', 'delivered', 'withdrawed', 'pending', 'refund'])->default('ordered');
             $table->timestamp('appointment_at')->nullable();
             $table->timestamp('paid_at')->nullable();
             $table->timestamp('taken_at')->nullable();
